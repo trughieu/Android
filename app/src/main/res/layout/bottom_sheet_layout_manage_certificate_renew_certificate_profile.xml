@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bottom_sheet_certificate_profile"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_weight="10"
+        android:background="@drawable/bg_rounded"
+        android:fontFamily="@font/inter_bold"
+        android:gravity="center_horizontal"
+        android:padding="10dp"
+        android:text="@string/prompt_cert_sign_profile"
+        android:textColor="@color/white"
+        android:textSize="15dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingBottom="20dp">
+
+        <TextView
+            android:id="@+id/one_year"
+            android:layout_width="370dp"
+            android:layout_height="21dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="7dp"
+            android:fontFamily="@font/inter_bold"
+            android:text="@string/one_years_corpo"
+            android:textColor="@color/text_blue"
+            android:textSize="15dp" />
+
+        <ImageView
+            android:layout_width="370dp"
+            android:layout_height="2dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="6dp"
+            android:src="@drawable/line_3" />
+
+        <TextView
+            android:id="@+id/two_year"
+            android:layout_width="370dp"
+            android:layout_height="21dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="7dp"
+            android:fontFamily="@font/inter_bold"
+            android:text="@string/two_years_corpo"
+            android:textColor="@color/text_blue"
+            android:textSize="15dp" />
+
+        <ImageView
+            android:layout_width="370dp"
+            android:layout_height="2dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="6dp"
+            android:src="@drawable/line_3" />
+
+        <TextView
+            android:id="@+id/third_year"
+            android:layout_width="370dp"
+            android:layout_height="21dp"
+            android:layout_marginStart="20dp"
+            android:fontFamily="@font/inter_bold"
+            android:text="@string/third_years_corpo_tmrsa"
+            android:textColor="@color/text_blue"
+            android:textSize="15dp" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SIC</string>
+    <string name="as_you_have">"As you have chosen automated biometric identity verification for authentication method, please read the following conditions very carefully and proceed only if you have fully understood and agreed with the conditions.  If you do not agree with the processing of your biometric personal data (your facial image) and the making of automated decisions based on this data for identification purposes, please choose another authentication method for registration.  Please be aware that you have the right to withdraw your consent at any time. Note that as trust service provider we are under legal obligation to store your personal data within the period prescribed in the law.  - I confirm that I am at least 18 years old.  - <b> I confirm that mobile-id may process my biometric personal data (facial image) and carry out automated decision-making based on this data to identify me for remote signing account registion purposes.  - I confirm that mobile-id may perform verification based on my biometric personal data in order to ensure the security of my electronic identity and test the quality of the technical solutions that are used.</b>  Should you have any questions relating to the processing of your personal data, please do not hesitate to contact us.  Mobile-id technologies and service jsc (data controller, hereafter mobile-id).  Address: 19 Dang Tien Dong Street, An Phu ward, district 2, Ho Chi Minh city, Vietnam.  Tax code: 0313994173  Email: info@mobile-id.vn  Hotline: 1900 6884 "</string>
+    <string name="prompt_selfcare_term">Terms and conditions for use of certificates of qualified remote signing</string>
+    <string name="i_agree_that">I agree that my personal data which I have presented is used for generating my remote signing account and certificates. I agree that my remote signing account and certificates are used to identify me in e-services and in electronic signatures.  I am aware that by entering my pincode/tapping my fingerytip either for authentication of for creating electronic signatures.  - I verify that I have initiated a session, agree with it and that I am responsible for its conesequences.  - I verify that I have made sure that the verification code sent to me, is correct.  - I allow my name and personal code to be sent to the e-service provider.  I am also aware that if I have lost my device or my pincodes have become known to third parties, I am obliged to immediately revoke my remote signing certificates.   Information on deleting remote signing account or revocation of the certificates is available at https://rssp.mobile-id.vn  I am aware that use of the remote signing application is described in the remote signing end-user license agreement.  Full version of the terms and conditions on the use of the remote signing certificates is available at https://rssp.mobile-id.vn/term  Full version of the end-user license agreement is available at https://rssp.mobile-id.vn/faq  I am aware that by choosing<b> \'I agree\' </b> I confirm that i am familiar and agree with the terms and conditions on the use of remote signing certificates and with the remote signing end-user license agreement.</string>
+    <string name="prompt_consent_to_process">Consent to process personal data via automated biometric identity verification</string>
+    <string name="prompt_register_ca_bi_step_4_1">How can we reach you?</string>
+    <string name="prompt_how_can_we_reach_you_detail">Please enter your Phone Number and Email Address in case we need to contact you</string>
+    <string name="hind_register_phone_number">Phone Number</string>
+    <string name="hind_register_email">Email Address</string>
+    <string name="enter_active">ENTER Activation Code sent to your phone</string>
+    <string name="you_don_t_h">You don\'t have any account?<b> Register now</b></string>
+
+    <string name="select_type">1. Select type of Identity Document 2. Capture the sides of Identification Card 3. Add Personal Information 4. Add Information</string>
+    <string name="capture_the_MRZ" translatable="false">1. Capture the MRZ Code of your ID Document 2. Scan your Identity Document by holding your      smart device against it 3. Scan your face for comparison with your ID      Document Photo</string>
+    <string name="hint_recovery_code">Recovery Code</string>
+    <string name="prompt_certificate_profile_sync">Synchronize Certificate</string>
+    <string name="result_certificate_has_been_activated">Your Certificate has been synchronized successfully</string>
+
+
+    <string name="button_resend">Resend Activation Code</string>
+    <string name="failed">FAILED!</string>
+    <string name="success">SUCCESS!</string>
+    <string name="result_activation_code_sent">Your activation code has been sent</string>
+    <string name="wrong_active">Wrong Activation Code. You have remaining 4 times to attempt.</string>
+    <string name="close">Close</string>
+    <string name="prompt_choose_auth_method">Authentication Method</string>
+    <string name="button_identification_chipless">Non-chip Identification \nCard</string>
+    <string name="button_identification_chip">Chip Identification Card</string>
+    <string name="prompt_info_step2">Capture the sides of Identification Card</string>
+    <string name="spinner_document_type_citizen_id_card">Citizen ID Card</string>
+    <string name="prompt_pin_description_setting_confirm_new_pin">Confirm new PIN</string>
+    <string name="prompt_sendcapture_frontend">Front side of Identity Card</string>
+    <string name="prompt_sendcapture_backend">Back side of Identity Card</string>
+    <string name="prompt_info_step1">Type of Identity Document</string>
+    <string name="spinner_document_type_nation_id">Identification Card</string>
+    <string name="spinner_document_type_passport">Passport</string>
+    <string name="prompt_vision_label_tip">Capture the Portrait Photo</string>
+    <string name="frame_your">Frame Your Face</string>
+    <string name="rejected">Rejected</string>
+    <string name="button_eid_card">E-ID Card</string>
+    <string name="select_the">Select the type of document you wish to capture and scan</string>
+    <string name="date_29_03">29/03/2023</string>
+    <string name="login_information">Login information is invalid. You have remaining 4 times to attempt.</string>
+
+
+    <string name="prompt_capture_id_card">Capture Identity Card</string>
+    <string name="prompt_capture_id_card_detail">Turn the back side of your E-ID Card and scan the MRZ Code at the bottom</string>
+    <string name="button_epassport">E-Passport</string>
+    <string name="type_of_doc">Type of Document</string>
+    <string name="can_not_scan">Can not scan MRZ Code? <b>Click here</b></string>
+    <string name="custom_cid_prompt_personal_number">Document Number</string>
+    <string name="custom_cid_prompt_personal_number_hint">Document Number (Last 9 digits)</string>
+    <string name="prompt_date_of_birth">Date of Birth</string>
+    <string name="prompt_expiration_date">Date of Expiry</string>
+    <string name="prompt_description_new_pin">Create new PIN</string>
+
+    <string name="prompt_from">From</string>
+    <string name="prompt_to">To</string>
+    <string name="prompt_read_id_card">Read your Identity document to save your details</string>
+    <string name="prompt_hold_to_id_card">Please hold the Identity Document to the back of your phone</string>
+
+    <string name="prompt_enable_nfc">Enable NFC - in order to continue scanning your Identity Document, you must enable NFC on your smart device</string>
+    <string name="prompt_validity">Validity</string>
+    <string name="prompt_validity_result">Verification Result</string>
+    <string name="prompt_valid">Authenticity Validated</string>
+    <string name="prompt_personal_info">Personal Information</string>
+    <string name="hint_name">Name</string>
+    <string name="prompt_gender">Gender</string>
+    <string name="prompt_nationality">Nationality</string>
+    <string name="Ethinic">Ethinic</string>
+    <string name="relogion">Relogion</string>
+    <string name="prompt_native_place">Place of Origin</string>
+    <string name="prompt_place_of_residence">Place of Residence</string>
+    <string name="prompt_how_to_identity">Personal Identification</string>
+    <string name="prompt_name_of_parents">Full name of Parents</string>
+    <string name="prompt_name_of_wife_or_husband">Full name of Spouse</string>
+    <string name="prompt_document_information">Document Information</string>
+    <string name="prompt_document_type">Document Type</string>
+    <string name="prompt_mrz_from_chip">MRZ from Chip</string>
+    <string name="user_name" translatable="false">Nguyễn Trương Thanh Uyên</string>
+    <string name="female" translatable="false">Nữ</string>
+    <string name="VN" translatable="false">Việt Nam</string>
+    <string name="kinh" translatable="false">Kinh</string>
+    <string name="phat" translatable="false">Phật giáo</string>
+    <string name="date" translatable="false">24/08/1995</string>
+    <string name="address" translatable="false">Đức Nghĩa, Phan Thiết, Bình Thuận</string>
+    <string name="address_resident" translatable="false">Tổ 48, Khu phố 6, Đức Nghĩa, Phan Thiết, Bình Thuận </string>
+    <string name="nhan_dang" translatable="false">Nốt ruồi cách 1cm dưới trước đầu mắt trái</string>
+    <string name="name_parent" translatable="false">Nguyễn Văn Hùng/ Trương Thị Nga</string>
+    <string name="spouse" translatable="false">................</string>
+    <string name="idvnm195008" translatable="false">IDVNM195008949060195008949&lt;&lt;9\n9508244F3408242VNM&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;6\nNGUYEN&lt;&lt;TRUONG&lt;THANH&lt;UYEN&lt;&lt;&lt;&lt;&lt;</string>
+    <string name="some_id" translatable="false">060195008949</string>
+
+
+    <string name="do_you_want" translatable="false">Do you want to create Recovery Code?</string>
+    <string name="yes" translatable="false">Yes</string>
+    <string name="no" translatable="false">No</string>
+
+
+    <string name="hint_activation_code">Activation Code</string>
+    <string name="error_new_pin_and_confirm_pin_not_match">New PIN and Confirm PIN are not matched</string>
+    <string name="error_new_pin_match_old_pin">New PIN must be different the old PIN</string>
+    <string name="result_pin_have_been_change">Your PIN has been changed already</string>
+
+    <string name="error_wrong_recovery_code">Wrong Recovery Code</string>
+    <string name="prompt_activate_complete_successful_text">Your device has been activated already</string>
+    <string name="button_logout">Logout</string>
+    <string name="welcome_back" translatable="false">Welcome back,</string>
+    <string name="nguyen_truo" translatable="false">NGUYEN TRUONG THANH UYEN</string>
+    <string name="btn_authenticate">Login</string>
+    <string name="prompt_login">Log in</string>
+    <string name="notification" >Notifications</string>
+    <string name="face_id" translatable="false">Face ID</string>
+    <string name="face_not_rec" translatable="false">Face Not Recognized</string>
+    <string name="are_you_sure" translatable="false">Are you sure you want to exit this login session?</string>
+    <string name="try_again" translatable="false">Try Again</string>
+    <string name="try_face_id" translatable="false">Try Face ID Again</string>
+    <string name="button_cancel">Cancel</string>
+
+    <string name="touch_id" translatable="false">Touch ID for “SIC”</string>
+    <string name="please_scan" translatable="false">Please scan your Touch ID to \ncontinue</string>
+    <string name="invalid_tou" translatable="false">Invalid Touch ID. Please try again</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="button_user_inbox">Inbox</string>
+    <string name="button_inbox_message">Messages</string>
+    <string name="button_inbox_pending_transactions">Pending Transactions</string>
+    <string name="hint_search">Search</string>
+    <string name="signing_tes" translatable="false">Signing Tester</string>
+
+    <string name="submitted" translatable="false">Submitted from Signing Tester</string>
+    <string name="submitted_bold" translatable="false">Submitted from <b>Signing Tester</b></string>
+    <string name="date_id" translatable="false">21/11/2022</string>
+    <string name="certificate_info">Details</string>
+    <string name="prompt_request_info_question">Not your transaction ?</string>
+    <string name="please_have" translatable="false">Please have check PKCS#1 signature creation</string>
+    <string name="button_request_info_touch_confirm">Confirm with Biometrics</string>
+    <string name="abc5" translatable="false">1234 - ABC5</string>
+
+    <string name="button_request_info_do_later">Approve later</string>
+    <string name="button_request_info_identity_confirm">Confirm with E-Identity</string>
+    <string name="button_confirm_with_pin">Confirm with PIN</string>
+    <string name="prompt_add_new_certificate">Add new Certificate</string>
+    <string name="type_of_err" translatable="false">Type of Error</string>
+    <string name="authorization" translatable="false">Authorization Method</string>
+    <string name="prompt_sign_at">Performed at</string>
+    <string name="ri_os">Operating System</string>
+    <string name="ri_ip">IP Address</string>
+    <string name="ri_browser">Browser</string>
+    <string name="ri_rp_name">RP</string>
+    <string name="windows_10" translatable="false">Windows 10</string>
+    <string name="ip" translatable="false">192.168.3.14</string>
+    <string name="chrome_107_" translatable="false">Chrome 107.0</string>
+    <string name="chrome_102_" translatable="false">Chrome 102.0</string>
+    <string name="backoffice_" translatable="false">Backoffice_RP</string>
+    <string name="term_of_ser" translatable="false">Term of service</string>
+    <string name="uyen_nguyen" translatable="false">UYEN NGUYEN 3_2</string>
+    <string name="orders_prefix_issued_by">Issued by</string>
+    <string name="mobile_id_t" translatable="false">Mobile-ID Trusted Network</string>
+    <string name="orders_prefix_expires">Expires</string>
+    <string name="date_expire_uyen_nguyen" translatable="false">07/11/2027</string>
+    <string name="prompt_credential_change_scal">SCAL</string>
+    <string name="one" translatable="false">1</string>
+    <string name="orders_prefix_cert_profile">Profile</string>
+    <string name="t2psb21y" translatable="false">T2PSB21Y</string>
+    <string name="prompt_cert_sign_profile_description">Profile Description</string>
+    <string name="year_person" translatable="false">1 YEAR PERSONAL CERTIFICATE - TMSRA</string>
+    <string name="orders_prefix_cert_profile_authorize_email">Authorize Email</string>
+    <string name="orders_prefix_cert_profile_authorize_phone">Authorize Phone</string>
+    <string name="sdt_uyen_nguyen" translatable="false">0374776272</string>
+    <string name="see_more" translatable="false">See more</string>
+
+
+    <string name="certificate_subject_name">Subject Name</string>
+    <string name="uid" translatable="false">UID</string>
+    <string name="cmnd_123456" translatable="false">CMND: 12345678_0607</string>
+    <string name="certificate_sb_cn">Common Name</string>
+    <string name="certificate_sb_st">State or Province</string>
+    <string name="dak_nong" translatable="false">Đắk Nông</string>
+    <string name="certificate_sb_c">Country or Region</string>
+    <string name="vn" translatable="false">VN</string>
+    <string name="prompt_order_info_issuer">Issuer Name</string>
+    <string name="certificate_sb_ou">Organizational Unit</string>
+    <string name="mobile_id_technical_de" translatable="false">Mobile-ID Technical Department</string>
+    <string name="mobile_id_technical" translatable="false">Mobile-ID Technical</string>
+    <string name="certificate_sb_o">Organization</string>
+
+    <string name="mobile_id_t_service" translatable="false">Mobile-ID Technologies and Services Joint Stock Company</string>
+    <string name="certificate_sb_l">Locality</string>
+    <string name="ho_chi_minh" translatable="false">Ho Chi Minh</string>
+
+    <string name="certificate_serial_number">Serial Number</string>
+    <string name="b_0c_6d_a8_" translatable="false">68 2B 0C 6D A8 96 A3 9E 8E CF 47 BE</string>
+    <string name="certificate_validity_period">Validity Period</string>
+    <string name="certificate_validity_before">Not Valid Before</string>
+    <string name="certificate_validity_after">Not Valid After</string>
+
+    <string name="d_08_11_2022" translatable="false">08/11/2022</string>
+    <string name="d_07_11_2027" translatable="false">07/11/2027</string>
+    <string name="certificate_public_key_info">Public Key Info</string>
+    <string name="certificate_pki_algorithm">Algorithm</string>
+    <string name="rsa" translatable="false">RSA</string>
+    <string name="certificate_yes_value" translatable="false">YES</string>
+    <string name="certificate_no_value" translatable="false">NO</string>
+
+    <string name="certificate_pki_parameters">Parameters</string>
+    <string name="none" translatable="false">None</string>
+    <string name="certificate_pki_size">Public Key Size</string>
+    <string name="id_2048" translatable="false">2048</string>
+    <string name="certificate_pki_data">Public Key Data</string>
+    <string name="key_data" translatable="false">30 82 01 22 30 0D 06 09 2A 86 48 86 F7 0D 01 01 01 05 00 03 82 01 0F 00 30 82 01 0A 02 82 01 01 00 DF EF 99 C9 F7 67 6E C8 23 2E BE C5 DC 9C ED 2A 7A 7B 58 66 88 16 BF 08 DF 61 6E A2 A6 6E 65 6D F0 6A A8 97 4F A3 10 F9 E1 4E 01 DA FF 75 2D 95 7F D5 80 74 98 82 80 57 0B DE 4A 97 98 12 08 81 07 28 B8 99 45 43 C9 CE E1 0E 68 7D 75 35 B2 80 CC 4C 0A 15 76 13 D3 94 21 F3 B3 96 EF IV A7 6B 8A F1 9E C3 7B 8A A2 33 95 6F AE 82 34 20 50 C2 74 F2 92 5A D6 49 3E 28 D8 DC E9 78 C3 CD 30 78 1D B8 14 C2 DE 80 10 71 61 81 B7 2E 9B 18 DE B3 DA 9A 21 C5 23 05 BE 9B 55 7A FC B4 l8 BF A9 77 44 BD DC 82 6B F9 AB 07 02 ‘l FE 9D 44 F7 06 A6 02 84 83 C0 3B F5 87 74 80 ED 5C 9F BD 38 03 A6 AC 61 4E 67 27 F4 5B 3B 76 54 26 23 7A AB 66 12 25 60 97 79 29 B8 5A 4C 09 C2 A4 25 82 81 C5 83 99 0F 3B 1A 90 96 56 14 EA SA DD 98 51 66 76 SF D1 E6 6D 52 A3 EE 37 98 82 0F 3A 7A F5 83 0F 3C 60 D7 02 03 01 00 01 </string>
+    <string name="certificate_authority" translatable="false">Certificate Authority Information Access</string>
+
+    <string name="certificate_critical">Critical</string>
+
+    <string name="certificate_caia_access_method">Access Method</string>
+
+    <string name="online_cert" translatable="false">Online Certificate Status Protocol (OCSP)</string>
+    <string name="certificate_cdp_uri">URI</string>
+
+    <string name="http_mobile" translatable="false">http://mobile-id.vn/ocsp/responder</string>
+    <string name="certificate_issue" translatable="false">Certificate Authority Issuers</string>
+
+    <string name="certificate_subject_key_identifier">Subject Key Identifier</string>
+    <string name="certificate_ski_key_identify">Key Identify</string>
+    <string name="ao_8e_o9_46" translatable="false">04 14 AO 8E O9 46 04 BD EC 8F 4B CD 6A 90 D8 05 D4 CD 3D 9C 9B A5</string>
+    <string name="certificate_basic_constraints">Basic Constraints</string>
+
+    <string name="certificate_bc_cert_authority">Certificate Authority</string>
+    <string name="certificate_authority_key_identifier">Authority Key Identifier</string>
+
+    <string name="certificate_crl_distribution_points">CRL Distribution Points</string>
+
+    <string name="http_mobile_get" translatable="false">http://mobile-id.vn/crl/get</string>
+    <string name="certificate_key_usage">Key Usage</string>
+    <string name="client_sign" translatable="false">Client Signature, Secure Email, Document Signing, Adobe PDF Signing</string>
+    <string name="certificate_signature">Signature</string>
+    <string name="certificate_ku_value">Usage</string>
+    <string name="digital_sig" translatable="false">Digital Signature, Non-Repudiation, Key Encipherment, Data Encipherment</string>
+    <string name="sha256withr" translatable="false">SHA256WITHRSA</string>
+    <string name="error_hash_data_not_found" translatable="false">HASH DATA NOT FOUND</string>
+    <string name="certificate_signature_data">Signature Data</string>
+    <string name="certificate_fingerprints">Fingerprints</string>
+    <string name="certificate_fingerprints_sha256">SHA-256</string>
+    <string name="certificate_version">Version</string>
+    <string name="extended_key" translatable="false">Extended Key Usage</string>
+    <string name="identity_ac" translatable="false">Identity Account is not registered</string>
+    <string name="purose" translatable="false">Purpose</string>
+    <string name="digit_12_number" translatable="false">12-Digit Numberic Code</string>
+    <string name="digit_6_number" translatable="false">6-Digit Numberic Code</string>
+    <string name="enter_pass_bio" translatable="false">Please enter your login password to confirm the installation</string>
+    <string name="face_matching" translatable="false">Face Matching Failed</string>
+    <string name="eSign" translatable="false">eSign</string>
+    <string name="prompt_request_info_confirmed">Confirmed</string>
+    <string name="button_request_info_confirm">Confirm</string>
+    <string name="wrong_pin_c" >Wrong PIN Code</string>
+    <string name="scan_qr_cod" translatable="false">Scan QR Code</string>
+    <string name="prompt_settings">Settings and Help</string>
+    <string name="prompt_privacy_policy">Privacy\npolicy</string>
+    <string name="privacy_policy" translatable="false">" Privacy policy"</string>
+    <string name="prompt_user_settings">Settings</string>
+    <string name="prompt_help">Help</string>
+    <string name="term" translatable="false">Terms of\nService</string>
+    <string name="prompt_user_setting_support_request_title">Send Support\nRequest</string>
+    <string name="button_setting_ssr">Send Support Request</string>
+    <string name="select_language">Language</string>
+    <string name="mobile_id_m" translatable="false"><b>Mobile-ID MPKI\nVersion 2.4.20.0.10 build 10, 22/12/2022</b>\nSupport ID\n#LQ7N-KH9Q</string>
+    <string name="mobile_id_mpki" translatable="false">Mobile-ID MPKI is your personal online security key. You can use it to verify logins and online transactions</string>
+    <string name="error_message_pin_wrong">WRONG PIN CODE, YOU HAVE REMAINING [text] TIMES TO ATTEMPT</string>
+    <string name="button_user_connect_service">Connect</string>
+    <string name="Scan_QR" translatable="false">Scan QR</string>
+    <string name="button_user_settings">Settings and\nHelp</string>
+    <string name="enter_recov" translatable="false">ENTER Recovery Code</string>
+    <!-- Help  -->
+    <string name="rssp_is_par" translatable="false">© 2016- RSSP is part of MOBILE-ID™</string>
+    <string name="please_e_ma" translatable="false">Please e-mail us at info@mobile-id.vn</string>
+    <string name="didn_t_find" translatable="false">DIDN\'T FIND WHAT YOU WERE LOOKING FOR?</string>
+    <string name="faq" translatable="false">FAQ</string>
+    <string name="what_is_rss" translatable="false">\u2022 What is RSSP?\n\u2022 What can RSSP do?\n\u2022 What makes RSSP better than username and password?\n\u2022 Does RSSP use and store my existing usernames and passwords?\n\u2022 What is required to use RSSP?\n\u2022 What services can I link to RSSP?\n\u2022 What browsers does RSSP support?\n\u2022 Didn\'t find what you were looking for?</string>
+    <string name="what_is_rssp" translatable="false">WHAT IS RSSP?</string>
+    <string name="rssp_is_a_g" translatable="false">RSSP is a global security service providing sign in and online transaction security for online services. End users use the service with RSSP keys, which comes as a smartphone app or a USB key. The users can manage their RSSP keys using the RSSP website. RSSP user can have multiple RSSP apps and keys on his account, and lock lost apps and keys to prevent misuse. Some services might integrate RSSP keys into their own apps or provide branded USB keys.</string>
+    <string name="what_can_rs" translatable="false">WHAT CAN RSSP DO?</string>
+    <string name="rssp_can_pr" translatable="false">RSSP can prevent unauthorized use of usernames and passwords. The so called 2-step verification or 2-factor authentication verifies the user during login. Similarly RSSP can prevent unauthorized transactions or user account changes by verifying the user real-time when transactions happen. Some services also allow their users to use RSSP to sign in without passwords at all, providing the greatest level of user convenience.\nThe service providers can select their own policies and offer the user verification operations like:\n \u2022 Verify user when they sign in from new IP or device\n \u2022 Verify user when they change their account\n \u2022 Verify user every time they login\n \u2022 Verify transactions (purchase, sell, trade, etc)\n \u2022 Allow login without a password\n \u2022 Allow easy new user registration with RSSP</string>
+    <string name="what_makes_" translatable="false">WHAT MAKES RSSP BETTER THAN USERNAME AND PASSWORD?</string>
+    <string name="usernames_a" translatable="false">Usernames and passwords are hard to manage, insecure and there\'s just too many of them. Single sign-on services based on username and password don\'t really fix the security issues. Storing your usernames and passwords into a central storage still leaves you vulnerable to the phishing attacks.\nRSSP does not use or store usernames and passwords. We believe that any solution based on usernames and passwords is obsolete, difficult to use and too easy to break.\nRSSP is based on Public Key Infrastructure (PKI). This is a similar system which governments and big enterprises use to maximize secure authentication of their closed services. RSSP does the same in the public internet.\nRSSP makes passwords obsolete. Each RSSP app has a private key identifying the device. You control the access to the app with your chosen pin code. You are authenticated with something you have and with the one optional secret you remember. If your RSSP device is lost or stolen, lock the app at RSSP website.</string>
+    <string name="does_rssp_u" translatable="false">DOES RSSP USE AND STORE MY EXISTING USERNAMES AND PASSWORDS?</string>
+    <string name="no_rssp_doe" translatable="false">No, RSSP does not use or store any of your usernames and passwords. Further, RSSP itself does not require username and password. RSSP stands for zero passwords.</string>
+    <string name="what_is_req" translatable="false">WHAT IS REQUIRED TO USE RSSP?</string>
+    <string name="rssp_app_is" translatable="false">RSSP app is available for iOS and Android devices. You don\'t need any specific software for the PC or Mac.\nSince we do not rely on usernames and passwords, even public computers can be used safely.</string>
+    <string name="what_servic" translatable="false">WHAT SERVICES CAN I LINK TO RSSP?</string>
+    <string name="rssp_works_" translatable="false">RSSP works with services who integrate to our backend. Those services typically promote RSSP at their login page and in the user settings, where the actual linking of your RSSP key takes place.</string>
+    <string name="what_browse" translatable="false">WHAT BROWSERS DOES RSSP SUPPORT?</string>
+    <string name="rssp_suppor" translatable="false">RSSP supports the following browsers:\n \u2022 Windows OS:\n     \u2022 IE9+\n     \u2022 Firefox latest releases\n     \u2022 Chrome latest releases\n     \u2022 Safari latest releases\n \u2022 Mac OS X:\n     \u2022 Firefox latest releases\n     \u2022 Chrome latest releases\n     \u2022 Safari latest releases\n \u2022 We also have a limited, alpha stage support for certain Linux distributions.</string>
+
+    <!-- Term of Service -->
+    <string name="effective_a" translatable="false">Effective as of May 28, 2020. Last revised May 28, 2020.</string>
+    <string name="acceptance_" translatable="false">1. ACCEPTANCE OF TERMS OF SERVICES</string>
+    <string name="mobile_id_s" translatable="false">MOBILE-ID (“Services”) is an authentication and authorization Internet service owned and operated by MOBILE-ID Technologies And Services Joint Stock Company ("MOBILE-ID™"), a Vietnamese limited liability company. The Services are provided to you ("Member") under the terms and conditions of this RSSP Terms of Services (“TOS”) and the Privacy Policy (see below in Section 4).\n\nBY COMPLETING THE INSTALLATION, ACTIVATION OR REGISTRATION PROCESS, OR BY USING THE SERVICES, YOU EXPRESSLY INDICATE YOUR AGREEMENT TO BE BOUND BY ALL OF THE TERMS AND CONDITIONS OF THIS TOS AND THE PRIVACY POLICY. IF YOU DO NOT AGREE TO THE TERMS AND CONDITIONS OF THIS TOS OR PRIVACY POLICY, YOU MAY NOT USE THE SERVICES.\n\nMOBILE-ID™may change the provisions in the TOS from time to time. Any changes in the TOS will be communicated to the Members by posting to MOBILE-ID site in reasonable time in advance. By continuing the use of the Services constitutes an affirmative acknowledgment by you of the TOS and TOS modifications and an agreement by you to abide and be bound by the TOS and TOS modifications.</string>
+    <string name="description" translatable="false">2. DESCRIPTION OF SERVICES</string>
+    <string name="the_service" translatable="false">The Services enable the Members to authenticate themselves to multiple third party Internet services in a secure manner. Third party Internet services are provided by their respective providers; MOBILE-ID™ only provides single-sign-on to these third party services.\n\nThe Services are provided through MOBILE-ID site. The Services may be used by mobile phone and other consumer electronics devices provided that the Member provisions a RSSP client software program available from MOBILE-ID web site or from other distribution channels. The Services may also be used by purchasing a USB peripheral from MOBILE-ID™ or third party distributor. For ease of use, the Member may create a link to RSSP widget or install a RSSP extension into his web browser.\n\nThe basic service may be provided free of charge. The Member may also subscribe to a premium version of the Services for a subscription fee (“RSSP Premium Service”).\n\nMember must provide all equipment, including a PC or mobile phone, necessary to establish a connection to the Internet and provide for own access to the Internet and pay any fees and prices associated with such equipment and access.\n\nPlease note that the process of subscription to the RSSP Premium Services or the purchase of USB peripheral may include you to accept additional terms and conditions towards MOBILE-ID™ or third parties.</string>
+    <string name="modificatio" translatable="false">3. MODIFICATIONS TO SERVICES</string>
+    <string name="mobile_id_r" translatable="false">MOBILE-ID™ reserves the right to modify the Services at any time with or without notice to Member. MOBILE-ID™ shall not be liable to Member or any third party should MOBILE-ID™ modify the Services. Any material changes in the Services will be communicated to the Members by posting to MOBILE-ID site in reasonable time in advance.</string>
+    <string name="privacy_pol" translatable="false">4. PRIVACY POLICY</string>
+    <string name="all_informa" translatable="false">All information entered into the Services by a Member is private to such Member. MOBILE-ID™ does not approve or verify any information entered in the Services by the Members but each Member is responsible for the information he/she provides to the Services.\n\nMOBILE-ID™ fully respects the privacy of the Members and agrees to use, disclose or transfer the personal information of the Members only in accordance with the terms and conditions specified in the Privacy Policy available at MOBILE-ID site and annexed to this TOS document.\n\nBy accepting this TOS, you give your express acceptance for the use, disclosure and transfer of your personal information stored in the Services in accordance with the Privacy Policy.</string>
+    <string name="license_to_" translatable="false">5. LICENSE TO SOFTWARE</string>
+    <string name="mobile_id_g" translatable="false">MOBILE-ID™ gives you a personal, non-transferable and non-exclusive license to use the RSSP client software and/or the software used in RSSP widget and browser extension (“Software”) only in connection with the use of the Services. This license is for the sole purpose of enabling you to use and enjoy the benefit of the Services as provided by MOBILE-ID™. The license will terminate upon the termination of your right to use the Services.\n\nYou may not (and you may not permit anyone else to) copy, modify, create a derivative work of, reverse engineer, decompile or otherwise attempt to extract the source code of the Software or any part thereof, unless this is expressly permitted or required by law.</string>
+    <string name="member_acco" translatable="false">6. MEMBER ACCOUNTS, CREDENTIALS AND SECURITY</string>
+    <string name="once_you_be" translatable="false">Once you become a Member, you shall receive credentials (provisioned to your USB peripheral, client software or other client by MOBILE-ID™, as well as a related PIN code, unlock code or other authentication mechanisms provided by MOBILE-ID™) and an account to access and use the Services. You may change your PIN code at any time (to do so, follow instructions on RSSP clients or MOBILE-ID site); you may also set up a new account and close an old one at your convenience. Member agrees to immediately notify MOBILE-ID™ of any unauthorized use of Member\'s account or any other breach of security known to Member.\n\nIf a USB peripheral or a device with RSSP client software is lost by you, your personal data may be at risk, and cannot be recovered by MOBILE-ID™. Furthermore, you are entirely responsible for any and all activities which occur under your account.\n\nPlease see the Privacy Policy for more information about the use of the credentials and the confidentiality of your private information.</string>
+    <string name="recommendat" translatable="false">7. RECOMMENDATIONS AND PROMOTIONS</string>
+    <string name="from_time_t" translatable="false">From time to time RSSP may recommend or promote new services to the Members. The manner, mode and extent of promotions on MOBILE-ID site and software are subject to change. Your correspondence or business dealings with, or participation in promotions of, service providers found on or through the Service, including payment and delivery of related goods or services, and any other terms, conditions, warranties or representations associated with such dealings, are solely between you and such service provider.</string>
+    <string name="use_of_cook" translatable="false">8. USE OF COOKIES AND 3RD PARTY SOFTWARE</string>
+    <string name="rssp_uses_c" translatable="false">RSSP uses cookies to identify and maintain valid sessions. No personal data of the Members is stored into the cookies. You may configure your web browser to notify you when you receive a new cookie or you can disable the use of cookies altogether. Disabling the use of cookies altogether may prevent you from using some or all of the essential features of the Services.  Please also note that RSSP service and application includes third party materials that are subject to a separate license. Those materials are specified in a Third Party Notices document which may either be posted on this site and/or included in the ReadMe file or Documentation for the applicable product.  RSSP application currently uses the following 3rd party open source libraries:   \\u2022 ASIHTTPRequest (licence)  \\u2022 TouchJSON (licence)</string>
+    <string name="termination" translatable="false">9. TERMINATION</string>
+    <string name="unless_othe" translatable="false">Unless otherwise agreed, MOBILE-ID™ may discontinue the Services and remove and discard any information within the Services at any time and for any reason, by providing one (1) month prior notice posted to the MOBILE-ID site, or with immediate effect in case that you have violated or breached the provisions of this TOS.</string>
+    <string name="meontrust_p" translatable="false">10. MEONTRUST PROPRIETARY RIGHTS</string>
+    <string name="you_acknowl" translatable="false">You acknowledge and agree that the Services and the Software used in connection with the Services are proprietary and confidential information of MOBILE-ID™ or its licensors and are protected by applicable intellectual property and other laws.\n\nMOBILE-ID™ is also owner of trade names, trademarks or domain names MOBILE-ID™ and RSSP™. You may not use or register those names or any confusingly similar names as trademarks, trade names or domain names without a consent from MOBILE-ID™.</string>
+    <string name="disclaimer_" translatable="false">11. DISCLAIMER OF WARRANTIES</string>
+    <string name="you_express" translatable="false">YOU EXPRESSLY AGREE THAT USE OF THE SERVICES IS AT YOUR SOLE RISK. THE SERVICES ARE PROVIDED ON AN "AS IS" AND "AS AVAILABLE" BASIS.\n\nMOBILE-ID EXPRESSLY DISCLAIMS ALL WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.\n\nMOBILE-ID MAKES NO WARRANTY THAT THE SERVICES WILL MEET YOUR REQUIREMENTS, OR THAT THE SERVICES WILL BE UNINTERRUPTED, TIMELY, SECURE, OR ERROR FREE; NOR DOES IT MAKE ANY WARRANTY RELATING TO THE CONTENT OR FUNCTIONING OF THIRD PARTY INTERNET SERVICES OR AS TO THE ACCURACY OR RELIABILITY OF ANY INFORMATION OBTAINED THROUGH THE SERVICES OR THAT DEFECTS IN THE SOFTWARE WILL BE CORRECTED.\n\nSOME JURISDICTIONS DO NOT ALLOW THE EXCLUSION OF CERTAIN WARRANTIES, SO SOME OF THE ABOVE EXCLUSIONS MAY NOT APPLY TO YOU.</string>
+    <string name="limitation_" translatable="false">12. LIMITATION OF LIABILITY</string>
+    <string name="mobile_id_shall" translatable="false">MOBILE-ID SHALL NOT BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL OR CONSEQUENTIAL DAMAGES RESULTING FROM THE USE OR THE INABILITY TO USE THE SERVICES, EVEN IF IT HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.\n\nMOBILE-ID SHALL NEITHER BE LIABLE FOR ANY COSTS OR DAMAGES ARISING OUT OF DESTRUCTION, LOSS OR ALTERATION OF THE INFORMATION OR DATA STORED IN THE SERVICES.\n\nSOME JURISDICTIONS DO NOT ALLOW THE LIMITATION OR EXCLUSION OF LIABILITY IN RESPECT OF CERTAIN DAMAGES SO SOME OF THE ABOVE LIMITATIONS MAY NOT APPLY TO YOU.</string>
+    <string name="indemnity" translatable="false">13. INDEMNITY</string>
+    <string name="you_agree_t" translatable="false">You agree to indemnify and hold MOBILE-ID™ harmless from any claim or demand made by a third party due to or arising out of or related to your violation or breach of the provisions on this TOS or your violation of any laws, regulations or third party rights.</string>
+    <string name="notice_to_t" translatable="false">14. NOTICE TO THOSE UNDER 18 YEARS OLD</string>
+    <string name="if_you_are_" translatable="false">If you are under 18 years old, you may use the Services and provide your personal information to the Services only provided that\n\n(i) you have informed your guardians of the use and content of the Services;\n\n(ii) your guardians have given their consent to your use of the Services.</string>
+    <string name="governing_l" translatable="false">15. GOVERNING LAW</string>
+    <string name="these_tos_s" translatable="false">These TOS shall be governed by and construed in accordance with the laws of Vietnam, excluding its conflict of law provisions.</string>
+    <string name="miscellaneo" translatable="false">16. MISCELLANEOUS</string>
+    <string name="this_tos_to" translatable="false">This TOS together with the Privacy Policy constitute the entire agreement between you and MOBILE-ID™ and govern your use of the Services and Software.  If any provision of this TOS is found by a court of competent jurisdiction to be invalid or unenforceable, such invalidity or enforceability shall not in any manner affect or render invalid or unenforceable the remaining provisions of the TOS and the application of those provisions shall be enforced to the extent permitted by law.  MOBILE-ID™ may assign this TOS or any part of it without restrictions. You may not assign this TOS or any part of it to any third party.</string>
+    <string name="general_inf" translatable="false">17. GENERAL INFORMATION</string>
+    <string name="the_service_prov" translatable="false">The Services are provided by MOBILE-ID Digital Signature Certification Service Center, a Vietnamese limited liability company registered in the National Board of Patents and Registration in Vietnam with the business identity code 0313994173, having its registered place of business at 19 Dang Tien Dong, An Phu Ward, Thu Duc City, Ho Chi Minh City\n\nPlease contact us at: info@mobile-id.vn\n\nCopyright \u00A9 MOBILE-ID Digital Signature Certification Service Center All rights reserved</string>
+
+    <!--PRIVACY-->
+    <string name="mobile_id_p" translatable="false">MOBILE-ID PRIVACY POLICY</string>
+
+
+    <string name="mobile_id_i" translatable="false">MOBILE-ID is an authentication and authorization service, enabling the end-users to authenticate themselves to multiple Internet services in a secure manner. A USB peripheral ("RSSP key") or a client software program, activated by a user and device specific PIN code, is used by end-users to manage their accounts in a centralized but secure manner.\n\nNo disclosure of personal data of any kind (such as name, age, location, face data) is necessary to use MOBILE-ID when the service is only used to manage end-user\'s access credentials for Internet services. The end-user\'s username and password information related to an Internet service are not stored in MOBILE-ID although a list of the Internet services accessible by certain RSSP account is stored. When MOBILE-ID is used in the manner described above, the information concerning RSSP keys or accounts cannot be directly linked to any particular person.\n\nMOBILE-ID provides end-users an option to store personal data in their RSSP keys and software clients. End-users may store personal data that may be necessary for using some Internet services, for example to verify to an Internet service that the end-user is of a certain age. All personal data disclosed by an end-user is stored permanently only in the end-user\'s RSSP key or software client and is disclosed to an Internet service only upon a query from the service and only with an express consent of the end-user for each query separately. Temporary processing of the end-user\'s personal data by MOBILE-ID is necessary when the end-user discloses or edits the personal data stored in the RSSP key or software client, or when end-user data is disclosed to an Internet service. The data is always discarded without delay after being processed and is not stored by MOBILE-ID in any other place than the end-user\'s RSSP key or software client.\n\nAn end-user may choose to disclose optional personal data (such as an e-mail address or a phone number) to be used by MOBILE-ID for the purposes of communication between the end-user and MOBILE-ID.\n\nAny data concerning the use by a specific end-user of different Internet services via MOBILE-ID may only be stored in and used by MOBILE-ID or MOBILE-ID™ for the purpose of fraud detection or other similar purposes, and to compile an end-user specific trust index which it may provide to third parties upon their request without obtaining a separate consent from the end-user. The trust index is only a technical attribute which cannot be reduced to personal information relating to any private person.\n\nPersonal end-user data stored in MOBILE-ID may be transferred within MOBILE-ID to any server in any country worldwide. MOBILE-ID™ always protects any personal data by using adequate data security procedures and technologies. The core principle of MOBILE-ID is to store all personal data (except of the above mentioned optional contact information) in a decentralized manner into the RSSP keys and/or software clients, which are at the sole possession and control of the end-users themselves. Thus the protection by each end-user of the RSSP key or software client and the associated PIN code is the key aspect of the protection of the personal data stored in MOBILE-ID. If a RSSP key or a device with RSSP client software is lost by an end-user, the end-user\'s personal data may be at risk, and cannot be recovered by MOBILE-ID™. It is essential that end-user has a copy of her unlock code, which can be used to revoke and lock lost RSSP key or software client. MOBILE-ID™ is not responsible for end-users\' data or the authenticity thereof in any way, except that MOBILE-ID™ undertakes to use adequate data security procedures and technologies during the processing of the end-users\' data. MOBILE-ID™ shall not be liable for any damages caused by inaccurate end-user data or the loss of any end-user data.\n\nMOBILE-ID™ shall not use, store or disclose the end-user\'s personal data in any other manner than what has been described herein without the consent of the end-user. Any personal data disclosed to MOBILE-ID that is not automatically destroyed immediately after processing shall be destroyed without undue delay after the end-user finally ceases to use MOBILE-ID. The end-user is responsible for destroying data stored in the RSSP key or software clients.\n\nAn end-user shall hereby expressly consent to the collection and processing of personal data before using MOBILE-ID. Consent to collect and process personal data may be revoked by the end-user at any time, but use of MOBILE-ID must be discontinued after such revocation. An end-user may inspect and amend the personal data stored into MOBILE-ID at any time by using tools provided at MOBILE-ID web site or by using the contact information below. Please note that MOBILE-ID™ does not have implicit access to the information stored into the end-users\' RSSP keys or software clients.\n\nMOBILE-ID is operated by <b>MOBILE-ID Digital Signature Certification Service Center</b> ("MOBILE-ID™"),\nAddress: 19 Dang Tien Dong, An Phu Ward, Thu Duc City, Ho Chi Minh City\nPlease contact info@mobile-id.vn in any matters relating to this Privacy Policy.</string>
+    <!--Language-->
+    <string name="english" translatable="false">English</string>
+    <string name="tiengviet" translatable="false">Tiếng Việt</string>
+    <string name="prompt_change_language_require">Language is just effected\nonce restarted</string>
+    <string name="custom_cid_button_continue">Continue</string>
+    <string name="transaction" translatable="false">Transaction Error</string>
+    <string name="hint_support_request_issue_description">Issue Description</string>
+
+    <!--    setting detail -->
+    <string name="button_change_pin">Change \nPIN Code</string>
+    <string name="prompt_change_pin_code">Change PIN Code</string>
+    <string name="button_recover_account">Recover\nAccount</string>
+    <string name="del_acc">Delete\nAccount</string>
+    <string name="button_manage_certificate">Manage\nCertificate</string>
+    <string name="manage_cert" translatable="false">Manage Certificates</string>
+    <string name="button_manage_sim">Manage\nSIM</string>
+    <string name="prompt_manage_sim">Manage SIM</string>
+    <string name="button_manage_order">Manage\nOrder</string>
+    <string name="prompt_login_with_bio">Login with Biometrics</string>
+    <string name="action_history" >Action\nHistory</string>
+    <string name="actionhitory" >Action History</string>
+    <string name="button_user_setting_app_security">App Security</string>
+    <string name="button_no_unlock">No Unlock</string>
+    <string name="button_unlock_with_pin">Unlock with PIN</string>
+    <string name="button_unlock_with_biometrics">Unlock with Biometrics</string>
+    <string name="button_unlock_with_ident">Unlock  with E-Identity</string>
+    <string name="button_user_setting_transaction_settings">Transaction Settings</string>
+    <string name="button_require_authentication_method">Require Authentication Method</string>
+    <string name="button_user_require_match_verification_code">Require Matched Verification Code</string>
+    <string name="button_user_allow_approve_later">Allow to Approve Later</string>
+
+    <string name="prompt_enter_pin_code">ENTER PIN Code</string>
+
+    <string name="spinner_issue_ce">Certificate Error</string>
+    <string name="prompt_other">Other</string>
+
+    <string name="prompt_description_confirm_to_change_pin">Enter Current PIN</string>
+
+    <string name="deleting_a_" translatable="false">Deleting a user account involves the following procedures  1. Submit a request to delete your account 2. The administrator approves the request</string>
+    <string name="button_delete_account">Delete Account</string>
+    <string name="ok" translatable="false">OK</string>
+    <string name="do_you_want_delete" translatable="false">Do you want to delete your account?</string>
+    <string name="prompt_result_delete_owner">Your request has been sent</string>
+<!--    <string name="certificate_1" >Certificate 1</string>-->
+    <string name="prompt_certificate_profile">Certificate</string>
+    <string name="date_manage_certificate" translatable="false">04/07/2029</string>
+    <string name="spinner_certificate_status_all">All</string>
+    <string name="spinner_certificate_status_valid">Valid</string>
+    <string name="spinner_certificate_status_initialized">Initialized</string>
+    <string name="spinner_certificate_status_generated">Generated</string>
+    <string name="spinner_certificate_status_revoked">Revoked</string>
+    <string name="spinner_certificate_status_expired">Expired</string>
+    <string name="spinner_certificate_status_declined">Declined</string>
+    <string name="spinner_certificate_status_renewed">Renewed</string>
+    <string name="spinner_certificate_status_revised">Revised</string>
+    <string name="spinner_certificate_status_suspended">Blocked</string>
+    <string name="spinner_action_history_status_all">ALL</string>
+
+    <string name="action">Action</string>
+    <string name="certificate_state" translatable="false">Certificate State</string>
+    <string name="manage_cert_1" translatable="false">Manage Certificate 1</string>
+
+    <string name="certificate_manage_change_passphrase">Change Passphrase</string>
+    <string name="certificate_manage_forget_passphrase">Forget Passphrase</string>
+    <string name="certificate_manage_change_email">Change Email</string>
+    <string name="change_scal">Change Scal &amp; Multisign</string>
+    <string name="certificate_manage_renew">Renew</string>
+    <string name="id_04_07_29" translatable="false">04/07/2029</string>
+    <string name="button_change_password">Change Password</string>
+    <string name="forgot_password" translatable="false">Forgot Password</string>
+
+    <string name="certificate_view_more_details">More details</string>
+
+    <string name="easyca_test" translatable="false">EASYCA_TEST</string>
+    <string name="button_mobile_id" translatable="false">MOBILE-ID</string>
+    <string name="efy_ca" translatable="false">EFY-CA</string>
+    <string name="vnpt_certif" translatable="false">VNPT Certification Authority</string>
+
+    <string name="the_certifi" translatable="false">The Certificate issuance request for the activation code could not found</string>
+
+
+    <string name="mst_2022020" translatable="false">MST: 202202011727</string>
+    <string name="dn_20220201" translatable="false">DN 202202011727</string>
+    <string name="h_n_i" translatable="false">Hà Nội</string>
+    <string name="prompt_add_new_certificate_question">Not your request ?</string>
+
+    <string name="t_2_0_S" translatable="false">T20SB21Y</string>
+    <string name="year_corporate" translatable="false">1 YEAR CORPORATE CERTIFICATE-TMSRA</string>
+    <string name="certificate_duration_by_day">By day</string>
+    <string name="day_365" translatable="false">365</string>
+    <string name="certificate_duration">Duration</string>
+    <string name="prompt_upload_3d_facescan">Uploading Encrypted 3D Facescan</string>
+
+    <string name="hint_passphrase">Current Passphrase</string>
+    <string name="hint_new_passphrase">New Passphrase</string>
+    <string name="hint_confirm_new_passphrase">Confirm Passphrase</string>
+    <string name="passphrase_" translatable="false">Passphrase must contain the followings:  \\u2022 At least 8 characters long.  \\u2022 At least 01 uppercase character, 01 lowercase character, 01 special character, 01 number character.</string>
+    <string name="passphrase_is" translatable="false">Passphrase is invalid. You have remaining 4 times to attempt.</string>
+    <string name="error_new_passphrase_and_confirm_pin_not_match">New passphrase and Confirm passphrase are not matched</string>
+    <string name="result_passphrase_has_been_change">Your Passphrase has been changed already</string>
+    <string name="enter_authorization" translatable="false">ENTER Authorization Code sent to your phone</string>
+    <string name="enter_code_current" translatable="false">ENTER Authorization Code (Current Email)</string>
+    <string name="enter_code_new" translatable="false">ENTER Authorization Code (New Email)</string>
+    <string name="authorization_code_invalid" translatable="false">Authorization code is invalid. You have remaining 4 times to attempt.</string>
+    <string name="hint_new_email">New Email address</string>
+    <string name="result_email_has_been_change">Your Email has been changed already</string>
+    <string name="prompt_change_scal_and_multisign">Change Scal  &amp; Multisign</string>
+    <string name="prompt_credential_change_multisign">Multisign</string>
+    <string name="two" translatable="false">2</string>
+    <string name="ten" translatable="false">10</string>
+
+    <string name="one_hundred" translatable="false">100</string>
+    <string name="one_thousand" translatable="false">1,000</string>
+    <string name="ten_thousand" translatable="false">10,000</string>
+    <string name="unlimited" translatable="false">Unlimited</string>
+    <string name="Result_Scal_And_Multisign_Has_Been_Change">Scal &amp; Multisign has been changed already</string>
+    <string name="mobile_id_trust_tpcloud" translatable="false">Mobile-ID Trusted Network CA on TPCloud</string>
+
+    <string name="prompt_cert_sign_profile">Certificate Profile</string>
+    <string name="third_years_corpo_tmrsa" translatable="false">3 years corporation certificate - TMSRA</string>
+    <string name="one_years_corpo" translatable="false">1 years corporation certificate - TMSRA</string>
+    <string name="two_years_corpo" translatable="false">2 years corporation certificate - TMSRA</string>
+    <string name="tenk_signed_pr" translatable="false">10k signed profile</string>
+    <string name="ten_signed_prof" translatable="false">10 signed profile</string>
+    <string name="five_signed_prof" translatable="false">5 signed profile</string>
+    <string name="signing_counter" translatable="false">Signing Counter</string>
+    <string name="go_history" translatable="false">Go History</string>
+    <string name="credential" translatable="false">Credential</string>
+    <string name="selfcare" translatable="false">Selfcare</string>
+    <string name="renew_certi" translatable="false">Renew Certificate - Successfully</string>
+    <string name="result_no_bound_sim">There is no bound SIM</string>
+    <string name="button_bind_new_sim">Bind New SIM</string>
+    <string name="prompt_sim_activate">SIM Activation</string>
+    <string name="prompt_sim_activate_enter_phone_des">ENTER your phone number to activate your SIM</string>
+    <string name="your_sim_has_activate" translatable="false">Your SIM has been activated already</string>
+    <string name="certificate_renewal" translatable="false">Certificate Renewal</string>
+
+    <string name="forty_thousand" translatable="false"> đ 40.000</string>
+    <string name="spinner_orders_status_paid">Paid</string>
+    <string name="certificate_issuer_name">Issuer Name</string>
+    <string name="prompt_cert_sign_count">Number of Signatures</string>
+    <string name="prompt_cert_signing_profile">Signing Profile</string>
+    <string name="prompt_order_info_amount">Amount</string>
+    <string name="prompt_order_info_currency">Currency</string>
+    <string name="vnd" translatable="false">VND</string>
+    <string name="order_info_button_payment">Payment</string>
+    <string name="your_paymen" translatable="false">Your payment failed.\nPlease try again!</string>
+
+    <string name="your_paymen_successful" translatable="false">Your payment was successful</string>
+    <string name="forgot_pass" translatable="false">Forgot password?</string>
+    <string name="hint_username">Username</string>
+    <string name="hint_password">Password</string>
+    <string name="prompt_terms_of_service">Terms of\nService</string>
+    <string name="scan_face" translatable="false">Scan face</string>
+    <string name="align_qr_code" translatable="false">Align QR Code within Frame to Scan</string>
+
+    <string name="prompt_user_awaiting">Awaiting authorization requests</string>
+    <string name="some_id_84123" translatable="false">+84 123456789</string>
+    <string name="successed" translatable="false">Successed</string>
+
+    <string name="renew_certificate" translatable="false">Renew Certificate - <b>The certificate state is invalid to perform this function</b></string>
+    <string name="renew_certificate_success" translatable="false">Renew Certificate - <b>Successfully</b></string>
+    <string name="please_login">Please login and register for this\nfunction</string>
+</resources>

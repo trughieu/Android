@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/max_default"
+    tools:context=".Activity.Registry.Register_11">
+
+    <ImageView
+        android:id="@+id/background_default"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/max_default"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/rectangles"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha=".95"
+        android:background="@color/blue_default"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/btnBack"
+        android:layout_width="50dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/arrow" />
+    </FrameLayout>
+
+
+    <TextView
+        android:id="@+id/txtTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginTop="19dp"
+        android:fontFamily="@font/inter_bold"
+        android:gravity="center_horizontal"
+        android:text="@string/button_identification_chip"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/img_corner"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="23dp"
+        android:background="@drawable/corner_card"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/txtTitle"
+        app:layout_constraintStart_toStartOf="@+id/txtTitle"
+        app:layout_constraintTop_toBottomOf="@+id/txtTitle" />
+
+    <TextView
+        android:id="@+id/tv_capture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="62dp"
+        android:fontFamily="@font/inter_bold"
+        android:text="@string/select_the"
+        android:textColor="@color/white"
+        android:textSize="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/img_corner" />
+
+    <TextView
+        android:id="@+id/txt_select_id"
+        android:layout_width="350dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="19dp"
+        android:background="@drawable/corner_select"
+        android:backgroundTint="@color/white"
+        android:drawableEnd="@drawable/baseline_keyboard_arrow_down_24"
+        android:fontFamily="@font/inter_medium"
+        android:gravity="center_vertical"
+        android:paddingStart="20dp"
+        android:text="@string/button_eid_card"
+        android:textColor="@color/blue_text"
+        android:textSize="12dp"
+        app:layout_constraintEnd_toEndOf="@+id/tv_capture"
+        app:layout_constraintStart_toStartOf="@+id/tv_capture"
+        app:layout_constraintTop_toBottomOf="@+id/tv_capture" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="350dp"
+        android:layout_height="15dp"
+        android:layout_marginTop="30.56dp"
+        android:fontFamily="@font/inter_bold"
+        android:gravity="center_horizontal|top"
+        android:text="@string/prompt_capture_id_card"
+        android:textColor="@color/white"
+        android:textSize="12dp"
+        app:layout_constraintEnd_toEndOf="@+id/txt_select_id"
+        app:layout_constraintStart_toStartOf="@+id/txt_select_id"
+        app:layout_constraintTop_toBottomOf="@+id/txt_select_id" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="350dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="14dp"
+        android:fontFamily="@font/inter_medium"
+        android:gravity="center_horizontal|top"
+        android:text="@string/prompt_capture_id_card_detail"
+        android:textColor="@color/white"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="@+id/textView9"
+        app:layout_constraintStart_toStartOf="@+id/textView9"
+        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+    <TextView
+        android:id="@+id/btnContinue"
+        android:layout_width="257dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="100dp"
+        android:background="@drawable/square"
+        android:fontFamily="@font/inter_bold"
+        android:gravity="center"
+        android:text="Continue"
+        android:textColor="@color/white"
+        android:textSize="12dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

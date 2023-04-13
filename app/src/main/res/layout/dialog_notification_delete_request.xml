@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="292dp"
+    android:layout_height="142dp"
+    android:background="@drawable/corner"
+    android:backgroundTint="@color/black"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/text_dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:fontFamily="@font/inter_bold"
+        android:gravity="center"
+        android:text="@string/notification"
+        android:textColor="#FFFFFF"
+        android:textSize="18dp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="207dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:fontFamily="@font/inter_light"
+        android:gravity="center_horizontal"
+        android:text="@string/prompt_result_delete_owner"
+        android:textColor="@color/white"
+        android:textSize="14dp" />
+
+    <View
+        android:id="@+id/b"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="14dp"
+        android:background="@color/white" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/btn_Ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_bold"
+            android:text="@string/ok"
+            android:textColor="@color/text_blue"
+            android:textSize="19dp" />
+    </LinearLayout>
+</LinearLayout>
