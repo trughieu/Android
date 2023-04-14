@@ -32,8 +32,6 @@ import com.example.sic.DefaultActivity;
 import com.example.sic.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
-import java.util.concurrent.Executor;
-
 import vn.mobileid.tse.model.database.SettingData;
 
 public class Activity_Setting_Help extends DefaultActivity implements View.OnClickListener {
@@ -237,7 +235,7 @@ public class Activity_Setting_Help extends DefaultActivity implements View.OnCli
     }
 
     @Override
-    public void onClick(View view) {
+    public void onClick(@NonNull View view) {
         Intent intent;
         switch (view.getId()) {
             case R.id.btn_settings:
@@ -266,7 +264,6 @@ public class Activity_Setting_Help extends DefaultActivity implements View.OnCli
                 startActivity(intent);
                 break;
             case R.id.btn_language:
-
                 final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(
                         this, R.style.BottomSheetDialogTheme);
                 View bottomSheetView = LayoutInflater.from(getBaseContext()).inflate(R.layout.bottom_layout_languages,
@@ -281,15 +278,16 @@ public class Activity_Setting_Help extends DefaultActivity implements View.OnCli
 
                 checkBox1 = bottomSheetView.findViewById(R.id.checkBox1);
                 checkBox2 = bottomSheetView.findViewById(R.id.checkBox2);
-                checked1 = PreferenceManager.getDefaultSharedPreferences(Activity_Setting_Help.this)
-                        .getBoolean("check_setting_help_1", false);
-                checked2 = PreferenceManager.getDefaultSharedPreferences(Activity_Setting_Help.this)
-                        .getBoolean("check_setting_help_2", false);
-                checkBox1.setChecked(checked1);
-                checkBox2.setChecked(checked2);
+//
+                String s = SettingData.getLanguage(this);
+                if (s.equals("en")) {
+                    checkBox1.setChecked(true);
+                } else if (s.equals("vi")){
+                    checkBox2.setChecked(true);
+                }
 
                 tv_English.setOnClickListener(view1 -> {
-                    SettingData.updateLanguage(getBaseContext(), "en");
+                    SettingData.updateLanguage(Activity_Setting_Help.this, "en");
                     Dialog dialog = new Dialog(Activity_Setting_Help.this);
                     dialog.setContentView(R.layout.dialog_notification_change_languages);
                     dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
@@ -303,15 +301,11 @@ public class Activity_Setting_Help extends DefaultActivity implements View.OnCli
                     checkBox1.setChecked(true);
                     checkBox2.setChecked(false);
 
-                    PreferenceManager.getDefaultSharedPreferences(Activity_Setting_Help.this).edit()
-                            .putBoolean("check_setting_help_1", true).apply();
-                    PreferenceManager.getDefaultSharedPreferences(Activity_Setting_Help.this).edit()
-                            .putBoolean("check_setting_help_2", false).apply();
                     bottomSheetDialog.dismiss();
                 });
 
                 tv_Vietnamese.setOnClickListener(view1 -> {
-                    SettingData.updateLanguage(getBaseContext(), "vi");
+                    SettingData.updateLanguage(Activity_Setting_Help.this, "vi");
                     Dialog dialog = new Dialog(Activity_Setting_Help.this);
                     dialog.setContentView(R.layout.dialog_notification_change_languages);
                     dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
@@ -324,18 +318,12 @@ public class Activity_Setting_Help extends DefaultActivity implements View.OnCli
                     });
                     checkBox1.setChecked(false);
                     checkBox2.setChecked(true);
-                    PreferenceManager.getDefaultSharedPreferences(Activity_Setting_Help.this).edit()
-                            .putBoolean("check_setting_help_1", false).apply();
-                    PreferenceManager.getDefaultSharedPreferences(Activity_Setting_Help.this).edit()
-                            .putBoolean("check_setting_help_2", true).apply();
                     bottomSheetDialog.dismiss();
                 });
 
                 btn_Close.setOnClickListener(view1 -> {
                     bottomSheetDialog.dismiss();
                 });
-
-
                 break;
             case R.id.btn_send_support:
                 intent = new Intent(Activity_Setting_Help.this, Activity_Send_Support_Detail.class);

@@ -27,44 +27,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="61.15dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="23dp"
-        android:background="@drawable/corner_inbox_detail"
-        android:fontFamily="@font/inter_medium"
-        android:gravity="center_horizontal|center"
-        android:text="@string/eSign"
-        android:textColor="@color/blue_text"
-        android:textSize="12dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/btn_Detail"
-        android:layout_width="61.15dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="23dp"
-        android:layout_marginEnd="26.85dp"
-        android:background="@drawable/corner_inbox_detail"
-        android:fontFamily="@font/inter_medium"
-        android:gravity="center_horizontal|center"
-        android:text="@string/certificate_info"
-        android:textColor="@color/blue_text"
-        android:textSize="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
     <ImageView
         android:id="@+id/textView14"
         android:layout_width="116dp"
         android:layout_height="58dp"
-        android:layout_marginStart="137dp"
         android:layout_marginTop="9dp"
-        android:layout_marginEnd="137dp"
         android:fontFamily="@font/inter_medium"
         android:gravity="center_horizontal|top"
         android:src="@drawable/logo_blue"
@@ -168,7 +135,6 @@
                     android:layout_gravity="right"
                     android:fontFamily="@font/inter_medium"
                     android:gravity="end"
-                    android:text="@string/windows_10"
                     android:textColor="@color/white"
                     android:textSize="12dp" />
 
@@ -204,7 +170,6 @@
                     android:layout_gravity="right"
                     android:fontFamily="@font/inter_medium"
                     android:gravity="end"
-                    android:text="@string/ip"
                     android:textColor="@color/white"
                     android:textSize="12dp" />
 
@@ -240,7 +205,6 @@
                     android:layout_gravity="right"
                     android:fontFamily="@font/inter_medium"
                     android:gravity="end"
-                    android:text="@string/chrome_107_"
                     android:textColor="@color/white"
                     android:textSize="12dp" />
             </LinearLayout>
@@ -274,7 +238,6 @@
                     android:layout_gravity="right"
                     android:fontFamily="@font/inter_medium"
                     android:gravity="end"
-                    android:text="@string/backoffice_"
                     android:textColor="@color/white"
                     android:textSize="12dp" />
             </LinearLayout>

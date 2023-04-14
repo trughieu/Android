@@ -126,7 +126,7 @@ public class PendingFragment extends Fragment {
                             public void run() {
                                 adapter_item = new Adapter_item(messageArrayList, getContext());
                                 rc_pending.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-                                rc_pending.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayout.VERTICAL));
+                                rc_pending.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayout.VERTICAL));
                                 rc_pending.setAdapter(adapter_item);
                                 rc_pending.getRecycledViewPool().clear();
                                 adapter_item.notifyDataSetChanged();

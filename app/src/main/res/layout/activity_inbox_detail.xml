@@ -26,54 +26,109 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <TextView
-        android:id="@+id/btn_Cancel"
-        android:layout_width="61.15dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="23dp"
-        android:background="@drawable/corner_inbox_detail"
-        android:fontFamily="@font/inter_medium"
-        android:gravity="center_horizontal|center"
-        android:text="@string/button_cancel"
-        android:textColor="@color/blue_text"
-        android:textSize="12dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/btn_Detail"
-        android:layout_width="61.15dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="23dp"
-        android:layout_marginEnd="26.85dp"
-        android:background="@drawable/corner_inbox_detail"
-        android:fontFamily="@font/inter_medium"
-        android:gravity="center_horizontal|center"
-        android:text="@string/certificate_info"
-        android:textColor="@color/blue_text"
-        android:textSize="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <TextView
-        android:id="@+id/textView14"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="132dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="132dp"
-        android:fontFamily="@font/inter_medium"
-        android:gravity="center_horizontal|top"
-        android:text="@string/prompt_request_info_question"
-        android:textColor="@color/blue_text"
-        android:textSize="20dp"
-        android:textStyle="bold"
+        android:orientation="horizontal"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/btn_Cancel"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:background="@drawable/corner_inbox_detail"
+            android:fontFamily="@font/inter_medium"
+            android:gravity="center_horizontal|center"
+            android:text="@string/button_cancel"
+            android:textColor="@color/blue_text"
+            android:textSize="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:fontFamily="@font/inter_medium"
+            android:gravity="center_horizontal|top"
+            android:text="@string/prompt_request_info_question"
+            android:textColor="@color/blue_text"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/btn_Detail"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:background="@drawable/corner_inbox_detail"
+            android:fontFamily="@font/inter_medium"
+            android:gravity="center_horizontal|center"
+            android:text="@string/certificate_info"
+            android:textColor="@color/blue_text"
+            android:textSize="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </LinearLayout>
+    <!--    <TextView-->
+    <!--        android:id="@+id/btn_Cancel"-->
+    <!--        android:layout_width="61.15dp"-->
+    <!--        android:layout_height="30dp"-->
+    <!--        android:layout_marginStart="20dp"-->
+    <!--        android:layout_marginTop="23dp"-->
+    <!--        android:background="@drawable/corner_inbox_detail"-->
+    <!--        android:fontFamily="@font/inter_medium"-->
+    <!--        android:gravity="center_horizontal|center"-->
+    <!--        android:text="@string/button_cancel"-->
+    <!--        android:textColor="@color/blue_text"-->
+    <!--        android:textSize="12dp"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/btn_Detail"-->
+    <!--        android:layout_width="61.15dp"-->
+    <!--        android:layout_height="30dp"-->
+    <!--        android:layout_marginTop="23dp"-->
+    <!--        android:layout_marginEnd="26.85dp"-->
+    <!--        android:background="@drawable/corner_inbox_detail"-->
+    <!--        android:fontFamily="@font/inter_medium"-->
+    <!--        android:gravity="center_horizontal|center"-->
+    <!--        android:text="@string/certificate_info"-->
+    <!--        android:textColor="@color/blue_text"-->
+    <!--        android:textSize="12dp"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/textView14"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="132dp"-->
+    <!--        android:layout_marginTop="20dp"-->
+    <!--        android:layout_marginEnd="132dp"-->
+    <!--        android:fontFamily="@font/inter_medium"-->
+    <!--        android:gravity="center_horizontal|top"-->
+    <!--        android:text="@string/prompt_request_info_question"-->
+    <!--        android:textColor="@color/blue_text"-->
+    <!--        android:textSize="15dp"-->
+    <!--        android:textStyle="bold"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <LinearLayout
         android:id="@+id/linearLayout4"
@@ -87,10 +142,10 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="116dp"
+            android:layout_height="56dp"
             android:layout_marginTop="20dp"
-            android:src="@drawable/logo_blue_v2" />
+            android:src="@drawable/logo_blue" />
 
         <TextView
             android:id="@+id/submit_from"
@@ -271,7 +326,6 @@
                     android:layout_gravity="right"
                     android:fontFamily="@font/inter_medium"
                     android:gravity="end"
-                    android:text="@string/ip"
                     android:textColor="@color/white"
                     android:textSize="12dp" />
 
@@ -307,7 +361,6 @@
                     android:layout_gravity="right"
                     android:fontFamily="@font/inter_medium"
                     android:gravity="end"
-                    android:text="@string/chrome_107_"
                     android:textColor="@color/white"
                     android:textSize="12dp" />
             </LinearLayout>
@@ -341,7 +394,6 @@
                     android:layout_gravity="right"
                     android:fontFamily="@font/inter_medium"
                     android:gravity="end"
-                    android:text="@string/backoffice_"
                     android:textColor="@color/white"
                     android:textSize="12dp" />
             </LinearLayout>

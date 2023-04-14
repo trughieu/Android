@@ -211,7 +211,7 @@ public class Activity_Recovery_Code_12_digit_number extends AppCompatActivity {
                                         });
                                     }
                                 }
-                            }).setRecoveryCode(pinValue.getText().toString(), null);
+                            }).setRecoveryCode(pinValue.getText().toString(), null,true);
                         } catch (Exception e) {
                             throw new RuntimeException(e);
                         }

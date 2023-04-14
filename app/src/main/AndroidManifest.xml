@@ -22,7 +22,7 @@
         tools:ignore="ProtectedPermissions" />
 
     <uses-permission android:name="android.permission.CAMERA"/>
-
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" tools:node="remove"/>
     <uses-feature android:name="android.hardware.camera"/>
     <uses-feature android:name="android.hardware.camera.autofocus"/>
     <uses-feature android:name="android.hardware.camera.any"/>
@@ -35,6 +35,15 @@
         android:roundIcon="@drawable/icon_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.SIC_no">
+        <!--Everything for notifications part-->
+        <service
+            android:name=".MyFirebaseMessagingService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
         <activity
             android:name=".test_2"
             android:exported="false"
@@ -254,6 +263,7 @@
         <activity
             android:name=".Activity.Home.Inbox.Inbox_detail"
             android:exported="true"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing" />
         <activity
@@ -377,4 +387,16 @@
             android:windowSoftInputMode="adjustNothing" />
     </application>
 
+    <!-- Set custom default icon. This is used when no icon is set for incoming notification messages.
+     See README(https://goo.gl/l4GJaQ) for more. -->
+<!--    <meta-data-->
+<!--        android:name="com.google.firebase.messaging.default_notification_icon"-->
+<!--        android:resource="@drawable/ic_stat_ic_notification" />-->
+    <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming
+         notification message. See README(https://goo.gl/6BKBk7) for more. -->
+<!--    <meta-data-->
+<!--        android:name="com.google.firebase.messaging.default_notification_color"-->
+<!--        android:resource="@color/colorAccent" />-->
+    <meta-data
+        android:name="com.google.firebase.messaging.default_notification_channel_id" />
 </manifest>

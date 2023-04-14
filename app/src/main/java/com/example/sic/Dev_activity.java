@@ -7,12 +7,17 @@ import android.util.DisplayMetrics;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.biometric.BiometricPrompt;
 
 import java.util.Locale;
+import java.util.concurrent.Executor;
 
 import vn.mobileid.tse.model.database.SettingData;
 
 public class Dev_activity extends AppCompatActivity {
+    public Executor executor;
+    public BiometricPrompt biometricPrompt;
+    public BiometricPrompt.PromptInfo promptInfo;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

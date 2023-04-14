@@ -45,21 +45,15 @@ import vn.mobileid.tse.model.cryptography.Cryptography;
 import vn.mobileid.tse.model.utils.Utils;
 
 public class Inbox_detail extends DefaultActivity implements View.OnClickListener {
-    //    TabLayout tabLayout;
-//    ViewPager2 viewPager2;
-
-
     boolean checked1, checked2, checked3, checked4;
     AppCompatCheckBox checkBox1, checkBox2, checkBox3, checkBox4;
     RequestInfoModule module;
-    FragmentAdapterTablayout_ib_detail adapter;
     String s;
     TextView txt_select_id, approve_later, conf_with_E_identify, conf_with_bio,
             conf_with_pin, btn_Cancel, btn_Detail, submit_from, messageCaption, message,
             tv_operating_detail, tv_ip_detail, tv_browser_detail, tv_rp_detail, btnContinue;
     ImageView close;
     Intent intent;
-
     AppCompatButton bt1, bt2, bt3, bt4, bt5, bt6, bt7, bt8, bt9, bt0, Key_delete;
     EditText txt_pin_view1, txt_pin_view2, txt_pin_view3, txt_pin_view4, txt_pin_view5, txt_pin_view6, pinValue;
 
@@ -183,6 +177,7 @@ public class Inbox_detail extends DefaultActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inbox_detail);
+        start();
         submit_from = findViewById(R.id.submit_from);
         message = findViewById(R.id.message);
         messageCaption = findViewById(R.id.messageCaption);
@@ -436,6 +431,7 @@ public class Inbox_detail extends DefaultActivity implements View.OnClickListene
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        stop();
                         if (response != null) {
                             submit_from.setText(getResources().getString(R.string.orders_prefix_issued_by) + " " + response.getScaIdentity());
                             message.setText(response.getMessage());

@@ -30,6 +30,7 @@
     <string name="prompt_change_pin_code">Thay Đổi Pin</string>
     <string name="del_acc">Xóa\nTài Khoản</string>
     <string name="action_history" >Lịch Sử\nHoạt Động</string>
+    <string name="prompt_manage_orders_title">Quản Lý Đơn Hàng</string>
 
     <string name="prompt_login_with_bio">Đăng Nhập Bằng Sinh Trắc Học</string>
     <string name="button_user_setting_app_security">Cấu Hình Bảo Mật</string>

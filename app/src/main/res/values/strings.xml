@@ -406,7 +406,7 @@
     <string name="id_04_07_29" translatable="false">04/07/2029</string>
     <string name="button_change_password">Change Password</string>
     <string name="forgot_password" translatable="false">Forgot Password</string>
-
+<string name="prompt_manage_orders_title">Manage Order</string>
     <string name="certificate_view_more_details">More details</string>
 
     <string name="easyca_test" translatable="false">EASYCA_TEST</string>

@@ -7,6 +7,15 @@ public class Message {
     String createdDt;
     String transactionId;
 
+    public Message() {
+    }
+
+    public Message(String messageCaption, String scaIdentity, String createdDt) {
+        this.messageCaption = messageCaption;
+        this.createdDt = createdDt;
+        this.scaIdentity = scaIdentity;
+    }
+
     public String getTransactionId() {
         return transactionId;
     }

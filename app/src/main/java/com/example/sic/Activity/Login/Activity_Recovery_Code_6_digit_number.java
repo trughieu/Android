@@ -2,6 +2,7 @@ package com.example.sic.Activity.Login;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -102,7 +103,7 @@ public class Activity_Recovery_Code_6_digit_number extends AppCompatActivity {
                             @Override
                             public void process(boolean b, Response response) {
                                 response.toString();
-                                if (b == true) {
+                                if (response.getError() == 0) {
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
@@ -118,7 +119,7 @@ public class Activity_Recovery_Code_6_digit_number extends AppCompatActivity {
                                     });
                                 }
                             }
-                        }).setRecoveryCode(pinValue.getText().toString(), null);
+                        }).setRecoveryCode(pinValue.getText().toString(), firebaseID, true);
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
@@ -127,8 +128,6 @@ public class Activity_Recovery_Code_6_digit_number extends AppCompatActivity {
     };
     LinearLayout keyboard, pin;
     TextView title, txtTitle, digit_number;
-    //    static int from_re=0;
-    String s;
     View.OnClickListener numKey = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -141,22 +140,23 @@ public class Activity_Recovery_Code_6_digit_number extends AppCompatActivity {
                 text = text + button.getText().toString();
 
                 pinValue.setText(text);
-//            s = pinValue.getText().toString();
-
             }
             Log.d("pinvalue", "onClick: " + pinValue.length());
-            Log.d("text", "onClick: "+pinValue.getText().toString());
+            Log.d("text", "onClick: " + pinValue.getText().toString());
 
         }
     };
+
+    String firebaseID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recovery_code_6_digit_number);
         anh_xa();
-
         pinValue.addTextChangedListener(textWatcher);
+        SharedPreferences pref = getSharedPreferences("FirebaseID", MODE_PRIVATE);
+        firebaseID = pref.getString("firebaseID", null);
 
         bt1.setOnClickListener(numKey);
         bt2.setOnClickListener(numKey);

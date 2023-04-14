@@ -37,10 +37,11 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import java.util.concurrent.Executor;
 
 import vn.mobileid.tse.model.client.activate.ActivateModule;
+import vn.mobileid.tse.model.database.ActivationData;
 import vn.mobileid.tse.model.database.LoginData;
 import vn.mobileid.tse.model.database.SettingData;
 
-public class Activity_Login_Touch_Id extends DefaultActivity implements View.OnClickListener {
+public class Activity_Login_Touch_Id extends Dev_activity implements View.OnClickListener {
 
     ImageView show_password, touch_id, btn_Close;
     EditText txtPassword;
@@ -93,7 +94,7 @@ public class Activity_Login_Touch_Id extends DefaultActivity implements View.OnC
         btnLogin.setEnabled(false);
         txtPassword.setTransformationMethod(new MainActivity.AsteriskPasswordTransformationMethod());
 
-        name_user.setText(LoginData.getFullName(Activity_Login_Touch_Id.this));
+        name_user.setText(ActivationData.getUsername(this));
         txtPassword.setText("12345678");
         SharedPreferences sharedPreferences;
         sharedPreferences = getSharedPreferences("My_pass_Bio", MODE_PRIVATE);
@@ -168,10 +169,13 @@ public class Activity_Login_Touch_Id extends DefaultActivity implements View.OnC
 
                 checkBox1 = bottomSheetView.findViewById(R.id.checkBox1);
                 checkBox2 = bottomSheetView.findViewById(R.id.checkBox2);
-                checked1 = PreferenceManager.getDefaultSharedPreferences(Activity_Login_Touch_Id.this).getBoolean("check_setting_help_1", false);
-                checked2 = PreferenceManager.getDefaultSharedPreferences(Activity_Login_Touch_Id.this).getBoolean("check_setting_help_2", false);
-                checkBox1.setChecked(checked1);
-                checkBox2.setChecked(checked2);
+                String s = SettingData.getLanguage(this);
+
+                if (s.equals("en")) {
+                    checkBox1.setChecked(true);
+                } else if (s.equals("vi")){
+                    checkBox2.setChecked(true);
+                }
 
                 tv_English.setOnClickListener(view1 -> {
                     SettingData.updateLanguage(getBaseContext(), "en");
@@ -182,8 +186,6 @@ public class Activity_Login_Touch_Id extends DefaultActivity implements View.OnC
                     dialog.setCanceledOnTouchOutside(false);
                     Continue = dialog.findViewById(R.id.Continue);
                     Continue.setOnClickListener(view2 -> {
-//                        Intent i = new Intent(Activity_Login_Touch_Id.this, Activity_Login_Touch_Id.class);
-//                        startActivity(i);
                         finish();
                         startActivity(getIntent());
                         dialog.dismiss();
@@ -206,8 +208,6 @@ public class Activity_Login_Touch_Id extends DefaultActivity implements View.OnC
                     Continue = dialog.findViewById(R.id.Continue);
                     Continue.setOnClickListener(view2 -> {
                         dialog.dismiss();
-//                        Intent i = new Intent(Activity_Login_Touch_Id.this, Activity_Login_Touch_Id.class);
-//                        startActivity(i);
                         finish();
                         startActivity(getIntent());
                     });

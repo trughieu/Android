@@ -23,11 +23,6 @@ import com.example.sic.R;
 import com.google.android.material.tabs.TabLayout;
 
 public class Inbox extends DefaultActivity implements View.OnClickListener {
-
-    TabLayout tabLayout;
-    ViewPager2 viewPager2;
-
-    FragmentAdapter_Tablayout adapter;
     FrameLayout btnBack;
     SearchView searchView;
     Fragment fragment = null;
@@ -45,8 +40,6 @@ public class Inbox extends DefaultActivity implements View.OnClickListener {
         tab2 = findViewById(R.id.tab2);
         tab1.setBackgroundResource(R.drawable.tab_select);
         tab1.setTextColor(Color.parseColor("#0070F4"));
-//        tabLayout = findViewById(R.id.tab_layout);
-        searchView = findViewById(R.id.search_view);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             typeface_medium = getResources().getFont(R.font.inter_medium);
             typeface_light = getResources().getFont(R.font.inter_light);
@@ -56,58 +49,19 @@ public class Inbox extends DefaultActivity implements View.OnClickListener {
         tab2.setOnClickListener(this);
         tab1.setTypeface(typeface_medium);
 
-        fragment = new MessageFragment();
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction().setCustomAnimations(
-                R.anim.anim_right_to_left,
-                R.anim.anim_fall_down
-        ).replace(R.id.content, fragment);
-        ft.commit();
-
+        loadFragment(new MessageFragment());
         btnBack.setOnClickListener(view -> {
             Intent i = new Intent(Inbox.this, HomePage.class);
             startActivity(i);
         });
-
-
-//        tabLayout.addTab(tabLayout.newTab().setText(R.string.messages));
-//        tabLayout.addTab(tabLayout.newTab().setText(R.string.pending_tra));
-
-
-//        FragmentManager fragmentManager=getSupportFragmentManager();
-//        adapter=new FragmentAdapter_Tablayout(fragmentManager,getLifecycle());
-//        viewPager2.setAdapter(adapter);
-//
-//        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-//            @Override
-//            public void onTabSelected(TabLayout.Tab tab) {
-//                viewPager2.setCurrentItem(tab.getPosition());
-//            }
-//
-//            @Override
-//            public void onTabUnselected(TabLayout.Tab tab) {
-//
-//            }
-//
-//            @Override
-//            public void onTabReselected(TabLayout.Tab tab) {
-//
-//            }
-//        });
-//        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-//            @Override
-//            public void onPageSelected(int position) {
-//                tabLayout.selectTab(tabLayout.getTabAt(position));
-//
-//
-//            }
-//        });
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tab1:
-                fragment = new MessageFragment();
+//                fragment = new MessageFragment();
+                loadFragment(new MessageFragment());
                 tab1.setBackgroundResource(R.drawable.tab_select);
                 tab1.setTextColor(Color.parseColor("#0070F4"));
                 tab1.setTypeface(typeface_medium);
@@ -117,7 +71,8 @@ public class Inbox extends DefaultActivity implements View.OnClickListener {
 
                 break;
             case R.id.tab2:
-                fragment = new PendingFragment();
+//                fragment = new PendingFragment();
+                loadFragment(new PendingFragment());
                 tab1.setBackgroundResource(R.drawable.tab_select_inactive);
                 tab1.setTextColor(Color.parseColor("#0070F4"));
                 tab1.setTypeface(typeface_light);
@@ -126,10 +81,9 @@ public class Inbox extends DefaultActivity implements View.OnClickListener {
                 tab2.setTypeface(typeface_medium);
                 break;
         }
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction().setCustomAnimations(
-                R.anim.anim_right_to_left,
-                R.anim.anim_fall_down
-        ).replace(R.id.content, fragment);
+    }
+    private void loadFragment(Fragment fragment){
+        FragmentTransaction ft=getSupportFragmentManager().beginTransaction().replace(R.id.content,fragment);
         ft.commit();
     }
 }

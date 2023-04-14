@@ -79,26 +79,26 @@ public class MessageFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-//        rc_message = view.findViewById(R.id.rc_message);
-//        arrayList = init();
+        rc_message = view.findViewById(R.id.rc_message);
+        arrayList = init();
 
-//        adapter_item = new Adapter_item(arrayList, getContext());
-//        rc_message.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-//        rc_message.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayout.VERTICAL));
-//        rc_message.setAdapter(adapter_item);
+        adapter_item = new Adapter_item(arrayList, getContext());
+        rc_message.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        rc_message.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayout.VERTICAL));
+        rc_message.setAdapter(adapter_item);
 
     }
 
 
-//    public ArrayList<Message> init() {
-//        ArrayList<Message> tmp = new ArrayList<>();
-//        tmp.add(new Message("Signing Tester", "Submitted from Signing Tester", "21/11/2022"));
-//        tmp.add(new Message("Signing Tester", "Submitted from Signing Tester", "21/11/2022"));
-//        tmp.add(new Message("Signing Tester", "Submitted from Signing Tester", "21/11/2022"));
-//        tmp.add(new Message("Signing Tester", "Submitted from Signing Tester", "21/11/2022"));
-//        tmp.add(new Message("Signing Tester", "Submitted from Signing Tester", "21/11/2022"));
-//        tmp.add(new Message("Signing Tester", "Submitted from Signing Tester", "21/11/2022"));
-//        return tmp;
-//    }
+    public ArrayList<Message> init() {
+        ArrayList<Message> tmp = new ArrayList<>();
+        tmp.add(new Message("Signing Tester", "Submitted from Signing Tester", "21/11/2022"));
+        tmp.add(new Message("Signing Tester", "Submitted from Signing Tester", "21/11/2022"));
+        tmp.add(new Message("Signing Tester", "Submitted from Signing Tester", "21/11/2022"));
+        tmp.add(new Message("Signing Tester", "Submitted from Signing Tester", "21/11/2022"));
+        tmp.add(new Message("Signing Tester", "Submitted from Signing Tester", "21/11/2022"));
+        tmp.add(new Message("Signing Tester", "Submitted from Signing Tester", "21/11/2022"));
+        return tmp;
+    }
 
 }

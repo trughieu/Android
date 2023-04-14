@@ -26,66 +26,57 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <FrameLayout
-        android:id="@+id/btnBack"
-        android:layout_width="50dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="22dp"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:layout_width="wrap_content"
+        <FrameLayout
+            android:id="@+id/btnBack"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/arrow" />
+        </FrameLayout>
+
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="0dp"
+            android:layout_weight="4"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@drawable/arrow" />
-    </FrameLayout>
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:layout_marginStart="27dp"
-    android:layout_marginTop="25dp"
-    android:src="@drawable/arrow"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
+            android:fontFamily="@font/inter_medium"
+            android:gravity="center_horizontal|top"
+            android:textColor="@color/blue_text"
+            android:textSize="20dp"
+            android:text="@string/prompt_manage_sim"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-    <TextView
-        android:id="@+id/textView15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="89dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="105dp"
-        android:fontFamily="@font/inter_medium"
-        android:gravity="center_horizontal|top"
-        android:text="@string/prompt_manage_sim"
-        android:textColor="@color/blue_text"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <TextView
-        android:id="@+id/btn_Log_out"
-        android:layout_width="72dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="19.3dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/corner_logout"
-        android:fontFamily="@font/inter_medium"
-        android:gravity="center_horizontal|center"
-        android:padding="2dp"
-        android:text="@string/button_logout"
-        android:textColor="@color/white"
-        android:textSize="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        <Space
+            android:id="@+id/btn_Log_out"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="35dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </LinearLayout>
     <EditText
         android:id="@+id/pin6_dialog"
         android:layout_width="wrap_content"

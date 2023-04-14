@@ -32,8 +32,6 @@ import com.example.sic.Activity.Setting_Help.Activity_Setting_Help;
 import com.example.sic.DefaultActivity;
 import com.example.sic.R;
 
-import java.util.concurrent.Executor;
-
 import vn.mobileid.tse.model.client.HttpRequest;
 import vn.mobileid.tse.model.client.activate.ActivateModule;
 import vn.mobileid.tse.model.connector.plugin.Response;
@@ -52,81 +50,6 @@ public class HomePage extends DefaultActivity implements View.OnClickListener {
     EditText txt_pin_view1, txt_pin_view2, txt_pin_view3, txt_pin_view4, txt_pin_view5, txt_pin_view6, pinValue;
     String text;
     Dialog dialog;
-    private String digit_6, digit;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_home_page);
-//        requestPermissions();
-        mnu_connect = findViewById(R.id.menu_connect);
-        mnu_scan_qr = findViewById(R.id.menu_scanqr);
-        mnu_inbox = findViewById(R.id.menu_inbox);
-        mnu_setting_help = findViewById(R.id.menu_setting_help);
-        txt_connect = findViewById(R.id.txt_connect);
-        txt_qr = findViewById(R.id.txt_scan_qr);
-        txt_inbox = findViewById(R.id.txt_inbox);
-        txt_setting_help = findViewById(R.id.txt_setting_help);
-        user_name = findViewById(R.id.user_name);
-        mnu_connect.setOnClickListener(this);
-        mnu_setting_help.setOnClickListener(this);
-        mnu_inbox.setOnClickListener(this);
-        mnu_scan_qr.setOnClickListener(this);
-
-
-        loading = findViewById(R.id.loading);
-        loading.setBackgroundResource(R.drawable.animation_loading);
-
-        loading_animation = (AnimationDrawable) loading.getBackground();
-
-        btn_Log_out = findViewById(R.id.btn_Log_out);
-        module = ActivateModule.createModule(HomePage.this);
-        if (LoginData.getFullName(HomePage.this) != null) {
-            user_name.setText(LoginData.getFullName(HomePage.this));
-
-        }
-
-        btn_Log_out.setOnClickListener(view -> {
-            Log_out();
-        });
-
-        SharedPreferences pref = getSharedPreferences("MY_PREFS_NAME", MODE_PRIVATE);
-        SharedPreferences.Editor editor = getSharedPreferences("MY_6_DIGIT", MODE_PRIVATE).edit();
-        s = pref.getString("6_digit", null);
-        if (s != null) {
-            try {
-                String hash = encrypt(getApplicationContext(), s);
-                editor.putString("my_6_digit", hash);
-                editor.commit();
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        }
-        SharedPreferences my_6_digit = getSharedPreferences("MY_6_DIGIT", MODE_PRIVATE);
-        digit_6 = my_6_digit.getString("my_6_digit", null);
-        if (digit_6 != null) {
-            try {
-                digit = decrypt(getApplicationContext(), digit_6);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        }
-
-        SharedPreferences sharedPreferences = getSharedPreferences("AppSecurity", MODE_PRIVATE);
-        check = sharedPreferences.getInt("check", 0);
-        if (check == 0) {
-
-        }
-        if (check == 1) {
-            Dialog_pin();
-        } else if (check == 2) {
-            Biometric();
-            biometricPrompt.authenticate(promptInfo);
-        }
-
-    }
-
     private final TextWatcher textWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int start, int i1, int i2) {
@@ -222,6 +145,87 @@ public class HomePage extends DefaultActivity implements View.OnClickListener {
             }
         }
     };
+    View.OnClickListener numKey = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            text = pinValue.getText().toString();
+            TextView button = (TextView) v;
+            text = text + button.getText().toString();
+            pinValue.setText(text);
+        }
+    };
+    private String digit_6, digit;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_home_page);
+        mnu_connect = findViewById(R.id.menu_connect);
+        mnu_scan_qr = findViewById(R.id.menu_scanqr);
+        mnu_inbox = findViewById(R.id.menu_inbox);
+        mnu_setting_help = findViewById(R.id.menu_setting_help);
+        txt_connect = findViewById(R.id.txt_connect);
+        txt_qr = findViewById(R.id.txt_scan_qr);
+        txt_inbox = findViewById(R.id.txt_inbox);
+        txt_setting_help = findViewById(R.id.txt_setting_help);
+        user_name = findViewById(R.id.user_name);
+        mnu_connect.setOnClickListener(this);
+        mnu_setting_help.setOnClickListener(this);
+        mnu_inbox.setOnClickListener(this);
+        mnu_scan_qr.setOnClickListener(this);
+
+
+        loading = findViewById(R.id.loading);
+        loading.setBackgroundResource(R.drawable.animation_loading);
+
+        loading_animation = (AnimationDrawable) loading.getBackground();
+
+        btn_Log_out = findViewById(R.id.btn_Log_out);
+        module = ActivateModule.createModule(HomePage.this);
+        if (LoginData.getFullName(HomePage.this) != null) {
+            user_name.setText(LoginData.getFullName(HomePage.this));
+
+        }
+
+        btn_Log_out.setOnClickListener(view -> {
+            Log_out();
+        });
+
+        SharedPreferences pref = getSharedPreferences("MY_PREFS_NAME", MODE_PRIVATE);
+        SharedPreferences.Editor editor = getSharedPreferences("MY_6_DIGIT", MODE_PRIVATE).edit();
+        s = pref.getString("6_digit", null);
+        if (s != null) {
+            try {
+                String hash = encrypt(getApplicationContext(), s);
+                editor.putString("my_6_digit", hash);
+                editor.commit();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+        SharedPreferences my_6_digit = getSharedPreferences("MY_6_DIGIT", MODE_PRIVATE);
+        digit_6 = my_6_digit.getString("my_6_digit", null);
+        if (digit_6 != null) {
+            try {
+                digit = decrypt(getApplicationContext(), digit_6);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        SharedPreferences sharedPreferences = getSharedPreferences("AppSecurity", MODE_PRIVATE);
+        check = sharedPreferences.getInt("check", 0);
+        if (check == 0) {
+
+        }
+        if (check == 1) {
+            Dialog_pin();
+        } else if (check == 2) {
+            Biometric();
+            biometricPrompt.authenticate(promptInfo);
+        }
+
+    }
 
     private void Dialog_pin() {
         dialog = new Dialog(HomePage.this);
@@ -274,16 +278,6 @@ public class HomePage extends DefaultActivity implements View.OnClickListener {
             }
         });
     }
-
-    View.OnClickListener numKey = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            text = pinValue.getText().toString();
-            TextView button = (TextView) v;
-            text = text + button.getText().toString();
-            pinValue.setText(text);
-        }
-    };
 
     private void Biometric() {
         executor = ContextCompat.getMainExecutor(this);
@@ -387,14 +381,14 @@ public class HomePage extends DefaultActivity implements View.OnClickListener {
             module.setResponseLogout(new HttpRequest.AsyncResponse() {
                 @Override
                 public void process(boolean b, Response response) {
-                    response.toString();
+                    if (response.getError() == 0) {
+                        Intent i = new Intent(HomePage.this, Activity_Login_Touch_Id.class);
+                        startActivity(i);
+                    }
                 }
             }).logout();
 
 
-
-            Intent i = new Intent(HomePage.this, Activity_Login_Touch_Id.class);
-            startActivity(i);
         });
 
         dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);

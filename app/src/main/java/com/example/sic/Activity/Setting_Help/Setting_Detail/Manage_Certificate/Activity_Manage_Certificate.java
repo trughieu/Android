@@ -57,7 +57,6 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
     ManageCertificateModule manageCertificateModule;
 
     Dialog dialog;
-    AnimationDrawable loading_animation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -179,6 +178,7 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
                 checkBox8 = bottomSheetView.findViewById(R.id.checkBox8);
                 checkBox9 = bottomSheetView.findViewById(R.id.checkBox9);
                 checkBox10 = bottomSheetView.findViewById(R.id.checkBox10);
+
                 checkBox1.setChecked(true);
                 checked1 = PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this)
                         .getBoolean("check_manage_certificate_1", true);
