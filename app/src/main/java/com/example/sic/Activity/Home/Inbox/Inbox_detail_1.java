@@ -43,7 +43,6 @@ public class Inbox_detail_1 extends DefaultActivity {
         profile_des_detail = findViewById(R.id.profile_des_detail);
         authorize_mail_detail = findViewById(R.id.authorize_email_detail);
         authorize_phone_detail = findViewById(R.id.authorize_phone_detail);
-
         btnBack.setOnClickListener(view -> {
             Intent i= new Intent(Inbox_detail_1.this,Inbox_detail.class);
             startActivity(i);

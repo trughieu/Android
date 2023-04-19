@@ -51,6 +51,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/submit_from"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="51dp"
@@ -61,6 +62,7 @@
             android:textSize="17dp" />
 
         <TextView
+            android:id="@+id/messageCaption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
@@ -129,7 +131,7 @@
                     android:textSize="12dp" />
 
                 <TextView
-                    android:id="@+id/tv_operating_detail"
+                    android:id="@+id/operatingSystem"
                     android:layout_width="225dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
@@ -164,7 +166,7 @@
                     android:textSize="12dp" />
 
                 <TextView
-                    android:id="@+id/tv_ip_detail"
+                    android:id="@+id/ipAddress"
                     android:layout_width="225dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
@@ -199,7 +201,7 @@
                     android:textSize="12dp" />
 
                 <TextView
-                    android:id="@+id/tv_browser_detail"
+                    android:id="@+id/browser"
                     android:layout_width="225dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
@@ -232,7 +234,7 @@
                     android:textSize="12dp" />
 
                 <TextView
-                    android:id="@+id/tv_rp_detail"
+                    android:id="@+id/rp"
                     android:layout_width="225dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"

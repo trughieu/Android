@@ -138,6 +138,7 @@
         android:background="@drawable/corner_card"
         android:gravity="center_horizontal"
         android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -169,6 +170,7 @@
             android:textStyle="bold" />
 
         <LinearLayout
+            android:id="@+id/background_Tab"
             android:layout_width="350dp"
             android:layout_height="50dp"
             android:layout_marginTop="28dp"
@@ -211,28 +213,24 @@
                 android:textColor="@color/white"
                 android:textSize="12dp"
                 android:textStyle="bold" />
-
-            <!--            <com.google.android.material.tabs.TabLayout-->
-            <!--                android:id="@+id/tab_layout_ib_detail"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="match_parent"-->
-            <!--                android:background="#00000000"-->
-            <!--                app:tabGravity="fill"-->
-            <!--                android:theme="@style/Theme.SIC_no_tab"-->
-            <!--                app:tabIndicator="@drawable/tab_select"-->
-            <!--                app:tabIndicatorAnimationMode="elastic"-->
-            <!--                app:tabIndicatorGravity="stretch"-->
-            <!--                app:tabMode="fixed"-->
-            <!--                app:tabSelectedTextColor="@color/blue_text">-->
-
-            <!--            </com.google.android.material.tabs.TabLayout>-->
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/wrong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/inter_bold"
+            android:text="@string/wrong_verification_code"
+            android:textColor="@color/red"
+            android:textSize="12dp"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="31.14dp"
+            android:layout_marginTop="25dp"
             android:fontFamily="@font/inter_light"
             android:textColor="@color/white"
             android:textSize="12dp" />
@@ -419,7 +417,6 @@
             android:layout_width="257dp"
             android:layout_height="40dp"
             android:layout_marginTop="43.56dp"
-            android:alpha="0.5"
             android:background="@drawable/square"
             android:fontFamily="@font/inter_bold"
             android:gravity="center"

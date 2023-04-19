@@ -59,7 +59,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginEnd="7.29dp"
-                        android:src="@drawable/date_img_white" />
+                         />
 
                     <TextView
                         android:id="@+id/tv_date"
@@ -83,7 +83,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="top"
-                    android:src="@drawable/union" />
+                     />
             </FrameLayout>
         </LinearLayout>
 

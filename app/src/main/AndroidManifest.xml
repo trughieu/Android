@@ -122,9 +122,14 @@
             android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".Activity.Setting_Help.Setting_Detail.Manage_Sim.Activity_Manage_Sim_Bind_New_Sim"
-            android:exported="false"
+            android:exported="true"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustNothing" />
+            android:windowSoftInputMode="adjustNothing" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Activity.Setting_Help.Setting_Detail.Manage_Sim.Activity_Manage_Sim"
             android:exported="false"
@@ -284,10 +289,7 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity
             android:name=".Activity.Login.Activation"
@@ -385,6 +387,7 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing" />
+        <activity android:name=".MyFirebaseMessagingService" />
     </application>
 
     <!-- Set custom default icon. This is used when no icon is set for incoming notification messages.

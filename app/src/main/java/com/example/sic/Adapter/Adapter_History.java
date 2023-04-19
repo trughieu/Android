@@ -24,10 +24,6 @@ public class Adapter_History extends RecyclerView.Adapter<Adapter_History.viewHo
     int row_index;
     Activity activity;
 
-//    public Adapter_History(ArrayList<History> arrayList) {
-//        this.arrayList = arrayList;
-//    }
-
     public Adapter_History(Activity activity, ArrayList<History> historyArrayList) {
         this.arrayList = historyArrayList;
         this.activity = activity;
@@ -44,8 +40,10 @@ public class Adapter_History extends RecyclerView.Adapter<Adapter_History.viewHo
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
         History history = arrayList.get(position);
+
+
         holder.tv_Self.setText(history.getTv_1());
-        holder.tv_Certificate.setText(history.getTv_2());
+        holder.tv_Certificate.setText(history.getTv_2() + " - " );
         holder.tv_Date.setText(history.getTv_4());
         holder.tv_State.setText(history.getTv_3());
         holder.date.setImageResource(R.drawable.date_img_white);
@@ -56,22 +54,29 @@ public class Adapter_History extends RecyclerView.Adapter<Adapter_History.viewHo
             holder.tv_State.setTextColor(Color.parseColor("#F02E00"));
         }
 
-        if (row_index == position) {
+        for (int i = 0; i < holder.getAdapterPosition(); i++) {
+            Log.d("position", "onBindViewHolder: " + holder.getAdapterPosition());
+        }
+
+        if (row_index == holder.getAdapterPosition()) {
             holder.date.setImageResource(R.drawable.date_img_blue);
             holder.background.setBackgroundResource(R.drawable.layout_item_history);
             holder.tv_Certificate.setTextColor(Color.parseColor("#0070F4"));
             holder.tv_Date.setTextColor(Color.parseColor("#0070F4"));
             holder.tv_Self.setTextColor(Color.parseColor("#0070F4"));
-            Log.d("row", "onBindViewHolder: " + row_index);
+        } else {
+            holder.date.setImageResource(R.drawable.date_img_white);
+            holder.background.setBackgroundResource(R.drawable.layout_item_history_black);
+            holder.tv_Certificate.setTextColor(Color.parseColor("#FFFFFF"));
+            holder.tv_Date.setTextColor(Color.parseColor("#FFFFFF"));
+            holder.tv_Self.setTextColor(Color.parseColor("#FFFFFF"));
         }
+        holder.itemView.setOnClickListener(view -> {
+            Log.d("item", "item:+ " + holder.getAdapterPosition());
+            Log.d("item", "row_index:+ " + row_index);
 
-//        else {
-//            holder.date.setImageResource(R.drawable.date_img_white);
-//            holder.background.setBackgroundResource(R.drawable.layout_item_history_black);
-//            holder.tv_Certificate.setTextColor(R.color.white);
-//            holder.tv_Date.setTextColor(R.color.white);
-//            holder.tv_Self.setTextColor(R.color.white);
-//        }
+        });
+
     }
 
     @Override

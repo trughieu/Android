@@ -108,7 +108,7 @@
         android:layout_marginTop="129dp"
         android:layout_marginEnd="70dp"
         android:fontFamily="@font/inter_bold"
-        android:text="@string/enter_authorization"
+        android:text="@string/prompt_sim_activate_enter_phone_des"
         android:textColor="@color/white"
         android:textSize="12dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -127,11 +127,14 @@
 
         <LinearLayout
             android:layout_width="350dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginBottom="3dp"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:paddingStart="15dp"
             android:drawableBottom="@drawable/line_stroke"
             android:orientation="horizontal"
-            android:padding="10dp">
+            >
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -149,7 +152,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#00000000"
-                android:ems="10"
                 android:fontFamily="@font/inter_light"
                 android:hint="@string/hind_register_phone_number"
                 android:inputType="phone"

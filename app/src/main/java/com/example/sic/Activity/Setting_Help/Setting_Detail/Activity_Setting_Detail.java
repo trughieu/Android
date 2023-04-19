@@ -3,6 +3,7 @@ package com.example.sic.Activity.Setting_Help.Setting_Detail;
 import static com.example.sic.Encrypt.decrypt;
 import static com.example.sic.Encrypt.encrypt;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -184,6 +185,7 @@ public class Activity_Setting_Detail extends DefaultActivity implements View.OnC
     private ActivateModule module;
     private String digit_6, digit;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -323,7 +325,6 @@ public class Activity_Setting_Detail extends DefaultActivity implements View.OnC
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.remove("6_digit_bio");
                     editor.apply();
-
                     SharedPreferences.Editor bool = getSharedPreferences("biometrics", MODE_PRIVATE).edit();
                     bool.putBoolean("switchState", check_biometrics.isChecked());
                     bool.apply();
@@ -331,28 +332,32 @@ public class Activity_Setting_Detail extends DefaultActivity implements View.OnC
                 break;
             case R.id.authentication_switch:
                 if (authentication_switch.isChecked()) {
-                    bool_transaction.putBoolean("authentication_method", false);
-                    bool_transaction.apply();
-                } else {
                     bool_transaction.putBoolean("authentication_method", authentication_switch.isChecked());
+                    bool_transaction.apply();
+
+                } else {
+                    bool_transaction.putBoolean("authentication_method", false);
                     bool_transaction.apply();
                 }
                 break;
             case R.id.verification_code_switch:
                 if (verification_code_switch.isChecked()) {
-                    bool_transaction.putBoolean("verification_code", false);
-                    bool_transaction.apply();
-                } else {
                     bool_transaction.putBoolean("verification_code", verification_code_switch.isChecked());
+                    bool_transaction.apply();
+
+
+                } else {
+                    bool_transaction.putBoolean("verification_code", false);
                     bool_transaction.apply();
                 }
                 break;
             case R.id.approve_later_switch:
                 if (approve_later_switch.isChecked()) {
-                    bool_transaction.putBoolean("approve_later", false);
+                    bool_transaction.putBoolean("approve_later", approve_later_switch.isChecked());
                     bool_transaction.apply();
                 } else {
-                    bool_transaction.putBoolean("approve_later", approve_later_switch.isChecked());
+
+                    bool_transaction.putBoolean("approve_later", false);
                     bool_transaction.apply();
                 }
                 break;
@@ -562,7 +567,7 @@ public class Activity_Setting_Detail extends DefaultActivity implements View.OnC
             module.setResponseReLogin(new HttpRequest.AsyncResponse() {
                 @Override
                 public void process(boolean b, Response response) {
-                    if (b == true) {
+                    if (b) {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {

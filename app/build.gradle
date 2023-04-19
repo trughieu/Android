@@ -70,6 +70,7 @@ dependencies {
     implementation 'androidx.security:security-crypto:1.0.0-rc02'
     implementation 'com.checkid:icao:1.0.230207'
 
+//    implementation('org.jitsi.react:jitsi-meet-sdk:4.1.0') { transitive = true }
 
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support',

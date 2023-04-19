@@ -32,7 +32,8 @@ public class Activity_Recovery_Code_6_digit_number extends AppCompatActivity {
 
     AppCompatButton bt1, bt2, bt3, bt4, bt5, bt6, bt7, bt8, bt9, bt0, Key_delete;
 
-    String text;
+    String text,firebaseID;
+
     private final TextWatcher textWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int start, int i1, int i2) {
@@ -147,7 +148,7 @@ public class Activity_Recovery_Code_6_digit_number extends AppCompatActivity {
         }
     };
 
-    String firebaseID;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,7 +169,6 @@ public class Activity_Recovery_Code_6_digit_number extends AppCompatActivity {
         bt8.setOnClickListener(numKey);
         bt9.setOnClickListener(numKey);
         bt0.setOnClickListener(numKey);
-//        String supportId = Utils.randomActivation("###-###");
 
 
         Key_delete.setOnClickListener(new View.OnClickListener() {

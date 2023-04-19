@@ -38,14 +38,10 @@ import vn.mobileid.tse.model.connector.plugin.SearchConditions;
 import vn.mobileid.tse.model.database.ActivationData;
 
 public class Activity_Action_History extends DefaultActivity {
-    final Calendar myCalendar = Calendar.getInstance();
-    TextView date_from;
-    TextView date_to;
-    TextView search;
-    TextView txt_select_id, Login, ChangePassword, ForgotPassword, ChangeEmail, All;
+    TextView date_from,date_to,search, txt_select_id, Login, ChangePassword, ForgotPassword, ChangeEmail, All;
     CertificateProfilesModule module;
     String[] action = new String[1];
-    Date date_f, date_t, date_new, date;
+    Date date;
     FrameLayout btnBack;
     Adapter_History adapter_history;
     History history;
@@ -122,8 +118,7 @@ public class Activity_Action_History extends DefaultActivity {
         });
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));
-
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, 0));
         module = CertificateProfilesModule.createModule(this);
 
 
@@ -190,7 +185,6 @@ public class Activity_Action_History extends DefaultActivity {
         search.setOnClickListener(view -> {
             start();
             historyArrayList.clear();
-            adapter_history.notifyDataSetChanged();
             conditions.fromDate = startDay;
             conditions.toDate = endDay;
             conditions.actions = action;

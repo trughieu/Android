@@ -65,12 +65,12 @@ public class Activation extends AppCompatActivity implements View.OnClickListene
         startCountDown();
 
 
-        txt_pin_view1 = findViewById(R.id.txt_pin_view_1);
-        txt_pin_view2 = findViewById(R.id.txt_pin_view_2);
-        txt_pin_view3 = findViewById(R.id.txt_pin_view_3);
-        txt_pin_view4 = findViewById(R.id.txt_pin_view_4);
-        txt_pin_view5 = findViewById(R.id.txt_pin_view_5);
-        txt_pin_view6 = findViewById(R.id.txt_pin_view_6);
+//        txt_pin_view1 = findViewById(R.id.txt_pin_view_1);
+//        txt_pin_view2 = findViewById(R.id.txt_pin_view_2);
+//        txt_pin_view3 = findViewById(R.id.txt_pin_view_3);
+//        txt_pin_view4 = findViewById(R.id.txt_pin_view_4);
+//        txt_pin_view5 = findViewById(R.id.txt_pin_view_5);
+//        txt_pin_view6 = findViewById(R.id.txt_pin_view_6);
         pin6_dialog_hand = findViewById(R.id.pin6_dialog_hand);
         pinValue = findViewById(R.id.pin6_dialog);
         showKeyBoard(txt_pin_view1);
@@ -166,124 +166,6 @@ public class Activation extends AppCompatActivity implements View.OnClickListene
             }
         });
     }
-
-//    public final TextWatcher textWatcher = new TextWatcher() {
-//        @Override
-//        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//        }
-//
-//        @Override
-//        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//            String pin1 = txt_pin_view1.getText().toString();
-//            String pin2 = txt_pin_view2.getText().toString();
-//            String pin3 = txt_pin_view3.getText().toString();
-//            String pin4 = txt_pin_view4.getText().toString();
-//            String pin5 = txt_pin_view5.getText().toString();
-//            String pin6 = txt_pin_view6.getText().toString();
-//
-//            if ((pin1.isEmpty() || pin2.isEmpty() || pin3.isEmpty() || pin4.isEmpty() || pin5.isEmpty() || pin6.isEmpty())) {
-//                button.setAlpha(0.5f);
-//                button.setEnabled(false);
-//            } else {
-//                button.setAlpha(1);
-//                button.setEnabled(true);
-//            }
-//        }
-//
-//        @Override
-//        public void afterTextChanged(Editable editable) {
-//            if (editable.length() > 0) {
-//                if (selected_position == 0) {
-//                    text = pinValue.getText().toString();
-//                    text = text + txt_pin_view1.getText().toString();
-//                    pinValue.setText(text);
-//                    selected_position = 1;
-//                    showKeyBoard(txt_pin_view2);
-//                    Log.d("pin1", "afterTextChanged: " + pinValue.getText().toString());
-//                } else if (selected_position == 1) {
-//                    text = text + txt_pin_view2.getText().toString();
-//                    pinValue.setText(text);
-//                    selected_position = 2;
-//                    showKeyBoard(txt_pin_view3);
-//                    Log.d("pin2", "afterTextChanged: " + pinValue.getText().toString());
-//
-//                } else if (selected_position == 2) {
-//                    text = text + txt_pin_view3.getText().toString();
-//                    pinValue.setText(text);
-//                    selected_position = 3;
-//                    showKeyBoard(txt_pin_view4);
-////
-//                } else if (selected_position == 3) {
-//                    text = text + txt_pin_view4.getText().toString();
-//                    pinValue.setText(text);
-//                    selected_position = 4;
-//                    showKeyBoard(txt_pin_view5);
-////
-//                } else if (selected_position == 4) {
-//                    text = text + txt_pin_view5.getText().toString();
-//                    pinValue.setText(text);
-//                    selected_position = 5;
-//                    showKeyBoard(txt_pin_view6);
-////
-//                } else if (selected_position == 5) {
-//                    selected_position = 6;
-//                    text = text + txt_pin_view6.getText().toString();
-//                    pinValue.setText(text);
-//
-////
-//                }
-//            }
-//        }
-//    };
-
-//    @Override
-//    public boolean onKeyUp(int keyCode, KeyEvent event) {
-//        if (keyCode == KeyEvent.KEYCODE_DEL) {
-//            if (selected_position == 6) {
-//                selected_position = 5;
-//                showKeyBoard(txt_pin_view6);
-//            } else if (selected_position == 5) {
-//                selected_position = 4;
-//                text = text.substring(0, text.length() - 1);
-//                pinValue.setText(text);
-//                txt_pin_view5.setText(blank);
-//                showKeyBoard(txt_pin_view5);
-//            } else if (selected_position == 4) {
-//                selected_position = 3;
-//                text = text.substring(0, text.length() - 1);
-//                pinValue.setText(text);
-//                txt_pin_view4.setText(blank);
-//                showKeyBoard(txt_pin_view4);
-//            } else if (selected_position == 3) {
-//
-//                selected_position = 2;
-//                text = text.substring(0, text.length() - 1);
-//                pinValue.setText(text);
-//                txt_pin_view3.setText(blank);
-//                showKeyBoard(txt_pin_view3);
-//
-//            } else if (selected_position == 2) {
-//
-//                selected_position = 1;
-//                text = text.substring(0, text.length() - 1);
-//                pinValue.setText(text);
-//                txt_pin_view2.setText(blank);
-//                showKeyBoard(txt_pin_view2);
-//            } else if (selected_position == 1) {
-//
-//                selected_position = 0;
-//                text = text.substring(0, text.length() - 1);
-//                pinValue.setText(text);
-//                txt_pin_view1.setText(blank);
-//                pinValue.setText(blank);
-//                showKeyBoard(txt_pin_view1);
-//            }
-//        }
-//        return super.onKeyUp(keyCode, event);
-//
-//    }
 
 
     private void showKeyBoard(EditText otp) {

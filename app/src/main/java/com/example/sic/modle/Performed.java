@@ -1,11 +1,40 @@
 package com.example.sic.modle;
 
-public class Performed {
+import java.io.Serializable;
+
+public class Performed implements Serializable {
     String Operating;
     String IP;
     String Browser;
     String RP;
     String credentialID;
+    String message;
+    String messageCaption;
+    String submitFrom;
+
+    public String getSubmitFrom() {
+        return submitFrom;
+    }
+
+    public void setSubmitFrom(String submitFrom) {
+        this.submitFrom = submitFrom;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getMessageCaption() {
+        return messageCaption;
+    }
+
+    public void setMessageCaption(String messageCaption) {
+        this.messageCaption = messageCaption;
+    }
 
     public String getCredentialID() {
         return credentialID;

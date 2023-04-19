@@ -2,6 +2,7 @@ package com.example.sic.Activity.Login;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -33,7 +34,7 @@ public class Activity_Recovery_Code_12_digit_number extends AppCompatActivity {
 
     AppCompatButton bt1, bt2, bt3, bt4, bt5, bt6, bt7, bt8, bt9, bt0, Key_delete;
 
-    String text;
+    String text,firebaseID;
     private final TextWatcher textWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int start, int i1, int i2) {
@@ -211,7 +212,7 @@ public class Activity_Recovery_Code_12_digit_number extends AppCompatActivity {
                                         });
                                     }
                                 }
-                            }).setRecoveryCode(pinValue.getText().toString(), null,true);
+                            }).setRecoveryCode(pinValue.getText().toString(), firebaseID,true);
                         } catch (Exception e) {
                             throw new RuntimeException(e);
                         }
@@ -248,6 +249,8 @@ public class Activity_Recovery_Code_12_digit_number extends AppCompatActivity {
         anh_xa();
 
         pinValue.addTextChangedListener(textWatcher);
+        SharedPreferences pref = getSharedPreferences("FirebaseID", MODE_PRIVATE);
+        firebaseID = pref.getString("firebaseID", null);
 
         bt1.setOnClickListener(numKey);
         bt2.setOnClickListener(numKey);

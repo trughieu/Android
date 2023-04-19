@@ -31,6 +31,22 @@
     <string name="del_acc">Xóa\nTài Khoản</string>
     <string name="action_history" >Lịch Sử\nHoạt Động</string>
     <string name="prompt_manage_orders_title">Quản Lý Đơn Hàng</string>
+    <string name="wrong_verification_code">Wrong Verification Code</string>
+    <string name="certificate_credential_history_issue">Issue</string>
+    <string name="certificate_credential_history_all">All</string>
+    <string name="certificate_credential_history_renew">Renew</string>
+    <string name="certificate_credential_history_change_information">Change Information</string>
+    <string name="certificate_credential_history_reissue">Reissue</string>
+    <string name="certificate_credential_history_revoke">Revoke</string>
+    <string name="certificate_credential_history_authorize">Authorize</string>
+    <string name="certificate_credential_history_extend_transaction">Extend Transaction</string>
+    <string name="certificate_credential_history_sign_hash">Sign Hash</string>
+    <string name="certificate_credential_history_sign_document">Sign Document</string>
+    <string name="certificate_credential_history_change_passphrase">Change Passphrase</string>
+    <string name="certificate_credential_history_forgot_passphrase">Forgot Passphrase</string>
+    <string name="certificate_credential_history_change_email">Change Email</string>
+    <string name="certificate_credential_history_change_phone_number">Change Phone Number </string>
+
 
     <string name="prompt_login_with_bio">Đăng Nhập Bằng Sinh Trắc Học</string>
     <string name="button_user_setting_app_security">Cấu Hình Bảo Mật</string>

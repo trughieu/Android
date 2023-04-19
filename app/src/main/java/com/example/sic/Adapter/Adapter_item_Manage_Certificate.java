@@ -116,6 +116,15 @@ public class Adapter_item_Manage_Certificate extends RecyclerView.Adapter<Adapte
             holder.ic_option.setImageResource(R.drawable.union_blue);
             Log.d("row", "onBindViewHolder: " + row_index);
         }
+        else {
+            holder.date.setImageResource(R.drawable.date_img_white);
+            holder.background.setBackgroundResource(R.drawable.layout_item_history_black);
+            holder.tv_certificate.setTextColor(Color.parseColor("#FFFFFF"));
+            holder.tv_date.setTextColor(Color.parseColor("#FFFFFF"));
+            holder.tv_issue_by.setTextColor(Color.parseColor("#FFFFFF"));
+            holder.ic_option.setImageResource(R.drawable.union);
+            Log.d("row", "onBindViewHolder: " + row_index);
+        }
 
 
         holder.option.setOnClickListener(new View.OnClickListener() {
@@ -152,14 +161,12 @@ public class Adapter_item_Manage_Certificate extends RecyclerView.Adapter<Adapte
                                                          .getBoolean("check_manage_certificate_option_5", false);
                                                  checked6 = PreferenceManager.getDefaultSharedPreferences(activity)
                                                          .getBoolean("check_manage_certificate_option_6", false);
-
                                                  checkBox1.setChecked(checked1);
                                                  checkBox2.setChecked(checked2);
                                                  checkBox3.setChecked(checked3);
                                                  checkBox4.setChecked(checked4);
                                                  checkBox5.setChecked(checked5);
                                                  checkBox6.setChecked(checked6);
-
                                                  change_passphrase.setOnClickListener(view2 -> {
                                                      intent = new Intent(activity, Activity_Manage_Certificate_Change_Passphrase.class);
                                                      intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -167,7 +174,6 @@ public class Adapter_item_Manage_Certificate extends RecyclerView.Adapter<Adapte
                                                      activity.startActivity(intent);
                                                      check_chang_passphrase();
                                                      bottomSheetDialog.dismiss();
-
                                                  });
                                                  forget_passphrase.setOnClickListener(view2 -> {
                                                      intent = new Intent(activity, Activity_Manage_Certificate_Forget_Passphrase.class);
@@ -176,7 +182,6 @@ public class Adapter_item_Manage_Certificate extends RecyclerView.Adapter<Adapte
                                                      activity.startActivity(intent);
                                                      check_forget_passphrase();
                                                      bottomSheetDialog.dismiss();
-
                                                  });
                                                  change_email.setOnClickListener(view2 -> {
                                                      intent = new Intent(activity, Activity_Manage_Certificate_Change_Email.class);
@@ -185,7 +190,6 @@ public class Adapter_item_Manage_Certificate extends RecyclerView.Adapter<Adapte
                                                      activity.startActivity(intent);
                                                      check_change_email();
                                                      bottomSheetDialog.dismiss();
-
                                                  });
                                                  renew.setOnClickListener(view2 -> {
                                                      intent = new Intent(activity, Activity_Manage_Certificate_Renew.class);
@@ -194,7 +198,6 @@ public class Adapter_item_Manage_Certificate extends RecyclerView.Adapter<Adapte
                                                      activity.startActivity(intent);
                                                      check_renew();
                                                      bottomSheetDialog.dismiss();
-
                                                  });
                                                  change_scal.setOnClickListener(view2 -> {
                                                      intent = new Intent(activity, Activity_Manage_Certificate_Change_Scal.class);
@@ -203,7 +206,6 @@ public class Adapter_item_Manage_Certificate extends RecyclerView.Adapter<Adapte
                                                      activity.startActivity(intent);
                                                      check_change_Scal();
                                                      bottomSheetDialog.dismiss();
-
                                                  });
                                                  history.setOnClickListener(view2 -> {
                                                      intent = new Intent(activity, Activity_Manage_Certificate_GoHistory.class);
@@ -213,21 +215,17 @@ public class Adapter_item_Manage_Certificate extends RecyclerView.Adapter<Adapte
                                                      check_history();
                                                      bottomSheetDialog.dismiss();
                                                  });
-
                                                  bottomSheetDialog.setContentView(view1);
                                                  bottomSheetDialog.show();
                                              }
                                          }
         );
-
-
     }
 
     @Override
     public int getItemCount() {
         return manageCertificateArrayList.size();
     }
-
     private void check_change_Scal() {
         PreferenceManager.getDefaultSharedPreferences(activity).edit()
                 .putBoolean("check_manage_certificate_option_1", false).apply();
@@ -242,7 +240,6 @@ public class Adapter_item_Manage_Certificate extends RecyclerView.Adapter<Adapte
         PreferenceManager.getDefaultSharedPreferences(activity).edit()
                 .putBoolean("check_manage_certificate_option_6", false).apply();
     }
-
     private void check_history() {
         PreferenceManager.getDefaultSharedPreferences(activity).edit()
                 .putBoolean("check_manage_certificate_option_1", false).apply();
@@ -257,7 +254,6 @@ public class Adapter_item_Manage_Certificate extends RecyclerView.Adapter<Adapte
         PreferenceManager.getDefaultSharedPreferences(activity).edit()
                 .putBoolean("check_manage_certificate_option_6", true).apply();
     }
-
     private void check_chang_passphrase() {
         PreferenceManager.getDefaultSharedPreferences(activity).edit()
                 .putBoolean("check_manage_certificate_option_1", true).apply();
@@ -272,7 +268,6 @@ public class Adapter_item_Manage_Certificate extends RecyclerView.Adapter<Adapte
         PreferenceManager.getDefaultSharedPreferences(activity).edit()
                 .putBoolean("check_manage_certificate_option_6", false).apply();
     }
-
     private void check_change_email() {
         PreferenceManager.getDefaultSharedPreferences(activity).edit()
                 .putBoolean("check_manage_certificate_option_1", false).apply();
@@ -287,7 +282,6 @@ public class Adapter_item_Manage_Certificate extends RecyclerView.Adapter<Adapte
         PreferenceManager.getDefaultSharedPreferences(activity).edit()
                 .putBoolean("check_manage_certificate_option_6", false).apply();
     }
-
     private void check_renew() {
         PreferenceManager.getDefaultSharedPreferences(activity).edit()
                 .putBoolean("check_manage_certificate_option_1", false).apply();
@@ -302,7 +296,6 @@ public class Adapter_item_Manage_Certificate extends RecyclerView.Adapter<Adapte
         PreferenceManager.getDefaultSharedPreferences(activity).edit()
                 .putBoolean("check_manage_certificate_option_6", false).apply();
     }
-
     private void check_forget_passphrase() {
         PreferenceManager.getDefaultSharedPreferences(activity).edit()
                 .putBoolean("check_manage_certificate_option_1", false).apply();
@@ -317,7 +310,6 @@ public class Adapter_item_Manage_Certificate extends RecyclerView.Adapter<Adapte
         PreferenceManager.getDefaultSharedPreferences(activity).edit()
                 .putBoolean("check_manage_certificate_option_6", false).apply();
     }
-
     public class viewHolder extends RecyclerView.ViewHolder {
 
         TextView tv_certificate, tv_issue_by, tv_date;

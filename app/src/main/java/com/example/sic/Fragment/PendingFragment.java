@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -102,8 +101,7 @@ public class PendingFragment extends Fragment {
             @Override
             public void process(boolean b, Response response) {
                 List<Requests> requests = response.getRequests();
-
-                if (response.getRequests() != null) {
+                if (response.getRequests() != null && requests != null) {
                     for (Requests request : requests) {
                         String messageCaption = request.messageCaption;
                         String scaIdentity = request.scaIdentity;
@@ -126,7 +124,7 @@ public class PendingFragment extends Fragment {
                             public void run() {
                                 adapter_item = new Adapter_item(messageArrayList, getContext());
                                 rc_pending.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-                                rc_pending.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayout.VERTICAL));
+                                rc_pending.addItemDecoration(new DividerItemDecoration(getActivity(), 0));
                                 rc_pending.setAdapter(adapter_item);
                                 rc_pending.getRecycledViewPool().clear();
                                 adapter_item.notifyDataSetChanged();

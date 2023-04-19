@@ -13,6 +13,7 @@ dependencyResolutionManagement {
         maven { url "https://jitpack.io" }
         maven { url "https://github.com/jitsi/jitsi-maven-repository/raw/master/releases" }
         maven { url "https://mobile-id.vn/download/SDKs/maven/" }
+//        maven { url "https://github.com/jitsi/jitsi-maven-repository/raw/master/releases"}
     }
 
 }

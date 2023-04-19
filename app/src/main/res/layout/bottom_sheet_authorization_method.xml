@@ -9,7 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_rounded"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        >
         <Space
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -43,19 +44,19 @@
                 android:src="@drawable/baseline_close_24" />
         </FrameLayout>
     </LinearLayout>
-
     <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
         android:orientation="vertical"
+        android:paddingTop="20dp"
         android:paddingBottom="20dp">
 
         <LinearLayout
-            android:id="@+id/check_citizen_id_card"
+            android:id="@+id/check_approveLater"
             android:layout_width="match_parent"
             android:layout_height="20dp"
-            android:layout_marginTop="20dp"
             android:layout_marginBottom="7dp"
             android:orientation="horizontal">
 
@@ -78,9 +79,9 @@
         </LinearLayout>
 
         <ImageView
+            android:id="@+id/viewApprove"
             android:layout_width="370dp"
             android:layout_height="1dp"
-
             android:layout_marginStart="20dp"
             android:layout_marginBottom="6dp"
             android:src="@drawable/line_3" />
@@ -110,6 +111,7 @@
         </LinearLayout>
 
         <ImageView
+            android:id="@+id/viewEidentity"
             android:layout_width="370dp"
             android:layout_height="1dp"
             android:layout_marginStart="20dp"
@@ -117,7 +119,7 @@
             android:src="@drawable/line_3" />
 
         <LinearLayout
-            android:id="@+id/check_bio"
+            android:id="@+id/check_biometrics"
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:layout_marginBottom="7dp"
@@ -141,6 +143,7 @@
         </LinearLayout>
 
         <ImageView
+            android:id="@+id/viewBiometric"
             android:layout_width="370dp"
             android:layout_height="1dp"
             android:layout_marginStart="20dp"

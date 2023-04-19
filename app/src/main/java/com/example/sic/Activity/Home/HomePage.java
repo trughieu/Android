@@ -34,6 +34,7 @@ import com.example.sic.R;
 
 import vn.mobileid.tse.model.client.HttpRequest;
 import vn.mobileid.tse.model.client.activate.ActivateModule;
+import vn.mobileid.tse.model.client.requestinfo.RequestInfoModule;
 import vn.mobileid.tse.model.connector.plugin.Response;
 import vn.mobileid.tse.model.database.LoginData;
 
@@ -45,6 +46,7 @@ public class HomePage extends DefaultActivity implements View.OnClickListener {
     LinearLayout mnu_connect, mnu_scan_qr, mnu_inbox, mnu_setting_help;
     String s;
     ActivateModule module;
+    RequestInfoModule requestInfoModule;
     int check;
     AppCompatButton bt1, bt2, bt3, bt4, bt5, bt6, bt7, bt8, bt9, bt0, Key_delete;
     EditText txt_pin_view1, txt_pin_view2, txt_pin_view3, txt_pin_view4, txt_pin_view5, txt_pin_view6, pinValue;
@@ -175,13 +177,9 @@ public class HomePage extends DefaultActivity implements View.OnClickListener {
         mnu_scan_qr.setOnClickListener(this);
 
 
-        loading = findViewById(R.id.loading);
-        loading.setBackgroundResource(R.drawable.animation_loading);
-
-        loading_animation = (AnimationDrawable) loading.getBackground();
-
         btn_Log_out = findViewById(R.id.btn_Log_out);
         module = ActivateModule.createModule(HomePage.this);
+        requestInfoModule = RequestInfoModule.createModule(HomePage.this);
         if (LoginData.getFullName(HomePage.this) != null) {
             user_name.setText(LoginData.getFullName(HomePage.this));
 
@@ -320,12 +318,36 @@ public class HomePage extends DefaultActivity implements View.OnClickListener {
         Intent intent;
         switch (view.getId()) {
             case R.id.menu_connect:
+
+                start();
+
+                module.setResponseGetRequestList(new HttpRequest.AsyncResponse() {
+                            @Override
+                            public void process(boolean b, Response response) {
+                                if (response == null) {
+                                    stop();
+                                } else {
+                                    stop();
+                                }
+                            }
+                        })
+                        .requestList();
+                requestInfoModule.setResponseGetTransactionsList(new HttpRequest.AsyncResponse() {
+                    @Override
+                    public void process(boolean b, Response response) {
+                        if (response == null) {
+                            stop();
+                        } else {
+                            stop();
+                        }
+                    }
+                }).transactionsList();
+
                 txt_connect.setTextColor(Color.parseColor("#004B7D"));
                 txt_connect.setTextAppearance(R.style.active);
                 txt_qr.setTextAppearance(R.style.inactive);
                 txt_inbox.setTextAppearance(R.style.inactive);
                 txt_setting_help.setTextAppearance(R.style.inactive);
-                loading.setVisibility(View.VISIBLE);
                 break;
             case R.id.menu_scanqr:
                 loading.setVisibility(View.INVISIBLE);
@@ -338,7 +360,6 @@ public class HomePage extends DefaultActivity implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.menu_inbox:
-                loading.setVisibility(View.INVISIBLE);
                 txt_inbox.setTextColor(Color.parseColor("#004B7D"));
                 txt_connect.setTextAppearance(R.style.inactive);
                 txt_qr.setTextAppearance(R.style.inactive);
@@ -348,7 +369,6 @@ public class HomePage extends DefaultActivity implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.menu_setting_help:
-                loading.setVisibility(View.INVISIBLE);
                 txt_setting_help.setTextColor(Color.parseColor("#004B7D"));
                 txt_connect.setTextAppearance(R.style.inactive);
                 txt_qr.setTextAppearance(R.style.inactive);

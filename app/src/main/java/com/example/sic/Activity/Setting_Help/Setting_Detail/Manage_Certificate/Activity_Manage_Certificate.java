@@ -3,9 +3,8 @@ package com.example.sic.Activity.Setting_Help.Setting_Detail.Manage_Certificate;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +39,7 @@ import vn.mobileid.tse.model.connector.response.CredentListResponse;
 import vn.mobileid.tse.model.utils.CertificateUtils;
 
 public class Activity_Manage_Certificate extends DefaultActivity implements View.OnClickListener {
+     BottomSheetDialog bottomSheetDialog;
     TextView txt_select_id, tv_add_new_Cer, textView19, valid, initialized,
             generated, revoked, expired, declined, renewed, revised, block, all;
     String s;
@@ -52,12 +52,9 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
     boolean checked1, checked2, checked3, checked4, checked5, checked6, checked7, checked8, checked9, checked10;
     List<String> new_list = new ArrayList<>();
     Manage_Certificate manage_certificate;
-
     ArrayList<Manage_Certificate> manageCertificateArrayList = new ArrayList<>();
     ManageCertificateModule manageCertificateModule;
-
     Dialog dialog;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +64,6 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
         tv_add_new_Cer = findViewById(R.id.tv_add_new_Cer);
         btnBack.setOnClickListener(this);
         tv_add_new_Cer.setOnClickListener(this);
-        searchView = findViewById(R.id.search_view);
         textView19 = findViewById(R.id.textView19);
         recyclerView = findViewById(R.id.rc_manage_certificate);
         checked1 = true;
@@ -81,7 +77,7 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
         checked9 = false;
         start();
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, 0));
         dialog = new Dialog(this);
         dialog.setContentView(R.layout.layout_loading);
         dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
@@ -137,7 +133,7 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
             @Override
             public void onClick(View view) {
 
-                final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(
+                bottomSheetDialog = new BottomSheetDialog(
                         Activity_Manage_Certificate.this, R.style.BottomSheetDialogTheme);
 
                 View bottomSheetView = LayoutInflater.from(getBaseContext())
@@ -179,38 +175,38 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
                 checkBox9 = bottomSheetView.findViewById(R.id.checkBox9);
                 checkBox10 = bottomSheetView.findViewById(R.id.checkBox10);
 
-                checkBox1.setChecked(true);
-                checked1 = PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this)
-                        .getBoolean("check_manage_certificate_1", true);
-                checked2 = PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this)
-                        .getBoolean("check_manage_certificate_2", false);
-                checked3 = PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this)
-                        .getBoolean("check_manage_certificate_3", false);
-                checked4 = PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this)
-                        .getBoolean("check_manage_certificate_4", false);
-                checked5 = PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this)
-                        .getBoolean("check_manage_certificate_5", false);
-                checked6 = PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this)
-                        .getBoolean("check_manage_certificate_6", false);
-                checked7 = PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this)
-                        .getBoolean("check_manage_certificate_7", false);
-                checked8 = PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this)
-                        .getBoolean("check_manage_certificate_8", false);
-                checked9 = PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this)
-                        .getBoolean("check_manage_certificate_9", false);
-                checked10 = PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this)
-                        .getBoolean("check_manage_certificate_10", false);
+//                checkBox1.setChecked(true);
+//                checked1 = PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this)
+//                        .getBoolean("check_manage_certificate_1", true);
+//                checked2 = PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this)
+//                        .getBoolean("check_manage_certificate_2", false);
+//                checked3 = PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this)
+//                        .getBoolean("check_manage_certificate_3", false);
+//                checked4 = PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this)
+//                        .getBoolean("check_manage_certificate_4", false);
+//                checked5 = PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this)
+//                        .getBoolean("check_manage_certificate_5", false);
+//                checked6 = PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this)
+//                        .getBoolean("check_manage_certificate_6", false);
+//                checked7 = PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this)
+//                        .getBoolean("check_manage_certificate_7", false);
+//                checked8 = PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this)
+//                        .getBoolean("check_manage_certificate_8", false);
+//                checked9 = PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this)
+//                        .getBoolean("check_manage_certificate_9", false);
+//                checked10 = PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this)
+//                        .getBoolean("check_manage_certificate_10", false);
 
-                checkBox1.setChecked(checked1);
-                checkBox2.setChecked(checked2);
-                checkBox3.setChecked(checked3);
-                checkBox4.setChecked(checked4);
-                checkBox5.setChecked(checked5);
-                checkBox6.setChecked(checked6);
-                checkBox7.setChecked(checked7);
-                checkBox8.setChecked(checked8);
-                checkBox9.setChecked(checked9);
-                checkBox10.setChecked(checked10);
+//                checkBox1.setChecked(checked1);
+//                checkBox2.setChecked(checked2);
+//                checkBox3.setChecked(checked3);
+//                checkBox4.setChecked(checked4);
+//                checkBox5.setChecked(checked5);
+//                checkBox6.setChecked(checked6);
+//                checkBox7.setChecked(checked7);
+//                checkBox8.setChecked(checked8);
+//                checkBox9.setChecked(checked9);
+//                checkBox10.setChecked(checked10);
 
                 valid.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -277,28 +273,29 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
                         checkBox7.setChecked(false);
                         checkBox8.setChecked(false);
                         checkBox9.setChecked(false);
-                        checkBox10.setChecked(false);
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_1", true).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_2", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_3", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_4", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_5", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_6", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_7", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_8", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_9", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_10", false).apply();
-                        bottomSheetDialog.dismiss();
+                        checkBox10.setChecked(false);                        dismissDialog();
+
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_1", true).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_2", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_3", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_4", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_5", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_6", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_7", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_8", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_9", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_10", false).apply();
+//                        bottomSheetDialog.dismiss();
 
                     }
                 });
@@ -369,28 +366,29 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
                         checkBox8.setChecked(false);
                         checkBox9.setChecked(false);
                         checkBox10.setChecked(false);
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_1", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_2", true).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_3", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_4", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_5", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_6", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_7", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_8", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_9", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_10", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_1", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_2", true).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_3", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_4", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_5", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_6", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_7", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_8", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_9", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_10", false).apply();
+                        dismissDialog();
 
-                        bottomSheetDialog.dismiss();
+//                        bottomSheetDialog.dismiss();
 
                     }
                 });
@@ -462,28 +460,29 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
                         checkBox7.setChecked(false);
                         checkBox8.setChecked(false);
                         checkBox9.setChecked(true);
-                        checkBox10.setChecked(false);
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_1", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_2", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_3", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_4", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_5", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_6", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_7", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_8", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_9", true).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_10", false).apply();
-                        bottomSheetDialog.dismiss();
+                        checkBox10.setChecked(false);                        dismissDialog();
+
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_1", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_2", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_3", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_4", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_5", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_6", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_7", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_8", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_9", true).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_10", false).apply();
+//                        bottomSheetDialog.dismiss();
                     }
                 });
                 revoked.setOnClickListener(new View.OnClickListener() {
@@ -554,28 +553,29 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
                         checkBox7.setChecked(false);
                         checkBox8.setChecked(false);
                         checkBox9.setChecked(false);
-                        checkBox10.setChecked(false);
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_1", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_2", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_3", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_4", true).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_5", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_6", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_7", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_8", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_9", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_10", false).apply();
-                        bottomSheetDialog.dismiss();
+                        checkBox10.setChecked(false);                        dismissDialog();
+
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_1", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_2", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_3", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_4", true).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_5", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_6", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_7", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_8", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_9", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_10", false).apply();
+//                        bottomSheetDialog.dismiss();
                     }
                 });
                 revised.setOnClickListener(new View.OnClickListener() {
@@ -647,28 +647,29 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
                         checkBox7.setChecked(false);
                         checkBox8.setChecked(true);
                         checkBox9.setChecked(false);
-                        checkBox10.setChecked(false);
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_1", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_2", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_3", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_4", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_5", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_6", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_7", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_8", true).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_9", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_10", false).apply();
-                        bottomSheetDialog.dismiss();
+                        checkBox10.setChecked(false);                        dismissDialog();
+
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_1", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_2", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_3", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_4", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_5", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_6", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_7", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_8", true).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_9", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_10", false).apply();
+//                        bottomSheetDialog.dismiss();
                     }
                 });
                 all.setOnClickListener(new View.OnClickListener() {
@@ -731,28 +732,29 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
                         checkBox7.setChecked(false);
                         checkBox8.setChecked(false);
                         checkBox9.setChecked(false);
-                        checkBox10.setChecked(true);
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_1", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_2", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_3", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_4", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_5", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_6", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_7", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_8", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_9", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_10", true).apply();
-                        bottomSheetDialog.dismiss();
+                        checkBox10.setChecked(true);                        dismissDialog();
+
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_1", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_2", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_3", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_4", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_5", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_6", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_7", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_8", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_9", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_10", true).apply();
+//                        bottomSheetDialog.dismiss();
                     }
                 });
                 declined.setOnClickListener(new View.OnClickListener() {
@@ -823,28 +825,29 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
                         checkBox7.setChecked(false);
                         checkBox8.setChecked(false);
                         checkBox9.setChecked(false);
-                        checkBox10.setChecked(false);
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_1", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_2", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_3", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_4", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_5", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_6", true).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_7", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_8", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_9", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_10", false).apply();
-                        bottomSheetDialog.dismiss();
+                        checkBox10.setChecked(false);                        dismissDialog();
+
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_1", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_2", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_3", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_4", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_5", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_6", true).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_7", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_8", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_9", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_10", false).apply();
+//                        bottomSheetDialog.dismiss();
                     }
                 });
                 generated.setOnClickListener(new View.OnClickListener() {
@@ -914,28 +917,29 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
                         checkBox7.setChecked(false);
                         checkBox8.setChecked(false);
                         checkBox9.setChecked(false);
-                        checkBox10.setChecked(false);
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_1", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_2", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_3", true).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_4", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_5", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_6", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_7", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_8", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_9", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_10", false).apply();
-                        bottomSheetDialog.dismiss();
+                        checkBox10.setChecked(false);                        dismissDialog();
+
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_1", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_2", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_3", true).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_4", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_5", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_6", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_7", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_8", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_9", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_10", false).apply();
+//                        bottomSheetDialog.dismiss();
                     }
                 });
                 expired.setOnClickListener(new View.OnClickListener() {
@@ -998,27 +1002,28 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
                         checkBox8.setChecked(false);
                         checkBox9.setChecked(false);
                         checkBox10.setChecked(false);
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_1", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_2", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_3", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_4", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_5", true).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_6", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_7", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_8", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_9", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_10", false).apply();
-                        bottomSheetDialog.dismiss();
+                        dismissDialog();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_1", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_2", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_3", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_4", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_5", true).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_6", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_7", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_8", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_9", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_10", false).apply();
+//                        bottomSheetDialog.dismiss();
                     }
                 });
                 renewed.setOnClickListener(new View.OnClickListener() {
@@ -1085,27 +1090,28 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
                         checkBox8.setChecked(false);
                         checkBox9.setChecked(false);
                         checkBox10.setChecked(false);
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_1", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_2", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_3", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_4", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_5", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_6", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_7", true).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_8", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_9", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
-                                .putBoolean("check_manage_certificate_10", false).apply();
-                        bottomSheetDialog.dismiss();
+                        dismissDialog();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_1", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_2", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_3", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_4", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_5", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_6", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_7", true).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_8", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_9", false).apply();
+//                        PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate.this).edit()
+//                                .putBoolean("check_manage_certificate_10", false).apply();
+//                        bottomSheetDialog.dismiss();
                     }
                 });
 
@@ -1113,7 +1119,6 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
 
         });
     }
-
 
     @Override
     public void onClick(@NonNull View view) {
@@ -1130,5 +1135,14 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
                 break;
 
         }
+    }
+    private void dismissDialog (){
+        Handler handler=new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                bottomSheetDialog.dismiss();
+            }
+        },1500);
     }
 }
