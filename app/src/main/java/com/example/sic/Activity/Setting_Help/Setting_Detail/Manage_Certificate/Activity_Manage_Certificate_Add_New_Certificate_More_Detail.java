@@ -45,34 +45,35 @@ public class Activity_Manage_Certificate_Add_New_Certificate_More_Detail extends
             extended_critical, extended_usage, signature_algorithm, signature_parameter, signature_data,
             fingerprint_sha256, fingerprint_sha1, version;
 
-    String credentialID;
+    String credentialID, transactionID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_certificate_add_new_certificate_more_detail);
         anh_xa();
-
+        start();
 
         btnBack.setOnClickListener(view -> {
             Intent i;
             if (inbox == 1) {
-                i = new Intent(Activity_Manage_Certificate_Add_New_Certificate_More_Detail.this, Inbox_detail_1.class);
+                i = new Intent(this, Inbox_detail_1.class);
             } else {
-                i = new Intent(Activity_Manage_Certificate_Add_New_Certificate_More_Detail.this, Activity_Manage_Certificate_Add_New_Certificate_Detail.class);
+                i = new Intent(this, Activity_Manage_Certificate_Add_New_Certificate_Detail.class);
             }
             i.putExtra("id", credentialID);
+            i.putExtra("transactionId", transactionID);
             startActivity(i);
         });
         btnClose.setOnClickListener(view -> {
             Intent i;
             if (inbox == 1) {
                 i = new Intent(
-                        Activity_Manage_Certificate_Add_New_Certificate_More_Detail.this,
+                        this,
                         Inbox_detail_1.class);
             } else {
                 i = new Intent(
-                        Activity_Manage_Certificate_Add_New_Certificate_More_Detail.this,
+                        this,
                         Activity_Manage_Certificate_Add_New_Certificate_Detail.class);
             }
             i.putExtra("id", credentialID);
@@ -82,8 +83,9 @@ public class Activity_Manage_Certificate_Add_New_Certificate_More_Detail extends
 
         Response response = (Response) getIntent().getSerializableExtra("response");
         credentialID = getIntent().getStringExtra("id");
-
+        transactionID = getIntent().getStringExtra("transactionId");
         try {
+
             X509Certificate x509cert;
             x509cert = CertificateUtils.getCertFormBase64(response.getCert().getCertificates().get(0));
             CertificateUtils SubjectDN = CertificateUtils.getCertificateInfoFormString(x509cert.getSubjectDN().toString());
@@ -91,12 +93,10 @@ public class Activity_Manage_Certificate_Add_New_Certificate_More_Detail extends
             RSAKeyParameters publicKeyRestored = (RSAKeyParameters) PublicKeyFactory.createKey(x509cert.getPublicKey().getEncoded());
             Set<String> criticalSet = x509cert.getCriticalExtensionOIDs();
 
-
             /**
              * Subject Name
              */
 
-            String map = SubjectDN.getMap().toString();
             String uid_SN = SubjectDN.getMap().get("UID");
             String CN_SN = SubjectDN.getMap().get("CN");
             String O_SN = SubjectDN.getMap().get("O");
@@ -199,7 +199,7 @@ public class Activity_Manage_Certificate_Add_New_Certificate_More_Detail extends
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-
+                    stop();
                     //Certificate Authority Information Access
                     if (criticalSet.contains("1.3.6.1.5.5.7.1.1")) {
                         certificate_authority_critical.setText(getResources().getString(R.string.certificate_yes_value));

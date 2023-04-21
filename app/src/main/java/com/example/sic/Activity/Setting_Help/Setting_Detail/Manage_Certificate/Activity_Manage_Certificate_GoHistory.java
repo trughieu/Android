@@ -16,6 +16,7 @@ import com.example.sic.Adapter.Adapter_History;
 import com.example.sic.DefaultActivity;
 import com.example.sic.R;
 import com.example.sic.modle.History;
+import com.example.sic.modle.Manage_Certificate;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.text.DateFormat;
@@ -46,7 +47,7 @@ public class Activity_Manage_Certificate_GoHistory extends DefaultActivity {
     CertificateProfilesModule module;
     String[] action = new String[1];
     TextView date_from, date_to, search, txt_select_id, All, Issue, Renew, ChangeInformation, Reissue, Revoke,
-            Authorize, ExtendTransaction, SignHash, SignDocument, ChangePassphrase, ForgotPassphrase, ChangeEmail, ChangePhoneNumber;
+            Authorize, ExtendTransaction, SignHash, SignDocument, ChangePassphrase, ForgotPassphrase, ChangeEmail, ChangePhoneNumber,title;
     String credentialId;
     History history;
     ArrayList<History> historyArrayList = new ArrayList<>();
@@ -64,12 +65,12 @@ public class Activity_Manage_Certificate_GoHistory extends DefaultActivity {
         search = findViewById(R.id.search);
         btnBack = findViewById(R.id.btnBack);
         txt_select_id = findViewById(R.id.txt_select_id);
-
+        title=findViewById(R.id.title);
+        Manage_Certificate manage_certificate= (Manage_Certificate) getIntent().getSerializableExtra("certificate");
+        title.setText(manage_certificate.getCNSubjectDN());
         btnBack.setOnClickListener(view -> {
             finish();
         });
-//        All, Issue, Renew, ChangeInformation, Reissue,Revoke,
-//                Authorize,ExtendTransaction,SignHash,SignDocument,ChangePassphrase,ForgotPassphrase,ChangeEmail,ChangePhoneNumber;
 
         txt_select_id.setOnClickListener(view -> {
             final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(Activity_Manage_Certificate_GoHistory.this, R.style.BottomSheetDialogTheme);

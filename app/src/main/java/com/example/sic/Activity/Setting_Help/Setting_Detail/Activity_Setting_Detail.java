@@ -1,9 +1,10 @@
 package com.example.sic.Activity.Setting_Help.Setting_Detail;
 
+import static androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG;
+import static androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL;
 import static com.example.sic.Encrypt.decrypt;
 import static com.example.sic.Encrypt.encrypt;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -40,32 +41,26 @@ import com.example.sic.DefaultActivity;
 import com.example.sic.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
-import java.util.concurrent.Executor;
-
 import vn.mobileid.tse.model.client.HttpRequest;
 import vn.mobileid.tse.model.client.activate.ActivateModule;
 import vn.mobileid.tse.model.connector.plugin.Response;
 import vn.mobileid.tse.model.database.LoginData;
-import vn.mobileid.tse.model.database.SettingData;
 
 
 public class Activity_Setting_Detail extends DefaultActivity implements View.OnClickListener {
 
 
     AppCompatCheckBox checkBox1, checkBox2, checkBox3, checkBox4;
-
     LinearLayout id_chang_pin, id_recover_account, id_delete_account, id_manage_certificate, id_manage_sim, id_manage_oder, id_action_history, check1, check2, check3, check4;
-
     TextView btn_Ok, btn_Cancel, btn_Ok_dialog1, btn_Cancel_dialog1, btn_Ok_dialog2, confirm, user_name, btnClose;
     ImageView show_password;
     boolean checked1, checked2, checked3, checked4, authentication, verification, approve;
     SwitchCompat check_biometrics, approve_later_switch, verification_code_switch, authentication_switch;
     FrameLayout close, frame_show_password, btnBack;
-    EditText password;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     AppCompatButton bt1, bt2, bt3, bt4, bt5, bt6, bt7, bt8, bt9, bt0, Key_delete;
-    EditText txt_pin_view1, txt_pin_view2, txt_pin_view3, txt_pin_view4, txt_pin_view5, txt_pin_view6, pinValue;
+    EditText txt_pin_view1, txt_pin_view2, txt_pin_view3, txt_pin_view4, txt_pin_view5, txt_pin_view6, pinValue, password;
     String text;
     Dialog dialog;
     private final TextWatcher textWatcher = new TextWatcher() {
@@ -127,6 +122,7 @@ public class Activity_Setting_Detail extends DefaultActivity implements View.OnC
                     text = text.substring(5, 6);
                     txt_pin_view6.setText(text);
                     if (pinValue.getText().toString().equals(digit)) {
+
                         Dialog dialog1 = new Dialog(Activity_Setting_Detail.this);
                         dialog1.setContentView(R.layout.dialog_success);
                         editor = getSharedPreferences("AppSecurity", MODE_PRIVATE).edit();
@@ -192,7 +188,7 @@ public class Activity_Setting_Detail extends DefaultActivity implements View.OnC
         setContentView(R.layout.activity_setting_detail);
         anh_xa();
         set_click();
-
+        stop();
         user_name.setText(LoginData.getFullName(this));
         bool_transaction = getSharedPreferences("transaction_setting", MODE_PRIVATE).edit();
         SharedPreferences shared_transaction = getSharedPreferences("transaction_setting", MODE_PRIVATE);
@@ -314,7 +310,7 @@ public class Activity_Setting_Detail extends DefaultActivity implements View.OnC
                 startActivity(intent);
                 break;
             case R.id.id_action_history:
-                intent= new Intent(Activity_Setting_Detail.this,Activity_Action_History.class);
+                intent = new Intent(Activity_Setting_Detail.this, Activity_Action_History.class);
                 startActivity(intent);
                 break;
             case R.id.check_biometrics:
@@ -344,8 +340,6 @@ public class Activity_Setting_Detail extends DefaultActivity implements View.OnC
                 if (verification_code_switch.isChecked()) {
                     bool_transaction.putBoolean("verification_code", verification_code_switch.isChecked());
                     bool_transaction.apply();
-
-
                 } else {
                     bool_transaction.putBoolean("verification_code", false);
                     bool_transaction.apply();
@@ -410,7 +404,7 @@ public class Activity_Setting_Detail extends DefaultActivity implements View.OnC
         promptInfo = new BiometricPrompt.PromptInfo.Builder()
                 .setTitle("Biometric login for my app")
                 .setSubtitle("Log in using your biometric credential")
-                .setNegativeButtonText("Use account password")
+                .setAllowedAuthenticators(BIOMETRIC_STRONG | DEVICE_CREDENTIAL)
                 .build();
     }
 

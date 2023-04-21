@@ -55,7 +55,7 @@ public class Inbox_detail extends DefaultActivity implements View.OnClickListene
     String s;
     TextView txt_select_id, approve_later, conf_with_E_identify, conf_with_bio,
             conf_with_pin, btn_Cancel, btn_Detail, submit_from, messageCaption, message,
-            tv_operating_detail, tv_ip_detail, tv_browser_detail, tv_rp_detail, btnContinue;
+            tv_operating_detail, tv_ip_detail, tv_browser_detail, tv_rp_detail, btnContinue, tv_operating, tv_ip, tv_browser, tv_rp;
     Intent intent;
     AppCompatButton bt1, bt2, bt3, bt4, bt5, bt6, bt7, bt8, bt9, bt0, Key_delete;
     EditText txt_pin_view1, txt_pin_view2, txt_pin_view3, txt_pin_view4, txt_pin_view5, txt_pin_view6, pinValue;
@@ -131,7 +131,7 @@ public class Inbox_detail extends DefaultActivity implements View.OnClickListene
                         dialog1.show();
                         dialog1.setCanceledOnTouchOutside(false);
                         module.confirmTransaction();
-                        Handler handler= new Handler();
+                        Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
@@ -140,7 +140,7 @@ public class Inbox_detail extends DefaultActivity implements View.OnClickListene
                                 intent.putExtra("performed", performed);
                                 startActivity(intent);
                             }
-                        },2000);
+                        }, 2000);
 
                     } else {
                         Dialog dialog = new Dialog(Inbox_detail.this);
@@ -201,6 +201,13 @@ public class Inbox_detail extends DefaultActivity implements View.OnClickListene
         btn_Cancel = findViewById(R.id.btn_Cancel);
         btn_Detail = findViewById(R.id.btn_Detail);
         wrong = findViewById(R.id.wrong);
+
+        tv_operating = findViewById(R.id.tv_operating);
+        tv_ip = findViewById(R.id.tv_ip);
+        tv_browser = findViewById(R.id.tv_browser);
+        tv_rp = findViewById(R.id.tv_rp);
+
+
         btnContinue.setAlpha(0.5f);
         btnContinue.setEnabled(false);
 
@@ -413,6 +420,7 @@ public class Inbox_detail extends DefaultActivity implements View.OnClickListene
         btn_Detail.setOnClickListener(view -> {
             intent = new Intent(Inbox_detail.this, Inbox_detail_1.class);
             intent.putExtra("id", performed.getCredentialID());
+            intent.putExtra("transactionId", idTransaction);
             startActivity(intent);
         });
 
@@ -559,20 +567,40 @@ public class Inbox_detail extends DefaultActivity implements View.OnClickListene
                             performed.setMessage(response.getMessage());
                             performed.setMessageCaption(response.getMessageCaption());
 //                            messageCaption.setText(response.getMessageCaption());
-                            String data = response.getRpName();
                             performed.setCredentialID(response.getCredentialID());
-                            if (data != null) {
-                                try {
-                                    JSONObject json_data = new JSONObject(data);
-                                    performed.setOperating(json_data.getString("OPERATING SYSTEM"));
-                                    performed.setIP(json_data.getString("IP ADDRESS"));
-                                    performed.setBrowser(json_data.getString("BROWSER"));
-                                    performed.setRP(json_data.getString("RP NAME"));
+                            performed.setType(response.getType());
+                            if (performed.getType().equals("SIGN")) {
+                                String data = response.getRpName();
 
-                                } catch (JSONException e) {
-                                    throw new RuntimeException(e);
+                                if (data != null) {
+                                    try {
+                                        JSONObject json_data = new JSONObject(data);
+                                        performed.setOperating(json_data.getString("OPERATING SYSTEM"));
+                                        performed.setIP(json_data.getString("IP ADDRESS"));
+                                        performed.setBrowser(json_data.getString("BROWSER"));
+                                        performed.setRP(json_data.getString("RP NAME"));
+
+                                    } catch (JSONException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                }
+                            } else if (performed.getType().equals("LOGIN")) {
+                                String data = response.getRpName();
+
+                                if (data != null) {
+                                    try {
+                                        JSONObject json_data = new JSONObject(data);
+                                        performed.setOS(json_data.getString("OS"));
+                                        performed.setIP(json_data.getString("IP"));
+                                        performed.setMAC(json_data.getString("MAC"));
+                                        performed.setCOMPUTER_NAME(json_data.getString("COMPUTER NAME"));
+
+                                    } catch (JSONException e) {
+                                        throw new RuntimeException(e);
+                                    }
                                 }
                             }
+
 
                             List<String> hashStringList = response.getDocumentDigests().getHashes();
 
@@ -630,7 +658,7 @@ public class Inbox_detail extends DefaultActivity implements View.OnClickListene
                                 tab3.setText(newCode.get(2));
                                 btnContinue.setVisibility(View.INVISIBLE);
                                 txt_select_id.setEnabled(false);
-                            }  else if (approve && verification) {
+                            } else if (approve && verification) {
 
                                 tab1.setText(newCode.get(0));
                                 tab2.setText(newCode.get(1));
@@ -638,7 +666,7 @@ public class Inbox_detail extends DefaultActivity implements View.OnClickListene
 
 
                             } else if (approve && authentication) {
-                                currentSelectedNumber=4;
+                                currentSelectedNumber = 4;
                                 tab1.setVisibility(View.INVISIBLE);
                                 tab3.setVisibility(View.INVISIBLE);
                                 background_Tab.setBackgroundResource(R.drawable.corner_tab_transparent);
@@ -653,8 +681,7 @@ public class Inbox_detail extends DefaultActivity implements View.OnClickListene
                                 tab3.setText(newCode.get(2));
                                 txt_select_id.setVisibility(View.INVISIBLE);
 
-                            }
-                            else if (authentication) {
+                            } else if (authentication) {
                                 tab1.setVisibility(View.INVISIBLE);
                                 tab3.setVisibility(View.INVISIBLE);
                                 background_Tab.setBackgroundResource(R.drawable.corner_tab_transparent);
@@ -662,8 +689,7 @@ public class Inbox_detail extends DefaultActivity implements View.OnClickListene
                                 tab2.setBackgroundResource(R.drawable.tab_select);
                                 tab2.setTextColor(Color.parseColor("#0070F4"));
                                 btnContinue.setVisibility(View.INVISIBLE);
-                            }
-                            else if (approve) {
+                            } else if (approve) {
                                 tab1.setVisibility(View.INVISIBLE);
                                 tab3.setVisibility(View.INVISIBLE);
                                 btnContinue.setAlpha(1);
@@ -684,13 +710,28 @@ public class Inbox_detail extends DefaultActivity implements View.OnClickListene
                                 btnContinue.setAlpha(1);
                             }
 
-                            tv_operating_detail.setText(performed.getOperating());
-                            tv_ip_detail.setText(performed.getIP());
-                            tv_browser_detail.setText(performed.getBrowser());
-                            tv_rp_detail.setText(performed.getRP());
-                            submit_from.setText(getResources().getString(R.string.orders_prefix_issued_by) + " " + performed.getSubmitFrom());
-                            message.setText(performed.getMessage());
-                            messageCaption.setText(performed.getMessageCaption());
+                            if (performed.getType().equals("LOGIN")) {
+                                tv_operating.setText(getResources().getString(R.string.ri_computer_name));
+                                tv_ip.setText(getResources().getString(R.string.ri_os));
+                                tv_browser.setText(getResources().getString(R.string.ri_mac));
+                                tv_rp.setText(getResources().getString(R.string.ri_rp_name));
+                                tv_operating_detail.setText(performed.getCOMPUTER_NAME());
+                                tv_ip_detail.setText(performed.getOS());
+                                tv_browser_detail.setText(performed.getMAC());
+                                tv_rp_detail.setText(performed.getIP());
+                                submit_from.setText(getResources().getString(R.string.orders_prefix_issued_by) + " " + performed.getSubmitFrom());
+                                message.setText(performed.getMessage());
+                                messageCaption.setText(performed.getMessageCaption());
+                            } else if (performed.getType().equals("SIGN")) {
+                                tv_operating_detail.setText(performed.getOperating());
+                                tv_ip_detail.setText(performed.getIP());
+                                tv_browser_detail.setText(performed.getBrowser());
+                                tv_rp_detail.setText(performed.getRP());
+                                submit_from.setText(getResources().getString(R.string.orders_prefix_issued_by) + " " + performed.getSubmitFrom());
+                                message.setText(performed.getMessage());
+                                messageCaption.setText(performed.getMessageCaption());
+                            }
+
 
                         }
                     }
@@ -967,7 +1008,7 @@ public class Inbox_detail extends DefaultActivity implements View.OnClickListene
             } else {
                 wrong.setVisibility(View.VISIBLE);
             }
-        } else if (currentSelectedNumber==4) {
+        } else if (currentSelectedNumber == 4) {
             dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
             dialog.show();
             dialog.setCanceledOnTouchOutside(false);
@@ -1030,7 +1071,7 @@ public class Inbox_detail extends DefaultActivity implements View.OnClickListene
             } else {
                 wrong.setVisibility(View.VISIBLE);
             }
-        } else if (currentSelectedNumber==4) {
+        } else if (currentSelectedNumber == 4) {
             Biometric();
             biometricPrompt.authenticate(promptInfo);
 

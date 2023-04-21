@@ -1,12 +1,14 @@
 package com.example.sic.Activity.Setting_Help;
 
+import static androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG;
+import static androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL;
 import static com.example.sic.Encrypt.decrypt;
 
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -115,14 +117,20 @@ public class Activity_Setting_Help extends DefaultActivity implements View.OnCli
                     if (pinValue.getText().toString().equals(digit)) {
                         Dialog dialog1 = new Dialog(Activity_Setting_Help.this);
                         dialog1.setContentView(R.layout.dialog_success);
-                        editor = getSharedPreferences("AppSecurity", MODE_PRIVATE).edit();
-                        editor.putInt("check", 2);
-                        editor.apply();
                         dialog.dismiss();
                         dialog1.getWindow().setBackgroundDrawableResource(R.color.transparent);
                         dialog1.show();
-                        Intent i = new Intent(Activity_Setting_Help.this, Activity_Setting_Detail.class);
-                        startActivity(i);
+                        dialog1.dismiss();
+                        start();
+
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                Intent i = new Intent(Activity_Setting_Help.this, Activity_Setting_Detail.class);
+                                startActivity(i);
+                            }
+                        }, 2000);
                     } else {
                         Dialog dialog = new Dialog(Activity_Setting_Help.this);
                         dialog.setContentView(R.layout.dialog_fail_wrong_pin_code);
@@ -211,9 +219,7 @@ public class Activity_Setting_Help extends DefaultActivity implements View.OnCli
                 super.onAuthenticationSucceeded(result);
                 Toast.makeText(getApplicationContext(),
                         "Authentication succeeded!", Toast.LENGTH_SHORT).show();
-                editor = getSharedPreferences("AppSecurity", MODE_PRIVATE).edit();
-                editor.putInt("check", 2);
-                editor.apply();
+
 
                 Intent i = new Intent(Activity_Setting_Help.this, Activity_Setting_Detail.class);
                 startActivity(i);
@@ -230,7 +236,7 @@ public class Activity_Setting_Help extends DefaultActivity implements View.OnCli
         promptInfo = new BiometricPrompt.PromptInfo.Builder()
                 .setTitle("Biometric login for my app")
                 .setSubtitle("Log in using your biometric credential")
-                .setNegativeButtonText("Use account password")
+                .setAllowedAuthenticators(BIOMETRIC_STRONG | DEVICE_CREDENTIAL)
                 .build();
     }
 
@@ -282,7 +288,7 @@ public class Activity_Setting_Help extends DefaultActivity implements View.OnCli
                 String s = SettingData.getLanguage(this);
                 if (s.equals("en")) {
                     checkBox1.setChecked(true);
-                } else if (s.equals("vi")){
+                } else if (s.equals("vi")) {
                     checkBox2.setChecked(true);
                 }
 

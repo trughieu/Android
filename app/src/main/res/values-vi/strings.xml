@@ -218,6 +218,9 @@
     <string name="ri_ip">Địa Chỉ Ip</string>
     <string name="ri_browser">Trình Duyệt</string>
     <string name="ri_rp_name">Rp</string>
+    <string name="ri_mac">Địa Chỉ MAC</string>
+    <string name="ri_computer_name">Tên Máy Tính</string>
+
     <string name="orders_prefix_issued_by">Tên Nơi Cấp</string>
     <string name="orders_prefix_expires">Hết Hạn Vào</string>
     <string name="prompt_credential_change_scal">Scal</string>

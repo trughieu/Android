@@ -1,6 +1,8 @@
 package com.example.sic.Activity.Home;
 
 
+import static androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG;
+import static androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL;
 import static com.example.sic.Encrypt.decrypt;
 import static com.example.sic.Encrypt.encrypt;
 
@@ -27,14 +29,18 @@ import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 
 import com.example.sic.Activity.Home.Inbox.Inbox;
+import com.example.sic.Activity.Home.Inbox.Inbox_detail;
 import com.example.sic.Activity.Login.Activity_Login_Touch_Id;
 import com.example.sic.Activity.Setting_Help.Activity_Setting_Help;
 import com.example.sic.DefaultActivity;
 import com.example.sic.R;
 
+import java.util.List;
+
 import vn.mobileid.tse.model.client.HttpRequest;
 import vn.mobileid.tse.model.client.activate.ActivateModule;
 import vn.mobileid.tse.model.client.requestinfo.RequestInfoModule;
+import vn.mobileid.tse.model.connector.plugin.Requests;
 import vn.mobileid.tse.model.connector.plugin.Response;
 import vn.mobileid.tse.model.database.LoginData;
 
@@ -180,6 +186,25 @@ public class HomePage extends DefaultActivity implements View.OnClickListener {
         btn_Log_out = findViewById(R.id.btn_Log_out);
         module = ActivateModule.createModule(HomePage.this);
         requestInfoModule = RequestInfoModule.createModule(HomePage.this);
+        requestInfoModule.setResponseGetTransactionsList(new HttpRequest.AsyncResponse() {
+            @Override
+            public void process(boolean b, Response response) {
+                if (response == null) {
+                    stop();
+                } else if (response.getError() == 0) {
+                    stop();
+                    List<Requests> requests = response.getRequests();
+                    if (response.getRequests() != null && requests != null) {
+                        for (Requests request : requests) {
+                            Intent i = new Intent(HomePage.this, Inbox_detail.class);
+                            i.putExtra("transactionId", request.transactionID);
+                            startActivity(i);
+                        }
+                    }
+                }
+            }
+        }).transactionsList();
+
         if (LoginData.getFullName(HomePage.this) != null) {
             user_name.setText(LoginData.getFullName(HomePage.this));
 
@@ -309,7 +334,7 @@ public class HomePage extends DefaultActivity implements View.OnClickListener {
         promptInfo = new BiometricPrompt.PromptInfo.Builder()
                 .setTitle("Biometric login for my app")
                 .setSubtitle("Log in using your biometric credential")
-                .setNegativeButtonText("Use account password")
+                .setAllowedAuthenticators(BIOMETRIC_STRONG | DEVICE_CREDENTIAL)
                 .build();
     }
 
@@ -318,9 +343,7 @@ public class HomePage extends DefaultActivity implements View.OnClickListener {
         Intent intent;
         switch (view.getId()) {
             case R.id.menu_connect:
-
                 start();
-
                 module.setResponseGetRequestList(new HttpRequest.AsyncResponse() {
                             @Override
                             public void process(boolean b, Response response) {
@@ -332,13 +355,22 @@ public class HomePage extends DefaultActivity implements View.OnClickListener {
                             }
                         })
                         .requestList();
+                start();
                 requestInfoModule.setResponseGetTransactionsList(new HttpRequest.AsyncResponse() {
                     @Override
                     public void process(boolean b, Response response) {
                         if (response == null) {
                             stop();
-                        } else {
+                        } else if (response.getError() == 0) {
                             stop();
+                            List<Requests> requests = response.getRequests();
+                            if (response.getRequests() != null && requests != null) {
+                                for (Requests request : requests) {
+                                    Intent i = new Intent(HomePage.this, Inbox_detail.class);
+                                    i.putExtra("transactionId", request.transactionID);
+                                    startActivity(i);
+                                }
+                            }
                         }
                     }
                 }).transactionsList();
@@ -350,7 +382,6 @@ public class HomePage extends DefaultActivity implements View.OnClickListener {
                 txt_setting_help.setTextAppearance(R.style.inactive);
                 break;
             case R.id.menu_scanqr:
-                loading.setVisibility(View.INVISIBLE);
                 txt_qr.setTextColor(Color.parseColor("#004B7D"));
                 txt_connect.setTextAppearance(R.style.inactive);
                 txt_qr.setTextAppearance(R.style.active);
@@ -380,12 +411,6 @@ public class HomePage extends DefaultActivity implements View.OnClickListener {
         }
     }
 
-
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        loading_animation.start();
-    }
 
     private void Log_out() {
         Dialog dialog = new Dialog(HomePage.this);

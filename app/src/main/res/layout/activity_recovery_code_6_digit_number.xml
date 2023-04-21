@@ -40,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@drawable/arrow" />
+            android:src="@drawable/arrow_white" />
     </FrameLayout>
 
 
@@ -411,17 +411,24 @@
         </LinearLayout>
     </LinearLayout>
 
+<FrameLayout
+    android:id="@+id/digit_number"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/pin"
+    android:layout_width="wrap_content"
+    android:layout_marginTop="20dp"
+    android:padding="10dp"
+    android:layout_height="wrap_content">
+
+
     <TextView
-        android:id="@+id/digit_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="46dp"
         android:fontFamily="@font/inter_light"
         android:text="@string/digit_12_number"
         android:textColor="@color/white"
         android:textSize="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pin" />
-
+      />
+</FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

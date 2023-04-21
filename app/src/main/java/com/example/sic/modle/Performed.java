@@ -11,6 +11,42 @@ public class Performed implements Serializable {
     String message;
     String messageCaption;
     String submitFrom;
+    String OS;
+    String MAC;
+    String COMPUTER_NAME;
+    String type;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getOS() {
+        return OS;
+    }
+
+    public void setOS(String OS) {
+        this.OS = OS;
+    }
+
+    public String getMAC() {
+        return MAC;
+    }
+
+    public void setMAC(String MAC) {
+        this.MAC = MAC;
+    }
+
+    public String getCOMPUTER_NAME() {
+        return COMPUTER_NAME;
+    }
+
+    public void setCOMPUTER_NAME(String COMPUTER_NAME) {
+        this.COMPUTER_NAME = COMPUTER_NAME;
+    }
 
     public String getSubmitFrom() {
         return submitFrom;

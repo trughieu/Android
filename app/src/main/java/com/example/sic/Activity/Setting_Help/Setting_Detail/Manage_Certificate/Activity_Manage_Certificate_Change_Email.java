@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 
 import com.example.sic.DefaultActivity;
 import com.example.sic.R;
+import com.example.sic.modle.Manage_Certificate;
 import com.google.android.material.textfield.TextInputEditText;
 
 import vn.mobileid.tse.model.client.HttpRequest;
@@ -21,7 +22,7 @@ import vn.mobileid.tse.model.connector.plugin.Response;
 public class Activity_Manage_Certificate_Change_Email extends DefaultActivity implements View.OnClickListener {
 
     TextInputEditText txt_email_address;
-    TextView btnContinue;
+    TextView btnContinue,title;
     public TextWatcher textWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -60,23 +61,15 @@ public class Activity_Manage_Certificate_Change_Email extends DefaultActivity im
         btnContinue.setOnClickListener(this);
         btnBack.setOnClickListener(this);
         txt_email_address.addTextChangedListener(textWatcher);
+        title=findViewById(R.id.title);
 
-
-        if (savedInstanceState == null) {
-            id = getIntent().getExtras();
-            if (id == null) {
-                credentialID = null;
-            } else {
-                credentialID = id.getString("id");
-            }
-        } else {
-            credentialID = (String) savedInstanceState.getSerializable("a");
-        }
+        credentialID = getIntent().getStringExtra("id");
 
         module = CertificateProfilesModule.createModule(this);
 
         module.credentialsInfo(credentialID);
-
+        Manage_Certificate manage_certificate = (Manage_Certificate) getIntent().getSerializableExtra("certificate");
+        title.setText(manage_certificate.getCNSubjectDN());
     }
 
     @Override

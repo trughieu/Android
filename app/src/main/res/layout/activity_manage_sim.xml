@@ -27,6 +27,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
+        android:id="@+id/linearLayout11"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -40,8 +41,8 @@
         <FrameLayout
             android:id="@+id/btnBack"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="30dp"
+            android:layout_weight="1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -56,13 +57,13 @@
         <TextView
             android:id="@+id/tv_name"
             android:layout_width="0dp"
-            android:layout_weight="4"
             android:layout_height="wrap_content"
+            android:layout_weight="4"
             android:fontFamily="@font/inter_medium"
             android:gravity="center_horizontal|top"
+            android:text="@string/prompt_manage_sim"
             android:textColor="@color/blue_text"
             android:textSize="20dp"
-            android:text="@string/prompt_manage_sim"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -72,8 +73,8 @@
         <Space
             android:id="@+id/btn_Log_out"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="35dp"
+            android:layout_weight="1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </LinearLayout>
@@ -87,21 +88,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/search_view"
-        android:layout_width="350dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="31dp"
-        android:background="@drawable/corner_search"
-        android:theme="@style/search"
-        app:iconifiedByDefault="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/img_corner"
-        app:queryBackground="@null"
-        app:queryHint="@string/hint_search"
-        app:searchIcon="@drawable/search_icon_white" />
-
     <TextView
         android:id="@+id/tv_no_sim"
         android:layout_width="wrap_content"
@@ -114,7 +100,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search_view" />
+        app:layout_constraintTop_toTopOf="@id/img_corner" />
 
     <TextView
         android:id="@+id/tv_Bind_New_Sim"
@@ -134,4 +120,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout11"
+        tools:listitem="@layout/layout_sim" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

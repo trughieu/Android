@@ -1,10 +1,12 @@
 package com.example.sic.Activity.Setting_Help.Setting_Detail.Manage_Sim;
 
+import static com.example.sic.Activity.Login.Activation.REQ_USER_CONSENT;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -15,8 +17,20 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+
 import com.example.sic.DefaultActivity;
 import com.example.sic.R;
+import com.example.sic.SmsBroadcastReceiver;
+import com.google.android.gms.auth.api.phone.SmsRetriever;
+import com.google.android.gms.auth.api.phone.SmsRetrieverClient;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import vn.mobileid.tse.model.client.HttpRequest;
+import vn.mobileid.tse.model.client.managesim.ManageSimModule;
+import vn.mobileid.tse.model.connector.plugin.Response;
 
 public class Activity_Manage_Sim_Bind_New_Sim_Enter_Code extends DefaultActivity {
     EditText txt_pin_view1;
@@ -25,13 +39,13 @@ public class Activity_Manage_Sim_Bind_New_Sim_Enter_Code extends DefaultActivity
     EditText txt_pin_view4;
     EditText txt_pin_view5;
     EditText txt_pin_view6;
-    EditText pinValue,pin6_dialog_hand;
+    EditText pinValue, pin6_dialog_hand;
     int selected_position = 0;
     TextView button;
-
     String text, otp;
     EditText[] otpEt = new EditText[6];
-//    public final TextWatcher textWatcher = new TextWatcher() {
+
+    //    public final TextWatcher textWatcher = new TextWatcher() {
 //        @Override
 //        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 //
@@ -101,6 +115,9 @@ public class Activity_Manage_Sim_Bind_New_Sim_Enter_Code extends DefaultActivity
 //    };
     Bundle value;
     TextView btn_Close;
+    ManageSimModule module;
+    SmsBroadcastReceiver smsBroadcastReceiver;
+    SmsRetrieverClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,7 +134,7 @@ public class Activity_Manage_Sim_Bind_New_Sim_Enter_Code extends DefaultActivity
         } else {
             otp = (String) savedInstanceState.getSerializable("otp");
         }
-
+        module = ManageSimModule.createModule(this);
 
 //        txt_pin_view1 = findViewById(R.id.txt_pin_view_1);
 //        txt_pin_view2 = findViewById(R.id.txt_pin_view_2);
@@ -135,7 +152,8 @@ public class Activity_Manage_Sim_Bind_New_Sim_Enter_Code extends DefaultActivity
         button = findViewById(R.id.btnContinue);
         pin6_dialog_hand = findViewById(R.id.pin6_dialog_hand);
         pinValue = findViewById(R.id.pin6_dialog);
-
+        showKeyBoard(otpEt[0]);
+        smsPrepare();
 
         for (int i = 0; i < 6; i++) {
             final int i1 = i;
@@ -146,12 +164,12 @@ public class Activity_Manage_Sim_Bind_New_Sim_Enter_Code extends DefaultActivity
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    String pin1 = txt_pin_view1.getText().toString();
-                    String pin2 = txt_pin_view2.getText().toString();
-                    String pin3 = txt_pin_view3.getText().toString();
-                    String pin4 = txt_pin_view4.getText().toString();
-                    String pin5 = txt_pin_view5.getText().toString();
-                    String pin6 = txt_pin_view6.getText().toString();
+                    String pin1 = otpEt[0].getText().toString();
+                    String pin2 = otpEt[1].getText().toString();
+                    String pin3 = otpEt[2].getText().toString();
+                    String pin4 = otpEt[3].getText().toString();
+                    String pin5 = otpEt[4].getText().toString();
+                    String pin6 = otpEt[5].getText().toString();
                     if ((pin1.isEmpty() || pin2.isEmpty() || pin3.isEmpty() || pin4.isEmpty() || pin5.isEmpty() || pin6.isEmpty())) {
                         button.setAlpha(0.5f);
                         button.setEnabled(false);
@@ -188,6 +206,10 @@ public class Activity_Manage_Sim_Bind_New_Sim_Enter_Code extends DefaultActivity
                             otpEt[i1].getText().toString().isEmpty() && i1 != 0) {
                         otpEt[i1 - 1].setText("");
                         otpEt[i1 - 1].requestFocus();
+                        text = text.substring(0, text.length() - 1);
+                    }
+                    if (i1 == 0) {
+                        pin6_dialog_hand.setText("");
                     }
                     return false;
                 }
@@ -212,15 +234,34 @@ public class Activity_Manage_Sim_Bind_New_Sim_Enter_Code extends DefaultActivity
             }
         });
 
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    module.setResponseSendActivateSimRequest(new HttpRequest.AsyncResponse() {
+                        @Override
+                        public void process(boolean b, Response response) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    dialog();
+                                }
+                            });
+                        }
+                    }).sendActivateSimRequest(text);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
 
-
+            }
+        });
+    }
 //        txt_pin_view1.addTextChangedListener(textWatcher);
 //        txt_pin_view2.addTextChangedListener(textWatcher);
 //        txt_pin_view3.addTextChangedListener(textWatcher);
 //        txt_pin_view4.addTextChangedListener(textWatcher);
 //        txt_pin_view5.addTextChangedListener(textWatcher);
 //        txt_pin_view6.addTextChangedListener(textWatcher);
-        showKeyBoard(txt_pin_view1);
 
 //        button.setOnClickListener(view -> {
 //            if (pinValue.getText().toString().equals(otp)) {
@@ -263,7 +304,7 @@ public class Activity_Manage_Sim_Bind_New_Sim_Enter_Code extends DefaultActivity
 //                dialog.setCanceledOnTouchOutside(false);
 //            }
 //        });
-    }
+
 
 //    @Override
 //    public boolean onKeyUp(int keyCode, KeyEvent event) {
@@ -317,12 +358,69 @@ public class Activity_Manage_Sim_Bind_New_Sim_Enter_Code extends DefaultActivity
 
     public void onOTPReceived(String otp) {
         if (otp.length() == 6) {
-            txt_pin_view1.setText(String.valueOf(otp.charAt(0)));
-            txt_pin_view2.setText(String.valueOf(otp.charAt(1)));
-            txt_pin_view3.setText(String.valueOf(otp.charAt(2)));
-            txt_pin_view4.setText(String.valueOf(otp.charAt(3)));
-            txt_pin_view5.setText(String.valueOf(otp.charAt(4)));
-            txt_pin_view6.setText(String.valueOf(otp.charAt(5)));
+            otpEt[0].setText(String.valueOf(otp.charAt(0)));
+            otpEt[1].setText(String.valueOf(otp.charAt(1)));
+            otpEt[2].setText(String.valueOf(otp.charAt(2)));
+            otpEt[3].setText(String.valueOf(otp.charAt(3)));
+            otpEt[4].setText(String.valueOf(otp.charAt(4)));
+            otpEt[5].setText(String.valueOf(otp.charAt(5)));
         }
+    }
+
+    private void smsPrepare() {
+        smsBroadcastReceiver = new SmsBroadcastReceiver();
+        smsBroadcastReceiver.smsBroadcastReceiverListener = new SmsBroadcastReceiver.SmsBroadcastReceiverListener() {
+            @Override
+            public void onSuccess(Intent intent) {
+                startActivityForResult(intent, REQ_USER_CONSENT);
+
+            }
+
+            @Override
+            public void onFailure() {
+
+            }
+        };
+        IntentFilter intentFilter = new IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION);
+        registerReceiver(smsBroadcastReceiver, intentFilter);
+        client = SmsRetriever.getClient(this);
+        client.startSmsUserConsent(null);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQ_USER_CONSENT) {
+            if ((resultCode == RESULT_OK) && (data != null)) {
+                String message = data.getStringExtra(SmsRetriever.EXTRA_SMS_MESSAGE);
+                Pattern pattern = Pattern.compile("\\d+");
+                Matcher matcher = pattern.matcher(message);
+                while (matcher.find()) {
+                    String number = matcher.group();
+                    pinValue.setText(number);
+                }
+            } else {
+                smsPrepare();
+            }
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (smsBroadcastReceiver != null) {
+            unregisterReceiver(smsBroadcastReceiver);
+        }
+    }
+
+    private void dialog() {
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialog_success_bind_new_sim);
+        dialog.show();
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
+        dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        Intent i = new Intent(this, Activity_Manage_Sim.class);
+        startActivity(i);
     }
 }

@@ -94,6 +94,7 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
                                 CertificateUtils subjectDN = CertificateUtils.getCertificateInfoFormString(credentListResponse.certs.get(i).getSubjectDN());
                                 CertificateUtils issuerDN = CertificateUtils.getCertificateInfoFormString(credentListResponse.certs.get(i).getIssuerDN());
                                 String credentialID = credentListResponse.certs.get(i).getCredentialID();
+                                boolean kak=credentListResponse.certs.get(i).kakChanged;
 
                                 String a = credentListResponse.certs.get(i).getValidTo();
                                 SimpleDateFormat inputFormat = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -101,7 +102,6 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
                                 SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MM/yyyy");
                                 Date date = inputFormat.parse(a);
                                 String valid_to = outputFormat.format(date);
-
                                 String CNSubject = subjectDN.getMap().get("CN");
                                 String CNIssuer = issuerDN.getMap().get("CN");
                                 manage_certificate = new Manage_Certificate();
@@ -113,6 +113,7 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
                                 manage_certificate.setCNIssuerDN(CNIssuer);
                                 manage_certificate.setValidTo(valid_to);
                                 manage_certificate.setCredentialID(credentialID);
+                                manage_certificate.setKakChange(kak);
                                 manageCertificateArrayList.add(manage_certificate);
                             }
                         }
@@ -225,6 +226,7 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
                                                 if (!(credentListResponse.certs.get(i).getSubjectDN() == null || credentListResponse.certs.get(i).getIssuerDN() == null)) {
                                                     CertificateUtils subjectDN = CertificateUtils.getCertificateInfoFormString(credentListResponse.certs.get(i).getSubjectDN());
                                                     CertificateUtils issuerDN = CertificateUtils.getCertificateInfoFormString(credentListResponse.certs.get(i).getIssuerDN());
+                                                    boolean kak=credentListResponse.certs.get(i).kakChanged;
                                                     String credentialID = credentListResponse.certs.get(i).getCredentialID();
                                                     String a = credentListResponse.certs.get(i).getValidTo();
                                                     SimpleDateFormat inputFormat = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -241,6 +243,7 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
                                                     manage_certificate.CNIssuerDN = CNissuer;
                                                     manage_certificate.ValidTo = valid_to;
                                                     manage_certificate.credentialID = credentialID;
+                                                    manage_certificate.setKakChange(kak);
                                                     manageCertificateArrayList.add(manage_certificate);
 
                                                     Log.d("testarraylist", "process: " + manageCertificateArrayList.size());
@@ -320,6 +323,7 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
                                                     CertificateUtils subjectDN = CertificateUtils.getCertificateInfoFormString(credentListResponse.certs.get(i).getSubjectDN());
                                                     CertificateUtils issuerDN = CertificateUtils.getCertificateInfoFormString(credentListResponse.certs.get(i).getIssuerDN());
                                                     String credentialID = credentListResponse.certs.get(i).getCredentialID();
+                                                    boolean kak=credentListResponse.certs.get(i).kakChanged;
 
                                                     String a = credentListResponse.certs.get(i).getValidTo();
                                                     SimpleDateFormat inputFormat = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -338,6 +342,7 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
                                                     manage_certificate.CNIssuerDN = CNissuer;
                                                     manage_certificate.ValidTo = valid_to;
                                                     manage_certificate.credentialID = credentialID;
+                                                    manage_certificate.setKakChange(kak);
                                                     manageCertificateArrayList.add(manage_certificate);
 
                                                 }
@@ -412,6 +417,7 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
                                                     CertificateUtils subjectDN = CertificateUtils.getCertificateInfoFormString(credentListResponse.certs.get(i).getSubjectDN());
                                                     CertificateUtils issuerDN = CertificateUtils.getCertificateInfoFormString(credentListResponse.certs.get(i).getIssuerDN());
                                                     String credentialID = credentListResponse.certs.get(i).getCredentialID();
+                                                    boolean kak=credentListResponse.certs.get(i).kakChanged;
 
                                                     String a = credentListResponse.certs.get(i).getValidTo();
                                                     SimpleDateFormat inputFormat = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -430,6 +436,7 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
                                                     manage_certificate.CNIssuerDN = CNissuer;
                                                     manage_certificate.ValidTo = valid_to;
                                                     manage_certificate.credentialID = credentialID;
+                                                    manage_certificate.setKakChange(kak);
                                                     manageCertificateArrayList.add(manage_certificate);
 
                                                 }
@@ -505,6 +512,7 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
                                                     CertificateUtils subjectDN = CertificateUtils.getCertificateInfoFormString(credentListResponse.certs.get(i).getSubjectDN());
                                                     CertificateUtils issuerDN = CertificateUtils.getCertificateInfoFormString(credentListResponse.certs.get(i).getIssuerDN());
                                                     String credentialID = credentListResponse.certs.get(i).getCredentialID();
+                                                    boolean kak=credentListResponse.certs.get(i).kakChanged;
 
                                                     String a = credentListResponse.certs.get(i).getValidTo();
                                                     SimpleDateFormat inputFormat = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -523,6 +531,7 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
                                                     manage_certificate.CNIssuerDN = CNissuer;
                                                     manage_certificate.ValidTo = valid_to;
                                                     manage_certificate.credentialID = credentialID;
+                                                    manage_certificate.setKakChange(kak);
                                                     manageCertificateArrayList.add(manage_certificate);
 
                                                 }
@@ -598,6 +607,7 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
                                                     CertificateUtils subjectDN = CertificateUtils.getCertificateInfoFormString(credentListResponse.certs.get(i).getSubjectDN());
                                                     CertificateUtils issuerDN = CertificateUtils.getCertificateInfoFormString(credentListResponse.certs.get(i).getIssuerDN());
                                                     String credentialID = credentListResponse.certs.get(i).getCredentialID();
+                                                    boolean kak=credentListResponse.certs.get(i).kakChanged;
 
                                                     String a = credentListResponse.certs.get(i).getValidTo();
                                                     SimpleDateFormat inputFormat = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -616,6 +626,7 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
                                                     manage_certificate.CNIssuerDN = CNissuer;
                                                     manage_certificate.ValidTo = valid_to;
                                                     manage_certificate.credentialID = credentialID;
+                                                    manage_certificate.setKakChange(kak);
                                                     manageCertificateArrayList.add(manage_certificate);
 
                                                 }
@@ -690,6 +701,7 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
                                             CertificateUtils subjectDN = CertificateUtils.getCertificateInfoFormString(credentListResponse.certs.get(i).getSubjectDN());
                                             CertificateUtils issuerDN = CertificateUtils.getCertificateInfoFormString(credentListResponse.certs.get(i).getIssuerDN());
                                             String credentialID = credentListResponse.certs.get(i).getCredentialID();
+                                            boolean kak=credentListResponse.certs.get(i).kakChanged;
 
                                             String a = credentListResponse.certs.get(i).getValidTo();
                                             SimpleDateFormat inputFormat = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -707,6 +719,7 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
                                             manage_certificate.CNIssuerDN = CNissuer;
                                             manage_certificate.ValidTo = valid_to;
                                             manage_certificate.credentialID = credentialID;
+                                            manage_certificate.setKakChange(kak);
                                             manageCertificateArrayList.add(manage_certificate);
 
                                         }
@@ -777,6 +790,7 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
                                                     CertificateUtils subjectDN = CertificateUtils.getCertificateInfoFormString(credentListResponse.certs.get(i).getSubjectDN());
                                                     CertificateUtils issuerDN = CertificateUtils.getCertificateInfoFormString(credentListResponse.certs.get(i).getIssuerDN());
                                                     String credentialID = credentListResponse.certs.get(i).getCredentialID();
+                                                    boolean kak=credentListResponse.certs.get(i).kakChanged;
 
                                                     String a = credentListResponse.certs.get(i).getValidTo();
                                                     SimpleDateFormat inputFormat = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -795,6 +809,7 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
                                                     manage_certificate.CNIssuerDN = CNissuer;
                                                     manage_certificate.ValidTo = valid_to;
                                                     manage_certificate.credentialID = credentialID;
+                                                    manage_certificate.setKakChange(kak);
                                                     manageCertificateArrayList.add(manage_certificate);
 
                                                 }
@@ -869,6 +884,7 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
                                                     CertificateUtils subjectDN = CertificateUtils.getCertificateInfoFormString(credentListResponse.certs.get(i).getSubjectDN());
                                                     CertificateUtils issuerDN = CertificateUtils.getCertificateInfoFormString(credentListResponse.certs.get(i).getIssuerDN());
                                                     String credentialID = credentListResponse.certs.get(i).getCredentialID();
+                                                    boolean kak=credentListResponse.certs.get(i).kakChanged;
                                                     String a = credentListResponse.certs.get(i).getValidTo();
                                                     SimpleDateFormat inputFormat = new SimpleDateFormat("yyyyMMddHHmmss");
                                                     inputFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
@@ -884,6 +900,7 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
                                                     manage_certificate.CNIssuerDN = CNissuer;
                                                     manage_certificate.ValidTo = valid_to;
                                                     manage_certificate.credentialID = credentialID;
+                                                    manage_certificate.setKakChange(kak);
                                                     manageCertificateArrayList.add(manage_certificate);
                                                 }
 
@@ -961,6 +978,7 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
                                                     CertificateUtils subjectDN = CertificateUtils.getCertificateInfoFormString(credentListResponse.certs.get(i).getSubjectDN());
                                                     CertificateUtils issuerDN = CertificateUtils.getCertificateInfoFormString(credentListResponse.certs.get(i).getIssuerDN());
                                                     String credentialID = credentListResponse.certs.get(i).getCredentialID();
+                                                    boolean kak=credentListResponse.certs.get(i).kakChanged;
                                                     String a = credentListResponse.certs.get(i).getValidTo();
                                                     SimpleDateFormat inputFormat = new SimpleDateFormat("yyyyMMddHHmmss");
                                                     inputFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
@@ -976,6 +994,7 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
                                                     manage_certificate.CNIssuerDN = CNissuer;
                                                     manage_certificate.ValidTo = valid_to;
                                                     manage_certificate.credentialID = credentialID;
+                                                    manage_certificate.setKakChange(kak);
                                                     manageCertificateArrayList.add(manage_certificate);
                                                 }
                                             }
@@ -996,7 +1015,7 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
                         checkBox2.setChecked(false);
                         checkBox3.setChecked(false);
                         checkBox4.setChecked(false);
-                        checkBox5.setChecked(false);
+                        checkBox5.setChecked(true);
                         checkBox6.setChecked(false);
                         checkBox7.setChecked(false);
                         checkBox8.setChecked(false);
@@ -1045,6 +1064,7 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
                                                 CertificateUtils subjectDN = CertificateUtils.getCertificateInfoFormString(credentListResponse.certs.get(i).getSubjectDN());
                                                 CertificateUtils issuerDN = CertificateUtils.getCertificateInfoFormString(credentListResponse.certs.get(i).getIssuerDN());
                                                 String credentialID = credentListResponse.certs.get(i).getCredentialID();
+                                                boolean kak=credentListResponse.certs.get(i).kakChanged;
                                                 String a = credentListResponse.certs.get(i).getValidTo();
                                                 SimpleDateFormat inputFormat = new SimpleDateFormat("yyyyMMddHHmmss");
                                                 inputFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
@@ -1057,12 +1077,14 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
                                                 String CNsubject = subjectDN.getMap().get("CN");
                                                 String CNissuer = issuerDN.getMap().get("CN");
                                                 Manage_Certificate manage_certificate = new Manage_Certificate();
+                                                manage_certificate.setKakChange(kak);
 
                                                 manage_certificate.CNSubjectDN = CNsubject;
                                                 manage_certificate.CNIssuerDN = CNissuer;
                                                 manage_certificate.ValidTo = valid_to;
                                                 manage_certificate.credentialID = credentialID;
-
+                                                manage_certificate.setKakChange(kak);
+                                                manageCertificateArrayList.add(manage_certificate);
                                                 Log.d("testarraylist", "process: " + manageCertificateArrayList);
                                                 Log.d("new list", "process: " + new_list);
                                                 Log.d("testarraylist", "process: " + manage_certificate);
@@ -1143,6 +1165,6 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
             public void run() {
                 bottomSheetDialog.dismiss();
             }
-        },1500);
+        },1000);
     }
 }

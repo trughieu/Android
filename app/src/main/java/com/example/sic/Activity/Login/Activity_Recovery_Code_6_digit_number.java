@@ -121,6 +121,7 @@ public class Activity_Recovery_Code_6_digit_number extends AppCompatActivity {
                                 }
                             }
                         }).setRecoveryCode(pinValue.getText().toString(), firebaseID, true);
+//                        }).setRecoveryCode(pinValue.getText().toString(), firebaseID);
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
@@ -128,7 +129,8 @@ public class Activity_Recovery_Code_6_digit_number extends AppCompatActivity {
         }
     };
     LinearLayout keyboard, pin;
-    TextView title, txtTitle, digit_number;
+    TextView title, txtTitle;
+    FrameLayout digit_number;
     View.OnClickListener numKey = new View.OnClickListener() {
         @Override
         public void onClick(View v) {

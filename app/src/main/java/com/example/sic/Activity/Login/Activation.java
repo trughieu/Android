@@ -19,13 +19,11 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.chaos.view.PinView;
 import com.example.sic.R;
 import com.example.sic.SmsBroadcastReceiver;
 import com.google.android.gms.auth.api.phone.SmsRetriever;
@@ -40,15 +38,11 @@ import vn.mobileid.tse.model.client.activate.ActivateModule;
 import vn.mobileid.tse.model.connector.plugin.Response;
 
 public class Activation extends AppCompatActivity implements View.OnClickListener {
-    private static final int REQ_USER_CONSENT = 200;
+    public static final int REQ_USER_CONSENT = 200;
     FrameLayout btnBack;
-    TextView enter, btn_Close, btn_resend, button;
-    EditText txt_pin_view1, txt_pin_view2, txt_pin_view3, txt_pin_view4, txt_pin_view5, txt_pin_view6;
-    Bundle value;
-    String text, hand;
+    TextView btn_Close, btn_resend, button;
+    String text;
     EditText pinValue, pin6_dialog_hand;
-    PinView pinView;
-    //    TextView textView;
     SmsBroadcastReceiver smsBroadcastReceiver;
     SmsRetrieverClient client;
     EditText[] otpEt = new EditText[6];
@@ -64,16 +58,8 @@ public class Activation extends AppCompatActivity implements View.OnClickListene
         btn_resend = findViewById(R.id.txt_resend_active);
         startCountDown();
 
-
-//        txt_pin_view1 = findViewById(R.id.txt_pin_view_1);
-//        txt_pin_view2 = findViewById(R.id.txt_pin_view_2);
-//        txt_pin_view3 = findViewById(R.id.txt_pin_view_3);
-//        txt_pin_view4 = findViewById(R.id.txt_pin_view_4);
-//        txt_pin_view5 = findViewById(R.id.txt_pin_view_5);
-//        txt_pin_view6 = findViewById(R.id.txt_pin_view_6);
         pin6_dialog_hand = findViewById(R.id.pin6_dialog_hand);
         pinValue = findViewById(R.id.pin6_dialog);
-        showKeyBoard(txt_pin_view1);
 
         button = findViewById(R.id.btnContinue);
         btnBack = findViewById(R.id.btnBack);
@@ -90,6 +76,7 @@ public class Activation extends AppCompatActivity implements View.OnClickListene
         otpEt[3] = findViewById(R.id.txt_pin_view_4);
         otpEt[4] = findViewById(R.id.txt_pin_view_5);
         otpEt[5] = findViewById(R.id.txt_pin_view_6);
+        showKeyBoard(pinValue);
 
         for (int i = 0; i < 6; i++) {
             final int i1 = i;
@@ -100,12 +87,12 @@ public class Activation extends AppCompatActivity implements View.OnClickListene
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    String pin1 = txt_pin_view1.getText().toString();
-                    String pin2 = txt_pin_view2.getText().toString();
-                    String pin3 = txt_pin_view3.getText().toString();
-                    String pin4 = txt_pin_view4.getText().toString();
-                    String pin5 = txt_pin_view5.getText().toString();
-                    String pin6 = txt_pin_view6.getText().toString();
+                    String pin1 = otpEt[0].getText().toString();
+                    String pin2 = otpEt[1].getText().toString();
+                    String pin3 = otpEt[2].getText().toString();
+                    String pin4 = otpEt[3].getText().toString();
+                    String pin5 = otpEt[4].getText().toString();
+                    String pin6 = otpEt[5].getText().toString();
                     if ((pin1.isEmpty() || pin2.isEmpty() || pin3.isEmpty() || pin4.isEmpty() || pin5.isEmpty() || pin6.isEmpty())) {
                         button.setAlpha(0.5f);
                         button.setEnabled(false);
@@ -121,13 +108,15 @@ public class Activation extends AppCompatActivity implements View.OnClickListene
                     if (i1 == 5 && !otpEt[i1].getText().toString().isEmpty()) {
                         otpEt[i1].clearFocus();
                         text = text + otpEt[i1].getText().toString();
-                        Log.e("hand", "afterTextChanged: " + pinValue.getText().toString());
+                        Log.d("text", "afterTextChanged: " + text);
+                        pin6_dialog_hand.setText(text);
                     } else if (!otpEt[i1].getText().toString().isEmpty()) {
                         otpEt[i1 + 1].requestFocus();
                         text = pin6_dialog_hand.getText().toString();
                         text = text + otpEt[i1].getText().toString();
                         pin6_dialog_hand.setText(text);
                     }
+                    Log.e("hand", "afterTextChanged: " + pin6_dialog_hand.getText().toString());
 
                 }
             });
@@ -138,10 +127,12 @@ public class Activation extends AppCompatActivity implements View.OnClickListene
                     if (event.getAction() != KeyEvent.ACTION_DOWN) {
                         return false; //Dont get confused by this, it is because onKeyListener is called twice and this condition is to avoid it.
                     }
-                    if (keyCode == KeyEvent.KEYCODE_DEL &&
-                            otpEt[i1].getText().toString().isEmpty() && i1 != 0) {
+                    if (keyCode == KeyEvent.KEYCODE_DEL && otpEt[i1].getText().toString().isEmpty() && i1 != 0) {
                         otpEt[i1 - 1].setText("");
                         otpEt[i1 - 1].requestFocus();
+                    }
+                    if (i1 == 0) {
+                        pin6_dialog_hand.setText("");
                     }
                     return false;
                 }
@@ -204,14 +195,14 @@ public class Activation extends AppCompatActivity implements View.OnClickListene
         btn_resend.setText("Resend Activation Code " + "(" + timeFormatted + "s)");
     }
 
-    public void onOTPReceived(String otp) {
+    public void onOTPReceived(@NonNull String otp) {
         if (otp.length() == 6) {
-            txt_pin_view1.setText(String.valueOf(otp.charAt(0)));
-            txt_pin_view2.setText(String.valueOf(otp.charAt(1)));
-            txt_pin_view3.setText(String.valueOf(otp.charAt(2)));
-            txt_pin_view4.setText(String.valueOf(otp.charAt(3)));
-            txt_pin_view5.setText(String.valueOf(otp.charAt(4)));
-            txt_pin_view6.setText(String.valueOf(otp.charAt(5)));
+            otpEt[0].setText(String.valueOf(otp.charAt(0)));
+            otpEt[1].setText(String.valueOf(otp.charAt(1)));
+            otpEt[2].setText(String.valueOf(otp.charAt(2)));
+            otpEt[3].setText(String.valueOf(otp.charAt(3)));
+            otpEt[4].setText(String.valueOf(otp.charAt(4)));
+            otpEt[5].setText(String.valueOf(otp.charAt(5)));
         }
     }
 
@@ -259,9 +250,6 @@ public class Activation extends AppCompatActivity implements View.OnClickListene
         if (smsBroadcastReceiver != null) {
             unregisterReceiver(smsBroadcastReceiver);
         }
-//        if (time_counter != null) {
-//            time_counter.cancel();
-//        }
     }
 
 
@@ -269,6 +257,7 @@ public class Activation extends AppCompatActivity implements View.OnClickListene
     public void onClick(@NonNull View view) {
         switch (view.getId()) {
             case R.id.btnContinue:
+                Log.d("activaton", "onClick: " + text);
                 try {
                     ActivateModule.createModule(Activation.this).setResponseSendActivationCode(new HttpRequest.AsyncResponse() {
                         @Override

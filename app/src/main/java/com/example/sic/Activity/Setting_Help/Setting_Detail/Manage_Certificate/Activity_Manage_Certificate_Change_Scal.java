@@ -1,6 +1,9 @@
 package com.example.sic.Activity.Setting_Help.Setting_Detail.Manage_Certificate;
 
+import static androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG;
+import static androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL;
 import static com.example.sic.Encrypt.decrypt;
+import static com.example.sic.Encrypt.encrypt;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -28,6 +31,7 @@ import androidx.core.content.ContextCompat;
 
 import com.example.sic.DefaultActivity;
 import com.example.sic.R;
+import com.example.sic.modle.Manage_Certificate;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.concurrent.Executor;
@@ -39,7 +43,7 @@ import vn.mobileid.tse.model.cryptography.Cryptography;
 
 public class Activity_Manage_Certificate_Change_Scal extends DefaultActivity implements View.OnClickListener {
 
-    TextView txt_select_id, conf_E_iden, conf_bio, conf_Pin, btn_Close;
+    TextView txt_select_id, conf_E_iden, conf_bio, conf_Pin, btn_Close,title;
     String s, credentialID;
     FrameLayout btnBack;
     LinearLayout check1, check2, check3, check4, check5, check6, check7, check8;
@@ -47,9 +51,6 @@ public class Activity_Manage_Certificate_Change_Scal extends DefaultActivity imp
     CheckBox checkBox1_option, checkBox2_option, checkBox3_option;
     Bundle id;
     EditText txt_pin_view1, txt_pin_view2, txt_pin_view3, txt_pin_view4, txt_pin_view5, txt_pin_view6, pinValue;
-
-
-
 
     AppCompatButton bt1, bt2, bt3, bt4, bt5, bt6, bt7, bt8, bt9, bt0, Key_delete;
     View.OnClickListener numKey = new View.OnClickListener() {
@@ -158,7 +159,8 @@ public class Activity_Manage_Certificate_Change_Scal extends DefaultActivity imp
         credentialID = getIntent().getStringExtra("id");
 
         module = CertificateProfilesModule.createModule(Activity_Manage_Certificate_Change_Scal.this);
-
+        Manage_Certificate manage_certificate= (Manage_Certificate) getIntent().getSerializableExtra("certificate");
+        title.setText(manage_certificate.getCNSubjectDN());
         module.setResponseCredentialsInfo(new HttpRequest.AsyncResponse() {
             @Override
             public void process(boolean b, Response response) {
@@ -420,7 +422,7 @@ public class Activity_Manage_Certificate_Change_Scal extends DefaultActivity imp
                     @Override
                     public void process(boolean b, Response response) {
 
-                        module.credentialChangeConfirm(response);
+//                        module.credentialChangeConfirm(response);
 
                     }
                 });
@@ -440,7 +442,7 @@ public class Activity_Manage_Certificate_Change_Scal extends DefaultActivity imp
         promptInfo = new BiometricPrompt.PromptInfo.Builder()
                 .setTitle("Biometric login for my app")
                 .setSubtitle("Log in using your biometric credential")
-                .setNegativeButtonText("Use account password")
+                .setAllowedAuthenticators(BIOMETRIC_STRONG | DEVICE_CREDENTIAL)
                 .build();
     }
 
@@ -478,14 +480,14 @@ public class Activity_Manage_Certificate_Change_Scal extends DefaultActivity imp
                 module.setResponseCredentialChangeRequest(new HttpRequest.AsyncResponse() {
                     @Override
                     public void process(boolean b, Response response) {
-                        module.credentialChangeConfirm(response);
+//                        module.credentialChangeConfirm(response);
                     }
                 });
                 module.credentialChangeRequest(value_scal, value_multisign);
                 SharedPreferences.Editor editor = getSharedPreferences("MY_PREFS_NAME", MODE_PRIVATE).edit();
                 String hash_code;
                 try {
-                    hash_code = Cryptography.encrypt(getBaseContext(), digit);
+                    hash_code = encrypt(getBaseContext(), digit);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
@@ -542,6 +544,7 @@ public class Activity_Manage_Certificate_Change_Scal extends DefaultActivity imp
 
     private void anh_xa() {
         txt_select_id = findViewById(R.id.txt_select_id);
+        title=findViewById(R.id.title);
         btnBack = findViewById(R.id.btnBack);
         check1 = findViewById(R.id.check1);
         check2 = findViewById(R.id.check2);

@@ -1,10 +1,21 @@
 package com.example.sic.modle;
 
-public class Manage_Certificate {
+import java.io.Serializable;
+
+public class Manage_Certificate implements Serializable {
     public String CNSubjectDN;
     public String CNIssuerDN;
     public String ValidTo;
     public String credentialID;
+    public boolean kakChange;
+
+    public boolean isKakChange() {
+        return kakChange;
+    }
+
+    public void setKakChange(boolean kakChange) {
+        this.kakChange = kakChange;
+    }
 
     public String getCredentialID() {
         return credentialID;

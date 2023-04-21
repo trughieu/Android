@@ -60,13 +60,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:paddingBottom="15dp">
+            android:padding="10dp"
+            >
 
             <TextView
                 android:id="@+id/btn_Close"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="13dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/inter_bold"
                 android:gravity="center_horizontal|center"
@@ -81,7 +81,6 @@
                 android:id="@+id/btn_Yes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="13dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/inter_bold"
                 android:gravity="center_horizontal|center"

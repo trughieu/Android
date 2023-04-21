@@ -99,31 +99,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/img_corner" /><!--    <com.goodiebag.pinview.Pinview--><!--        android:id="@+id/pin_view"--><!--        android:layout_width="wrap_content"--><!--        android:layout_height="wrap_content"--><!--        android:layout_marginTop="200dp"--><!--        app:inputType="number"--><!--        app:layout_constraintEnd_toEndOf="parent"--><!--        app:layout_constraintStart_toStartOf="parent"--><!--        app:layout_constraintTop_toTopOf="parent"--><!--        app:pinLength="6">--><!--        <requestFocus />--><!--    </com.goodiebag.pinview.Pinview>-->
-    <com.chaos.view.PinView
-        android:id="@+id/pin_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="43dp"
-        android:autofillHints="smsOTPCode"
-        android:focusableInTouchMode="true"
-        android:fontFamily="@font/inter_bold"
-        android:importantForAutofill="yes"
-        android:inputType="number"
-        android:itemBackground="@color/gray_box"
-        android:textColor="@color/white"
-        android:textSize="13dp"
-        android:textStyle="bold"
-        app:itemCount="6"
-        app:itemRadius="5dp"
-        app:itemSpacing="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enter_active"
-        app:lineColor="#00000000">
-
-        <requestFocus />
-    </com.chaos.view.PinView>
-
 
     <!--    <com.google.android.material.button.MaterialButton-->
     <!--        android:id="@+id/btnContinue"-->

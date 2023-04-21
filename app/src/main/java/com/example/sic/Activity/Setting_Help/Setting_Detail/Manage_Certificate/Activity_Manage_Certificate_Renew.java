@@ -9,10 +9,11 @@ import android.widget.TextView;
 
 import com.example.sic.DefaultActivity;
 import com.example.sic.R;
+import com.example.sic.modle.Manage_Certificate;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 public class Activity_Manage_Certificate_Renew extends DefaultActivity {
-    TextView txt_select_id_certificate_autho, txt_select_id_certificate_profile, txt_select_id_signing_counter;
+    TextView txt_select_id_certificate_autho, txt_select_id_certificate_profile, txt_select_id_signing_counter,title;
     TextView mobile_id, mobile_id_1, mobile_id_2, mobile_id_3, mobile_id_4, mobile_id_5,
             mobile_id_6, mobile_id_7, mobile_id_8, mobile_id_9,
             one_year, two_year, third_year, unlimited, tenk_signed_profile,
@@ -33,7 +34,7 @@ public class Activity_Manage_Certificate_Renew extends DefaultActivity {
         txt_select_id_signing_counter = findViewById(R.id.txt_select_id_signing_counter);
         btnBack = findViewById(R.id.btnBack);
         btnContinue = findViewById(R.id.btnContinue);
-
+        title=findViewById(R.id.title);
         btnBack.setOnClickListener(view -> {
             Intent i = new Intent(Activity_Manage_Certificate_Renew.this, Activity_Manage_Certificate.class);
             startActivity(i);
@@ -44,7 +45,8 @@ public class Activity_Manage_Certificate_Renew extends DefaultActivity {
 
         });
 
-
+        Manage_Certificate manage_certificate= (Manage_Certificate) getIntent().getSerializableExtra("certificate");
+        title.setText(manage_certificate.getCNSubjectDN());
         txt_select_id_certificate_autho.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

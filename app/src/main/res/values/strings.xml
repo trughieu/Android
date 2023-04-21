@@ -17,6 +17,7 @@
     <string name="hint_recovery_code">Recovery Code</string>
     <string name="prompt_certificate_profile_sync">Synchronize Certificate</string>
     <string name="result_certificate_has_been_activated">Your Certificate has been synchronized successfully</string>
+    <string name="promt_you_need_your_recovery" translatable="false">you need your Recovery Code if you\n   \u2022 forget your PIN Code\n   \u2022 change the\n   \u2022 change your account configuration\n\nPlease send the Recovery Code to your mobile or write it down and keep it in a safe place.\nPlease protect your mobile device so that the link and Recovery Code will not be accessed by anybody else.</string>
 
 
     <string name="button_resend">Resend Activation Code</string>
@@ -150,6 +151,10 @@
     <string name="ri_ip">IP Address</string>
     <string name="ri_browser">Browser</string>
     <string name="ri_rp_name">RP</string>
+    <string name="ri_computer_name">Computer Name</string>
+    <string name="ri_mac">Mac Address</string>
+
+
     <string name="windows_10" translatable="false">Windows 10</string>
     <string name="ip" translatable="false">192.168.3.14</string>
     <string name="chrome_107_" translatable="false">Chrome 107.0</string>
@@ -446,7 +451,7 @@
     <string name="hint_passphrase">Current Passphrase</string>
     <string name="hint_new_passphrase">New Passphrase</string>
     <string name="hint_confirm_new_passphrase">Confirm Passphrase</string>
-    <string name="passphrase_" translatable="false">Passphrase must contain the followings:  \\u2022 At least 8 characters long.  \\u2022 At least 01 uppercase character, 01 lowercase character, 01 special character, 01 number character.</string>
+    <string name="passphrase_" translatable="false">Passphrase must contain the followings:  \n\u2022 At least 8 characters long.  \n\u2022 At least 01 uppercase character, 01 lowercase\n&#160;&#160; character, 01 special character, 01 number\n&#160;&#160;&#160;character.</string>
     <string name="passphrase_is" translatable="false">Passphrase is invalid. You have remaining 4 times to attempt.</string>
     <string name="error_new_passphrase_and_confirm_pin_not_match">New passphrase and Confirm passphrase are not matched</string>
     <string name="result_passphrase_has_been_change">Your Passphrase has been changed already</string>

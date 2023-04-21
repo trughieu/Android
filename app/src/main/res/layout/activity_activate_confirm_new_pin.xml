@@ -40,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@drawable/arrow" />
+            android:src="@drawable/arrow_white" />
     </FrameLayout>
 
 
@@ -90,7 +90,7 @@
         <EditText
             android:id="@+id/txt_pin_view_1"
             android:layout_width="40dp"
-            android:layout_height="45dp"
+            android:layout_height="40dp"
             android:layout_marginEnd="15dp"
             android:background="@drawable/ic_edit_text_pin_disable"
             android:clickable="true"
@@ -108,7 +108,7 @@
         <EditText
             android:id="@+id/txt_pin_view_2"
             android:layout_width="40dp"
-            android:layout_height="45dp"
+            android:layout_height="40dp"
             android:layout_marginEnd="15dp"
             android:background="@drawable/ic_edit_text_pin_disable"
             android:clickable="true"
@@ -126,7 +126,7 @@
         <EditText
             android:id="@+id/txt_pin_view_3"
             android:layout_width="40dp"
-            android:layout_height="45dp"
+            android:layout_height="40dp"
             android:layout_marginEnd="15dp"
             android:background="@drawable/ic_edit_text_pin_disable"
             android:clickable="true"
@@ -144,7 +144,7 @@
         <EditText
             android:id="@+id/txt_pin_view_4"
             android:layout_width="40dp"
-            android:layout_height="45dp"
+            android:layout_height="40dp"
             android:layout_marginEnd="15dp"
             android:background="@drawable/ic_edit_text_pin_disable"
             android:clickable="true"
@@ -163,7 +163,7 @@
         <EditText
             android:id="@+id/txt_pin_view_5"
             android:layout_width="40dp"
-            android:layout_height="45dp"
+            android:layout_height="40dp"
             android:layout_marginEnd="15dp"
             android:background="@drawable/ic_edit_text_pin_disable"
             android:clickable="true"
@@ -182,7 +182,7 @@
         <EditText
             android:id="@+id/txt_pin_view_6"
             android:layout_width="40dp"
-            android:layout_height="45dp"
+            android:layout_height="40dp"
             android:background="@drawable/ic_edit_text_pin_disable"
             android:clickable="true"
             android:focusable="false"

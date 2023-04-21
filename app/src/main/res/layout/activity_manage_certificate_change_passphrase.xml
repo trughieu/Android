@@ -93,7 +93,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:fontFamily="@font/inter_bold"
-
         android:textColor="@color/white"
         android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -229,7 +228,7 @@
             android:fontFamily="@font/inter_light"
             android:text="@string/passphrase_"
             android:textColor="@color/white"
-            android:textSize="12dp" />
+            android:textSize="12dp"/>
 
     </LinearLayout>
 

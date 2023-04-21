@@ -1,5 +1,7 @@
 package com.example.sic.Activity.Setting_Help.Setting_Detail.Manage_Certificate;
 
+import static androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG;
+import static androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL;
 import static com.example.sic.Encrypt.decrypt;
 
 import android.app.Dialog;
@@ -377,7 +379,7 @@ public class Activity_Manage_Certificate_Add_New_Certificate_Detail extends Defa
         promptInfo = new BiometricPrompt.PromptInfo.Builder()
                 .setTitle("Biometric login for my app")
                 .setSubtitle("Log in using your biometric credential")
-                .setNegativeButtonText("Use account password")
+                .setAllowedAuthenticators(BIOMETRIC_STRONG | DEVICE_CREDENTIAL)
                 .build();
     }
 

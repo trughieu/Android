@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS"/>
 
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -119,16 +120,15 @@
             android:name=".Activity.Setting_Help.Setting_Detail.Manage_Sim.Activity_Manage_Sim_Bind_New_Sim_Enter_Code"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustNothing" />
+            android:windowSoftInputMode="adjustNothing" >
+
+        </activity>
         <activity
             android:name=".Activity.Setting_Help.Setting_Detail.Manage_Sim.Activity_Manage_Sim_Bind_New_Sim"
             android:exported="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity
             android:name=".Activity.Setting_Help.Setting_Detail.Manage_Sim.Activity_Manage_Sim"
@@ -174,7 +174,9 @@
             android:name=".Activity.Setting_Help.Setting_Detail.Manage_Certificate.Activity_Manage_Certificate_Forget_Passphrase"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustNothing" />
+            android:windowSoftInputMode="adjustNothing" >
+
+        </activity>
         <activity
             android:name=".Activity.Setting_Help.Setting_Detail.Manage_Certificate.Activity_Manage_Certificate_Change_Passphrase"
             android:exported="false"
@@ -219,7 +221,9 @@
             android:name=".Activity.Setting_Help.Setting_Detail.Activity_Setting_Detail"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustNothing" />
+            android:windowSoftInputMode="adjustNothing" >
+
+        </activity>
         <activity
             android:name=".Activity.Setting_Help.Activity_Send_Support_Detail"
             android:exported="true"
@@ -289,7 +293,10 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".Activity.Login.Activation"

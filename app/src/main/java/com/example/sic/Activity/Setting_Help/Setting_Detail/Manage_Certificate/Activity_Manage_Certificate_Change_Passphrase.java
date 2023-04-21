@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.sic.DefaultActivity;
 import com.example.sic.R;
+import com.example.sic.modle.Manage_Certificate;
 import com.google.android.material.textfield.TextInputEditText;
 
 import vn.mobileid.tse.model.client.HttpRequest;
@@ -27,7 +28,7 @@ public class Activity_Manage_Certificate_Change_Passphrase extends DefaultActivi
     String current_Passphrase;
     TextInputEditText txt_current_passpharse, txt_new_passpharse, txt_new_passpharse_confirm;
 
-    TextView btnContinue;
+    TextView btnContinue,title;
     public TextWatcher textWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -73,6 +74,7 @@ public class Activity_Manage_Certificate_Change_Passphrase extends DefaultActivi
         password_current_passpharse = findViewById(R.id.show_password_current_passpharse);
         newpasspharse = findViewById(R.id.show_password_new_passpharse);
         confirmpasshrase = findViewById(R.id.show_password_confirm_passpharse);
+        title=findViewById(R.id.title);
         btnContinue.setOnClickListener(this);
         password_current_passpharse.setOnClickListener(this);
         newpasspharse.setOnClickListener(this);
@@ -82,21 +84,13 @@ public class Activity_Manage_Certificate_Change_Passphrase extends DefaultActivi
         txt_new_passpharse.addTextChangedListener(textWatcher);
         txt_new_passpharse_confirm.addTextChangedListener(textWatcher);
 
-        if (savedInstanceState == null) {
-            id = getIntent().getExtras();
-            if (id == null) {
-                credentialID = null;
-            } else {
-                credentialID = id.getString("id");
-            }
-        } else {
-            credentialID = (String) savedInstanceState.getSerializable("a");
-        }
+        credentialID=getIntent().getStringExtra("id");
 
         module = CertificateProfilesModule.createModule(this);
 
         module.credentialsInfo(credentialID);
-
+        Manage_Certificate manage_certificate= (Manage_Certificate) getIntent().getSerializableExtra("certificate");
+        title.setText(manage_certificate.getCNSubjectDN());
     }
 
     @Override

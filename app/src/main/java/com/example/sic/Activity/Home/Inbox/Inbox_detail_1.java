@@ -30,6 +30,8 @@ public class Inbox_detail_1 extends DefaultActivity {
     Response response;
     TextView tv_issue_by_detail, tv_expired_detail, tv_scal_detail, profile_detail, profile_des_detail, authorize_mail_detail, authorize_phone_detail;
 
+    String transactionID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,17 +45,16 @@ public class Inbox_detail_1 extends DefaultActivity {
         profile_des_detail = findViewById(R.id.profile_des_detail);
         authorize_mail_detail = findViewById(R.id.authorize_email_detail);
         authorize_phone_detail = findViewById(R.id.authorize_phone_detail);
-        btnBack.setOnClickListener(view -> {
-            Intent i= new Intent(Inbox_detail_1.this,Inbox_detail.class);
-            startActivity(i);
-        });
 
-
+        transactionID = getIntent().getStringExtra("transactionId");
         credentialID = getIntent().getStringExtra("id");
+
+        start();
         module = CertificateProfilesModule.createModule(this);
         module.setResponseCredentialsInfo(new HttpRequest.AsyncResponse() {
             @Override
             public void process(boolean b, Response response_info) {
+                stop();
                 response = response_info;
                 try {
                     X509Certificate x509Certificate = CertificateUtils.getCertFormBase64(response_info.getCert().getCertificates().get(0));
@@ -72,8 +73,6 @@ public class Inbox_detail_1 extends DefaultActivity {
                     SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MM/yyyy");
                     String valid_to = outputFormat.format(expired);
                     outputFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-
-
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -100,8 +99,15 @@ public class Inbox_detail_1 extends DefaultActivity {
             inbox = 1;
             Intent i = new Intent(Inbox_detail_1.this, Activity_Manage_Certificate_Add_New_Certificate_More_Detail.class);
             i.putExtra("response", response);
-            i.putExtra("id",credentialID);
+            i.putExtra("id", credentialID);
+            i.putExtra("transactionId",transactionID);
             startActivity(i);
         });
+        btnBack.setOnClickListener(view -> {
+            Intent i = new Intent(Inbox_detail_1.this, Inbox_detail.class);
+            i.putExtra("transactionId", transactionID);
+            startActivity(i);
+        });
+
     }
 }
