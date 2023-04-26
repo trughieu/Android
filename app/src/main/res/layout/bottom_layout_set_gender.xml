@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bottom_sheet_biometrics"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/topPanel"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/bg_rounded"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/confirm"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fontFamily="@font/atb_digital_medium"
+            android:gravity="center"
+            android:text="@string/button_save"
+            android:textColor="@color/white"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="2.5"
+            android:fontFamily="@font/atb_digital_medium"
+            android:gravity="center"
+            android:text="@string/prompt_gender"
+            android:textColor="@color/white"
+            android:textSize="15dp" />
+
+        <FrameLayout
+            android:id="@+id/close"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:padding="12dp"
+                android:src="@drawable/x_white" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingBottom="15dp">
+
+        <LinearLayout
+            android:id="@+id/checkMale"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="7dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/male"
+                android:layout_width="340dp"
+                android:layout_height="21dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="7dp"
+                android:backgroundTint="@color/white"
+                android:fontFamily="@font/atb_digital_medium"
+                android:text="@string/prompt_male"
+                android:textColor="@color/text_blue"
+                android:textSize="15dp" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/checkBox1"
+                style="@style/custom_checkbox_blue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="370dp"
+            android:layout_height="2dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="6dp"
+            android:src="@drawable/line_3" />
+
+        <LinearLayout
+            android:id="@+id/checkFemale"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginBottom="7dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/female"
+                android:layout_width="340dp"
+                android:layout_height="21dp"
+                android:layout_marginStart="20dp"
+                android:fontFamily="@font/atb_digital_medium"
+                android:text="@string/prompt_female"
+                android:textColor="@color/text_blue"
+                android:textSize="15dp" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/checkBox2"
+                style="@style/custom_checkbox_blue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="370dp"
+            android:layout_height="2dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="6dp"
+            android:src="@drawable/line_3" />
+
+        <LinearLayout
+            android:id="@+id/checkOther"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginBottom="7dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/other"
+                android:layout_width="340dp"
+                android:layout_height="21dp"
+                android:layout_marginStart="20dp"
+                android:fontFamily="@font/atb_digital_medium"
+                android:text="@string/prompt_other"
+                android:textColor="@color/text_blue"
+                android:textSize="15dp" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/checkBox3"
+                style="@style/custom_checkbox_blue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/bottom_sheet_biometrics"
     android:layout_width="match_parent"
@@ -33,7 +34,7 @@
             android:layout_weight="2.5"
             android:fontFamily="@font/atb_digital_medium"
             android:gravity="center"
-            android:text="@string/prompt_place_of_residence"
+            android:text="@string/prompt_contact_address"
             android:textColor="@color/white"
             android:textSize="15dp" />
 
@@ -65,8 +66,8 @@
             android:id="@+id/layout_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
             android:orientation="vertical"
+            android:layout_marginTop="50dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -75,7 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/atb_digital_medium"
-                android:text="@string/select_province"
+                android:text="@string/prompt_contact_address"
                 android:textColor="@color/blue_text"
                 android:textSize="12dp"
                 android:textStyle="bold" />
@@ -85,77 +86,35 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <Spinner
-                    android:id="@+id/spinnerProvince"
-                    style="@style/SpinnerTheme"
-                    android:layout_width="match_parent"
+                <EditText
+                    android:id="@+id/password"
+                    android:layout_width="290dp"
                     android:layout_height="wrap_content"
-                    android:popupBackground="?attr/popupMenuBackground"
-                    android:prompt="@string/select_province"
-                    android:spinnerMode="dropdown" />
+                    android:background="@android:color/transparent"
+                    android:fontFamily="@font/atb_digital_regular"
+                    android:gravity="start"
+                    android:hint="@string/prompt_contact_address"
+                    android:inputType="textPassword"
+                    android:paddingTop="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="10dp"
+                    android:textColor="@color/blue_text"
+                    android:textColorHint="@color/gray"
+                    android:textSize="12dp" />
 
-            </LinearLayout>
+                <FrameLayout
+                    android:id="@+id/frame_x"
+                    android:layout_width="70dp"
+                    android:layout_height="match_parent">
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/line_stroke_gray" />
+                    <ImageView
+                        android:id="@+id/show_password"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/x_blue" />
+                </FrameLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/atb_digital_medium"
-                android:text="@string/select_distict"
-                android:textColor="@color/blue_text"
-                android:textSize="12dp"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:layout_width="350dp"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <Spinner
-                    android:id="@+id/spinnerDistrict"
-                    style="@style/SpinnerTheme"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:popupBackground="?attr/popupMenuBackground"
-
-                    android:prompt="@string/select_province"
-                    android:spinnerMode="dropdown" />
-            </LinearLayout>
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/line_stroke_gray" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/atb_digital_medium"
-                android:text="@string/select_ward"
-                android:textColor="@color/blue_text"
-                android:textSize="12dp"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:layout_width="350dp"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <Spinner
-                    android:id="@+id/spinnerWard"
-                    style="@style/SpinnerTheme"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:popupBackground="?attr/popupMenuBackground"
-
-                    android:prompt="@string/select_province"
-                    android:spinnerMode="dropdown" />
             </LinearLayout>
 
             <ImageView

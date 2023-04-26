@@ -30,7 +30,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_weight="2.5"
+            android:layout_weight="5"
             android:fontFamily="@font/atb_digital_medium"
             android:gravity="center"
             android:text="@string/prompt_place_of_residence"
@@ -58,7 +58,7 @@
         android:layout_height="match_parent"
         android:background="@color/white"
         android:orientation="vertical"
-        android:paddingBottom="20dp">
+        android:paddingBottom="80dp">
 
 
         <LinearLayout
@@ -72,7 +72,8 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/province"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/atb_digital_medium"
                 android:text="@string/select_province"
@@ -82,17 +83,30 @@
 
             <LinearLayout
                 android:layout_width="350dp"
+                android:layout_marginTop="5dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <Spinner
                     android:id="@+id/spinnerProvince"
-                    style="@style/SpinnerTheme"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:popupBackground="?attr/popupMenuBackground"
-                    android:prompt="@string/select_province"
-                    android:spinnerMode="dropdown" />
+                    android:spinnerMode="dropdown"
+                    style="@style/SpinnerTheme"
+                    />
+<!--                <TextView-->
+<!--                    android:id="@+id/province"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:background="@color/transparent"-->
+<!--                    android:fontFamily="@font/atb_digital_regular"-->
+<!--                    android:hint="@string/select_province"-->
+<!--                    android:paddingTop="10dp"-->
+<!--                    android:paddingBottom="10dp"-->
+<!--                    android:textColor="@color/blue_text"-->
+<!--                    android:textColorHint="@color/gray"-->
+<!--                    android:textSize="12dp"-->
+<!--                    app:drawableEndCompat="@drawable/baseline_keyboard_arrow_down_24" />-->
 
             </LinearLayout>
 
@@ -102,7 +116,8 @@
                 android:src="@drawable/line_stroke_gray" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/district"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/atb_digital_medium"
@@ -113,18 +128,32 @@
 
             <LinearLayout
                 android:layout_width="350dp"
+                android:layout_marginTop="5dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <Spinner
+
                     android:id="@+id/spinnerDistrict"
-                    style="@style/SpinnerTheme"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:popupBackground="?attr/popupMenuBackground"
+                    android:spinnerMode="dropdown"
+                    style="@style/SpinnerTheme"
+                    />
+                <!--                <TextView-->
+                <!--                    android:id="@+id/district"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:background="@color/transparent"-->
+                <!--                    android:fontFamily="@font/atb_digital_regular"-->
+                <!--                    android:hint="@string/select_distict"-->
+                <!--                    android:textColor="@color/blue_text"-->
+                <!--                    android:paddingTop="10dp"-->
+                <!--                    android:paddingBottom="10dp"-->
+                <!--                    android:textColorHint="@color/gray"-->
+                <!--                    android:textSize="12dp"-->
+                <!--                    app:drawableEndCompat="@drawable/baseline_keyboard_arrow_down_24" />-->
 
-                    android:prompt="@string/select_province"
-                    android:spinnerMode="dropdown" />
             </LinearLayout>
 
             <ImageView
@@ -133,7 +162,8 @@
                 android:src="@drawable/line_stroke_gray" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/ward"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/atb_digital_medium"
@@ -144,18 +174,31 @@
 
             <LinearLayout
                 android:layout_width="350dp"
+                android:layout_marginTop="5dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <Spinner
                     android:id="@+id/spinnerWard"
-                    style="@style/SpinnerTheme"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:popupBackground="?attr/popupMenuBackground"
+                    android:spinnerMode="dropdown"
+                    style="@style/SpinnerTheme"
+                    />
+<!--                <TextView-->
+<!--                    android:id="@+id/ward"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:background="@color/transparent"-->
+<!--                    android:fontFamily="@font/atb_digital_regular"-->
+<!--                    android:hint="@string/select_ward"-->
+<!--                    android:paddingTop="10dp"-->
+<!--                    android:paddingBottom="10dp"-->
+<!--                    android:textColor="@color/blue_text"-->
+<!--                    android:textColorHint="@color/gray"-->
+<!--                    android:textSize="12dp"-->
+<!--                    app:drawableEndCompat="@drawable/baseline_keyboard_arrow_down_24" />-->
 
-                    android:prompt="@string/select_province"
-                    android:spinnerMode="dropdown" />
             </LinearLayout>
 
             <ImageView

@@ -48,7 +48,7 @@
     <string name="button_change_pin">Thay Đổi\nMã Pin</string>
     <string name="prompt_change_pin_code">Thay Đổi Pin</string>
     <string name="del_acc">Xóa\nTài Khoản</string>
-    <string name="action_history" >Lịch Sử\nHoạt Động</string>
+    <string name="action_history">Lịch Sử\nHoạt Động</string>
     <string name="prompt_manage_orders_title">Quản Lý Đơn Hàng</string>
     <string name="wrong_verification_code">Wrong Verification Code</string>
     <string name="certificate_credential_history_issue">Issue</string>
@@ -91,7 +91,7 @@
     <string name="prompt_attribute_require">Thông Tin Bắt Buộc</string>
     <string name="prompt_optional_information">Thông Tin Tùy Chọn</string>
     <string name="prompt_register_2">Registrant</string>
-
+    <string name="prompt_successful_registration">Đăng Ký Tài Khoản Thành Công</string>
     <string name="spinner_certificate_status_valid">Hoạt Động</string>
     <string name="spinner_certificate_status_initialized">Khởi Tạo</string>
     <string name="spinner_certificate_status_generated">Sinh Khóa</string>
@@ -103,11 +103,29 @@
     <string name="spinner_certificate_status_revised">Thay Đổi Thông Tin</string>
     <string name="spinner_certificate_status_all">Tất Cả</string>
     <string name="action">Hoạt Động</string>
-    <string name="actionhitory" >Lịch Sử Hoạt Động</string>
+    <string name="button_save">Save</string>
+    <string name="actionhitory">Lịch Sử Hoạt Động</string>
+    <string name="prompt_female">Nữ</string>
+    <string name="prompt_male">Nam</string>
+    <string name="select_province">Tỉnh/Thành phố</string>
+    <string name="select_distict">Quận/Huyện</string>
+    <string name="select_ward">Phường/Xã</string>
+    <string name="prompt_ethnic">Dân tộc</string>
+    <string name="prompt_mandatory">Thông Tin Bắt Buộc</string>
+    <string name="title_register_information">Thông Tin Đăng Ký</string>
+    <string name="title_contact_information">Thông Tin Liên Hệ</string>
+    <string name="hint_phone">Số điện thoại</string>
+    <string name="hint_email">Địa chỉ email</string>
+    <string name="prompt_organization">Công ty</string>
+    <string name="prompt_document_number">Định Danh Giấy Tờ Tuỳ Thân</string>
+    <string name="prompt_ex_document_number">Số Chứng Minh Nhân Dân Cũ</string>
+    <string name="prompt_issuing_country">Nơi Cấp</string>
+    <string name="prompt_contact_name">Tên Người Liên Hệ</string>
+    <string name="prompt_contact_address">Địa Chỉ Liên Hệ</string>
+    <string name="prompt_contact_mobile_number">Số Điện Thoại Liên Hệ</string>
+
 
     <string name="spinner_action_history_status_all">ALL</string>
-
-
     <string name="certificate_manage_change_passphrase">Thay Đổi Passphrase</string>
     <string name="certificate_manage_forget_passphrase">Quên Passphrase</string>
     <string name="certificate_manage_change_email">Thay Đổi Email</string>
@@ -206,7 +224,7 @@
     <string name="wrong_active">Wrong Activation Code. You have remaining 4 times to attempt.</string>
     <string name="close">Đóng</string>
     <string name="prompt_choose_auth_method">Phương Thức Xác Thực</string>
-    <string name="wrong_pin_c" >Mã PIN sai</string>
+    <string name="wrong_pin_c">Mã PIN sai</string>
     <string name="failed">FAILED!</string>
     <string name="success">SUCCESS!</string>
     <string name="result_activation_code_sent">Mã Kích Hoạt Của Bạn Đã Được Gửi</string>
@@ -284,6 +302,6 @@
     <string name="certificate_basic_constraints">Hạn Chế Cơ Bản</string>
     <string name="button_user_allow_approve_later">Cho Phép Duyệt Sau</string>
     <string name="please_login">Vui Lòng đăng nhập và đăng ký\ncho chức năng này</string>
-    <string name="notification" >Thông Báo</string>
+    <string name="notification">Thông Báo</string>
 
 </resources>

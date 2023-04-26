@@ -121,7 +121,7 @@
         <LinearLayout
             android:id="@+id/menu_connect"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginTop="16dp"
             android:layout_weight="1"
             android:gravity="center"
@@ -129,14 +129,14 @@
 
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_cloud" />
+                android:layout_height="0dp"
+                android:layout_weight="1"                android:src="@drawable/icon_cloud" />
 
             <TextView
                 android:id="@+id/txt_connect"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"                android:layout_marginTop="8dp"
                 android:text="@string/button_user_connect_service"
                 android:textColor="@color/text_homepage"
                 android:textSize="10dp" />
@@ -145,7 +145,7 @@
         <LinearLayout
             android:id="@+id/menu_scanqr"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginTop="16dp"
             android:layout_weight="1"
             android:gravity="center"
@@ -154,15 +154,15 @@
 
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_scan" />
+                android:layout_height="0dp"
+                android:layout_weight="1"                android:src="@drawable/icon_scan" />
 
             <TextView
                 android:id="@+id/txt_scan_qr"
 
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|top"
+                android:layout_height="0dp"
+                android:layout_weight="1"                android:layout_gravity="center_horizontal|top"
                 android:layout_marginTop="8dp"
                 android:text="@string/Scan_QR"
                 android:textColor="@color/text_homepage"
@@ -172,7 +172,7 @@
         <LinearLayout
             android:id="@+id/menu_inbox"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginTop="16dp"
             android:layout_weight="1"
 
@@ -181,15 +181,15 @@
 
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_mail" />
+                android:layout_height="0dp"
+                android:layout_weight="1"                android:src="@drawable/icon_mail" />
 
             <TextView
                 android:id="@+id/txt_inbox"
 
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"                android:layout_marginTop="8dp"
                 android:text="@string/button_user_inbox"
                 android:textColor="@color/text_homepage"
                 android:textSize="10dp" />
@@ -198,7 +198,7 @@
         <LinearLayout
             android:id="@+id/menu_setting_help"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginTop="16dp"
             android:layout_weight="1"
             android:gravity="center"
@@ -207,14 +207,16 @@
 
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:src="@drawable/icon_setting" />
 
 
             <TextView
                 android:id="@+id/txt_setting_help"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:layout_marginTop="8dp"
                 android:gravity="center_horizontal|top"
                 android:text="@string/button_user_settings"

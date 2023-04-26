@@ -55,8 +55,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SIC_no">
         <activity
-            android:name=".Activity.Registry.nonChip.register_nonChip_5"
+            android:name=".Activity.Registry.chip.registerChip_7"
             android:exported="true" >
+
+        </activity>
+        <activity
+            android:name=".Activity.Registry.nonChip.register_nonChip_5"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -296,7 +301,9 @@
             android:name=".Activity.test"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustNothing" />
+            android:windowSoftInputMode="adjustNothing">
+
+        </activity>
         <activity
             android:name=".Activity.Home.Inbox.Inbox"
             android:exported="true"
@@ -392,9 +399,7 @@
             android:name=".Activity.Registry.Register"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustNothing">
-
-        </activity>
+            android:windowSoftInputMode="adjustNothing"></activity>
         <activity
             android:name=".Activity.Login.MainActivity"
             android:exported="true"

@@ -71,7 +71,7 @@
         <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
     </LinearLayout>
 
     <LinearLayout
@@ -85,7 +85,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:layout_width="305dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="51dp"
             android:fontFamily="@font/atb_digital_medium"
@@ -110,7 +110,7 @@
 
             <TextView
                 android:id="@+id/tv_detail"
-                android:layout_width="123.96dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/atb_digital_medium"
                 android:gravity="top"
@@ -132,7 +132,7 @@
 
                 <TextView
                     android:id="@+id/tv_issue"
-                    android:layout_width="123.96dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/atb_digital_regular"
@@ -143,9 +143,10 @@
 
                 <TextView
                     android:id="@+id/tv_issue_by_detail"
-                    android:layout_width="225dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
+                    android:layout_weight="1"
                     android:fontFamily="@font/atb_digital_medium"
                     android:gravity="end"
                     android:text="@string/mobile_id_t"
@@ -169,7 +170,7 @@
 
                 <TextView
                     android:id="@+id/tv_expire"
-                    android:layout_width="123.96dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/atb_digital_regular"
@@ -180,9 +181,10 @@
 
                 <TextView
                     android:id="@+id/tv_expired_detail"
-                    android:layout_width="225dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
+                    android:layout_weight="1"
                     android:fontFamily="@font/atb_digital_medium"
                     android:gravity="end"
                     android:text="@string/date_expire_uyen_nguyen"
@@ -206,9 +208,10 @@
 
                 <TextView
                     android:id="@+id/tv_scal"
-                    android:layout_width="123.96dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+
                     android:fontFamily="@font/atb_digital_regular"
                     android:gravity="start"
                     android:text="@string/prompt_credential_change_scal"
@@ -217,9 +220,10 @@
 
                 <TextView
                     android:id="@+id/tv_scal_detail"
-                    android:layout_width="225dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
+                    android:layout_weight="1"
                     android:fontFamily="@font/atb_digital_medium"
                     android:gravity="end"
                     android:text="@string/one"
@@ -242,7 +246,7 @@
 
                 <TextView
                     android:id="@+id/tv_profile"
-                    android:layout_width="123.96dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/atb_digital_regular"
@@ -253,9 +257,10 @@
 
                 <TextView
                     android:id="@+id/profile_detail"
-                    android:layout_width="225dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
+                    android:layout_weight="1"
                     android:fontFamily="@font/atb_digital_medium"
                     android:gravity="end"
                     android:text="@string/t2psb21y"
@@ -277,7 +282,7 @@
 
                 <TextView
                     android:id="@+id/tv_profile_des"
-                    android:layout_width="123.96dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/atb_digital_regular"
@@ -288,9 +293,10 @@
 
                 <TextView
                     android:id="@+id/profile_des_detail"
-                    android:layout_width="225dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
+                    android:layout_weight="2"
                     android:fontFamily="@font/atb_digital_medium"
                     android:gravity="end"
                     android:text="@string/year_person"
@@ -312,7 +318,7 @@
 
                 <TextView
                     android:id="@+id/tv_autho_email"
-                    android:layout_width="123.96dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/atb_digital_regular"
@@ -323,9 +329,11 @@
 
                 <TextView
                     android:id="@+id/authorize_email_detail"
-                    android:layout_width="225dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
+                    android:layout_weight="2"
+
                     android:fontFamily="@font/atb_digital_medium"
                     android:gravity="end"
                     android:textColor="@color/white"
@@ -346,7 +354,7 @@
 
                 <TextView
                     android:id="@+id/tv_autho_phone"
-                    android:layout_width="123.96dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/atb_digital_regular"
@@ -357,9 +365,10 @@
 
                 <TextView
                     android:id="@+id/authorize_phone_detail"
-                    android:layout_width="225dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
+                    android:layout_weight="1"
                     android:fontFamily="@font/atb_digital_medium"
                     android:gravity="end"
                     android:text="@string/sdt_uyen_nguyen"

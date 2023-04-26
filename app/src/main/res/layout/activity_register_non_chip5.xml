@@ -7,16 +7,6 @@
     tools:context=".Activity.Registry.nonChip.register_nonChip_5">
 
     <ImageView
-        android:id="@+id/background_default"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/max_default"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
         android:id="@+id/rectangles"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -344,7 +334,7 @@
                     android:paddingEnd="20dp">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/atb_digital_medium"
@@ -355,9 +345,9 @@
 
                     <TextView
                         android:id="@+id/placeResidence"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:drawablePadding="20dp"
                         android:fontFamily="@font/atb_digital_medium"
                         android:gravity="right"
@@ -527,7 +517,7 @@
                     android:paddingEnd="20dp">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/atb_digital_medium"
@@ -538,9 +528,9 @@
 
                     <TextView
                         android:id="@+id/placeOrigin"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:drawablePadding="20dp"
                         android:fontFamily="@font/atb_digital_medium"
                         android:gravity="right"
@@ -612,17 +602,27 @@
                 android:layout_height="200dp"
                 android:layout_marginStart="45dp"
                 android:layout_marginEnd="45dp"
-                android:layout_marginTop="20dp "
-                android:background="@color/white"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/white"
+                android:background="@drawable/dotted"
                 android:orientation="vertical">
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1"
                     android:layout_marginBottom="10dp"
-                    />
+                    android:layout_weight="1"
+                    android:visibility="gone" />
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/atb_digital_regular"
+                    android:gravity="center"
+                    android:textColor="@color/gray_DO"
+                    android:text="@string/prompt_enter_signature"
+                    android:textSize="12dp" />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -632,14 +632,32 @@
                     android:textColor="@color/gray" />
 
                 <TextView
+                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/atb_digital_regular"
                     android:gravity="center"
+                    android:layout_marginBottom="20dp"
                     android:text="Registant: Nguyyễn Trung Hiếu"
                     android:textColor="@color/gray" />
 
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/btnContinue"
+                android:layout_width="257dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="77dp"
+                android:background="@drawable/square"
+                android:fontFamily="@font/atb_digital_medium"
+                android:gravity="center"
+                android:text="Continue"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:textSize="12dp"
+                android:layout_marginTop="20dp"
+                android:textStyle="bold"
+        />
         </LinearLayout>
 
     </ScrollView>
