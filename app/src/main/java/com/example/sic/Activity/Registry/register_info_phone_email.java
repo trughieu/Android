@@ -11,11 +11,14 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import com.example.sic.Dev_activity;
 import com.example.sic.R;
 
-public class register_info_phone_email extends AppCompatActivity implements View.OnClickListener {
+import vn.mobileid.tse.model.client.HttpRequest;
+import vn.mobileid.tse.model.client.register.RegisterModule;
+import vn.mobileid.tse.model.connector.plugin.Response;
+
+public class register_info_phone_email extends Dev_activity implements View.OnClickListener {
     TextView btnContinue, txtTitle;
     EditText edt_Phone, edt_Email;
     FrameLayout btnBack;
@@ -47,6 +50,8 @@ public class register_info_phone_email extends AppCompatActivity implements View
 
     };
 
+    RegisterModule module;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,15 +64,17 @@ public class register_info_phone_email extends AppCompatActivity implements View
         edt_Phone = findViewById(R.id.editTextPhone);
         edt_Email = findViewById(R.id.edt_email_address);
         btnBack = findViewById(R.id.btnBack);
-        btnContinue.setEnabled(false);
+//        btnContinue.setEnabled(false);
         btnContinue.setOnClickListener(this);
         btnBack.setOnClickListener(this);
         email = edt_Email.getText().toString();
         phone = edt_Phone.getText().toString();
         otp = "111111";
-
+        edt_Email.setText("fit.nguyentrunghieu.711@gmail.com");
+        edt_Phone.setText("0908389536");
         edt_Phone.addTextChangedListener(textWatcher);
         edt_Email.addTextChangedListener(textWatcher);
+        module = RegisterModule.createModule(this);
 
         /** APPLY SDK */
 
@@ -75,25 +82,30 @@ public class register_info_phone_email extends AppCompatActivity implements View
 
     @Override
     public void onClick(View view) {
-        Intent i;
+
         switch (view.getId()) {
             case R.id.btnContinue:
-//                RegisterModule.createModule(register_info_phone_email.this).
-//                        setAsyncResponse(new HttpRequest.AsyncResponse() {
-//                    @Override
-//                    public void process(boolean b, Response response) {
-//
-//                    }
-//                }).registrationsInitialize(email, phone);
+                email = edt_Email.getText().toString();
+                phone = edt_Phone.getText().toString();
+                module.setAsyncResponse(new HttpRequest.AsyncResponse() {
+                    @Override
+                    public void process(boolean b, Response response) {
+
+                        if (response.getError() == 0) {
+                            Intent intent= new Intent(view.getContext(), register_info_otp.class);
+                           startActivity(intent);
+                finish();
+                        }
+                    }
+                }).registrationsInitialize(email, phone);
 
 //
-                i = new Intent(register_info_phone_email.this, register_info_otp.class);
-                i.putExtra("otp", otp);
-                startActivity(i);
+
                 break;
             case R.id.btnBack:
-                i = new Intent(register_info_phone_email.this, register_info_2.class);
-                startActivity(i);
+                Intent intent= new Intent(register_info_phone_email.this, register_info_2.class);
+               startActivity(intent);
+                finish();
                 break;
         }
     }

@@ -509,8 +509,9 @@ public class Activity_Manage_Certificate_Change_Email_Confirm_Code extends Defau
 //                }
                 break;
             case R.id.btnBack:
-                Intent i = new Intent(Activity_Manage_Certificate_Change_Email_Confirm_Code.this, Activity_Manage_Certificate_Change_Email.class);
-                startActivity(i);
+                Intent intent= new Intent(Activity_Manage_Certificate_Change_Email_Confirm_Code.this, Activity_Manage_Certificate_Change_Email.class);
+               startActivity(intent);
+                finish();
         }
     }
 
@@ -554,8 +555,9 @@ public class Activity_Manage_Certificate_Change_Email_Confirm_Code extends Defau
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent i = new Intent(Activity_Manage_Certificate_Change_Email_Confirm_Code.this, Activity_Manage_Certificate.class);
-                startActivity(i);
+                Intent intent= new Intent(Activity_Manage_Certificate_Change_Email_Confirm_Code.this, Activity_Manage_Certificate.class);
+               startActivity(intent);
+                finish();
             }
         }, 2000);
     }

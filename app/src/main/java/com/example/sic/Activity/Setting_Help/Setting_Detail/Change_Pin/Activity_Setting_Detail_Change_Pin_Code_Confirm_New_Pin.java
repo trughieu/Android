@@ -143,10 +143,11 @@ public class Activity_Setting_Detail_Change_Pin_Code_Confirm_New_Pin extends Def
                         Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             public void run() {
-                                Intent i = new Intent(Activity_Setting_Detail_Change_Pin_Code_Confirm_New_Pin.this, Activity_Setting_Detail.class);
-                                i.putExtra("otp", pinValue.getText().toString());
+                                Intent intent= new Intent(Activity_Setting_Detail_Change_Pin_Code_Confirm_New_Pin.this, Activity_Setting_Detail.class);
+                                intent.putExtra("otp", pinValue.getText().toString());
                                 Log.d("afb", "afterTextChanged: " + pinValue.getText().toString());
-                                startActivity(i);
+                               startActivity(intent);
+                finish();
                             }
                         }, 3000);
                     }

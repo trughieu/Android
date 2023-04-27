@@ -3,18 +3,22 @@ package com.example.sic;
 
 import static com.example.sic.Activity.Login.Activation.REQ_USER_CONSENT;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.biometric.BiometricPrompt;
@@ -37,7 +41,9 @@ public class DefaultActivity extends AppCompatActivity {
     public BiometricPrompt.PromptInfo promptInfo;
     AnimationDrawable loading_animation;
     WaitingTaskDialog waitingDialog;
-    Intent i;
+    Intent intent;
+    private static final String PREFS_NAME = "MyPrefsFile";
+    private String mState;
 
     protected void start() {
         if (!waitingDialog.isShowing()) {
@@ -68,8 +74,12 @@ public class DefaultActivity extends AppCompatActivity {
         module.setResponseGetRequestList((b, response) -> {
             if (response == null)// chua dang nhap
             {
-                i = new Intent(this, MainActivity.class);
-                startActivity(i);
+                intent = new Intent(this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+         startActivity(intent);
+                finish();
             } else if (
                     response.getError() == 3208 ||
                             response.getError() == 3209 ||
@@ -78,8 +88,16 @@ public class DefaultActivity extends AppCompatActivity {
                 module.reLogin();
             }
         }).requestList();
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        mState = prefs.getString("state", null);
+        if (mState != null) {
+            // Khôi phục trạng thái từ SharedPreferences
+            Intent intent = new Intent(this, Context.class);
+            startActivity(intent);
+            finish();
+        } else {
 
-
+        }
     }
 
     public void setApplicationLocale() {
@@ -106,5 +124,11 @@ public class DefaultActivity extends AppCompatActivity {
 
     }
 
-
+    @Override
+    protected void onStop() {
+        super.onStop();
+        SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
+        editor.putString("state", mState);
+        editor.apply();
+    }
 }

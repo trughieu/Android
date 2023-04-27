@@ -284,34 +284,62 @@ public class Activity_Setting_Detail extends DefaultActivity implements View.OnC
 
             case R.id.id_chang_pin:
                 intent = new Intent(Activity_Setting_Detail.this, Activity_Setting_Detail_Change_Pin_Code.class);
-                startActivity(intent);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+      startActivity(intent);
+                finish();
                 break;
             case R.id.id_recover_account:
                 intent = new Intent(Activity_Setting_Detail.this, MainActivity.class);
-                startActivity(intent);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+     startActivity(intent);
+                finish();
                 break;
             case R.id.id_delete_account:
                 Dialog_delete_account();
                 break;
             case R.id.id_manage_certificate:
                 intent = new Intent(Activity_Setting_Detail.this, Activity_Manage_Certificate.class);
-                startActivity(intent);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+                finish();
                 break;
             case R.id.id_manage_sim:
                 intent = new Intent(Activity_Setting_Detail.this, Activity_Manage_Sim.class);
-                startActivity(intent);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+                finish();
                 break;
             case R.id.id_manage_order:
                 intent = new Intent(Activity_Setting_Detail.this, Activity_Manage_Order.class);
-                startActivity(intent);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+       startActivity(intent);
+                finish();
                 break;
             case R.id.btnBack:
                 intent = new Intent(Activity_Setting_Detail.this, Activity_Setting_Help.class);
-                startActivity(intent);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+     startActivity(intent);
+                finish();
                 break;
             case R.id.id_action_history:
                 intent = new Intent(Activity_Setting_Detail.this, Activity_Action_History.class);
-                startActivity(intent);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+      startActivity(intent);
+                finish();
                 break;
             case R.id.check_biometrics:
                 if (check_biometrics.isChecked()) {
@@ -427,8 +455,9 @@ public class Activity_Setting_Detail extends DefaultActivity implements View.OnC
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent i = new Intent(getApplicationContext(), Activity_Manage_Certificate.class);
-                startActivity(i);
+                Intent intent= new Intent(getApplicationContext(), Activity_Manage_Certificate.class);
+               startActivity(intent);
+                finish();
                 dialog.dismiss();
             }
         }, 3000);

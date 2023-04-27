@@ -18,8 +18,9 @@ public class Activity_Privacy_Detail extends DefaultActivity {
 
         btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(view -> {
-            Intent i = new Intent(Activity_Privacy_Detail.this, Activity_Setting_Help.class);
-            startActivity(i);
+            Intent intent= new Intent(Activity_Privacy_Detail.this, Activity_Setting_Help.class);
+           startActivity(intent);
+                finish();
         });
     }
 }

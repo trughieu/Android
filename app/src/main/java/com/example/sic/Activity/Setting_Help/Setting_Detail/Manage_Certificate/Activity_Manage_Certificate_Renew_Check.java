@@ -78,15 +78,23 @@ public class Activity_Manage_Certificate_Renew_Check extends DefaultActivity imp
 
     @Override
     public void onClick(View view) {
-        Intent i;
+        Intent intent;
         switch (view.getId()) {
             case R.id.btnBack:
-                i = new Intent(Activity_Manage_Certificate_Renew_Check.this, Activity_Manage_Certificate_Renew.class);
-                startActivity(i);
+                intent = new Intent(Activity_Manage_Certificate_Renew_Check.this, Activity_Manage_Certificate_Renew.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+                finish();
                 break;
             case R.id.btn_Detail:
-                i = new Intent(Activity_Manage_Certificate_Renew_Check.this, Activity_Manage_Certificate_Renew_Check_Detail.class);
-                startActivity(i);
+                intent = new Intent(Activity_Manage_Certificate_Renew_Check.this, Activity_Manage_Certificate_Renew_Check_Detail.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+                finish();
                 break;
         }
     }

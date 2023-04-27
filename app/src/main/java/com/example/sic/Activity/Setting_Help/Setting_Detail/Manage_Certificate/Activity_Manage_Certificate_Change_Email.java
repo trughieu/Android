@@ -80,8 +80,9 @@ public class Activity_Manage_Certificate_Change_Email extends DefaultActivity im
                     @Override
                     public void process(boolean b, Response response) {
                         if (response.getError() == 0) {
-                            Intent i = new Intent(Activity_Manage_Certificate_Change_Email.this, Activity_Manage_Certificate_Change_Email_Confirm_Code.class);
-                            startActivity(i);
+                            Intent intent= new Intent(Activity_Manage_Certificate_Change_Email.this, Activity_Manage_Certificate_Change_Email_Confirm_Code.class);
+                           startActivity(intent);
+                finish();
                         }
                     }
                 });
@@ -90,8 +91,9 @@ public class Activity_Manage_Certificate_Change_Email extends DefaultActivity im
                 module.changeEmailRequest(txt_email_address.getText().toString());
                 break;
             case R.id.btnBack:
-                Intent i = new Intent(getBaseContext(), Activity_Manage_Certificate.class);
-                startActivity(i);
+                Intent intent= new Intent(getBaseContext(), Activity_Manage_Certificate.class);
+               startActivity(intent);
+                finish();
         }
     }
 }

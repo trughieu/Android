@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatCheckBox;
 
-import com.example.sic.Activity.Registry.nonChip.register_nonChip_2;
+import com.example.sic.Activity.Registry.register_info_otp;
 import com.example.sic.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -93,15 +93,25 @@ public class registerChip_1 extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View view) {
-        Intent i;
+        Intent intent;
         switch (view.getId()) {
             case R.id.btnContinue:
-                i = new Intent(registerChip_1.this, registerChip_2.class);
-                startActivity(i);
+                intent = new Intent(registerChip_1.this, registerChip_2.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+               startActivity(intent);
+                finish();
                 break;
             case R.id.btnBack:
-                i = new Intent(registerChip_1.this, register_nonChip_2.class);
-                startActivity(i);
+                intent = new Intent(registerChip_1.this, register_info_otp.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+               startActivity(intent);
+                finish();
         }
 
     }

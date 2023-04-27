@@ -40,16 +40,24 @@ public class registerNonChip extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onClick(View view) {
-        Intent i;
+        Intent intent;
         switch (view.getId()) {
             case R.id.btnContinue:
-                i = new Intent(registerNonChip.this, register_info_1.class);
-                i.putExtra("title", title);
-                startActivity(i);
+                intent = new Intent(registerNonChip.this, register_info_1.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+     intent.putExtra("title", title);
+               startActivity(intent);
+                finish();
                 break;
             case R.id.btnBack:
-                i = new Intent(registerNonChip.this, Register.class);
-                startActivity(i);
+                intent = new Intent(registerNonChip.this, Register.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+       startActivity(intent);
+                finish();
                 break;
         }
     }

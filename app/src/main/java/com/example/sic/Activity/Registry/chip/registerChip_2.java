@@ -20,8 +20,9 @@ public class registerChip_2 extends AppCompatActivity {
         btnBack = findViewById(R.id.btnBack);
 
         btnBack.setOnClickListener(view -> {
-            Intent i = new Intent(registerChip_2.this, registerChip_3.class);
-            startActivity(i);
+            Intent intent= new Intent(registerChip_2.this, registerChip_3.class);
+           startActivity(intent);
+                finish();
         });
 
 
@@ -29,7 +30,12 @@ public class registerChip_2 extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             public void run() {
                 Intent intent = new Intent(registerChip_2.this, registerChip_3.class);
-                startActivity(intent);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    
+               startActivity(intent);
+                finish();
 
             }
         }, 5000);

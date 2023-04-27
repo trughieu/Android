@@ -48,7 +48,6 @@ public class Activation extends AppCompatActivity implements View.OnClickListene
     EditText[] otpEt = new EditText[6];
     private CountDownTimer countDownTimer;
     private long timeLeftinMillis = 60000;
-    private boolean timerRunning;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -188,7 +187,6 @@ public class Activation extends AppCompatActivity implements View.OnClickListene
     }
 
     private void updateCountDownText() {
-        timerRunning = true;
         int seconds = (int) ((timeLeftinMillis / 1000));
         // định dạng kiểu time
         String timeFormatted = String.format(Locale.getDefault(), "%02d", seconds);
@@ -271,16 +269,18 @@ public class Activation extends AppCompatActivity implements View.OnClickListene
                                             @Override
                                             public void run() {
                                                 from = 1;
-                                                Intent i = new Intent(Activation.this, Activity_Activate_Create_New_Pin.class);
-                                                startActivity(i);
+                                                Intent intent= new Intent(Activation.this, Activity_Activate_Create_New_Pin.class);
+                                               startActivity(intent);
+                finish();
                                             }
                                         }, 3000);
                                     }
                                 });
                             } else if (response.getError() == 0 && response.getKakPrivateEncrypted() != null) {
                                 from = 2;
-                                Intent i = new Intent(Activation.this, Activity_Activate_Create_New_Pin.class);
-                                startActivity(i);
+                                Intent intent= new Intent(Activation.this, Activity_Activate_Create_New_Pin.class);
+                               startActivity(intent);
+                finish();
                             } else {
                                 runOnUiThread(new Runnable() {
                                     @Override
@@ -318,10 +318,12 @@ public class Activation extends AppCompatActivity implements View.OnClickListene
                 }
                 break;
             case R.id.btnBack:
-                Intent i = new Intent(Activation.this, MainActivity.class);
-                startActivity(i);
+                Intent intent= new Intent(Activation.this, MainActivity.class);
+               startActivity(intent);
+                finish();
                 break;
             case R.id.txt_resend_active:
+                btn_resend.setEnabled(false);
                 btn_resend.setBackgroundResource(R.drawable.square_no_border);
                 smsPrepare();
                 countDownTimer.cancel();

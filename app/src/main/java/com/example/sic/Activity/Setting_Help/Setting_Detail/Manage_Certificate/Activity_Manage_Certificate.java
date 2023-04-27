@@ -1144,16 +1144,24 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
 
     @Override
     public void onClick(@NonNull View view) {
-        Intent i;
+        Intent intent;
         switch (view.getId()) {
 
             case R.id.btnBack:
-                i = new Intent(Activity_Manage_Certificate.this, Activity_Setting_Detail.class);
-                startActivity(i);
+                intent = new Intent(Activity_Manage_Certificate.this, Activity_Setting_Detail.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+       startActivity(intent);
+                finish();
                 break;
             case R.id.tv_add_new_Cer:
-                i = new Intent(Activity_Manage_Certificate.this, Activity_Manage_Certificate_Add_New_Certificate.class);
-                startActivity(i);
+                intent = new Intent(Activity_Manage_Certificate.this, Activity_Manage_Certificate_Add_New_Certificate.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+       startActivity(intent);
+                finish();
                 break;
 
         }

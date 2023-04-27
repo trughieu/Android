@@ -17,8 +17,9 @@ public class Activity_Help_Detail extends DefaultActivity {
         setContentView(R.layout.activity_help_detail);
         btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(view -> {
-            Intent i = new Intent(Activity_Help_Detail.this, Activity_Setting_Help.class);
-            startActivity(i);
+            Intent intent= new Intent(Activity_Help_Detail.this, Activity_Setting_Help.class);
+           startActivity(intent);
+                finish();
         });
     }
 }

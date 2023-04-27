@@ -35,8 +35,9 @@ public class Activity_Manage_Order_Payment extends DefaultActivity {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Intent i = new Intent(Activity_Manage_Order_Payment.this, Activity_Manage_Order.class);
-                    startActivity(i);
+                    Intent intent= new Intent(Activity_Manage_Order_Payment.this, Activity_Manage_Order.class);
+                   startActivity(intent);
+                finish();
                 }
             }, 3000);
 

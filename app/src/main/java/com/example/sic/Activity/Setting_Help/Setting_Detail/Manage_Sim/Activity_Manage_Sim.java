@@ -45,21 +45,28 @@ public class Activity_Manage_Sim extends DefaultActivity implements View.OnClick
 
     @Override
     public void onClick(View view) {
-        Intent i;
+        Intent intent;
         switch (view.getId()) {
             case R.id.tv_Bind_New_Sim: // kiem tra mode
                 if (directSim) {
                     start();
 //                    i= new Intent(this,)
                 } else {
-                    i = new Intent(Activity_Manage_Sim.this, Activity_Manage_Sim_Bind_New_Sim.class);
-                    startActivity(i);
+                    intent = new Intent(Activity_Manage_Sim.this, Activity_Manage_Sim_Bind_New_Sim.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);        startActivity(intent);
+                finish();
 
                 }
                 break;
             case R.id.btnBack:
-                i = new Intent(Activity_Manage_Sim.this, Activity_Setting_Detail.class);
-                startActivity(i);
+                intent = new Intent(Activity_Manage_Sim.this, Activity_Setting_Detail.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+       startActivity(intent);
+                finish();
                 break;
         }
     }

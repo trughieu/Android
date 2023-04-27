@@ -1,8 +1,8 @@
 package com.example.sic.Activity.Registry;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -19,19 +19,24 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 public class Register extends AppCompatActivity implements View.OnClickListener {
 
-    static int id = 1;
     public static String title;
+    static int id = 1;
     FrameLayout btnBack;
     TextView txt_select_id;
     String s;
     TextView tv_non_Chip, tv_Chip, btnContinue;
     boolean checked1, checked2;
     AppCompatCheckBox checkBox1, checkBox2;
+    SharedPreferences.Editor editor;
+    SharedPreferences pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        editor = getSharedPreferences("selectChip", MODE_PRIVATE).edit();
+        pref = getSharedPreferences("selectChip", MODE_PRIVATE);
 
         btnBack = findViewById(R.id.btnBack);
         txt_select_id = findViewById(R.id.txt_select_id);
@@ -51,10 +56,10 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
 
                 tv_Chip = bottomSheetView.findViewById(R.id.chip_id);
                 tv_non_Chip = bottomSheetView.findViewById(R.id.non_chip);
-                checked1 = PreferenceManager.getDefaultSharedPreferences(Register.this)
-                        .getBoolean("check_Register_1", false);
-                checked2 = PreferenceManager.getDefaultSharedPreferences(Register.this)
-                        .getBoolean("check_Register_2", false);
+
+                checked1 = pref.getBoolean("checkNonChip", false);
+                checked2 = pref.getBoolean("checkChip", false);
+
                 checkBox1 = bottomSheetView.findViewById(R.id.checkBox1);
                 checkBox2 = bottomSheetView.findViewById(R.id.checkBox2);
                 checkBox1.setChecked(checked1);
@@ -69,10 +74,8 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                         title = txt_select_id.getText().toString();
                         checkBox1.setChecked(true);
                         checkBox2.setChecked(false);
-                        PreferenceManager.getDefaultSharedPreferences(Register.this).edit()
-                                .putBoolean("check_Register_1", true).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Register.this).edit()
-                                .putBoolean("check_Register_2", false).apply();
+                        editor.putBoolean("checkNonChip", true).apply();
+                        editor.putBoolean("checkChip", false).apply();
                         bottomSheetDialog.dismiss();
                     }
                 });
@@ -85,10 +88,10 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                         id = 2;
                         checkBox1.setChecked(false);
                         checkBox2.setChecked(true);
-                        PreferenceManager.getDefaultSharedPreferences(Register.this).edit()
-                                .putBoolean("check_Register_1", false).apply();
-                        PreferenceManager.getDefaultSharedPreferences(Register.this).edit()
-                                .putBoolean("check_Register_2", true).apply();
+                        editor.putBoolean("checkNonChip", false).apply();
+                        editor.putBoolean("checkChip", true).apply();
+
+
                         bottomSheetDialog.dismiss();
                     }
                 });
@@ -103,23 +106,38 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
 
     @Override
     public void onClick(View view) {
-        Intent i;
+        Intent intent;
         switch (view.getId()) {
             case R.id.btnContinue:
 
                 if (id == 1) {
-                    i = new Intent(Register.this, registerNonChip.class);
-                    startActivity(i);
+                    editor.putBoolean("checkNonChip",true);
+                    editor.putBoolean("checkNonChip",false);
+                    intent = new Intent(Register.this, registerNonChip.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                   startActivity(intent);
+                finish();
 
                 } else if (id == 2) {
-                    i = new Intent(Register.this, registerChip.class);
-                    startActivity(i);
+                    intent = new Intent(Register.this, registerChip.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                   startActivity(intent);
+                finish();
                 }
 
                 break;
             case R.id.btnBack:
-                i = new Intent(Register.this, MainActivity.class);
-                startActivity(i);
+                intent   = new Intent(Register.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    
+               startActivity(intent);
+                finish();
                 break;
         }
     }

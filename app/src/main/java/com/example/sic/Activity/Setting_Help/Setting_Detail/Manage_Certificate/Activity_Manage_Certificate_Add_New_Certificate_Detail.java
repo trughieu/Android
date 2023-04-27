@@ -168,9 +168,10 @@ public class Activity_Manage_Certificate_Add_New_Certificate_Detail extends Defa
         }
 
         btnBack.setOnClickListener(view -> {
-            Intent i = new Intent(Activity_Manage_Certificate_Add_New_Certificate_Detail.this
+            Intent intent= new Intent(Activity_Manage_Certificate_Add_New_Certificate_Detail.this
                     , Activity_Manage_Certificate.class);
-            startActivity(i);
+           startActivity(intent);
+                finish();
         });
 
         if (success == 1) {
@@ -288,11 +289,12 @@ public class Activity_Manage_Certificate_Add_New_Certificate_Detail extends Defa
         module.credentialsInfo(credentialID);
 
         more_detail.setOnClickListener(view -> {
-            Intent i = new Intent(Activity_Manage_Certificate_Add_New_Certificate_Detail.this
+            Intent intent= new Intent(Activity_Manage_Certificate_Add_New_Certificate_Detail.this
                     , Activity_Manage_Certificate_Add_New_Certificate_More_Detail.class);
-            i.putExtra("response", response);
-            i.putExtra("id",credentialID);
-            startActivity(i);
+            intent.putExtra("response", response);
+            intent.putExtra("id",credentialID);
+           startActivity(intent);
+                finish();
         });
     }
 
@@ -394,9 +396,10 @@ public class Activity_Manage_Certificate_Add_New_Certificate_Detail extends Defa
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent i = new Intent(getApplicationContext(), Activity_Manage_Certificate_Add_New_Certificate_Detail.class);
-                i.putExtra("id",credentialID);
-                startActivity(i);
+                Intent intent= new Intent(getApplicationContext(), Activity_Manage_Certificate_Add_New_Certificate_Detail.class);
+                intent.putExtra("id",credentialID);
+               startActivity(intent);
+                finish();
                 dialog.dismiss();
             }
         }, 3000);
@@ -423,9 +426,10 @@ public class Activity_Manage_Certificate_Add_New_Certificate_Detail extends Defa
                     }
                 }).syncCertificate();
 
-                Intent i = new Intent(Activity_Manage_Certificate_Add_New_Certificate_Detail.this, Activity_Manage_Certificate_Add_New_Certificate_Detail.class);
-                i.putExtra("id",credentialID);
-                startActivity(i);
+                Intent intent= new Intent(Activity_Manage_Certificate_Add_New_Certificate_Detail.this, Activity_Manage_Certificate_Add_New_Certificate_Detail.class);
+                intent.putExtra("id",credentialID);
+               startActivity(intent);
+                finish();
             }
         }, 3000);
     }

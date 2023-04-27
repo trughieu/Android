@@ -48,8 +48,9 @@ public class Inbox extends DefaultActivity implements View.OnClickListener {
 
         loadFragment(new MessageFragment());
         btnBack.setOnClickListener(view -> {
-            Intent i = new Intent(Inbox.this, HomePage.class);
-            startActivity(i);
+            Intent intent= new Intent(Inbox.this, HomePage.class);
+           startActivity(intent);
+                finish();
         });
     }
 

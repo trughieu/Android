@@ -187,8 +187,9 @@ public class Activity_Recovery_Code_6_digit_number extends AppCompatActivity {
         });
 
         digit_number.setOnClickListener(view -> {
-            Intent i = new Intent(this, Activity_Recovery_Code_12_digit_number.class);
-            startActivity(i);
+            Intent intent= new Intent(this, Activity_Recovery_Code_12_digit_number.class);
+           startActivity(intent);
+                finish();
         });
     }
 
@@ -201,8 +202,9 @@ public class Activity_Recovery_Code_6_digit_number extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent i = new Intent(Activity_Recovery_Code_6_digit_number.this, HomePage.class);
-                startActivity(i);
+                Intent intent= new Intent(Activity_Recovery_Code_6_digit_number.this, HomePage.class);
+               startActivity(intent);
+                finish();
             }
         }, 2000);
     }

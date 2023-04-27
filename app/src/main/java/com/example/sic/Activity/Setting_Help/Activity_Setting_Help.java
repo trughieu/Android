@@ -127,8 +127,9 @@ public class Activity_Setting_Help extends DefaultActivity implements View.OnCli
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                Intent i = new Intent(Activity_Setting_Help.this, Activity_Setting_Detail.class);
-                                startActivity(i);
+                                Intent intent= new Intent(Activity_Setting_Help.this, Activity_Setting_Detail.class);
+                               startActivity(intent);
+                finish();
                             }
                         }, 2000);
                     } else {
@@ -221,8 +222,9 @@ public class Activity_Setting_Help extends DefaultActivity implements View.OnCli
                         "Authentication succeeded!", Toast.LENGTH_SHORT).show();
 
 
-                Intent i = new Intent(Activity_Setting_Help.this, Activity_Setting_Detail.class);
-                startActivity(i);
+                Intent intent= new Intent(Activity_Setting_Help.this, Activity_Setting_Detail.class);
+               startActivity(intent);
+                finish();
             }
 
             @Override
@@ -247,7 +249,10 @@ public class Activity_Setting_Help extends DefaultActivity implements View.OnCli
             case R.id.btn_settings:
                 if (check == 0) {
                     intent = new Intent(Activity_Setting_Help.this, Activity_Setting_Detail.class);
-                    startActivity(intent);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); startActivity(intent);
+                finish();
                 }
                 if (check == 1) {
                     Dialog_pin();
@@ -259,15 +264,27 @@ public class Activity_Setting_Help extends DefaultActivity implements View.OnCli
                 break;
             case R.id.btn_help:
                 intent = new Intent(Activity_Setting_Help.this, Activity_Help_Detail.class);
-                startActivity(intent);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+         startActivity(intent);
+                finish();
                 break;
             case R.id.btn_terms:
                 intent = new Intent(Activity_Setting_Help.this, Activity_Term_Detail.class);
-                startActivity(intent);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+       startActivity(intent);
+                finish();
                 break;
             case R.id.btn_privacy:
                 intent = new Intent(Activity_Setting_Help.this, Activity_Privacy_Detail.class);
-                startActivity(intent);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+      startActivity(intent);
+                finish();
                 break;
             case R.id.btn_language:
                 final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(
@@ -301,7 +318,7 @@ public class Activity_Setting_Help extends DefaultActivity implements View.OnCli
                     dialog.setCanceledOnTouchOutside(false);
                     Continue = dialog.findViewById(R.id.Continue);
                     Continue.setOnClickListener(view2 -> {
-                        Intent i = new Intent(Activity_Setting_Help.this, HomePage.class);
+                        Intent i= new Intent(Activity_Setting_Help.this, HomePage.class);
                         startActivity(i);
                     });
                     checkBox1.setChecked(true);
@@ -319,7 +336,7 @@ public class Activity_Setting_Help extends DefaultActivity implements View.OnCli
                     dialog.setCanceledOnTouchOutside(false);
                     Continue = dialog.findViewById(R.id.Continue);
                     Continue.setOnClickListener(view2 -> {
-                        Intent i = new Intent(Activity_Setting_Help.this, HomePage.class);
+                        Intent i= new Intent(Activity_Setting_Help.this, HomePage.class);
                         startActivity(i);
                     });
                     checkBox1.setChecked(false);
@@ -333,11 +350,19 @@ public class Activity_Setting_Help extends DefaultActivity implements View.OnCli
                 break;
             case R.id.btn_send_support:
                 intent = new Intent(Activity_Setting_Help.this, Activity_Send_Support_Detail.class);
-                startActivity(intent);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+     startActivity(intent);
+                finish();
                 break;
             case R.id.btnBack:
                 intent = new Intent(Activity_Setting_Help.this, HomePage.class);
-                startActivity(intent);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+      startActivity(intent);
+                finish();
         }
     }
 

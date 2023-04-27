@@ -170,8 +170,9 @@ public class Activity_Manage_Certificate_Change_Passphrase extends DefaultActivi
                 }
                 break;
             case R.id.btnBack:
-                Intent i = new Intent(Activity_Manage_Certificate_Change_Passphrase.this, Activity_Manage_Certificate.class);
-                startActivity(i);
+                Intent intent= new Intent(Activity_Manage_Certificate_Change_Passphrase.this, Activity_Manage_Certificate.class);
+               startActivity(intent);
+                finish();
         }
 
     }
@@ -188,8 +189,9 @@ public class Activity_Manage_Certificate_Change_Passphrase extends DefaultActivi
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent i = new Intent(Activity_Manage_Certificate_Change_Passphrase.this, Activity_Manage_Certificate.class);
-                startActivity(i);
+                Intent intent= new Intent(Activity_Manage_Certificate_Change_Passphrase.this, Activity_Manage_Certificate.class);
+               startActivity(intent);
+                finish();
             }
         }, 2000);
     }

@@ -97,16 +97,22 @@ public class Inbox_detail_1 extends DefaultActivity {
         module.credentialsInfo(credentialID);
         see_more.setOnClickListener(view -> {
             inbox = 1;
-            Intent i = new Intent(Inbox_detail_1.this, Activity_Manage_Certificate_Add_New_Certificate_More_Detail.class);
-            i.putExtra("response", response);
-            i.putExtra("id", credentialID);
-            i.putExtra("transactionId",transactionID);
-            startActivity(i);
+            Intent intent= new Intent(Inbox_detail_1.this, Activity_Manage_Certificate_Add_New_Certificate_More_Detail.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    
+            intent.putExtra("response", response);
+            intent.putExtra("id", credentialID);
+            intent.putExtra("transactionId",transactionID);
+           startActivity(intent);
+                finish();
         });
         btnBack.setOnClickListener(view -> {
-            Intent i = new Intent(Inbox_detail_1.this, Inbox_detail.class);
-            i.putExtra("transactionId", transactionID);
-            startActivity(i);
+            Intent intent= new Intent(Inbox_detail_1.this, Inbox_detail.class);
+            intent.putExtra("transactionId", transactionID);
+           startActivity(intent);
+                finish();
         });
 
     }

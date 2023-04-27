@@ -7,7 +7,6 @@
     tools:context=".Activity.Registry.register_info_phone_email">
 
 
-    <!--   register 5 ->  register 7 -->
     <ImageView
         android:id="@+id/background_default"
         android:layout_width="match_parent"

@@ -85,15 +85,23 @@ public class registerChip_4 extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View view) {
-        Intent i;
+        Intent intent;
         switch (view.getId()) {
             case R.id.btnContinue:
-                i = new Intent(registerChip_4.this, registerChip_5.class);
-                startActivity(i);
+                intent = new Intent(registerChip_4.this, registerChip_5.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+               startActivity(intent);
+                finish();
                 break;
             case R.id.btnBack:
-                i = new Intent(registerChip_4.this, registerChip_3.class);
-                startActivity(i);
+                intent = new Intent(registerChip_4.this, registerChip_3.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+               startActivity(intent);
+                finish();
         }
     }
 }

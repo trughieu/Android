@@ -260,9 +260,10 @@ public class Activity_Manage_Certificate_Change_Scal extends DefaultActivity imp
                     }
                 });
                 btnBack.setOnClickListener(view1 -> {
-                    Intent i = new Intent(Activity_Manage_Certificate_Change_Scal.this,
+                    Intent intent= new Intent(Activity_Manage_Certificate_Change_Scal.this,
                             Activity_Manage_Certificate.class);
-                    startActivity(i);
+                   startActivity(intent);
+                finish();
                 });
 
                 bottomSheetDialog.setContentView(bottomSheetView);
@@ -351,8 +352,9 @@ public class Activity_Manage_Certificate_Change_Scal extends DefaultActivity imp
                 value_multisign = 0;
                 break;
             case R.id.btnBack:
-                Intent i = new Intent(Activity_Manage_Certificate_Change_Scal.this, Activity_Manage_Certificate.class);
-                startActivity(i);
+                Intent intent= new Intent(Activity_Manage_Certificate_Change_Scal.this, Activity_Manage_Certificate.class);
+               startActivity(intent);
+                finish();
         }
     }
 
@@ -457,8 +459,9 @@ public class Activity_Manage_Certificate_Change_Scal extends DefaultActivity imp
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent i = new Intent(getApplicationContext(), Activity_Manage_Certificate.class);
-                startActivity(i);
+                Intent intent= new Intent(getApplicationContext(), Activity_Manage_Certificate.class);
+               startActivity(intent);
+                finish();
                 dialog.dismiss();
             }
         }, 3000);
@@ -493,9 +496,10 @@ public class Activity_Manage_Certificate_Change_Scal extends DefaultActivity imp
                 }
                 editor.putString("6_digit", hash_code);
                 editor.apply();
-                Intent i = new Intent(Activity_Manage_Certificate_Change_Scal.this, Activity_Manage_Certificate.class);
+                Intent intent= new Intent(Activity_Manage_Certificate_Change_Scal.this, Activity_Manage_Certificate.class);
                 Log.d("afb", "afterTextChanged: " + pinValue.getText().toString());
-                startActivity(i);
+               startActivity(intent);
+                finish();
             }
         }, 3000);
     }

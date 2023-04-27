@@ -71,8 +71,9 @@ public class Activity_inbox_detail_submit extends DefaultActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent i=new Intent(Activity_inbox_detail_submit.this, HomePage.class);
-                startActivity(i);
+                Intent intent=new Intent(Activity_inbox_detail_submit.this, HomePage.class);
+               startActivity(intent);
+                finish();
             }
         },3000);
     }

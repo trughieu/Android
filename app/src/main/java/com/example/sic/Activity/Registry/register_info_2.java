@@ -32,15 +32,23 @@ public class register_info_2 extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onClick(View view) {
-        Intent i;
+        Intent intent;
         switch (view.getId()) {
             case R.id.btnContinue:
-                i = new Intent(register_info_2.this, register_info_phone_email.class);
-                startActivity(i);
+                intent = new Intent(register_info_2.this, register_info_phone_email.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+       startActivity(intent);
+                finish();
                 break;
             case R.id.btnBack:
-                i = new Intent(register_info_2.this, register_info_1.class);
-                startActivity(i);
+                intent = new Intent(register_info_2.this, register_info_1.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+                finish();
                 break;
         }
     }

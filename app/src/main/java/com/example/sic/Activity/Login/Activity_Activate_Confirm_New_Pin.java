@@ -106,13 +106,15 @@ public class Activity_Activate_Confirm_New_Pin extends AppCompatActivity {
                         editor.putString("6_digit", pinValue.getText().toString());
                         editor.apply();
                         if (from == 1) {
-                            Intent i = new Intent(Activity_Activate_Confirm_New_Pin.this, MainActivity.class);
-                            startActivity(i);
+                            Intent intent= new Intent(Activity_Activate_Confirm_New_Pin.this, MainActivity.class);
+                           startActivity(intent);
+                finish();
                         } else if (from == 2) {
-                            Intent i = new Intent(Activity_Activate_Confirm_New_Pin.this, Activity_Recovery_Code_6_digit_number.class);
-                            startActivity(i);
+                            Intent intent= new Intent(Activity_Activate_Confirm_New_Pin.this, Activity_Recovery_Code_6_digit_number.class);
+                           startActivity(intent);
+                finish();
                         }
-//                        i.putExtra(pinValue.getText().toString(), "otp");
+//                        intent.putExtra(pinValue.getText().toString(), "otp");
                     } else {
                         Dialog_fail();
                     }

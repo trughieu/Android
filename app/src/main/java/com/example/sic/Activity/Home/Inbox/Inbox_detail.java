@@ -137,8 +137,11 @@ public class Inbox_detail extends DefaultActivity implements View.OnClickListene
                             public void run() {
                                 dialog1.dismiss();
                                 Intent intent = new Intent(Inbox_detail.this, Activity_inbox_detail_submit.class);
-                                intent.putExtra("performed", performed);
-                                startActivity(intent);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);intent.putExtra("performed", performed);
+                               startActivity(intent);
+                finish();
                             }
                         }, 2000);
 
@@ -304,7 +307,8 @@ public class Inbox_detail extends DefaultActivity implements View.OnClickListene
 //                                                public void run() {
 //                                                    Intent intent = new Intent(Inbox_detail.this, Activity_inbox_detail_submit.class);
 //                                                    intent.putExtra("performed", performed);
-//                                                    startActivity(intent);
+//                                                   startActivity(intent);
+                finish();
 //                                                }
 //                                            }, 2000);
 //
@@ -337,7 +341,8 @@ public class Inbox_detail extends DefaultActivity implements View.OnClickListene
 //                                                public void run() {
 //                                                    Intent intent = new Intent(Inbox_detail.this, Activity_inbox_detail_submit.class);
 //                                                    intent.putExtra("performed", performed);
-//                                                    startActivity(intent);
+//                                                   startActivity(intent);
+                finish();
 //                                                }
 //                                            }, 2000);
 //
@@ -371,7 +376,8 @@ public class Inbox_detail extends DefaultActivity implements View.OnClickListene
 //                                                public void run() {
 //                                                    Intent intent = new Intent(Inbox_detail.this, Activity_inbox_detail_submit.class);
 //                                                    intent.putExtra("performed", performed);
-//                                                    startActivity(intent);
+//                                                   startActivity(intent);
+                finish();
 //                                                }
 //                                            }, 2000);
 //
@@ -419,9 +425,13 @@ public class Inbox_detail extends DefaultActivity implements View.OnClickListene
         });
         btn_Detail.setOnClickListener(view -> {
             intent = new Intent(Inbox_detail.this, Inbox_detail_1.class);
-            intent.putExtra("id", performed.getCredentialID());
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+     intent.putExtra("id", performed.getCredentialID());
             intent.putExtra("transactionId", idTransaction);
-            startActivity(intent);
+           startActivity(intent);
+                finish();
         });
 
         txt_select_id.setOnClickListener(new View.OnClickListener() {
@@ -823,8 +833,11 @@ public class Inbox_detail extends DefaultActivity implements View.OnClickListene
                                         @Override
                                         public void run() {
                                             Intent intent = new Intent(Inbox_detail.this, Activity_inbox_detail_submit.class);
-                                            intent.putExtra("performed", performed);
-                                            startActivity(intent);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);  intent.putExtra("performed", performed);
+                                           startActivity(intent);
+                finish();
                                         }
                                     }, 2000);
 
@@ -866,8 +879,11 @@ public class Inbox_detail extends DefaultActivity implements View.OnClickListene
                                         @Override
                                         public void run() {
                                             Intent intent = new Intent(Inbox_detail.this, Activity_inbox_detail_submit.class);
-                                            intent.putExtra("performed", performed);
-                                            startActivity(intent);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);  intent.putExtra("performed", performed);
+                                           startActivity(intent);
+                finish();
                                         }
                                     }, 2000);
 
@@ -899,8 +915,11 @@ public class Inbox_detail extends DefaultActivity implements View.OnClickListene
                                         @Override
                                         public void run() {
                                             Intent intent = new Intent(Inbox_detail.this, Activity_inbox_detail_submit.class);
-                                            intent.putExtra("performed", performed);
-                                            startActivity(intent);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);intent.putExtra("performed", performed);
+                                           startActivity(intent);
+                finish();
                                         }
                                     }, 2000);
 
@@ -933,8 +952,11 @@ public class Inbox_detail extends DefaultActivity implements View.OnClickListene
                                         @Override
                                         public void run() {
                                             Intent intent = new Intent(Inbox_detail.this, Activity_inbox_detail_submit.class);
-                                            intent.putExtra("performed", performed);
-                                            startActivity(intent);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);  intent.putExtra("performed", performed);
+                                           startActivity(intent);
+                finish();
                                         }
                                     }, 2000);
 
@@ -966,8 +988,11 @@ public class Inbox_detail extends DefaultActivity implements View.OnClickListene
                                     @Override
                                     public void run() {
                                         Intent intent = new Intent(Inbox_detail.this, Activity_inbox_detail_submit.class);
-                                        intent.putExtra("performed", performed);
-                                        startActivity(intent);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);      intent.putExtra("performed", performed);
+                                       startActivity(intent);
+                finish();
                                     }
                                 }, 2000);
 
@@ -1031,8 +1056,11 @@ public class Inbox_detail extends DefaultActivity implements View.OnClickListene
                                     @Override
                                     public void run() {
                                         Intent intent = new Intent(Inbox_detail.this, Activity_inbox_detail_submit.class);
-                                        intent.putExtra("performed", performed);
-                                        startActivity(intent);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);   intent.putExtra("performed", performed);
+                                       startActivity(intent);
+                finish();
                                     }
                                 }, 2000);
 
@@ -1094,8 +1122,11 @@ public class Inbox_detail extends DefaultActivity implements View.OnClickListene
                                     @Override
                                     public void run() {
                                         Intent intent = new Intent(Inbox_detail.this, Activity_inbox_detail_submit.class);
-                                        intent.putExtra("performed", performed);
-                                        startActivity(intent);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);  intent.putExtra("performed", performed);
+                                       startActivity(intent);
+                finish();
                                     }
                                 }, 2000);
 

@@ -1,7 +1,5 @@
 package com.example.sic.Activity.Setting_Help.Setting_Detail.Manage_Certificate;
 
-import static com.example.sic.Activity.Login.Activation.REQ_USER_CONSENT;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -22,8 +20,9 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.example.sic.DefaultActivity;
 import com.example.sic.R;
@@ -59,24 +58,25 @@ public class Activity_Manage_Certificate_Forget_Passphrase extends DefaultActivi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_certificate_forget_passphrase);
+        smsPrepare();
         start();
         txt_new_passpharse = findViewById(R.id.txt_new_passpharse);
         txt_confirm_passpharse = findViewById(R.id.txt_confirm_passpharse);
         btnContinue = findViewById(R.id.btnContinue);
         pinValue = findViewById(R.id.pin6_dialog);
         pin6_dialog_hand = findViewById(R.id.pin6_dialog_hand);
-        pinValue.setText("");
         show_newpassword = findViewById(R.id.show_password_new_passpharse);
         show_confirmpassword = findViewById(R.id.show_password_confirm_passpharse);
         btnBack = findViewById(R.id.btnBack);
         title = findViewById(R.id.title);
-
         btnContinue.setOnClickListener(this);
         show_newpassword.setOnClickListener(this);
         show_confirmpassword.setOnClickListener(this);
         btnBack.setOnClickListener(this);
-        btnContinue.setEnabled(false);
-        smsPrepare();
+//        btnContinue.setEnabled(false);
+        pinValue.setText(null);
+        pin6_dialog_hand.setText(null);
+
         credentialID = getIntent().getStringExtra("id");
         module = CertificateProfilesModule.createModule(this);
 
@@ -97,6 +97,7 @@ public class Activity_Manage_Certificate_Forget_Passphrase extends DefaultActivi
         otpEt[4] = findViewById(R.id.txt_pin_view_5);
         otpEt[5] = findViewById(R.id.txt_pin_view_6);
         showKeyBoard(pinValue);
+
         pinValue.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -105,12 +106,12 @@ public class Activity_Manage_Certificate_Forget_Passphrase extends DefaultActivi
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (pinValue.getText().toString().length() >= 6) {
-
+                if (pinValue.length() >= 6) {
                     onOTPReceived(pinValue.getText().toString());
                     text = pinValue.getText().toString();
                 }
@@ -198,31 +199,29 @@ public class Activity_Manage_Certificate_Forget_Passphrase extends DefaultActivi
         inputMethodManager.showSoftInput(otp, InputMethodManager.SHOW_IMPLICIT);
     }
 
+    private final ActivityResultLauncher<Intent> smsLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                    String message = result.getData().getStringExtra(SmsRetriever.EXTRA_SMS_MESSAGE);
+                    Pattern pattern = Pattern.compile("\\d+");
+                    Matcher matcher = pattern.matcher(message);
+                    while (matcher.find()) {
+                        String number = matcher.group();
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQ_USER_CONSENT) {
-            if ((resultCode == RESULT_OK) && (data != null)) {
-                String message = data.getStringExtra(SmsRetriever.EXTRA_SMS_MESSAGE);
-                Pattern pattern = Pattern.compile("\\d+");
-                Matcher matcher = pattern.matcher(message);
-                while (matcher.find()) {
-                    String number = matcher.group();
-                    pinValue.setText(number);
+                        pinValue.setText(number);
+                    }
+                } else {
+                    smsPrepare();
                 }
-            } else {
-                smsPrepare();
-            }
-        }
-    }
+            });
 
     public void smsPrepare() {
         smsBroadcastReceiver = new SmsBroadcastReceiver();
         smsBroadcastReceiver.smsBroadcastReceiverListener = new SmsBroadcastReceiver.SmsBroadcastReceiverListener() {
             @Override
             public void onSuccess(Intent intent) {
-                startActivityForResult(intent, REQ_USER_CONSENT);
+                smsLauncher.launch(intent);
             }
 
             @Override
@@ -235,6 +234,7 @@ public class Activity_Manage_Certificate_Forget_Passphrase extends DefaultActivi
         client = SmsRetriever.getClient(this);
         client.startSmsUserConsent(null);
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -248,34 +248,35 @@ public class Activity_Manage_Certificate_Forget_Passphrase extends DefaultActivi
         switch (view.getId()) {
             case R.id.btnContinue:
                 Log.d("text sau khi bam", "onClick: " + text);
-                if (!(txt_new_passpharse.getText().toString().equals(txt_confirm_passpharse.getText().toString()))) {
-                    Dialog dialog = new Dialog(Activity_Manage_Certificate_Forget_Passphrase.this);
-                    dialog.setContentView(R.layout.dialog_fail_passpharse_not_match);
-                    dialog.show();
-                    dialog.setCanceledOnTouchOutside(false);
-                    dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
-                    dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
-
-                    btn_Close_not_match = dialog.findViewById(R.id.btn_Close);
-                    btn_Close_not_match.setOnClickListener(view1 -> {
-                        dialog.dismiss();
-                    });
-                } else {
-                    module.setResponseForgetPassphraseResponse(new HttpRequest.AsyncResponse() {
-                        @Override
-                        public void process(boolean b, Response response) {
-                            if (response.getError() == 0) {
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        intent();
-                                    }
-                                });
-
-                            }
-                        }
-                    }).forgetPassphraseResponse(text, txt_new_passpharse.getText().toString());
-                }
+                module.forgetPassphraseRequest();
+//                if (!(txt_new_passpharse.getText().toString().equals(txt_confirm_passpharse.getText().toString()))) {
+//                    Dialog dialog = new Dialog(Activity_Manage_Certificate_Forget_Passphrase.this);
+//                    dialog.setContentView(R.layout.dialog_fail_passpharse_not_match);
+//                    dialog.show();
+//                    dialog.setCanceledOnTouchOutside(false);
+//                    dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
+//                    dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+//
+//                    btn_Close_not_match = dialog.findViewById(R.id.btn_Close);
+//                    btn_Close_not_match.setOnClickListener(view1 -> {
+//                        dialog.dismiss();
+//                    });
+//                } else {
+//                    module.setResponseForgetPassphraseResponse(new HttpRequest.AsyncResponse() {
+//                        @Override
+//                        public void process(boolean b, Response response) {
+//                            if (response.getError() == 0) {
+//                                runOnUiThread(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        intent();
+//                                    }
+//                                });
+//
+//                            }
+//                        }
+//                    }).forgetPassphraseResponse(text, txt_new_passpharse.getText().toString());
+//                }
                 break;
             case R.id.show_password_new_passpharse:
                 if (txt_new_passpharse.getTransformationMethod().equals(HideReturnsTransformationMethod.getInstance())) {
@@ -296,8 +297,9 @@ public class Activity_Manage_Certificate_Forget_Passphrase extends DefaultActivi
                 }
                 break;
             case R.id.btnBack:
-                Intent i = new Intent(Activity_Manage_Certificate_Forget_Passphrase.this, Activity_Manage_Certificate.class);
-                startActivity(i);
+                Intent intent= new Intent(Activity_Manage_Certificate_Forget_Passphrase.this, Activity_Manage_Certificate.class);
+               startActivity(intent);
+                finish();
         }
     }
 
@@ -313,10 +315,70 @@ public class Activity_Manage_Certificate_Forget_Passphrase extends DefaultActivi
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent i = new Intent(Activity_Manage_Certificate_Forget_Passphrase.this, Activity_Manage_Certificate.class);
-                startActivity(i);
+                Intent intent= new Intent(Activity_Manage_Certificate_Forget_Passphrase.this, Activity_Manage_Certificate.class);
+               startActivity(intent);
+                finish();
             }
         }, 2000);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (pinValue.length() >= 6) {
+            onOTPReceived(pinValue.getText().toString());
+            text = pinValue.getText().toString();
+        }
+    }
+
+
+
+
+//
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == REQ_USER_CONSENT) {
+//            if ((resultCode == RESULT_OK) && (data != null)) {
+//                String message = data.getStringExtra(SmsRetriever.EXTRA_SMS_MESSAGE);
+//                Pattern pattern = Pattern.compile("\\d+");
+//                Matcher matcher = pattern.matcher(message);
+//                while (matcher.find()) {
+//                    String number = matcher.group();
+//                    pinValue.setText(number);
+//                }
+//            } else {
+//                smsPrepare();
+//            }
+//        }
+//    }
+//
+//    public void smsPrepare() {
+//        smsBroadcastReceiver = new SmsBroadcastReceiver();
+//        smsBroadcastReceiver.smsBroadcastReceiverListener = new SmsBroadcastReceiver.SmsBroadcastReceiverListener() {
+//            @Override
+//            public void onSuccess(Intent intent) {
+//                startActivityForResult(intent, REQ_USER_CONSENT);
+//            }
+//
+//            @Override
+//            public void onFailure() {
+//
+//            }
+//        };
+//        IntentFilter intentFilter = new IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION);
+//        registerReceiver(smsBroadcastReceiver, intentFilter);
+//        client = SmsRetriever.getClient(this);
+//        client.startSmsUserConsent(null);
+//    }
+//
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        if (smsBroadcastReceiver != null) {
+//            unregisterReceiver(smsBroadcastReceiver);
+//        }
+//    }
+
 
 }

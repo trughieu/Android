@@ -35,15 +35,26 @@ public class registerChip extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        Intent i;
+        Intent intent;
         switch (view.getId()) {
             case R.id.btnContinue:
-                i = new Intent(registerChip.this, register_info_1.class);
-                startActivity(i);
+                intent = new Intent(registerChip.this, register_info_1.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    
+               startActivity(intent);
+                finish();
+                finish();
                 break;
             case R.id.btnBack:
-                i = new Intent(registerChip.this, Register.class);
-                startActivity(i);
+                intent = new Intent(registerChip.this, Register.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    
+               startActivity(intent);
+                finish();
                 break;
         }
     }

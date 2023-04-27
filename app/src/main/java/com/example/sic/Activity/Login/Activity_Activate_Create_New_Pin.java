@@ -92,9 +92,10 @@ public class Activity_Activate_Create_New_Pin extends AppCompatActivity {
                     break;
                 case 6:
                     txt_pin_view6.setBackgroundResource(R.drawable.ic_edit_text_pin_enable);
-                    Intent i = new Intent(Activity_Activate_Create_New_Pin.this, Activity_Activate_Confirm_New_Pin.class);
-                    i.putExtra("otp", pinValue.getText().toString());
-                    startActivity(i);
+                    Intent intent= new Intent(Activity_Activate_Create_New_Pin.this, Activity_Activate_Confirm_New_Pin.class);
+                    intent.putExtra("otp", pinValue.getText().toString());
+                   startActivity(intent);
+                finish();
             }
         }
     };

@@ -35,9 +35,10 @@ public class Activity_Send_Support_Detail extends DefaultActivity {
         txt_select_id = findViewById(R.id.txt_select_id);
         btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(view -> {
-            Intent i = new Intent(Activity_Send_Support_Detail.this,
+            Intent intent= new Intent(Activity_Send_Support_Detail.this,
                     Activity_Setting_Help.class);
-            startActivity(i);
+           startActivity(intent);
+                finish();
         });
         txt_select_id.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -55,29 +55,39 @@ public class Activity_Manage_Certificate_Add_New_Certificate_More_Detail extends
         start();
 
         btnBack.setOnClickListener(view -> {
-            Intent i;
+            Intent intent;
             if (inbox == 1) {
-                i = new Intent(this, Inbox_detail_1.class);
+                intent = new Intent(this, Inbox_detail_1.class);
             } else {
-                i = new Intent(this, Activity_Manage_Certificate_Add_New_Certificate_Detail.class);
+                intent = new Intent(this, Activity_Manage_Certificate_Add_New_Certificate_Detail.class);
             }
-            i.putExtra("id", credentialID);
-            i.putExtra("transactionId", transactionID);
-            startActivity(i);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    
+            intent.putExtra("id", credentialID);
+            intent.putExtra("transactionId", transactionID);
+           startActivity(intent);
+                finish();
         });
         btnClose.setOnClickListener(view -> {
-            Intent i;
+            Intent intent;
             if (inbox == 1) {
-                i = new Intent(
+                intent = new Intent(
                         this,
                         Inbox_detail_1.class);
             } else {
-                i = new Intent(
+                intent = new Intent(
                         this,
                         Activity_Manage_Certificate_Add_New_Certificate_Detail.class);
             }
-            i.putExtra("id", credentialID);
-            startActivity(i);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    
+            intent.putExtra("id", credentialID);
+           startActivity(intent);
+                finish();
         });
 
 

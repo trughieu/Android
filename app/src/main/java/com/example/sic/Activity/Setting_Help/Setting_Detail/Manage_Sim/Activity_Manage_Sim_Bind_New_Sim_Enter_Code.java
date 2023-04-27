@@ -275,8 +275,9 @@ public class Activity_Manage_Sim_Bind_New_Sim_Enter_Code extends DefaultActivity
 //                handler.postDelayed(new Runnable() {
 //                    @Override
 //                    public void run() {
-//                        Intent i = new Intent(Activity_Manage_Sim_Bind_New_Sim_Enter_Code.this, Activity_Manage_Sim.class);
-//                        startActivity(i);
+//                        Intent intent= new Intent(Activity_Manage_Sim_Bind_New_Sim_Enter_Code.this, Activity_Manage_Sim.class);
+//                       startActivity(intent);
+//                finish();
 //                    }
 //                }, 3000);
 //
@@ -420,7 +421,8 @@ public class Activity_Manage_Sim_Bind_New_Sim_Enter_Code extends DefaultActivity
         dialog.setCanceledOnTouchOutside(false);
         dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
         dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        Intent i = new Intent(this, Activity_Manage_Sim.class);
-        startActivity(i);
+        Intent intent= new Intent(this, Activity_Manage_Sim.class);
+       startActivity(intent);
+                finish();
     }
 }

@@ -36,12 +36,14 @@ public class Activity_Manage_Certificate_Renew extends DefaultActivity {
         btnContinue = findViewById(R.id.btnContinue);
         title=findViewById(R.id.title);
         btnBack.setOnClickListener(view -> {
-            Intent i = new Intent(Activity_Manage_Certificate_Renew.this, Activity_Manage_Certificate.class);
-            startActivity(i);
+            Intent intent= new Intent(Activity_Manage_Certificate_Renew.this, Activity_Manage_Certificate.class);
+           startActivity(intent);
+                finish();
         });
         btnContinue.setOnClickListener(view -> {
-            Intent i = new Intent(Activity_Manage_Certificate_Renew.this, Activity_Manage_Certificate_Renew_Check.class);
-            startActivity(i);
+            Intent intent= new Intent(Activity_Manage_Certificate_Renew.this, Activity_Manage_Certificate_Renew_Check.class);
+           startActivity(intent);
+                finish();
 
         });
 

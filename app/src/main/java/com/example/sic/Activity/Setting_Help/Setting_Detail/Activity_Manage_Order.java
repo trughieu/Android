@@ -159,17 +159,22 @@ public class Activity_Manage_Order extends DefaultActivity implements View.OnCli
 
     @Override
     public void onClick(View view) {
-        Intent i;
+        Intent intent;
         switch (view.getId()) {
             case R.id.btnBack:
-                i = new Intent(Activity_Manage_Order.this, Activity_Setting_Detail.class);
-                startActivity(i);
+                intent = new Intent(Activity_Manage_Order.this, Activity_Setting_Detail.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+          startActivity(intent);
+                finish();
         }
     }
 
 //    @Override
 //    public void onclick(Message message) {
 //        Intent i= new Intent(Activity_Manage_Order.this,Activity_Manage_Order_Payment.class);
-//        startActivity(i);
+//       startActivity(intent);
+//                finish();
 //    }
 }

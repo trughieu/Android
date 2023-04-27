@@ -120,11 +120,12 @@ public class Activity_Setting_Detail_Change_Pin_Code_Create_New_Pin extends Defa
                         dialog.show();
                         dialog.setCanceledOnTouchOutside(false);
                     } else {
-                        Intent i = new Intent(Activity_Setting_Detail_Change_Pin_Code_Create_New_Pin.this,
+                        Intent intent= new Intent(Activity_Setting_Detail_Change_Pin_Code_Create_New_Pin.this,
                                 Activity_Setting_Detail_Change_Pin_Code_Confirm_New_Pin.class);
-                        i.putExtra("otp", pinValue.getText().toString());
+                        intent.putExtra("otp", pinValue.getText().toString());
                         Log.d("afb", "afterTextChanged: " + pinValue.getText().toString());
-                        startActivity(i);
+                       startActivity(intent);
+                finish();
                     }
             }
         }
@@ -207,8 +208,9 @@ public class Activity_Setting_Detail_Change_Pin_Code_Create_New_Pin extends Defa
         });
 
         btnBack.setOnClickListener(view -> {
-            Intent i = new Intent(Activity_Setting_Detail_Change_Pin_Code_Create_New_Pin.this, Activity_Setting_Detail_Change_Pin_Code.class);
-            startActivity(i);
+            Intent intent= new Intent(Activity_Setting_Detail_Change_Pin_Code_Create_New_Pin.this, Activity_Setting_Detail_Change_Pin_Code.class);
+           startActivity(intent);
+                finish();
         });
     }
 

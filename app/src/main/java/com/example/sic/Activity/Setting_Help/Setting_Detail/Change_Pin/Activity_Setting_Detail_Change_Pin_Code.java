@@ -102,10 +102,11 @@ public class Activity_Setting_Detail_Change_Pin_Code extends DefaultActivity {
                 case 6:
                     txt_pin_view6.setBackgroundResource(R.drawable.ic_edit_text_pin_enable);
                     if (pinValue.getText().toString().equals(current_pin)) {
-                        Intent i = new Intent(Activity_Setting_Detail_Change_Pin_Code.this, Activity_Setting_Detail_Change_Pin_Code_Create_New_Pin.class);
-                        i.putExtra("otp", pinValue.getText().toString());
+                        Intent intent= new Intent(Activity_Setting_Detail_Change_Pin_Code.this, Activity_Setting_Detail_Change_Pin_Code_Create_New_Pin.class);
+                        intent.putExtra("otp", pinValue.getText().toString());
                         Log.d("afb", "afterTextChanged: " + pinValue.getText().toString());
-                        startActivity(i);
+                       startActivity(intent);
+                finish();
                     } else {
                         Dialog dialog = new Dialog(Activity_Setting_Detail_Change_Pin_Code.this);
                         dialog.setContentView(R.layout.dialog_fail_wrong_pin_time);
@@ -196,8 +197,9 @@ public class Activity_Setting_Detail_Change_Pin_Code extends DefaultActivity {
         });
 
         btnBack.setOnClickListener(view -> {
-            Intent i = new Intent(Activity_Setting_Detail_Change_Pin_Code.this, Activity_Setting_Detail.class);
-            startActivity(i);
+            Intent intent= new Intent(Activity_Setting_Detail_Change_Pin_Code.this, Activity_Setting_Detail.class);
+           startActivity(intent);
+                finish();
         });
 
 

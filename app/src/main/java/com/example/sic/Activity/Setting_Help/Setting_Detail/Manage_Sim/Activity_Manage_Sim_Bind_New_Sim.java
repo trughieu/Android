@@ -33,8 +33,12 @@ public class Activity_Manage_Sim_Bind_New_Sim extends DefaultActivity {
         module = ManageSimModule.createModule(this);
         btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(view -> {
-            Intent i= new Intent(this,Activity_Manage_Sim.class);
-            startActivity(i);
+            Intent intent= new Intent(this,Activity_Manage_Sim.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+           startActivity(intent);
+                finish();
         });
 //        edt_phone.addTextChangedListener(new TextWatcher() {
 //            @Override
@@ -65,8 +69,9 @@ public class Activity_Manage_Sim_Bind_New_Sim extends DefaultActivity {
                     @Override
                     public void process(boolean b, Response response) {
                         if (response.getError() == 0) {
-                            Intent i = new Intent(Activity_Manage_Sim_Bind_New_Sim.this, Activity_Manage_Sim_Bind_New_Sim_Enter_Code.class);
-                            startActivity(i);
+                            Intent intent= new Intent(Activity_Manage_Sim_Bind_New_Sim.this, Activity_Manage_Sim_Bind_New_Sim_Enter_Code.class);
+                           startActivity(intent);
+                finish();
                         }
                     }
                 }).initActivateSimRequest(edt_phone.getText().toString());

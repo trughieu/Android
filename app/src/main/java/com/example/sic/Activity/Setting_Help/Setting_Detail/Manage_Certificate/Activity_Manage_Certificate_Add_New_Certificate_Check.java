@@ -115,10 +115,11 @@ public class Activity_Manage_Certificate_Add_New_Certificate_Check extends Defau
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                Intent i = new Intent(Activity_Manage_Certificate_Add_New_Certificate_Check.this, Activity_Manage_Certificate_Add_New_Certificate_Check_Confirm.class);
-//                        i.putExtra("otp", pinValue.getText().toString());
+                                Intent intent= new Intent(Activity_Manage_Certificate_Add_New_Certificate_Check.this, Activity_Manage_Certificate_Add_New_Certificate_Check_Confirm.class);
+//                        intent.putExtra("otp", pinValue.getText().toString());
                                 Log.d("afb", "afterTextChanged: " + pinValue.getText().toString());
-                                startActivity(i);
+                               startActivity(intent);
+                finish();
                             }
                         }, 3000);
 
@@ -308,16 +309,24 @@ public class Activity_Manage_Certificate_Add_New_Certificate_Check extends Defau
 
     @Override
     public void onClick(View view) {
-        Intent i;
+        Intent intent;
         switch (view.getId()) {
             case R.id.tv_Cancel:
             case R.id.btnBack:
-                i = new Intent(Activity_Manage_Certificate_Add_New_Certificate_Check.this, Activity_Manage_Certificate_Add_New_Certificate.class);
-                startActivity(i);
+                intent = new Intent(Activity_Manage_Certificate_Add_New_Certificate_Check.this, Activity_Manage_Certificate_Add_New_Certificate.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+       startActivity(intent);
+                finish();
                 break;
             case R.id.btn_Detail:
-                i = new Intent(Activity_Manage_Certificate_Add_New_Certificate_Check.this, Activity_Manage_Certificate_Add_New_Certificate_Check_Detail.class);
-                startActivity(i);
+                intent = new Intent(Activity_Manage_Certificate_Add_New_Certificate_Check.this, Activity_Manage_Certificate_Add_New_Certificate_Check_Detail.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+      startActivity(intent);
+                finish();
         }
     }
 }

@@ -36,19 +36,29 @@ public class register_info_1 extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onClick(View view) {
-        Intent i;
+        Intent intent;
         switch (view.getId()) {
             case R.id.btnContinue:
-                i = new Intent(register_info_1.this, register_info_2.class);
-                startActivity(i);
+                intent = new Intent(register_info_1.this, register_info_2.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+     startActivity(intent);
+                finish();
                 break;
             case R.id.btnBack:
                 if (id == 1) {
-                    i = new Intent(register_info_1.this, registerNonChip.class);
-                    startActivity(i);
+                    intent = new Intent(register_info_1.this, registerNonChip.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);    startActivity(intent);
+                finish();
                 } else if (id == 2) {
-                    i = new Intent(register_info_1.this, registerChip.class);
-                    startActivity(i);
+                    intent = new Intent(register_info_1.this, registerChip.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);    startActivity(intent);
+                finish();
 
                 }
                 break;

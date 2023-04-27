@@ -126,16 +126,18 @@ public class Activity_Login_Touch_Id extends Dev_activity implements View.OnClic
                 module.setResponseReLogin((b, response) -> {
                     if (response == null || response.getError() == 3212) {
 
-                        Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(i);
+                        Intent intent= new Intent(getApplicationContext(), MainActivity.class);
+                       startActivity(intent);
+                finish();
 
                     } else if (response.getError() == 3000) {
                         runOnUiThread(() -> {
                         });
 
                     } else if (response.getError() == 0) {
-                        Intent i = new Intent(Activity_Login_Touch_Id.this, HomePage.class);
-                        startActivity(i);
+                        Intent intent= new Intent(Activity_Login_Touch_Id.this, HomePage.class);
+                       startActivity(intent);
+                finish();
                     }
 
                 }).reLogin(txtPassword.getText().toString());
@@ -281,16 +283,18 @@ public class Activity_Login_Touch_Id extends Dev_activity implements View.OnClic
                 module.setResponseReLogin((b, response) -> {
                     if (response == null || response.getError() == 3212) {
 
-                        Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(i);
+                        Intent intent= new Intent(getApplicationContext(), MainActivity.class);
+                       startActivity(intent);
+                finish();
 
                     } else if (response.getError() == 3000) {
                         runOnUiThread(() -> {
                         });
 
                     } else if (response.getError() == 0) {
-                        Intent i = new Intent(Activity_Login_Touch_Id.this, HomePage.class);
-                        startActivity(i);
+                        Intent intent= new Intent(Activity_Login_Touch_Id.this, HomePage.class);
+                       startActivity(intent);
+                finish();
                     }
                 }).reLogin(pass_bio);
             }
