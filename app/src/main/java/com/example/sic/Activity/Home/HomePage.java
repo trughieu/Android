@@ -47,8 +47,6 @@ import vn.mobileid.tse.model.database.LoginData;
 public class HomePage extends DefaultActivity implements View.OnClickListener {
 
     TextView btn_Log_out, btn_Close, btn_Yes, txt_connect, txt_qr, txt_inbox, txt_setting_help, user_name, btnClose;
-    ImageView loading;
-    AnimationDrawable loading_animation;
     LinearLayout mnu_connect, mnu_scan_qr, mnu_inbox, mnu_setting_help;
     String s;
     ActivateModule module;
@@ -345,91 +343,80 @@ public class HomePage extends DefaultActivity implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         Intent intent;
-        switch (view.getId()) {
-            case R.id.menu_connect:
-                start();
-                module.setResponseGetRequestList(new HttpRequest.AsyncResponse() {
-                            @Override
-                            public void process(boolean b, Response response) {
-                                if (response == null) {
-                                    stop();
-                                } else {
-                                    stop();
-                                }
+        if (view.getId() == R.id.menu_connect) {
+            start();
+            module.setResponseGetRequestList(new HttpRequest.AsyncResponse() {
+                        @Override
+                        public void process(boolean b, Response response) {
+                            if (response == null) {
+                                stop();
+                            } else {
+                                stop();
                             }
-                        })
-                        .requestList();
-                start();
-                requestInfoModule.setResponseGetTransactionsList(new HttpRequest.AsyncResponse() {
-                    @Override
-                    public void process(boolean b, Response response) {
-                        if (response == null) {
-                            stop();
-                        } else if (response.getError() == 0) {
-                            stop();
-                            List<Requests> requests = response.getRequests();
-                            if (response.getRequests() != null && requests != null) {
-                                for (Requests request : requests) {
-                                    Intent intent = new Intent(HomePage.this, Inbox_detail.class);
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    intent.putExtra("transactionId", request.transactionID);
-                                    startActivity(intent);
-                                    finish();
-                                }
+                        }
+                    }).requestList();
+            start();
+            requestInfoModule.setResponseGetTransactionsList(new HttpRequest.AsyncResponse() {
+                @Override
+                public void process(boolean b, Response response) {
+                    if (response == null) {
+                        stop();
+                    } else if (response.getError() == 0) {
+                        stop();
+                        List<Requests> requests = response.getRequests();
+                        if (response.getRequests() != null && requests != null) {
+                            for (Requests request : requests) {
+                                Intent intent = new Intent(HomePage.this, Inbox_detail.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                intent.putExtra("transactionId", request.transactionID);
+                                startActivity(intent);
                             }
                         }
                     }
-                }).transactionsList();
-
-                txt_connect.setTextColor(Color.parseColor("#004B7D"));
-                txt_connect.setTextAppearance(R.style.active);
-                txt_qr.setTextAppearance(R.style.inactive);
-                txt_inbox.setTextAppearance(R.style.inactive);
-                txt_setting_help.setTextAppearance(R.style.inactive);
-                break;
-            case R.id.menu_scanqr:
-                txt_qr.setTextColor(Color.parseColor("#004B7D"));
-                txt_connect.setTextAppearance(R.style.inactive);
-                txt_qr.setTextAppearance(R.style.active);
-                txt_inbox.setTextAppearance(R.style.inactive);
-                txt_setting_help.setTextAppearance(R.style.inactive);
-                intent = new Intent(HomePage.this, Activity_Scan_QR.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-                startActivity(intent);
-                finish();
-                break;
-            case R.id.menu_inbox:
-                txt_inbox.setTextColor(Color.parseColor("#004B7D"));
-                txt_connect.setTextAppearance(R.style.inactive);
-                txt_qr.setTextAppearance(R.style.inactive);
-                txt_inbox.setTextAppearance(R.style.active);
-                txt_setting_help.setTextAppearance(R.style.inactive);
-                intent = new Intent(HomePage.this, Inbox.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-                startActivity(intent);
-                finish();
-                break;
-            case R.id.menu_setting_help:
-                txt_setting_help.setTextColor(Color.parseColor("#004B7D"));
-                txt_connect.setTextAppearance(R.style.inactive);
-                txt_qr.setTextAppearance(R.style.inactive);
-                txt_inbox.setTextAppearance(R.style.inactive);
-                txt_setting_help.setTextAppearance(R.style.active);
-                intent = new Intent(HomePage.this, Activity_Setting_Help.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-                finish();
-                break;
+                }
+            }).transactionsList();
+            txt_connect.setTextColor(Color.parseColor("#004B7D"));
+            txt_connect.setTextAppearance(R.style.active);
+            txt_qr.setTextAppearance(R.style.inactive);
+            txt_inbox.setTextAppearance(R.style.inactive);
+            txt_setting_help.setTextAppearance(R.style.inactive);
+        } else if (view.getId() == R.id.menu_scanqr) {
+            txt_qr.setTextColor(Color.parseColor("#004B7D"));
+            txt_connect.setTextAppearance(R.style.inactive);
+            txt_qr.setTextAppearance(R.style.active);
+            txt_inbox.setTextAppearance(R.style.inactive);
+            txt_setting_help.setTextAppearance(R.style.inactive);
+            intent = new Intent(HomePage.this, Activity_Scan_QR.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
+        } else if (view.getId() == R.id.menu_inbox) {
+            txt_inbox.setTextColor(Color.parseColor("#004B7D"));
+            txt_connect.setTextAppearance(R.style.inactive);
+            txt_qr.setTextAppearance(R.style.inactive);
+            txt_inbox.setTextAppearance(R.style.active);
+            txt_setting_help.setTextAppearance(R.style.inactive);
+            intent = new Intent(HomePage.this, Inbox.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        } else if (view.getId() == R.id.menu_setting_help) {
+            txt_setting_help.setTextColor(Color.parseColor("#004B7D"));
+            txt_connect.setTextAppearance(R.style.inactive);
+            txt_qr.setTextAppearance(R.style.inactive);
+            txt_inbox.setTextAppearance(R.style.inactive);
+            txt_setting_help.setTextAppearance(R.style.active);
+            intent = new Intent(HomePage.this, Activity_Setting_Help.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
         }
     }
 
@@ -455,8 +442,6 @@ public class HomePage extends DefaultActivity implements View.OnClickListener {
                     }
                 }
             }).logout();
-
-
         });
 
         dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);

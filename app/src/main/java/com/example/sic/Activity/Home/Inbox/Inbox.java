@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -48,9 +49,9 @@ public class Inbox extends DefaultActivity implements View.OnClickListener {
 
         loadFragment(new MessageFragment());
         btnBack.setOnClickListener(view -> {
-            Intent intent= new Intent(Inbox.this, HomePage.class);
-           startActivity(intent);
-                finish();
+            Intent intent = new Intent(Inbox.this, HomePage.class);
+            startActivity(intent);
+            finish();
         });
     }
 
@@ -80,8 +81,20 @@ public class Inbox extends DefaultActivity implements View.OnClickListener {
                 break;
         }
     }
-    private void loadFragment(Fragment fragment){
-        FragmentTransaction ft=getSupportFragmentManager().beginTransaction().replace(R.id.content,fragment);
+
+    private void loadFragment(Fragment fragment) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction().replace(R.id.content, fragment);
         ft.commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("inbox", "onDestroy: ");
     }
 }

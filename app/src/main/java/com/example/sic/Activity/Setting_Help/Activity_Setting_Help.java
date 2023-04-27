@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -40,22 +41,15 @@ public class Activity_Setting_Help extends DefaultActivity implements View.OnCli
 
     LinearLayout btn_settings, btn_help, btn_terms, btn_privacy, btn_languages, btn_send_support;
 
-    TextView tv_English, tv_Vietnamese;
+    TextView tv_English, tv_Vietnamese,Continue, btnClose;
 
     ImageView btn_Close;
-
     FrameLayout btnBack;
-    boolean checked1, checked2;
     AppCompatCheckBox checkBox1, checkBox2;
-    TextView Continue, btnClose;
     AppCompatButton bt1, bt2, bt3, bt4, bt5, bt6, bt7, bt8, bt9, bt0, Key_delete;
     EditText txt_pin_view1, txt_pin_view2, txt_pin_view3, txt_pin_view4, txt_pin_view5, txt_pin_view6, pinValue;
     String text;
     Dialog dialog;
-    SharedPreferences sharedPreferences;
-    int check;
-
-    SharedPreferences.Editor editor;
     private final TextWatcher textWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int start, int i1, int i2) {
@@ -127,9 +121,9 @@ public class Activity_Setting_Help extends DefaultActivity implements View.OnCli
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                Intent intent= new Intent(Activity_Setting_Help.this, Activity_Setting_Detail.class);
-                               startActivity(intent);
-                finish();
+                                Intent intent = new Intent(Activity_Setting_Help.this, Activity_Setting_Detail.class);
+                                startActivity(intent);
+                                finish();
                             }
                         }, 2000);
                     } else {
@@ -157,6 +151,9 @@ public class Activity_Setting_Help extends DefaultActivity implements View.OnCli
             }
         }
     };
+    SharedPreferences sharedPreferences;
+    int check;
+    SharedPreferences.Editor editor;
     View.OnClickListener numKey = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -169,6 +166,11 @@ public class Activity_Setting_Help extends DefaultActivity implements View.OnCli
         }
     };
     private String digit_6, digit;
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -207,8 +209,7 @@ public class Activity_Setting_Help extends DefaultActivity implements View.OnCli
         biometricPrompt = new BiometricPrompt(this,
                 executor, new BiometricPrompt.AuthenticationCallback() {
             @Override
-            public void onAuthenticationError(int errorCode,
-                                              @NonNull CharSequence errString) {
+            public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
                 super.onAuthenticationError(errorCode, errString);
                 Toast.makeText(getApplicationContext(),
                         "Authentication error: " + errString, Toast.LENGTH_SHORT).show();
@@ -222,8 +223,8 @@ public class Activity_Setting_Help extends DefaultActivity implements View.OnCli
                         "Authentication succeeded!", Toast.LENGTH_SHORT).show();
 
 
-                Intent intent= new Intent(Activity_Setting_Help.this, Activity_Setting_Detail.class);
-               startActivity(intent);
+                Intent intent = new Intent(Activity_Setting_Help.this, Activity_Setting_Detail.class);
+                startActivity(intent);
                 finish();
             }
 
@@ -245,124 +246,114 @@ public class Activity_Setting_Help extends DefaultActivity implements View.OnCli
     @Override
     public void onClick(@NonNull View view) {
         Intent intent;
-        switch (view.getId()) {
-            case R.id.btn_settings:
-                if (check == 0) {
-                    intent = new Intent(Activity_Setting_Help.this, Activity_Setting_Detail.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); startActivity(intent);
-                finish();
-                }
-                if (check == 1) {
-                    Dialog_pin();
-                } else if (check == 2) {
-                    Biometric();
-                    biometricPrompt.authenticate(promptInfo);
-                }
-
-                break;
-            case R.id.btn_help:
-                intent = new Intent(Activity_Setting_Help.this, Activity_Help_Detail.class);
+        if(view.getId()==R.id.btn_settings){
+            if (check == 0) {
+                intent = new Intent(Activity_Setting_Help.this, Activity_Setting_Detail.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                finish();
+            }
+            if (check == 1) {
+                Dialog_pin();
+            } else if (check == 2) {
+                Biometric();
+                biometricPrompt.authenticate(promptInfo);
+            }
+        } else if (view.getId()==R.id.btn_help) {
+            intent = new Intent(Activity_Setting_Help.this, Activity_Help_Detail.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-         startActivity(intent);
-                finish();
-                break;
-            case R.id.btn_terms:
-                intent = new Intent(Activity_Setting_Help.this, Activity_Term_Detail.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+        } else if (view.getId()==R.id.btn_terms) {
+            intent = new Intent(Activity_Setting_Help.this, Activity_Term_Detail.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-       startActivity(intent);
-                finish();
-                break;
-            case R.id.btn_privacy:
-                intent = new Intent(Activity_Setting_Help.this, Activity_Privacy_Detail.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+        } else if (view.getId()==R.id.btn_privacy) {
+            intent = new Intent(Activity_Setting_Help.this, Activity_Privacy_Detail.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-      startActivity(intent);
-                finish();
-                break;
-            case R.id.btn_language:
-                final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(
-                        this, R.style.BottomSheetDialogTheme);
-                View bottomSheetView = LayoutInflater.from(getBaseContext()).inflate(R.layout.bottom_layout_languages,
-                        findViewById(R.id.bottom_layout_languages));
+            startActivity(intent);
+            finish();
+        } else if (view.getId()==R.id.btn_language) {
+            final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(
+                    this, R.style.BottomSheetDialogTheme);
+            View bottomSheetView = LayoutInflater.from(getBaseContext()).inflate(R.layout.bottom_layout_languages,
+                    findViewById(R.id.bottom_layout_languages));
 
-                bottomSheetDialog.setContentView(bottomSheetView);
-                bottomSheetDialog.show();
+            bottomSheetDialog.setContentView(bottomSheetView);
+            bottomSheetDialog.show();
 
-                tv_English = bottomSheetView.findViewById(R.id.tv_English);
-                tv_Vietnamese = bottomSheetView.findViewById(R.id.tv_Vietnamese);
-                btn_Close = bottomSheetView.findViewById(R.id.close);
+            tv_English = bottomSheetView.findViewById(R.id.tv_English);
+            tv_Vietnamese = bottomSheetView.findViewById(R.id.tv_Vietnamese);
+            btn_Close = bottomSheetView.findViewById(R.id.close);
 
-                checkBox1 = bottomSheetView.findViewById(R.id.checkBox1);
-                checkBox2 = bottomSheetView.findViewById(R.id.checkBox2);
+            checkBox1 = bottomSheetView.findViewById(R.id.checkBox1);
+            checkBox2 = bottomSheetView.findViewById(R.id.checkBox2);
 //
-                String s = SettingData.getLanguage(this);
-                if (s.equals("en")) {
-                    checkBox1.setChecked(true);
-                } else if (s.equals("vi")) {
-                    checkBox2.setChecked(true);
-                }
+            String s = SettingData.getLanguage(this);
+            if (s.equals("en")) {
+                checkBox1.setChecked(true);
+            } else if (s.equals("vi")) {
+                checkBox2.setChecked(true);
+            }
 
-                tv_English.setOnClickListener(view1 -> {
-                    SettingData.updateLanguage(Activity_Setting_Help.this, "en");
-                    Dialog dialog = new Dialog(Activity_Setting_Help.this);
-                    dialog.setContentView(R.layout.dialog_notification_change_languages);
-                    dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
-                    dialog.show();
-                    dialog.setCanceledOnTouchOutside(false);
-                    Continue = dialog.findViewById(R.id.Continue);
-                    Continue.setOnClickListener(view2 -> {
-                        Intent i= new Intent(Activity_Setting_Help.this, HomePage.class);
-                        startActivity(i);
-                    });
-                    checkBox1.setChecked(true);
-                    checkBox2.setChecked(false);
-
-                    bottomSheetDialog.dismiss();
+            tv_English.setOnClickListener(view1 -> {
+                SettingData.updateLanguage(Activity_Setting_Help.this, "en");
+                Dialog dialog = new Dialog(Activity_Setting_Help.this);
+                dialog.setContentView(R.layout.dialog_notification_change_languages);
+                dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
+                dialog.show();
+                dialog.setCanceledOnTouchOutside(false);
+                Continue = dialog.findViewById(R.id.Continue);
+                Continue.setOnClickListener(view2 -> {
+                    Intent i = new Intent(Activity_Setting_Help.this, HomePage.class);
+                    startActivity(i);
                 });
+                checkBox1.setChecked(true);
+                checkBox2.setChecked(false);
 
-                tv_Vietnamese.setOnClickListener(view1 -> {
-                    SettingData.updateLanguage(Activity_Setting_Help.this, "vi");
-                    Dialog dialog = new Dialog(Activity_Setting_Help.this);
-                    dialog.setContentView(R.layout.dialog_notification_change_languages);
-                    dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
-                    dialog.show();
-                    dialog.setCanceledOnTouchOutside(false);
-                    Continue = dialog.findViewById(R.id.Continue);
-                    Continue.setOnClickListener(view2 -> {
-                        Intent i= new Intent(Activity_Setting_Help.this, HomePage.class);
-                        startActivity(i);
-                    });
-                    checkBox1.setChecked(false);
-                    checkBox2.setChecked(true);
-                    bottomSheetDialog.dismiss();
-                });
+                bottomSheetDialog.dismiss();
+            });
 
-                btn_Close.setOnClickListener(view1 -> {
-                    bottomSheetDialog.dismiss();
+            tv_Vietnamese.setOnClickListener(view1 -> {
+                SettingData.updateLanguage(Activity_Setting_Help.this, "vi");
+                Dialog dialog = new Dialog(Activity_Setting_Help.this);
+                dialog.setContentView(R.layout.dialog_notification_change_languages);
+                dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
+                dialog.show();
+                dialog.setCanceledOnTouchOutside(false);
+                Continue = dialog.findViewById(R.id.Continue);
+                Continue.setOnClickListener(view2 -> {
+                    Intent i = new Intent(Activity_Setting_Help.this, HomePage.class);
+                    startActivity(i);
                 });
-                break;
-            case R.id.btn_send_support:
-                intent = new Intent(Activity_Setting_Help.this, Activity_Send_Support_Detail.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                checkBox1.setChecked(false);
+                checkBox2.setChecked(true);
+                bottomSheetDialog.dismiss();
+            });
+
+            btn_Close.setOnClickListener(view1 -> {
+                bottomSheetDialog.dismiss();
+            });
+        } else if (view.getId()==R.id.btn_send_support) {
+            intent = new Intent(Activity_Setting_Help.this, Activity_Send_Support_Detail.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-     startActivity(intent);
-                finish();
-                break;
-            case R.id.btnBack:
-                intent = new Intent(Activity_Setting_Help.this, HomePage.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-      startActivity(intent);
-                finish();
+            startActivity(intent);
+            finish();
+        } else if (view.getId()==R.id.btnBack) {
+            intent = new Intent(Activity_Setting_Help.this, HomePage.class);
+            startActivity(intent);
+            finish();
         }
     }
 
@@ -417,5 +408,12 @@ public class Activity_Setting_Help extends DefaultActivity implements View.OnCli
                 }
             }
         });
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("settin help", "onDestroy: ");
     }
 }

@@ -32,15 +32,13 @@ public class test extends AppCompatActivity {
     List<String> provinceString = new ArrayList<>();
     List<String> districtString = new ArrayList<>();
     List<String> wardString = new ArrayList<>();
-
-    private String stringAddress = "";
-
-    private String[] arrayAddressCatche = {"", "", "", "", "", ""};
-    private String[] arrayAddress = {"", "", "", "", "", ""};
     List<District> districtList;
     List<Province> provinceList;
     List<Ward> wardList;
     ArrayAdapter<String> adapter;
+    private String stringAddress = "";
+    private String[] arrayAddressCatche = {"", "", "", "", "", ""};
+    private String[] arrayAddress = {"", "", "", "", "", ""};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,6 +152,17 @@ public class test extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("Test", "onDestroy: ");
     }
 }
 
