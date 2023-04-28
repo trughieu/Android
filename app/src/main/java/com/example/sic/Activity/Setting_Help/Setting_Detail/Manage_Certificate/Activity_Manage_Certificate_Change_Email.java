@@ -20,9 +20,14 @@ import vn.mobileid.tse.model.client.managecertificate.CertificateProfilesModule;
 import vn.mobileid.tse.model.connector.plugin.Response;
 
 public class Activity_Manage_Certificate_Change_Email extends DefaultActivity implements View.OnClickListener {
+    TextView btnContinue, title;
 
     TextInputEditText txt_email_address;
-    TextView btnContinue,title;
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
     public TextWatcher textWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

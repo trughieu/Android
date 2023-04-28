@@ -18,9 +18,14 @@ public class Activity_Privacy_Detail extends DefaultActivity {
 
         btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(view -> {
-            Intent intent= new Intent(Activity_Privacy_Detail.this, Activity_Setting_Help.class);
-           startActivity(intent);
-                finish();
+            Intent intent = new Intent(Activity_Privacy_Detail.this, Activity_Setting_Help.class);
+            startActivity(intent);
+            finish();
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
     }
 }

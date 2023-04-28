@@ -208,10 +208,14 @@ public class Activity_Setting_Detail_Change_Pin_Code_Create_New_Pin extends Defa
         });
 
         btnBack.setOnClickListener(view -> {
-            Intent intent= new Intent(Activity_Setting_Detail_Change_Pin_Code_Create_New_Pin.this, Activity_Setting_Detail_Change_Pin_Code.class);
-           startActivity(intent);
-                finish();
+            Intent intent = new Intent(Activity_Setting_Detail_Change_Pin_Code_Create_New_Pin.this, Activity_Setting_Detail_Change_Pin_Code.class);
+            startActivity(intent);
+            finish();
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
 }

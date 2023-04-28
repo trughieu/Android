@@ -17,6 +17,11 @@ public class Activity_Manage_Order_Payment extends DefaultActivity {
     FrameLayout btnBack;
 
     @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_order_payment);

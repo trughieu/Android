@@ -34,18 +34,21 @@ import com.example.sic.R;
 import com.example.sic.modle.Manage_Certificate;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
-import java.util.concurrent.Executor;
-
 import vn.mobileid.tse.model.client.HttpRequest;
 import vn.mobileid.tse.model.client.managecertificate.CertificateProfilesModule;
 import vn.mobileid.tse.model.connector.plugin.Response;
-import vn.mobileid.tse.model.cryptography.Cryptography;
 
 public class Activity_Manage_Certificate_Change_Scal extends DefaultActivity implements View.OnClickListener {
 
-    TextView txt_select_id, conf_E_iden, conf_bio, conf_Pin, btn_Close,title;
+    TextView txt_select_id, conf_E_iden, conf_bio, conf_Pin, btn_Close, title;
     String s, credentialID;
     FrameLayout btnBack;
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
+
     LinearLayout check1, check2, check3, check4, check5, check6, check7, check8;
     AppCompatCheckBox checkBox1, checkBox2, checkBox3, checkBox4, checkBox5, checkBox6, checkBox7, checkBox8;
     CheckBox checkBox1_option, checkBox2_option, checkBox3_option;

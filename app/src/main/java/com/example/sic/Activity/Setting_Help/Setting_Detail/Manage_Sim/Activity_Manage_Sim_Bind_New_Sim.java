@@ -22,6 +22,11 @@ public class Activity_Manage_Sim_Bind_New_Sim extends DefaultActivity {
     FrameLayout btnBack;
 
     @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_sim_bind_new_sim);

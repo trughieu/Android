@@ -32,15 +32,20 @@ public class register_nonChip_2 extends AppCompatActivity implements View.OnClic
     }
 
     @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
+
+    @Override
     public void onClick(View view) {
         Intent intent;
         switch (view.getId()) {
             case R.id.btnContinue:
                 intent = new Intent(register_nonChip_2.this, registerChip_1.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-    startActivity(intent);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
                 finish();
                 break;
             case R.id.btnBack:

@@ -32,6 +32,10 @@ public class Activity_Manage_Certificate_Add_New_Certificate_More_Detail extends
     FrameLayout btnBack;
     LinearLayout btnClose;
 
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
 
     TextView tv_name, uid, sn_cn_detail, sn_s_p_detail, sn_c_r_detail, in_cn_detail,
             in_ou_detail, in_o_detail, in_l_detail, in_s_p_detail, in_c_r_detail,

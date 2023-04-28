@@ -12,4 +12,9 @@ public class Activity_Ibox_Conf_With_E_Identify_Scan_Face extends DefaultActivit
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ibox_conf_with_eidentify_scan_face);
     }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
 }

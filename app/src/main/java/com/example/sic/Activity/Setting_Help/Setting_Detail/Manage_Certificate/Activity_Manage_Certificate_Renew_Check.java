@@ -17,6 +17,10 @@ public class Activity_Manage_Certificate_Renew_Check extends DefaultActivity imp
     TextView conf_E_iden, conf_bio, conf_Pin, btn_Detail;
     FrameLayout btnBack;
 
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

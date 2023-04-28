@@ -16,6 +16,10 @@ public class register_info_2 extends AppCompatActivity implements View.OnClickLi
     TextView btnContinue, txtTitle;
     FrameLayout btnBack;
 
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -19,4 +19,9 @@ public class Activity_Manage_Certificate_Add_New_Certificate_Check_Detail extend
             finish();
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
 }

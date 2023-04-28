@@ -19,4 +19,9 @@ public class Inbox_detail_detail_1_1 extends DefaultActivity {
             finish();
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
 }

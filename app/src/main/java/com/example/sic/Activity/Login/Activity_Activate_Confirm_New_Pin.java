@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -110,9 +109,9 @@ public class Activity_Activate_Confirm_New_Pin extends AppCompatActivity {
                            startActivity(intent);
                 finish();
                         } else if (from == 2) {
-                            Intent intent= new Intent(Activity_Activate_Confirm_New_Pin.this, Activity_Recovery_Code_6_digit_number.class);
-                           startActivity(intent);
-                finish();
+                            Intent intent = new Intent(Activity_Activate_Confirm_New_Pin.this, Activity_Recovery_Code_6_digit_number.class);
+                            startActivity(intent);
+                            finish();
                         }
 //                        intent.putExtra(pinValue.getText().toString(), "otp");
                     } else {
@@ -121,6 +120,12 @@ public class Activity_Activate_Confirm_New_Pin extends AppCompatActivity {
             }
         }
     };
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
+
     View.OnClickListener numKey = new View.OnClickListener() {
         @Override
         public void onClick(View v) {

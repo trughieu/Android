@@ -24,6 +24,12 @@ public class register_info_phone_email extends Dev_activity implements View.OnCl
     FrameLayout btnBack;
     String otp;
     String email, phone;
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
+
     TextWatcher textWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

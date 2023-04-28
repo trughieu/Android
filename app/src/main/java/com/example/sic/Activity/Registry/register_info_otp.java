@@ -59,6 +59,11 @@ public class register_info_otp extends AppCompatActivity implements View.OnClick
     boolean checkChip, checkNonChip;
 
     @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 

@@ -117,28 +117,33 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                   startActivity(intent);
-                finish();
+                    startActivity(intent);
+                    finish();
 
                 } else if (id == 2) {
                     intent = new Intent(Register.this, registerChip.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                   startActivity(intent);
-                finish();
+                    startActivity(intent);
+                    finish();
                 }
 
                 break;
             case R.id.btnBack:
-                intent   = new Intent(Register.this, MainActivity.class);
+                intent = new Intent(Register.this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-    
-               startActivity(intent);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                startActivity(intent);
                 finish();
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
     }
 }

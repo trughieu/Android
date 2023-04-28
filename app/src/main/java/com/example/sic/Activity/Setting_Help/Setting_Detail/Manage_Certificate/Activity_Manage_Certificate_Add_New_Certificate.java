@@ -343,4 +343,8 @@ public class Activity_Manage_Certificate_Add_New_Certificate extends DefaultActi
         inputMethodManager.showSoftInput(otp, InputMethodManager.SHOW_IMPLICIT);
     }
 
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
 }

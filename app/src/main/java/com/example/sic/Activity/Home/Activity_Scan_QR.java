@@ -1,23 +1,17 @@
 package com.example.sic.Activity.Home;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import androidx.annotation.NonNull;
 import androidx.camera.core.Camera;
 
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
-import com.budiyev.android.codescanner.DecodeCallback;
 import com.example.sic.DefaultActivity;
 import com.example.sic.R;
-import com.google.zxing.Result;
 
-import vn.mobileid.tse.model.client.HttpRequest;
 import vn.mobileid.tse.model.client.qr.QrModule;
-import vn.mobileid.tse.model.connector.plugin.Response;
 
 public class Activity_Scan_QR extends DefaultActivity {
 
@@ -60,5 +54,10 @@ public class Activity_Scan_QR extends DefaultActivity {
     protected void onPause() {
         mCodeScanner.releaseResources();
         super.onPause();
+    }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
     }
 }

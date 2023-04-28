@@ -243,6 +243,11 @@ public class Activation extends AppCompatActivity implements View.OnClickListene
     }
 
     @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         if (smsBroadcastReceiver != null) {

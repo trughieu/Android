@@ -32,6 +32,11 @@ public class register_nonChip_1 extends AppCompatActivity implements View.OnClic
     AppCompatCheckBox checkBox1, checkBox2, checkBox3;
 
     @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_non_chip_1);

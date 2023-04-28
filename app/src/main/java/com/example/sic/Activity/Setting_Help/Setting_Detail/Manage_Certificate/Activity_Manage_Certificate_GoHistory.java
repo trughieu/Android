@@ -47,11 +47,16 @@ public class Activity_Manage_Certificate_GoHistory extends DefaultActivity {
     CertificateProfilesModule module;
     String[] action = new String[1];
     TextView date_from, date_to, search, txt_select_id, All, Issue, Renew, ChangeInformation, Reissue, Revoke,
-            Authorize, ExtendTransaction, SignHash, SignDocument, ChangePassphrase, ForgotPassphrase, ChangeEmail, ChangePhoneNumber,title;
+            Authorize, ExtendTransaction, SignHash, SignDocument, ChangePassphrase, ForgotPassphrase, ChangeEmail, ChangePhoneNumber, title;
     String credentialId;
     History history;
     ArrayList<History> historyArrayList = new ArrayList<>();
     FrameLayout btnBack;
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +70,8 @@ public class Activity_Manage_Certificate_GoHistory extends DefaultActivity {
         search = findViewById(R.id.search);
         btnBack = findViewById(R.id.btnBack);
         txt_select_id = findViewById(R.id.txt_select_id);
-        title=findViewById(R.id.title);
-        Manage_Certificate manage_certificate= (Manage_Certificate) getIntent().getSerializableExtra("certificate");
+        title = findViewById(R.id.title);
+        Manage_Certificate manage_certificate = (Manage_Certificate) getIntent().getSerializableExtra("certificate");
         title.setText(manage_certificate.getCNSubjectDN());
         btnBack.setOnClickListener(view -> {
             finish();

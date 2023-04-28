@@ -31,6 +31,11 @@ public class register_nonChip_5 extends AppCompatActivity {
     List<String> districtString = new ArrayList<>();
     List<String> wardString = new ArrayList<>();
 
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
+
     private String stringAddress = "";
 
     private String[] arrayAddressCatche = {"", "", "", "", "", ""};

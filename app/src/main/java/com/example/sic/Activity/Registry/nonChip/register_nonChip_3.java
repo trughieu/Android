@@ -13,4 +13,9 @@ public class register_nonChip_3 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_non_chip_3);
     }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
 }

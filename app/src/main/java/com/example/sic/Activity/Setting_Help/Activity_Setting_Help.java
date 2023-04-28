@@ -12,7 +12,6 @@ import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -41,8 +40,7 @@ public class Activity_Setting_Help extends DefaultActivity implements View.OnCli
 
     LinearLayout btn_settings, btn_help, btn_terms, btn_privacy, btn_languages, btn_send_support;
 
-    TextView tv_English, tv_Vietnamese,Continue, btnClose;
-
+    TextView tv_English, tv_Vietnamese, Continue, btnClose;
     ImageView btn_Close;
     FrameLayout btnBack;
     AppCompatCheckBox checkBox1, checkBox2;
@@ -167,6 +165,7 @@ public class Activity_Setting_Help extends DefaultActivity implements View.OnCli
     };
     private String digit_6, digit;
 
+
     @Override
     public void onBackPressed() {
         moveTaskToBack(true);
@@ -246,7 +245,7 @@ public class Activity_Setting_Help extends DefaultActivity implements View.OnCli
     @Override
     public void onClick(@NonNull View view) {
         Intent intent;
-        if(view.getId()==R.id.btn_settings){
+        if (view.getId() == R.id.btn_settings) {
             if (check == 0) {
                 intent = new Intent(Activity_Setting_Help.this, Activity_Setting_Detail.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -261,28 +260,28 @@ public class Activity_Setting_Help extends DefaultActivity implements View.OnCli
                 Biometric();
                 biometricPrompt.authenticate(promptInfo);
             }
-        } else if (view.getId()==R.id.btn_help) {
+        } else if (view.getId() == R.id.btn_help) {
             intent = new Intent(Activity_Setting_Help.this, Activity_Help_Detail.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             finish();
-        } else if (view.getId()==R.id.btn_terms) {
+        } else if (view.getId() == R.id.btn_terms) {
             intent = new Intent(Activity_Setting_Help.this, Activity_Term_Detail.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             finish();
-        } else if (view.getId()==R.id.btn_privacy) {
+        } else if (view.getId() == R.id.btn_privacy) {
             intent = new Intent(Activity_Setting_Help.this, Activity_Privacy_Detail.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             finish();
-        } else if (view.getId()==R.id.btn_language) {
+        } else if (view.getId() == R.id.btn_language) {
             final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(
                     this, R.style.BottomSheetDialogTheme);
             View bottomSheetView = LayoutInflater.from(getBaseContext()).inflate(R.layout.bottom_layout_languages,
@@ -343,14 +342,14 @@ public class Activity_Setting_Help extends DefaultActivity implements View.OnCli
             btn_Close.setOnClickListener(view1 -> {
                 bottomSheetDialog.dismiss();
             });
-        } else if (view.getId()==R.id.btn_send_support) {
+        } else if (view.getId() == R.id.btn_send_support) {
             intent = new Intent(Activity_Setting_Help.this, Activity_Send_Support_Detail.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             finish();
-        } else if (view.getId()==R.id.btnBack) {
+        } else if (view.getId() == R.id.btnBack) {
             intent = new Intent(Activity_Setting_Help.this, HomePage.class);
             startActivity(intent);
             finish();

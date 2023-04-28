@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -26,6 +25,10 @@ public class Activity_Send_Support_Detail extends DefaultActivity {
     AppCompatCheckBox checkBox1, checkBox2, checkBox3;
     FrameLayout btnBack;
 
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +38,7 @@ public class Activity_Send_Support_Detail extends DefaultActivity {
         txt_select_id = findViewById(R.id.txt_select_id);
         btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(view -> {
-            Intent intent= new Intent(Activity_Send_Support_Detail.this,
+            Intent intent = new Intent(Activity_Send_Support_Detail.this,
                     Activity_Setting_Help.class);
            startActivity(intent);
                 finish();

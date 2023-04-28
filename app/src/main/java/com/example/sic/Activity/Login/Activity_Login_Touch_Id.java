@@ -29,16 +29,12 @@ import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 
 import com.example.sic.Activity.Home.HomePage;
-import com.example.sic.DefaultActivity;
 import com.example.sic.Dev_activity;
 import com.example.sic.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
-import java.util.concurrent.Executor;
-
 import vn.mobileid.tse.model.client.activate.ActivateModule;
 import vn.mobileid.tse.model.database.ActivationData;
-import vn.mobileid.tse.model.database.LoginData;
 import vn.mobileid.tse.model.database.SettingData;
 
 public class Activity_Login_Touch_Id extends Dev_activity implements View.OnClickListener {
@@ -284,8 +280,8 @@ public class Activity_Login_Touch_Id extends Dev_activity implements View.OnClic
                     if (response == null || response.getError() == 3212) {
 
                         Intent intent= new Intent(getApplicationContext(), MainActivity.class);
-                       startActivity(intent);
-                finish();
+                        startActivity(intent);
+                        finish();
 
                     } else if (response.getError() == 3000) {
                         runOnUiThread(() -> {
@@ -293,8 +289,8 @@ public class Activity_Login_Touch_Id extends Dev_activity implements View.OnClic
 
                     } else if (response.getError() == 0) {
                         Intent intent= new Intent(Activity_Login_Touch_Id.this, HomePage.class);
-                       startActivity(intent);
-                finish();
+                        startActivity(intent);
+                        finish();
                     }
                 }).reLogin(pass_bio);
             }
@@ -306,5 +302,10 @@ public class Activity_Login_Touch_Id extends Dev_activity implements View.OnClic
             }
         });
         promptInfo = new BiometricPrompt.PromptInfo.Builder().setTitle("Biometric login for my app").setSubtitle("Log in using your biometric credential").setNegativeButtonText("Use account password").build();
+    }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
     }
 }

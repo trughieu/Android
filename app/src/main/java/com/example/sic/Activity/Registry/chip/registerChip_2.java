@@ -14,15 +14,20 @@ public class registerChip_2 extends AppCompatActivity {
     FrameLayout btnBack;
 
     @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_chip_2);
         btnBack = findViewById(R.id.btnBack);
 
         btnBack.setOnClickListener(view -> {
-            Intent intent= new Intent(registerChip_2.this, registerChip_3.class);
-           startActivity(intent);
-                finish();
+            Intent intent = new Intent(registerChip_2.this, registerChip_3.class);
+            startActivity(intent);
+            finish();
         });
 
 

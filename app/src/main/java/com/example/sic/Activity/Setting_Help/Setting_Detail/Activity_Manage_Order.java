@@ -27,6 +27,10 @@ import vn.mobileid.tse.model.client.managecertificate.CertificateProfilesModule;
 public class Activity_Manage_Order extends DefaultActivity implements View.OnClickListener
 //        , Adapter_item_Certificate.Listener
 {
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
 
     TextView txt_select_id;
     String s;

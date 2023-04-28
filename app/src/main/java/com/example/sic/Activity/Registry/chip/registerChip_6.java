@@ -16,6 +16,11 @@ public class registerChip_6 extends AppCompatActivity implements View.OnClickLis
     TextView btnContinue;
 
     @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_chip_6);

@@ -17,9 +17,14 @@ public class Activity_Manage_Certificate_Add_New_Certificate_Check_Confirm exten
         setContentView(R.layout.activity_manage_certificate_add_new_certificate_check_confirm);
         btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(view -> {
-            Intent intent= new Intent(Activity_Manage_Certificate_Add_New_Certificate_Check_Confirm.this, Activity_Manage_Certificate.class);
-           startActivity(intent);
-                finish();
+            Intent intent = new Intent(Activity_Manage_Certificate_Add_New_Certificate_Check_Confirm.this, Activity_Manage_Certificate.class);
+            startActivity(intent);
+            finish();
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
     }
 }

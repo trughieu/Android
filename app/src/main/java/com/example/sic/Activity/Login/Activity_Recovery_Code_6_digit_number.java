@@ -239,4 +239,9 @@ public class Activity_Recovery_Code_6_digit_number extends AppCompatActivity {
         pinValue = findViewById(R.id.pin6_dialog);
         digit_number = findViewById(R.id.digit_number);
     }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
 }

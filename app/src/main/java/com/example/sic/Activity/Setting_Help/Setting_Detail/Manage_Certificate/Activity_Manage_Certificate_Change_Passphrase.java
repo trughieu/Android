@@ -28,7 +28,13 @@ public class Activity_Manage_Certificate_Change_Passphrase extends DefaultActivi
     String current_Passphrase;
     TextInputEditText txt_current_passpharse, txt_new_passpharse, txt_new_passpharse_confirm;
 
-    TextView btnContinue,title;
+    TextView btnContinue, title;
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
+
     public TextWatcher textWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

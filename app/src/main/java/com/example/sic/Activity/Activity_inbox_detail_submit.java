@@ -10,36 +10,34 @@ import com.example.sic.DefaultActivity;
 import com.example.sic.R;
 import com.example.sic.modle.Performed;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import vn.mobileid.tse.model.client.HttpRequest;
-import vn.mobileid.tse.model.client.requestinfo.RequestInfoModule;
-import vn.mobileid.tse.model.connector.plugin.Requests;
-import vn.mobileid.tse.model.connector.plugin.Response;
-
 public class Activity_inbox_detail_submit extends DefaultActivity {
 
     String idTransaction;
-    TextView operatingSystem,ipAddress,rp,browser,submitFrom,messageCaption,tv_operating,tv_ip,tv_browser,tv_rp;
+    TextView operatingSystem, ipAddress, rp, browser, submitFrom, messageCaption, tv_operating, tv_ip, tv_browser, tv_rp;
     Performed performed;
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inbox_detail_submit);
-        idTransaction=getIntent().getStringExtra("transactionId");
-        operatingSystem=findViewById(R.id.operatingSystem);
-        ipAddress=findViewById(R.id.ipAddress);
-        rp=findViewById(R.id.rp);
-        browser=findViewById(R.id.browser);
-        submitFrom=findViewById(R.id.submit_from);
-        messageCaption=findViewById(R.id.messageCaption);
-        tv_operating=findViewById(R.id.tv_operating);
-        tv_ip=findViewById(R.id.tv_ip);
-        tv_browser=findViewById(R.id.tv_browser);
-        tv_rp=findViewById(R.id.tv_rp);
+        idTransaction = getIntent().getStringExtra("transactionId");
+        operatingSystem = findViewById(R.id.operatingSystem);
+        ipAddress = findViewById(R.id.ipAddress);
+        rp = findViewById(R.id.rp);
+        browser = findViewById(R.id.browser);
+        submitFrom = findViewById(R.id.submit_from);
+        messageCaption = findViewById(R.id.messageCaption);
+        tv_operating = findViewById(R.id.tv_operating);
+        tv_ip = findViewById(R.id.tv_ip);
+        tv_browser = findViewById(R.id.tv_browser);
+        tv_rp = findViewById(R.id.tv_rp);
 
-        performed=(Performed) getIntent().getSerializableExtra("performed");
+        performed = (Performed) getIntent().getSerializableExtra("performed");
 //        operatingSystem.setText(performed.getOperating());
 //        ipAddress.setText(performed.getIP());
 //        rp.setText(performed.getRP());

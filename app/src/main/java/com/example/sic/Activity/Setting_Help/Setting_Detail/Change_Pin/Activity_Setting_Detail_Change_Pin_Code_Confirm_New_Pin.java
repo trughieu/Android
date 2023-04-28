@@ -233,4 +233,9 @@ public class Activity_Setting_Detail_Change_Pin_Code_Confirm_New_Pin extends Def
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
+
 }

@@ -20,6 +20,11 @@ public class registerNonChip extends AppCompatActivity implements View.OnClickLi
     FrameLayout btnBack;
 
     @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_non_chip);

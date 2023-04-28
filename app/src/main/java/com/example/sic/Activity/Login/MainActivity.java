@@ -6,9 +6,6 @@ import static com.example.sic.Activity.Login.Activity_Activate_Confirm_New_Pin.f
 import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -16,7 +13,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -26,10 +22,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import com.example.sic.Activity.Home.HomePage;
 import com.example.sic.Activity.Registry.Register;
@@ -37,13 +31,9 @@ import com.example.sic.Dev_activity;
 import com.example.sic.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
-import java.util.Locale;
-
 import vn.mobileid.tse.model.client.activate.ActivateModule;
 import vn.mobileid.tse.model.config.PermissionManager;
-import vn.mobileid.tse.model.connector.AWSRequest;
 import vn.mobileid.tse.model.database.SettingData;
-import vn.mobileid.tse.model.logger.Log4jHelper;
 
 public class MainActivity extends Dev_activity {
 
@@ -331,13 +321,18 @@ public class MainActivity extends Dev_activity {
     }
 
 
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
+
     public static class AsteriskPasswordTransformationMethod extends PasswordTransformationMethod {
         @Override
         public CharSequence getTransformation(CharSequence source, View view) {
             return new PasswordCharSequence(source);
         }
 
-         static class PasswordCharSequence implements CharSequence {
+        static class PasswordCharSequence implements CharSequence {
             private final CharSequence mSource;
 
             public PasswordCharSequence(CharSequence source) {

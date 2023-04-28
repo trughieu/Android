@@ -11,15 +11,18 @@ import com.example.sic.Activity.Setting_Help.Setting_Detail.Activity_Setting_Det
 import com.example.sic.DefaultActivity;
 import com.example.sic.R;
 
-import vn.mobileid.tse.model.client.HttpRequest;
 import vn.mobileid.tse.model.client.managesim.ManageSimModule;
-import vn.mobileid.tse.model.connector.plugin.Response;
 
 public class Activity_Manage_Sim extends DefaultActivity implements View.OnClickListener {
     TextView btn_Bind_New_Sim;
     FrameLayout btnBack;
     ManageSimModule module;
     boolean directSim;
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -17,9 +17,14 @@ public class Activity_Help_Detail extends DefaultActivity {
         setContentView(R.layout.activity_help_detail);
         btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(view -> {
-            Intent intent= new Intent(Activity_Help_Detail.this, Activity_Setting_Help.class);
-           startActivity(intent);
-                finish();
+            Intent intent = new Intent(Activity_Help_Detail.this, Activity_Setting_Help.class);
+            startActivity(intent);
+            finish();
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
     }
 }

@@ -212,4 +212,8 @@ public class Activity_Setting_Detail_Change_Pin_Code extends DefaultActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
 }

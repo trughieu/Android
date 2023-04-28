@@ -1010,6 +1010,11 @@ public class Inbox_detail extends DefaultActivity implements View.OnClickListene
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
+
     private void checkPinVerificationCode() {
         if (currentSelectedNumber == 1) {
             if (tab1.getText().toString().equals(transactionVC)) {

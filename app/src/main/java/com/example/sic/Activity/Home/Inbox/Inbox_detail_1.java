@@ -101,19 +101,24 @@ public class Inbox_detail_1 extends DefaultActivity {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-    
+
             intent.putExtra("response", response);
             intent.putExtra("id", credentialID);
             intent.putExtra("transactionId",transactionID);
-           startActivity(intent);
-                finish();
+            startActivity(intent);
+            finish();
         });
         btnBack.setOnClickListener(view -> {
-            Intent intent= new Intent(Inbox_detail_1.this, Inbox_detail.class);
+            Intent intent = new Intent(Inbox_detail_1.this, Inbox_detail.class);
             intent.putExtra("transactionId", transactionID);
-           startActivity(intent);
-                finish();
+            startActivity(intent);
+            finish();
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
     }
 }

@@ -1166,13 +1166,19 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
 
         }
     }
-    private void dismissDialog (){
-        Handler handler=new Handler();
+
+    private void dismissDialog() {
+        Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 bottomSheetDialog.dismiss();
             }
-        },1000);
+        }, 1000);
+    }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
     }
 }

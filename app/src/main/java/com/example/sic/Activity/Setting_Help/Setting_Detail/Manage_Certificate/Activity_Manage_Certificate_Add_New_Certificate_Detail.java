@@ -35,7 +35,6 @@ import java.security.cert.X509Certificate;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
-import java.util.concurrent.Executor;
 
 import vn.mobileid.tse.model.client.HttpRequest;
 import vn.mobileid.tse.model.client.managecertificate.CertificateProfilesModule;
@@ -43,6 +42,10 @@ import vn.mobileid.tse.model.connector.plugin.Response;
 import vn.mobileid.tse.model.utils.CertificateUtils;
 
 public class Activity_Manage_Certificate_Add_New_Certificate_Detail extends DefaultActivity {
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
 
     static int success = 0;
     LinearLayout more_detail;

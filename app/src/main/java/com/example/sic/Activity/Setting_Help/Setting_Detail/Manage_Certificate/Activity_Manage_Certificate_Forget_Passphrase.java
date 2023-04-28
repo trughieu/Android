@@ -55,6 +55,11 @@ public class Activity_Manage_Certificate_Forget_Passphrase extends DefaultActivi
     private CertificateProfilesModule module;
 
     @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_certificate_forget_passphrase);
@@ -199,23 +204,6 @@ public class Activity_Manage_Certificate_Forget_Passphrase extends DefaultActivi
         inputMethodManager.showSoftInput(otp, InputMethodManager.SHOW_IMPLICIT);
     }
 
-    private final ActivityResultLauncher<Intent> smsLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                    String message = result.getData().getStringExtra(SmsRetriever.EXTRA_SMS_MESSAGE);
-                    Pattern pattern = Pattern.compile("\\d+");
-                    Matcher matcher = pattern.matcher(message);
-                    while (matcher.find()) {
-                        String number = matcher.group();
-
-                        pinValue.setText(number);
-                    }
-                } else {
-                    smsPrepare();
-                }
-            });
-
     public void smsPrepare() {
         smsBroadcastReceiver = new SmsBroadcastReceiver();
         smsBroadcastReceiver.smsBroadcastReceiverListener = new SmsBroadcastReceiver.SmsBroadcastReceiverListener() {
@@ -234,6 +222,23 @@ public class Activity_Manage_Certificate_Forget_Passphrase extends DefaultActivi
         client = SmsRetriever.getClient(this);
         client.startSmsUserConsent(null);
     }
+
+    private final ActivityResultLauncher<Intent> smsLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                    String message = result.getData().getStringExtra(SmsRetriever.EXTRA_SMS_MESSAGE);
+                    Pattern pattern = Pattern.compile("\\d+");
+                    Matcher matcher = pattern.matcher(message);
+                    while (matcher.find()) {
+                        String number = matcher.group();
+
+                        pinValue.setText(number);
+                    }
+                } else {
+                    smsPrepare();
+                }
+            });
 
     @Override
     protected void onDestroy() {
@@ -297,8 +302,8 @@ public class Activity_Manage_Certificate_Forget_Passphrase extends DefaultActivi
                 }
                 break;
             case R.id.btnBack:
-                Intent intent= new Intent(Activity_Manage_Certificate_Forget_Passphrase.this, Activity_Manage_Certificate.class);
-               startActivity(intent);
+                Intent intent = new Intent(Activity_Manage_Certificate_Forget_Passphrase.this, Activity_Manage_Certificate.class);
+                startActivity(intent);
                 finish();
         }
     }
@@ -315,8 +320,8 @@ public class Activity_Manage_Certificate_Forget_Passphrase extends DefaultActivi
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent= new Intent(Activity_Manage_Certificate_Forget_Passphrase.this, Activity_Manage_Certificate.class);
-               startActivity(intent);
+                Intent intent = new Intent(Activity_Manage_Certificate_Forget_Passphrase.this, Activity_Manage_Certificate.class);
+                startActivity(intent);
                 finish();
             }
         }, 2000);

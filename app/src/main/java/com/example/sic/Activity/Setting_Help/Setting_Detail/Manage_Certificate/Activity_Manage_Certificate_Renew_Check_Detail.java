@@ -19,4 +19,9 @@ public class Activity_Manage_Certificate_Renew_Check_Detail extends DefaultActiv
             finish();
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
 }

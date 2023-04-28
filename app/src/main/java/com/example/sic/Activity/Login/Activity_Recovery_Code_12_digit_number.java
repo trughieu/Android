@@ -339,4 +339,9 @@ public class Activity_Recovery_Code_12_digit_number extends AppCompatActivity {
         digit_number = findViewById(R.id.digit_number);
 
     }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
 }

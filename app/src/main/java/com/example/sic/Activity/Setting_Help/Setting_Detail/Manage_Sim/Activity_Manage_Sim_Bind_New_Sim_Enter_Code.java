@@ -44,7 +44,6 @@ public class Activity_Manage_Sim_Bind_New_Sim_Enter_Code extends DefaultActivity
     TextView button;
     String text, otp;
     EditText[] otpEt = new EditText[6];
-
     //    public final TextWatcher textWatcher = new TextWatcher() {
 //        @Override
 //        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -118,6 +117,11 @@ public class Activity_Manage_Sim_Bind_New_Sim_Enter_Code extends DefaultActivity
     ManageSimModule module;
     SmsBroadcastReceiver smsBroadcastReceiver;
     SmsRetrieverClient client;
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -421,8 +425,8 @@ public class Activity_Manage_Sim_Bind_New_Sim_Enter_Code extends DefaultActivity
         dialog.setCanceledOnTouchOutside(false);
         dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
         dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        Intent intent= new Intent(this, Activity_Manage_Sim.class);
-       startActivity(intent);
-                finish();
+        Intent intent = new Intent(this, Activity_Manage_Sim.class);
+        startActivity(intent);
+        finish();
     }
 }

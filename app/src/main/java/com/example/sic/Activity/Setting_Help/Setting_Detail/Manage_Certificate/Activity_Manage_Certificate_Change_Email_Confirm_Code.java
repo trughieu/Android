@@ -34,6 +34,11 @@ public class Activity_Manage_Certificate_Change_Email_Confirm_Code extends Defau
     private CertificateProfilesModule module;
 
     @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_certificate_change_email_confirm_code);

@@ -101,7 +101,7 @@ public class registerChip_1 extends AppCompatActivity implements View.OnClickLis
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-               startActivity(intent);
+                startActivity(intent);
                 finish();
                 break;
             case R.id.btnBack:
@@ -110,9 +110,14 @@ public class registerChip_1 extends AppCompatActivity implements View.OnClickLis
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-               startActivity(intent);
+                startActivity(intent);
                 finish();
         }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
     }
 }
