@@ -11,7 +11,7 @@ public class registerChip_7 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register_chip7);
+        setContentView(R.layout.register_chip7);
 
 
     }

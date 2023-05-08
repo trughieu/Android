@@ -14,7 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sic.R;
-import com.example.sic.modle.Order;
+import com.example.sic.model.Order;
 
 import java.util.ArrayList;
 

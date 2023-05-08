@@ -1,4 +1,4 @@
-package com.example.sic.modle;
+package com.example.sic.model;
 
 public class Ib_detail {
 

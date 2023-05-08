@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.example.sic.DefaultActivity;
 import com.example.sic.R;
-import com.example.sic.modle.Manage_Certificate;
+import com.example.sic.model.Manage_Certificate;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 public class Activity_Manage_Certificate_Renew extends DefaultActivity {

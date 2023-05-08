@@ -69,6 +69,7 @@
             android:gravity="center">
 
             <TextView
+                android:id="@+id/btn_Close"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/atb_digital_medium"

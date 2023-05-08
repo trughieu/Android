@@ -31,7 +31,7 @@ import androidx.core.content.ContextCompat;
 import com.example.sic.Activity.Activity_inbox_detail_submit;
 import com.example.sic.DefaultActivity;
 import com.example.sic.R;
-import com.example.sic.modle.Performed;
+import com.example.sic.model.Performed;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import org.json.JSONException;

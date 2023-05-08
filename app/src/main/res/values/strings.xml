@@ -33,7 +33,7 @@
     <string name="prompt_attribute_require">Mandatory Information</string>
     <string name="prompt_optional_information">Optional Information</string>
     <string name="hint_full_name">Full name</string>
-    <string name="select_type">1. Select type of Identity Document\n2. Capture the sides of Identification Card\n3. Add Personal Information\n4. Add Information</string>
+    <string name="select_type">1. Select type of Identity Document \n2. Capture the sides of Identification Card \n3. Add Personal Information \n4. Add Information</string>
     <string name="capture_the_MRZ" translatable="false">1. Capture the MRZ Code of your ID Document\n2. Scan your Identity Document by holding your\n&#160;&#160;&#160;&#160;smart device against it\n3. Scan your face for comparison with your ID\n&#160;&#160;&#160;&#160;Document Photo</string>
     <string name="hint_recovery_code">Recovery Code</string>
     <string name="prompt_certificate_profile_sync">Synchronize Certificate</string>
@@ -54,6 +54,9 @@
     <string name="spinner_document_type_citizen_id_card">Citizen ID Card</string>
     <string name="prompt_pin_description_setting_confirm_new_pin">Confirm new PIN</string>
     <string name="prompt_sendcapture_frontend">Front side of Identity Card</string>
+    <string name="prompt_front_side">Front side</string>
+    <string name="prompt_back_side">Back side</string>
+
     <string name="prompt_sendcapture_backend">Back side of Identity Card</string>
     <string name="prompt_info_step1">Type of Identity Document</string>
     <string name="spinner_document_type_nation_id">Identification Card</string>
@@ -94,8 +97,7 @@
     <string name="hint_name">Name</string>
     <string name="prompt_gender">Gender</string>
     <string name="prompt_nationality">Nationality</string>
-    <string name="Ethinic">Ethinic</string>
-    <string name="relogion">Relogion</string>
+    <string name="prompt_religion">Religion</string>
     <string name="prompt_native_place">Place of Origin</string>
     <string name="prompt_place_of_residence">Place of Residence</string>
     <string name="prompt_how_to_identity">Personal Identification</string>
@@ -555,6 +557,9 @@
     <string name="renew_certificate_success" translatable="false">Renew Certificate - <b>Successfully</b></string>
     <string name="please_login">Please login and register for this\nfunction</string>
     <string name="prompt_ethnic">Ethnic</string>
+    <string name="prompt_street_names">No., Street</string>
+    <string name="button_signatures">Signature</string>
+    <string name="registrant">Registrant</string>
     <string name="prompt_mandatory">Mandatory Information</string>
     <string name="title_register_information">Registration Information</string>
     <string name="title_contact_information">Contact Information</string>

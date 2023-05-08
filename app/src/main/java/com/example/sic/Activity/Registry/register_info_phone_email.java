@@ -3,6 +3,7 @@ package com.example.sic.Activity.Registry;
 import static com.example.sic.Activity.Registry.Register.title;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.sic.Dev_activity;
 import com.example.sic.R;
@@ -24,12 +26,6 @@ public class register_info_phone_email extends Dev_activity implements View.OnCl
     FrameLayout btnBack;
     String otp;
     String email, phone;
-
-    @Override
-    public void onBackPressed() {
-        moveTaskToBack(true);
-    }
-
     TextWatcher textWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -55,8 +51,14 @@ public class register_info_phone_email extends Dev_activity implements View.OnCl
         }
 
     };
-
     RegisterModule module;
+
+    SharedPreferences.Editor editor;
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,15 +77,14 @@ public class register_info_phone_email extends Dev_activity implements View.OnCl
         btnBack.setOnClickListener(this);
         email = edt_Email.getText().toString();
         phone = edt_Phone.getText().toString();
-        otp = "111111";
-        edt_Email.setText("fit.nguyentrunghieu.711@gmail.com");
-        edt_Phone.setText("0908389536");
+//        edt_Email.setText("fit.nguyentrunghieu.711@gmail.com");
+//        edt_Phone.setText("0908389536");
         edt_Phone.addTextChangedListener(textWatcher);
         edt_Email.addTextChangedListener(textWatcher);
         module = RegisterModule.createModule(this);
 
         /** APPLY SDK */
-
+        editor = getSharedPreferences("username", MODE_PRIVATE).edit();
     }
 
     @Override
@@ -93,14 +94,34 @@ public class register_info_phone_email extends Dev_activity implements View.OnCl
             case R.id.btnContinue:
                 email = edt_Email.getText().toString();
                 phone = edt_Phone.getText().toString();
+                editor.putString("user", phone);
+                editor.apply();
                 module.setAsyncResponse(new HttpRequest.AsyncResponse() {
                     @Override
                     public void process(boolean b, Response response) {
 
                         if (response.getError() == 0) {
-                            Intent intent= new Intent(view.getContext(), register_info_otp.class);
-                           startActivity(intent);
-                finish();
+                            Intent intent = new Intent(view.getContext(), register_info_otp.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                            finish();
+                        } else if (response.getError() == 3251) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(register_info_phone_email.this, response.getErrorDescription(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                        } else {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(register_info_phone_email.this, response.getErrorDescription(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         }
                     }
                 }).registrationsInitialize(email, phone);
@@ -109,8 +130,8 @@ public class register_info_phone_email extends Dev_activity implements View.OnCl
 
                 break;
             case R.id.btnBack:
-                Intent intent= new Intent(register_info_phone_email.this, register_info_2.class);
-               startActivity(intent);
+                Intent intent = new Intent(register_info_phone_email.this, register_info_2.class);
+                startActivity(intent);
                 finish();
                 break;
         }

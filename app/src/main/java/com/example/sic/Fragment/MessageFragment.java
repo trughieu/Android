@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sic.Adapter.Adapter_item;
 import com.example.sic.R;
-import com.example.sic.modle.Message;
+import com.example.sic.model.Message;
 
 import java.util.ArrayList;
 

@@ -23,7 +23,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.sic.Activity.Registry.chip.registerChip_1;
 import com.example.sic.Activity.Registry.nonChip.register_nonChip_1;
+import com.example.sic.Dev_activity;
 import com.example.sic.R;
 import com.example.sic.SmsBroadcastReceiver;
 import com.google.android.gms.auth.api.phone.SmsRetriever;
@@ -37,7 +39,7 @@ import vn.mobileid.tse.model.client.HttpRequest;
 import vn.mobileid.tse.model.client.register.RegisterModule;
 import vn.mobileid.tse.model.connector.plugin.Response;
 
-public class register_info_otp extends AppCompatActivity implements View.OnClickListener {
+public class register_info_otp extends Dev_activity implements View.OnClickListener {
 
     TextView btnContinue;
 
@@ -176,18 +178,6 @@ public class register_info_otp extends AppCompatActivity implements View.OnClick
             }
         });
 
-
-        if (savedInstanceState == null) {
-            value = getIntent().getExtras();
-            if (value == null) {
-                otp = null;
-            } else {
-                otp = value.getString("otp");
-            }
-        } else {
-            otp = (String) savedInstanceState.getSerializable("otp");
-        }
-
     }
 
 
@@ -212,27 +202,31 @@ public class register_info_otp extends AppCompatActivity implements View.OnClick
     @Override
     public void onClick(View view) {
         Intent intent;
+//        if(view.getId()==R.id.btnContinue)
         switch (view.getId()) {
             case R.id.btnContinue:
-
                 module.setResponseRegistrationsVerify(new HttpRequest.AsyncResponse() {
                     @Override
                     public void process(boolean b, Response response) {
                         if (response.getError() == 0) {
                             if (checkNonChip) {
-                                Intent intent= new Intent(view.getContext(), register_nonChip_1.class);
-                               startActivity(intent);
-                finish();
+                                Intent intent = new Intent(view.getContext(), register_nonChip_1.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
                             } else if (checkChip) {
-                                Intent intent= new Intent(view.getContext(), register_nonChip_1.class);
-                               startActivity(intent);
-                finish();
+                                Intent intent = new Intent(view.getContext(), registerChip_1.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
                             }
-
                         }
                     }
                 });
                 module.registrationsVerify(text);
+
 //                if (pinValue.getText().toString().equals(otp)) {
 //                    Dialog dialog = new Dialog(register_info_otp.this);
 //                    dialog.setContentView(R.layout.dialog_success_bind_new_sim);
@@ -247,7 +241,7 @@ public class register_info_otp extends AppCompatActivity implements View.OnClick
 //                        public void run() {
 //                            Intent intent= new Intent(register_info_otp.this, register_nonChip_1.class);
 //                           startActivity(intent);
-                finish();
+//                finish();
 //                        }
 //                    }, 3000);
 //
@@ -280,9 +274,9 @@ public class register_info_otp extends AppCompatActivity implements View.OnClick
             case R.id.btnBack:
                 intent = new Intent(register_info_otp.this, register_info_phone_email.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-    startActivity(intent);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
                 finish();
                 break;
             case R.id.txt_resend_active:

@@ -1,6 +1,5 @@
 package com.example.sic.Adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -16,9 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sic.Activity.Home.Inbox.Inbox_detail;
-import com.example.sic.Activity.Home.Inbox.Inbox_detail_1;
 import com.example.sic.R;
-import com.example.sic.modle.Message;
+import com.example.sic.model.Message;
 
 import java.util.ArrayList;
 

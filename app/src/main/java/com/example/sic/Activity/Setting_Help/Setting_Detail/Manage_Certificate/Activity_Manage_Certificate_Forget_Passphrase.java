@@ -27,7 +27,7 @@ import androidx.annotation.NonNull;
 import com.example.sic.DefaultActivity;
 import com.example.sic.R;
 import com.example.sic.SmsBroadcastReceiver;
-import com.example.sic.modle.Manage_Certificate;
+import com.example.sic.model.Manage_Certificate;
 import com.google.android.gms.auth.api.phone.SmsRetriever;
 import com.google.android.gms.auth.api.phone.SmsRetrieverClient;
 import com.google.android.material.textfield.TextInputEditText;

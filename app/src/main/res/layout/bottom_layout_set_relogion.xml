@@ -33,7 +33,7 @@
             android:layout_weight="2.5"
             android:fontFamily="@font/atb_digital_medium"
             android:gravity="center"
-            android:text="@string/relogion"
+            android:text="@string/prompt_religion"
             android:textColor="@color/white"
             android:textSize="15dp" />
 
@@ -53,15 +53,75 @@
         </FrameLayout>
     </LinearLayout>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
         android:orientation="vertical"
-        android:paddingBottom="15dp">
+        android:paddingBottom="20dp">
 
 
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/layout_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/prompt_religion"
+                android:textColor="@color/blue_text"
+                android:fontFamily="@font/atb_digital_medium"
+                android:textStyle="bold"
+                android:textSize="12dp" />
+
+            <LinearLayout
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/religion"
+                    android:layout_width="290dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/transparent"
+                    android:fontFamily="@font/atb_digital_regular"
+                    android:hint="@string/prompt_religion"
+                    android:inputType="text"
+                    android:textColor="@color/blue_text"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:textColorHint="@color/gray"
+                    android:textSize="12dp" />
+
+                <FrameLayout
+                    android:id="@+id/frame_x"
+                    android:layout_width="70dp"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/show_password"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/x_blue" />
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/line_stroke_gray" />
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>

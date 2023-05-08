@@ -14,7 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sic.R;
-import com.example.sic.modle.History;
+import com.example.sic.model.History;
 
 import java.util.ArrayList;
 

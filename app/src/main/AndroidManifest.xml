@@ -60,9 +60,7 @@
         <activity
             android:name=".Activity.Registry.nonChip.register_nonChip_5"
             android:exported="true"
-            
             android:screenOrientation="portrait"
-
             android:windowSoftInputMode="adjustNothing">
 
         </activity>
@@ -322,10 +320,7 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity
             android:name=".Activity.Login.Activation"
@@ -366,17 +361,23 @@
             android:name=".Activity.Registry.nonChip.register_nonChip_3"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustNothing" />
+            android:windowSoftInputMode="adjustNothing" >
+
+        </activity>
         <activity
             android:name=".Activity.Registry.nonChip.register_nonChip_2"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustNothing" />
+            android:windowSoftInputMode="adjustNothing" >
+
+        </activity>
         <activity
             android:name=".Activity.Registry.nonChip.register_nonChip_1"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustNothing" />
+            android:windowSoftInputMode="adjustNothing" >
+
+        </activity>
         <activity
             android:name=".Activity.Registry.register_info_otp"
             android:exported="true"
@@ -411,13 +412,18 @@
             android:name=".Activity.Registry.Register"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustNothing"></activity>
+            android:windowSoftInputMode="adjustNothing">
+        </activity>
         <activity
             android:name=".Activity.Login.MainActivity"
             android:exported="true"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".MyFirebaseMessagingService" />
 

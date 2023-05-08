@@ -33,7 +33,7 @@
             android:layout_weight="2.5"
             android:fontFamily="@font/atb_digital_medium"
             android:gravity="center"
-            android:text="@string/relogion"
+            android:text="@string/prompt_optional_address"
             android:textColor="@color/white"
             android:textSize="15dp" />
 
@@ -53,15 +53,210 @@
         </FrameLayout>
     </LinearLayout>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
         android:orientation="vertical"
-        android:paddingBottom="15dp">
+        android:paddingBottom="80dp">
 
 
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/layout_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/prompt_street_names"
+                android:textColor="@color/blue_text"
+                android:fontFamily="@font/atb_digital_medium"
+                android:textStyle="bold"
+                android:textSize="12dp" />
 
+            <LinearLayout
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/street"
+                    android:layout_width="0dp"
+                    android:layout_weight="9"
+                    android:layout_height="wrap_content"
+                    android:background="@color/transparent"
+                    android:fontFamily="@font/atb_digital_regular"
+                    android:hint="@string/prompt_street_names"
+                    android:inputType="text"
+                    android:textColor="@color/blue_text"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:textColorHint="@color/gray"
+                    android:textSize="12dp" />
+
+                <FrameLayout
+                    android:id="@+id/frame_x"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/show_password"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/x_blue" />
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/line_stroke_gray" />
+            <TextView
+                android:id="@+id/province"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/atb_digital_medium"
+                android:text="@string/select_province"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/blue_text"
+                android:textSize="12dp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="350dp"
+                android:layout_marginTop="5dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/spinnerProvince"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:spinnerMode="dropdown"
+                    style="@style/SpinnerTheme"
+                    />
+                <!--                <TextView-->
+                <!--                    android:id="@+id/province"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:background="@color/transparent"-->
+                <!--                    android:fontFamily="@font/atb_digital_regular"-->
+                <!--                    android:hint="@string/select_province"-->
+                <!--                    android:paddingTop="10dp"-->
+                <!--                    android:paddingBottom="10dp"-->
+                <!--                    android:textColor="@color/blue_text"-->
+                <!--                    android:textColorHint="@color/gray"-->
+                <!--                    android:textSize="12dp"-->
+                <!--                    app:drawableEndCompat="@drawable/baseline_keyboard_arrow_down_24" />-->
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/line_stroke_gray" />
+
+            <TextView
+                android:id="@+id/district"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/atb_digital_medium"
+                android:text="@string/select_distict"
+                android:textColor="@color/blue_text"
+                android:textSize="12dp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="350dp"
+                android:layout_marginTop="5dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Spinner
+
+                    android:id="@+id/spinnerDistrict"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:spinnerMode="dropdown"
+                    style="@style/SpinnerTheme"
+                    />
+                <!--                <TextView-->
+                <!--                    android:id="@+id/district"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:background="@color/transparent"-->
+                <!--                    android:fontFamily="@font/atb_digital_regular"-->
+                <!--                    android:hint="@string/select_distict"-->
+                <!--                    android:textColor="@color/blue_text"-->
+                <!--                    android:paddingTop="10dp"-->
+                <!--                    android:paddingBottom="10dp"-->
+                <!--                    android:textColorHint="@color/gray"-->
+                <!--                    android:textSize="12dp"-->
+                <!--                    app:drawableEndCompat="@drawable/baseline_keyboard_arrow_down_24" />-->
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/line_stroke_gray" />
+
+            <TextView
+                android:id="@+id/ward"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/atb_digital_medium"
+                android:text="@string/select_ward"
+                android:textColor="@color/blue_text"
+                android:textSize="12dp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="350dp"
+                android:layout_marginTop="5dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/spinnerWard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:spinnerMode="dropdown"
+                    style="@style/SpinnerTheme"
+                    />
+                <!--                <TextView-->
+                <!--                    android:id="@+id/ward"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:background="@color/transparent"-->
+                <!--                    android:fontFamily="@font/atb_digital_regular"-->
+                <!--                    android:hint="@string/select_ward"-->
+                <!--                    android:paddingTop="10dp"-->
+                <!--                    android:paddingBottom="10dp"-->
+                <!--                    android:textColor="@color/blue_text"-->
+                <!--                    android:textColorHint="@color/gray"-->
+                <!--                    android:textSize="12dp"-->
+                <!--                    app:drawableEndCompat="@drawable/baseline_keyboard_arrow_down_24" />-->
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/line_stroke_gray" />
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -15,7 +15,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
     <ImageView
         android:id="@+id/rectangles"
         android:layout_width="match_parent"
@@ -26,7 +25,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
     <LinearLayout
         android:id="@+id/topPanel"
         android:layout_width="match_parent"
@@ -43,7 +41,6 @@
             android:layout_height="match_parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -53,28 +50,26 @@
         <TextView
             android:id="@+id/txtTitle"
             android:layout_width="0dp"
-android:layout_weight="3"
+            android:layout_weight="4"
             android:layout_height="match_parent"
             android:fontFamily="@font/atb_digital_medium"
             android:gravity="center_horizontal|center"
             android:text="@string/button_identification_chipless"
             android:textColor="@color/white"
-            android:textSize="20dp"
+            android:textSize="17dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
         <Space
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"/>
-
     </LinearLayout>
 
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/camera"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
         android:gravity="center"
@@ -82,27 +77,29 @@ android:layout_weight="3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/topPanel">
-        <ImageView
-            android:id="@+id/group_line"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:src="@drawable/group_line"
-        />
+
+        <com.checkid.icao.face.DetectionPreview
+            android:id="@+id/preview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/prompt_face"
+             />
+
         <ProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="296dp"
             android:layout_height="10dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginBottom="25dp"
+            android:layout_above="@id/prompt_face"
+            android:layout_centerHorizontal="true"
+            android:progressTint="@color/blue_text"
+            android:layout_marginBottom="30dp"
             android:progressDrawable="@drawable/custom_progress_bg"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/group_line" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/prompt_face"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_gravity="bottom"
@@ -111,9 +108,10 @@ android:layout_weight="3"
             android:gravity="center_horizontal|center"
             android:text="@string/frame_your"
             android:textColor="@color/white"
+            android:layout_alignParentBottom="true"
             android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
-    </LinearLayout>
+    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

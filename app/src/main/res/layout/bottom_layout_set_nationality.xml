@@ -33,7 +33,7 @@
             android:layout_weight="2.5"
             android:fontFamily="@font/atb_digital_medium"
             android:gravity="center"
-            android:text="@string/relogion"
+            android:text="@string/prompt_religion"
             android:textColor="@color/white"
             android:textSize="15dp" />
 

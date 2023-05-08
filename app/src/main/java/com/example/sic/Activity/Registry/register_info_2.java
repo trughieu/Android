@@ -10,9 +10,10 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.sic.Dev_activity;
 import com.example.sic.R;
 
-public class register_info_2 extends AppCompatActivity implements View.OnClickListener {
+public class register_info_2 extends Dev_activity implements View.OnClickListener {
     TextView btnContinue, txtTitle;
     FrameLayout btnBack;
 

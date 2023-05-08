@@ -15,8 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.sic.Adapter.Adapter_History;
 import com.example.sic.DefaultActivity;
 import com.example.sic.R;
-import com.example.sic.modle.History;
-import com.example.sic.modle.Manage_Certificate;
+import com.example.sic.model.History;
+import com.example.sic.model.Manage_Certificate;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.text.DateFormat;

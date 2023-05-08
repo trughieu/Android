@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.example.sic.Activity.Home.HomePage;
 import com.example.sic.DefaultActivity;
 import com.example.sic.R;
-import com.example.sic.modle.Performed;
+import com.example.sic.model.Performed;
 
 public class Activity_inbox_detail_submit extends DefaultActivity {
 

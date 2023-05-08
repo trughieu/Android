@@ -60,12 +60,13 @@
                 android:id="@+id/txtTitle"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="3"
+                android:layout_weight="4"
                 android:fontFamily="@font/atb_digital_medium"
                 android:gravity="center_horizontal|center"
                 android:text="@string/button_identification_chipless"
                 android:textColor="@color/white"
-                android:textSize="20dp"
+                android:textSize="17dp"
+
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -119,34 +120,111 @@
             app:layout_constraintStart_toStartOf="@+id/tv_capture"
             app:layout_constraintTop_toBottomOf="@+id/tv_capture" />
 
-
-        <ImageView
-            android:id="@+id/frontSide"
+        <LinearLayout
+            android:id="@+id/frameFrontSide"
             android:layout_width="300dp"
-            android:layout_height="150dp"
+            android:layout_height="200dp"
             android:layout_marginTop="30dp"
+            android:background="@drawable/add_front"
+            android:orientation="vertical"
+            android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_select_id"
-            app:srcCompat="@drawable/add_front" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_select_id">
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="4">
 
-        <ImageView
-            android:id="@+id/backSide"
+                <ImageView
+                    android:id="@+id/frontSideDemo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/add" />
+
+                <ImageView
+                    android:id="@+id/frontSide"
+                    android:layout_width="200dp"
+                    android:layout_height="133dp"
+                    android:layout_centerInParent="true" />
+
+                <TextView
+                    android:id="@+id/textFrontSide"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/prompt_front_side"
+                    android:textColor="@color/gray_DO" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/textFront"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="5dp"
+                android:text="@string/prompt_front_side"
+                android:visibility="invisible"
+                android:textColor="@color/gray_DO"
+                 />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/frameBackSide"
             android:layout_width="300dp"
-            android:layout_height="150dp"
+            android:layout_height="200dp"
+            android:background="@drawable/add_front"
             android:layout_marginTop="30dp"
-            app:layout_constraintEnd_toEndOf="@+id/frontSide"
-            app:layout_constraintStart_toStartOf="@+id/frontSide"
-            app:layout_constraintTop_toBottomOf="@+id/frontSide"
-            app:srcCompat="@drawable/add_back" />
+            android:orientation="vertical"
+            android:padding="10dp"
+            app:layout_constraintEnd_toEndOf="@+id/frameFrontSide"
+            app:layout_constraintStart_toStartOf="@+id/frameFrontSide"
+            app:layout_constraintTop_toBottomOf="@+id/frameFrontSide">
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="4">
 
+                <ImageView
+                    android:id="@+id/backSideDemo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/add" />
+
+                <ImageView
+                    android:id="@+id/backSide"
+                    android:layout_width="200dp"
+                    android:layout_height="133dp"
+                    android:layout_centerInParent="true" />
+
+                <TextView
+                    android:id="@+id/textBackside"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/prompt_back_side"
+                    android:textColor="@color/gray_DO" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/textBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/prompt_front_side"
+                android:textColor="@color/gray_DO"
+                android:visibility="invisible" />
+        </LinearLayout>
         <TextView
             android:id="@+id/btnContinue"
             android:layout_width="257dp"
             android:layout_height="40dp"
-
             android:background="@drawable/square"
             android:fontFamily="@font/atb_digital_medium"
             android:gravity="center"
@@ -157,6 +235,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/backSide" />
+            app:layout_constraintTop_toBottomOf="@id/frameBackSide" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

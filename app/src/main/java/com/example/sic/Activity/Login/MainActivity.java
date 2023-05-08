@@ -55,8 +55,8 @@ public class MainActivity extends Dev_activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        PermissionManager.checkPermission(this,PERMISSION_REQUEST_CODE);
-        SettingData.create(this, "vi");
+        PermissionManager.checkPermission(this, PERMISSION_REQUEST_CODE);
+        SettingData.create(this, "en");
         anh_xa();
 
         module = ActivateModule.createModule(MainActivity.this);
@@ -64,8 +64,8 @@ public class MainActivity extends Dev_activity {
         if (from == 1) {
             Dialog_SetRecoveryCode();
         }
-        txtUsername.setText("hieunt");
-        txtPassword.setText("12345678");
+//        txtUsername.setText("hieunt");
+//        txtPassword.setText("12345678");
 
         txtPassword.setTransformationMethod(new AsteriskPasswordTransformationMethod());
 
@@ -99,7 +99,6 @@ public class MainActivity extends Dev_activity {
 //            bottomSheetDialog.setCanceledOnTouchOutside(false);
             bottomSheetDialog.setContentView(bottomSheetView);
             bottomSheetDialog.show();
-
             tv_English = bottomSheetView.findViewById(R.id.tv_English);
             tv_Vietnamese = bottomSheetView.findViewById(R.id.tv_Vietnamese);
             btn_Close = bottomSheetView.findViewById(R.id.close);
@@ -158,7 +157,7 @@ public class MainActivity extends Dev_activity {
                         public void run() {
 //                            Intent intent= new Intent(MainActivity.this, MainActivity.class);
 //                           startActivity(intent);
-                finish();
+//                finish();
 //                            MainActivity.this.recreate();
                             finish();
                             startActivity(getIntent());

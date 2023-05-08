@@ -23,7 +23,7 @@ import com.example.sic.Activity.Setting_Help.Setting_Detail.Activity_Setting_Det
 import com.example.sic.Adapter.Adapter_item_Manage_Certificate;
 import com.example.sic.DefaultActivity;
 import com.example.sic.R;
-import com.example.sic.modle.Manage_Certificate;
+import com.example.sic.model.Manage_Certificate;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.text.SimpleDateFormat;

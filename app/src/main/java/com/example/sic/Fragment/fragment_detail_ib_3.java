@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sic.Adapter.Adapter_item_ib_detail;
 import com.example.sic.R;
-import com.example.sic.modle.Ib_detail;
+import com.example.sic.model.Ib_detail;
 
 import java.util.ArrayList;
 

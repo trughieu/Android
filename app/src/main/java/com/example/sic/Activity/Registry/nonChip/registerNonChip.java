@@ -12,9 +12,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.sic.Activity.Registry.Register;
 import com.example.sic.Activity.Registry.register_info_1;
+import com.example.sic.Dev_activity;
 import com.example.sic.R;
 
-public class registerNonChip extends AppCompatActivity implements View.OnClickListener {
+public class registerNonChip extends Dev_activity implements View.OnClickListener {
 
     TextView btnContinue, txtTitle;
     FrameLayout btnBack;

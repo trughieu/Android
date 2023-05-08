@@ -65,8 +65,8 @@
     <string name="certificate_credential_history_forgot_passphrase">Forgot Passphrase</string>
     <string name="certificate_credential_history_change_email">Change Email</string>
     <string name="certificate_credential_history_change_phone_number">Change Phone Number </string>
-
-
+    <string name="prompt_front_side">Mặt trước thẻ định danh</string>
+    <string name="prompt_back_side">Mặt sau thẻ định danh</string>
     <string name="prompt_login_with_bio">Đăng Nhập Bằng Sinh Trắc Học</string>
     <string name="button_user_setting_app_security">Cấu Hình Bảo Mật</string>
     <string name="button_no_unlock">Không Mở Khóa</string>
@@ -84,6 +84,9 @@
     <string name="button_delete_account">Xoá Tài Khoản</string>
     <string name="prompt_result_delete_owner">Yêu Cầu Của Bạn Đã Được Gửi</string>
     <string name="prompt_optional_address">Địa Chỉ</string>
+    <string name="prompt_street_names">Số Nhà, Tên Đường</string>
+    <string name="button_signatures">Chữ Ký</string>
+    <string name="registrant">Người Ký</string>
     <string name="prompt_customer_confirm_rule"><b>Bằng việc ký vào bảng xác nhận này, cá nhân tôi yêu cầu Mobile-ID cung cấp dịch vụ điện tử sử dụng chứng thư số và xin xác nhận:</b>\n\t- Những thông tin đưa ra trên là đầy đủ, trung thực và chính xác. \n\t- Đã đọc, hiểu rõ, đồng ý và cam kết tuân thủ các quy định của pháp luật về chữ ký số, dịch vụ chứng thực chữ ký số và pháp luật liên quan. \n\t- Tôi đã đọc các nội dung về chữ ký số, những lợi ích và dịch vụ do Mobile-ID cung cấp. \n\t- Đồng ý cho Mobile-ID công bố thông tin chứng thư số đã cấp khi thông tin trong chứng thư số đúng như nội dung đã đăng ký.</string>
     <string name="hint_full_name">Tên đầy đủ</string>
     <string name="prompt_person_existed">Người Dùng Đã Đăng Ký Dịch Vụ</string>
@@ -146,7 +149,7 @@
     <string name="prompt_register_ca_bi_step_4_1">Cách Để Liên Hệ Với Bạn</string>
     <string name="enter_active">ENTER Activation Code sent to your phone</string>
     <string name="you_don_t_h">You don\'t have any account?<b> Register now</b></string>
-    <string name="select_type">1. Select type of Identity Document 2. Capture the sides of Identification Card 3. Add Personal Information 4. Add Information</string>
+    <string name="select_type">1. Select type of Identity Document \n2. Capture the sides of Identification Card \n3. Add Personal Information \n4. Add Information</string>
     <string name="capture_the_MRZ">1. Capture the MRZ Code of your ID Document 2. Scan your Identity Document by holding your      smart device against it 3. Scan your face for comparison with your ID      Document Photo</string>
     <string name="hint_recovery_code">Mã Phục Hồi</string>
     <string name="prompt_certificate_profile_sync">Đồng Bộ Chứng Thư Số</string>
@@ -178,8 +181,7 @@
     <string name="prompt_name_of_wife_or_husband">Họ Tên Vợ/Chồng</string>
     <string name="prompt_name_of_parents">Họ Tên Cha Mẹ</string>
     <string name="prompt_how_to_identity">Đặc Điểm Nhận Dạng</string>
-    <string name="Ethinic">Ethinic</string>
-    <string name="relogion">Relogion</string>
+    <string name="prompt_religion">Tôn Giáo</string>
     <string name="prompt_native_place">Quê Quán</string>
     <string name="prompt_place_of_residence">Nơi Thường Trú</string>
     <string name="prompt_nationality">Quốc Tịch</string>

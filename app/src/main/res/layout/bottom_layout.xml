@@ -52,15 +52,14 @@
         <LinearLayout
             android:id="@+id/check_chip"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="25dp"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="7dp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/non_chip"
                 android:layout_width="340dp"
-                android:layout_height="21dp"
+                android:layout_height="match_parent"
                 android:layout_marginStart="20dp"
                 android:backgroundTint="@color/white"
                 android:fontFamily="@font/atb_digital_medium"
@@ -72,7 +71,7 @@
                 android:id="@+id/checkBox1"
                 style="@style/custom_checkbox_blue"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent" />
         </LinearLayout>
 
         <ImageView
@@ -85,14 +84,14 @@
         <LinearLayout
             android:id="@+id/check_id"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="25dp"
             android:layout_marginBottom="7dp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/chip_id"
                 android:layout_width="340dp"
-                android:layout_height="21dp"
+                android:layout_height="match_parent"
                 android:layout_marginStart="20dp"
                 android:fontFamily="@font/atb_digital_medium"
                 android:text="@string/button_identification_chip"
@@ -103,7 +102,7 @@
                 android:id="@+id/checkBox2"
                 style="@style/custom_checkbox_blue"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent" />
         </LinearLayout>
     </LinearLayout>
 

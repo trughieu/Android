@@ -26,12 +26,10 @@ import com.example.sic.Activity.Setting_Help.Setting_Detail.Manage_Certificate.A
 import com.example.sic.Activity.Setting_Help.Setting_Detail.Manage_Certificate.Activity_Manage_Certificate_GoHistory;
 import com.example.sic.Activity.Setting_Help.Setting_Detail.Manage_Certificate.Activity_Manage_Certificate_Renew;
 import com.example.sic.R;
-import com.example.sic.modle.Manage_Certificate;
+import com.example.sic.model.Manage_Certificate;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
-
-import vn.mobileid.tse.model.client.managecertificate.ManageCertificateModule;
 
 public class Adapter_item_Manage_Certificate extends RecyclerView.Adapter<Adapter_item_Manage_Certificate.viewHolder> {
 

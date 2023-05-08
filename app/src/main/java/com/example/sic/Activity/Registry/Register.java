@@ -14,10 +14,11 @@ import androidx.appcompat.widget.AppCompatCheckBox;
 import com.example.sic.Activity.Login.MainActivity;
 import com.example.sic.Activity.Registry.chip.registerChip;
 import com.example.sic.Activity.Registry.nonChip.registerNonChip;
+import com.example.sic.Dev_activity;
 import com.example.sic.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
-public class Register extends AppCompatActivity implements View.OnClickListener {
+public class Register extends Dev_activity implements View.OnClickListener {
 
     public static String title;
     static int id = 1;
@@ -34,9 +35,8 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
-        editor = getSharedPreferences("selectChip", MODE_PRIVATE).edit();
         pref = getSharedPreferences("selectChip", MODE_PRIVATE);
+        editor = getSharedPreferences("selectChip", MODE_PRIVATE).edit();
 
         btnBack = findViewById(R.id.btnBack);
         txt_select_id = findViewById(R.id.txt_select_id);
@@ -112,7 +112,8 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
 
                 if (id == 1) {
                     editor.putBoolean("checkNonChip",true);
-                    editor.putBoolean("checkNonChip",false);
+                    editor.putBoolean("checkChip",false);
+                    editor.apply();
                     intent = new Intent(Register.this, registerNonChip.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

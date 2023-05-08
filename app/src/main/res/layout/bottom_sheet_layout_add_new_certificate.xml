@@ -28,15 +28,16 @@
         <LinearLayout
             android:id="@+id/check_easy"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="25dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="7dp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/easy"
-                android:layout_width="340dp"
-                android:layout_height="21dp"
+                android:layout_width="0dp"
+                android:layout_weight="9"
+                android:layout_height="match_parent"
                 android:layout_marginStart="20dp"
                 android:layout_marginBottom="7dp"
                 android:fontFamily="@font/atb_digital_medium"
@@ -47,8 +48,9 @@
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/checkBox1"
                 style="@style/custom_checkbox_blue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"  />
         </LinearLayout>
 
         <ImageView
@@ -61,14 +63,15 @@
         <LinearLayout
             android:id="@+id/check_mobile_id"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="25dp"
             android:layout_marginBottom="7dp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/mobile_id"
-                android:layout_width="340dp"
-                android:layout_height="21dp"
+                 android:layout_width="0dp"
+                android:layout_weight="9"
+                android:layout_height="match_parent"
                 android:layout_marginStart="20dp"
                 android:fontFamily="@font/atb_digital_medium"
                 android:text="@string/button_mobile_id"
@@ -78,8 +81,9 @@
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/checkBox2"
                 style="@style/custom_checkbox_blue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"  />
         </LinearLayout>
 
         <ImageView
@@ -92,14 +96,15 @@
         <LinearLayout
             android:id="@+id/check_efy_ca"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="25dp"
             android:layout_marginBottom="7dp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/efy_ca"
-                android:layout_width="340dp"
-                android:layout_height="21dp"
+                 android:layout_width="0dp"
+                android:layout_weight="9"
+                android:layout_height="match_parent"
                 android:layout_marginStart="20dp"
                 android:fontFamily="@font/atb_digital_medium"
                 android:text="@string/efy_ca"
@@ -109,8 +114,9 @@
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/checkBox3"
                 style="@style/custom_checkbox_blue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"  />
         </LinearLayout>
 
         <ImageView
@@ -123,14 +129,15 @@
         <LinearLayout
             android:id="@+id/check_vnpt"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="25dp"
             android:layout_marginBottom="7dp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/vnpt"
-                android:layout_width="340dp"
-                android:layout_height="21dp"
+                 android:layout_width="0dp"
+                android:layout_weight="9"
+                android:layout_height="match_parent"
                 android:layout_marginStart="20dp"
                 android:fontFamily="@font/atb_digital_medium"
                 android:text="@string/vnpt_certif"
@@ -140,8 +147,9 @@
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/checkBox4"
                 style="@style/custom_checkbox_blue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

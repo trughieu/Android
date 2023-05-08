@@ -63,6 +63,9 @@ public class DefaultActivity extends AppCompatActivity {
             if (response == null)// chua dang nhap
             {
                 intent = new Intent(this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 stop();
             } else if (

@@ -30,14 +30,15 @@
         <LinearLayout
             android:id="@+id/check_Valid"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="25dp"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="7dp"
+            
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/valid"
-                android:layout_width="340dp"
+                android:layout_width="0dp"
+                android:layout_weight="9"
                 android:layout_height="match_parent"
                 android:layout_marginStart="20dp"
                 android:fontFamily="@font/atb_digital_medium"
@@ -48,8 +49,9 @@
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/checkBox1"
                 style="@style/custom_checkbox_blue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
         </LinearLayout>
 
         <ImageView
@@ -64,14 +66,15 @@
         <LinearLayout
             android:id="@+id/check_Ini"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:layout_marginBottom="7dp"
+            android:layout_height="25dp"
+            
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/initialized"
-                android:layout_width="340dp"
-                android:layout_height="21dp"
+                android:layout_width="0dp"
+                android:layout_weight="9"
+                android:layout_height="25dp"
                 android:layout_marginStart="20dp"
                 android:fontFamily="@font/atb_digital_medium"
                 android:text="@string/spinner_certificate_status_initialized"
@@ -81,8 +84,9 @@
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/checkBox2"
                 style="@style/custom_checkbox_blue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
         </LinearLayout>
 
         <ImageView
@@ -97,16 +101,17 @@
         <LinearLayout
             android:id="@+id/check_generated"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:layout_marginBottom="7dp"
+            android:layout_height="25dp"
+            
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/generated"
-                android:layout_width="340dp"
-                android:layout_height="21dp"
+                android:layout_width="0dp"
+                android:layout_weight="9"
+                android:layout_height="25dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginBottom="7dp"
+                
                 android:fontFamily="@font/atb_digital_medium"
                 android:text="@string/spinner_certificate_status_generated"
                 android:textColor="@color/text_blue"
@@ -115,8 +120,9 @@
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/checkBox3"
                 style="@style/custom_checkbox_blue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
         </LinearLayout>
 
         <ImageView
@@ -131,16 +137,17 @@
         <LinearLayout
             android:id="@+id/check_revoked"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:layout_marginBottom="7dp"
+            android:layout_height="25dp"
+            
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/revoked"
-                android:layout_width="340dp"
-                android:layout_height="21dp"
+                android:layout_width="0dp"
+                android:layout_weight="9"
+                android:layout_height="25dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginBottom="7dp"
+                
                 android:fontFamily="@font/atb_digital_medium"
                 android:text="@string/spinner_certificate_status_revoked"
                 android:textColor="@color/text_blue"
@@ -149,8 +156,9 @@
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/checkBox4"
                 style="@style/custom_checkbox_blue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
         </LinearLayout>
 
         <ImageView
@@ -165,16 +173,17 @@
         <LinearLayout
             android:id="@+id/check_expired"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:layout_marginBottom="7dp"
+            android:layout_height="25dp"
+            
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/expired"
-                android:layout_width="340dp"
-                android:layout_height="21dp"
+                android:layout_width="0dp"
+                android:layout_weight="9"
+                android:layout_height="25dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginBottom="7dp"
+                
                 android:fontFamily="@font/atb_digital_medium"
                 android:text="@string/spinner_certificate_status_expired"
                 android:textColor="@color/text_blue"
@@ -183,8 +192,9 @@
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/checkBox5"
                 style="@style/custom_checkbox_blue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
         </LinearLayout>
 
         <ImageView
@@ -199,16 +209,17 @@
         <LinearLayout
             android:id="@+id/check_declined"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:layout_marginBottom="7dp"
+            android:layout_height="25dp"
+            
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/declined"
-                android:layout_width="340dp"
-                android:layout_height="21dp"
+                android:layout_width="0dp"
+                android:layout_weight="9"
+                android:layout_height="25dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginBottom="7dp"
+                
                 android:fontFamily="@font/atb_digital_medium"
                 android:text="@string/spinner_certificate_status_declined"
                 android:textColor="@color/text_blue"
@@ -217,8 +228,9 @@
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/checkBox6"
                 style="@style/custom_checkbox_blue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
         </LinearLayout>
 
         <ImageView
@@ -233,16 +245,17 @@
         <LinearLayout
             android:id="@+id/check_renewed"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:layout_marginBottom="7dp"
+            android:layout_height="25dp"
+            
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/renewed"
-                android:layout_width="340dp"
-                android:layout_height="21dp"
+                android:layout_width="0dp"
+                android:layout_weight="9"
+                android:layout_height="25dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginBottom="7dp"
+                
                 android:fontFamily="@font/atb_digital_medium"
                 android:text="@string/spinner_certificate_status_renewed"
                 android:textColor="@color/text_blue"
@@ -251,8 +264,9 @@
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/checkBox7"
                 style="@style/custom_checkbox_blue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
         </LinearLayout>
 
         <ImageView
@@ -267,16 +281,17 @@
         <LinearLayout
             android:id="@+id/check_revised"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:layout_marginBottom="7dp"
+            android:layout_height="25dp"
+            
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/revised"
-                android:layout_width="340dp"
-                android:layout_height="21dp"
+                android:layout_width="0dp"
+                android:layout_weight="9"
+                android:layout_height="25dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginBottom="7dp"
+                
                 android:fontFamily="@font/atb_digital_medium"
                 android:text="@string/spinner_certificate_status_revised"
                 android:textColor="@color/text_blue"
@@ -285,8 +300,9 @@
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/checkBox8"
                 style="@style/custom_checkbox_blue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
         </LinearLayout>
 
         <ImageView
@@ -301,16 +317,17 @@
         <LinearLayout
             android:id="@+id/check_blocked"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:layout_marginBottom="7dp"
+            android:layout_height="25dp"
+            
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/blocked"
-                android:layout_width="340dp"
-                android:layout_height="21dp"
+                android:layout_width="0dp"
+                android:layout_weight="9"
+                android:layout_height="25dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginBottom="7dp"
+                
                 android:fontFamily="@font/atb_digital_medium"
                 android:text="@string/spinner_certificate_status_suspended"
                 android:textColor="@color/text_blue"
@@ -319,8 +336,9 @@
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/checkBox9"
                 style="@style/custom_checkbox_blue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
         </LinearLayout>
 
         <ImageView
@@ -335,13 +353,14 @@
         <LinearLayout
             android:id="@+id/check_all"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="25dp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/all"
-                android:layout_width="340dp"
-                android:layout_height="21dp"
+                android:layout_width="0dp"
+                android:layout_weight="9"
+                android:layout_height="25dp"
                 android:layout_marginStart="20dp"
                 android:fontFamily="@font/atb_digital_medium"
                 android:text="@string/spinner_certificate_status_all"
@@ -351,8 +370,9 @@
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/checkBox10"
                 style="@style/custom_checkbox_blue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

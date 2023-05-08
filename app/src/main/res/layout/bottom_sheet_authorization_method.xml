@@ -56,14 +56,15 @@
         <LinearLayout
             android:id="@+id/check_approveLater"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="25dp"
             android:layout_marginBottom="7dp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/appro_later"
-                android:layout_width="340dp"
-                android:layout_height="20dp"
+                android:layout_width="0dp"
+                android:layout_weight="9"
+                android:layout_height="match_parent"
                 android:layout_marginStart="20dp"
                 android:layout_marginBottom="7dp"
                 android:fontFamily="@font/atb_digital_medium"
@@ -89,14 +90,15 @@
         <LinearLayout
             android:id="@+id/check_e_iden"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="25dp"
             android:layout_marginBottom="7dp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/conf_e_iden"
-                android:layout_width="340dp"
-                android:layout_height="20dp"
+                android:layout_width="0dp"
+                android:layout_weight="9"
+                android:layout_height="match_parent"
                 android:layout_marginStart="20dp"
                 android:fontFamily="@font/atb_digital_medium"
                 android:text="@string/button_request_info_identity_confirm"
@@ -121,14 +123,15 @@
         <LinearLayout
             android:id="@+id/check_biometrics"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="25dp"
             android:layout_marginBottom="7dp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/conf_bio"
-                android:layout_width="340dp"
-                android:layout_height="20dp"
+                android:layout_width="0dp"
+                android:layout_weight="9"
+                android:layout_height="match_parent"
                 android:layout_marginStart="20dp"
                 android:fontFamily="@font/atb_digital_medium"
                 android:text="@string/button_request_info_touch_confirm"
@@ -153,14 +156,15 @@
         <LinearLayout
             android:id="@+id/check_pin"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="25dp"
             android:layout_marginBottom="7dp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/conf_pin"
-                android:layout_width="340dp"
-                android:layout_height="20dp"
+                android:layout_width="0dp"
+                android:layout_weight="9"
+                android:layout_height="match_parent"
                 android:layout_marginStart="20dp"
                 android:fontFamily="@font/atb_digital_medium"
                 android:text="@string/button_confirm_with_pin"

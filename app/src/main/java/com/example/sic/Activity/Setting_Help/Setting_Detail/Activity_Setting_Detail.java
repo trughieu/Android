@@ -225,6 +225,11 @@ public class Activity_Setting_Detail extends DefaultActivity implements View.OnC
         checked3 = sharedPreferences.getBoolean("checkBox3", false);
         checked4 = sharedPreferences.getBoolean("checkBox4", false);
 
+        checkBox1.setEnabled(false);
+        checkBox2.setEnabled(false);
+        checkBox3.setEnabled(false);
+        checkBox4.setEnabled(false);
+
         checkBox1.setChecked(checked1);
         checkBox2.setChecked(checked2);
         checkBox3.setChecked(checked3);

@@ -13,9 +13,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.sic.Activity.Registry.chip.registerChip;
 import com.example.sic.Activity.Registry.nonChip.registerNonChip;
+import com.example.sic.Dev_activity;
 import com.example.sic.R;
 
-public class register_info_1 extends AppCompatActivity implements View.OnClickListener {
+public class register_info_1 extends Dev_activity implements View.OnClickListener {
 
     TextView btnContinue, txtTitle;
 

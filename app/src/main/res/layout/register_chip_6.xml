@@ -54,16 +54,16 @@
                 android:src="@drawable/arrow_white" />
         </FrameLayout>
 
-        <TextView
+       <TextView
             android:id="@+id/txtTitle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="3"
+            android:layout_weight="4"
             android:fontFamily="@font/atb_digital_medium"
             android:gravity="center_horizontal|center"
             android:text="@string/button_identification_chip"
             android:textColor="@color/white"
-            android:textSize="20dp"
+            android:textSize="17dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -291,7 +291,7 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/atb_digital_regular"
                         android:gravity="top"
-                        android:text="@string/Ethinic"
+                        android:text="@string/prompt_ethnic"
                         android:textColor="@color/white"
 
 
@@ -336,7 +336,7 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/atb_digital_regular"
                         android:gravity="top"
-                        android:text="@string/relogion"
+                        android:text="@string/prompt_religion"
                         android:textColor="@color/white"
 
 
@@ -788,7 +788,7 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/atb_digital_regular"
                         android:gravity="top"
-                        android:text="@string/Ethinic"
+                        android:text="@string/prompt_ethnic"
                         android:textColor="@color/white"
 
 
@@ -833,7 +833,7 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/atb_digital_regular"
                         android:gravity="top"
-                        android:text="@string/relogion"
+                        android:text="@string/prompt_religion"
                         android:textColor="@color/white"
 
 
