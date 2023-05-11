@@ -1,5 +1,6 @@
 package com.example.sic.Activity.Home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -26,7 +27,10 @@ public class Activity_Scan_QR extends DefaultActivity {
         setContentView(R.layout.activity_scan_qr);
         btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(view -> {
-            finish();
+            Intent intent = new Intent(this, HomePage.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
         });
 
 

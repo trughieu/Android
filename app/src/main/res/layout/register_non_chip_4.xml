@@ -83,8 +83,8 @@
 
     <ImageView
         android:id="@+id/imgLiveness"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="400dp"
+        android:layout_height="400dp"
         android:src="@drawable/img_front"
         app:layout_constraintBottom_toTopOf="@+id/btnContinue"
         app:layout_constraintEnd_toEndOf="parent"

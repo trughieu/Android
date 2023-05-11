@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatCheckBox;
 
 import com.example.sic.DefaultActivity;
@@ -15,7 +16,7 @@ import com.example.sic.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 
-public class Activity_Send_Support_Detail extends DefaultActivity {
+public class Activity_Send_Support_Detail extends AppCompatActivity {
 
 
     String s;

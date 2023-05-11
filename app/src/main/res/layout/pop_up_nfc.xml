@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottom_sheet_manage_order"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingStart="40dp"
+    android:paddingEnd="40dp"
+    android:background="@drawable/corner38"
+    android:backgroundTint="@color/white"
+    android:paddingBottom="30dp">
+
+    <TextView
+        android:id="@+id/titleNFC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/atb_digital_regular"
+        android:text="@string/promt_ready_to_scan"
+        android:textColor="@color/gray_ncf"
+        android:textSize="30dp" />
+
+    <ImageView
+        android:id="@+id/imgNFC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/scannfc" />
+
+    <TextView
+        android:id="@+id/desNFC"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/atb_digital_regular"
+        android:gravity="center_horizontal|center"
+        android:text="@string/prompt_hold_to_id_card"
+        android:textColor="@color/black"
+        android:textSize="16dp" />
+
+    <TextView
+        android:id="@+id/btnContinue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/corner"
+        android:backgroundTint="@color/gray_button_nfc"
+        android:fontFamily="@font/atb_digital_medium"
+        android:gravity="center"
+        android:padding="15dp"
+        android:text="@string/button_cancel"
+        android:textColor="@color/black" />
+</LinearLayout>

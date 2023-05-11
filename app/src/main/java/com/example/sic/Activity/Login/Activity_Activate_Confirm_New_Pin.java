@@ -16,10 +16,10 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+import com.example.sic.AppData;
 import com.example.sic.R;
 
 public class Activity_Activate_Confirm_New_Pin extends AppCompatActivity {
-    static int from = 0;
     FrameLayout btnBack;
     TextView btnClose;
     EditText txt_pin_view1, txt_pin_view2, txt_pin_view3, txt_pin_view4, txt_pin_view5, txt_pin_view6, pinValue;
@@ -104,11 +104,11 @@ public class Activity_Activate_Confirm_New_Pin extends AppCompatActivity {
                         SharedPreferences.Editor editor = getSharedPreferences("MY_PREFS_NAME", MODE_PRIVATE).edit();
                         editor.putString("6_digit", pinValue.getText().toString());
                         editor.apply();
-                        if (from == 1) {
-                            Intent intent= new Intent(Activity_Activate_Confirm_New_Pin.this, MainActivity.class);
-                           startActivity(intent);
-                finish();
-                        } else if (from == 2) {
+                        if (!AppData.getInstance().isKakPrivate()) {
+                            Intent intent = new Intent(Activity_Activate_Confirm_New_Pin.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else if (AppData.getInstance().isKakPrivate()) {
                             Intent intent = new Intent(Activity_Activate_Confirm_New_Pin.this, Activity_Recovery_Code_6_digit_number.class);
                             startActivity(intent);
                             finish();

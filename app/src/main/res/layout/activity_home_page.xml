@@ -71,7 +71,6 @@
         android:layout_marginTop="270dp"
         android:fontFamily="@font/atb_digital_medium"
         android:gravity="center_horizontal|top"
-        android:text="@string/nguyen_truo"
         android:textColor="@color/white"
         android:textSize="20dp"
         app:layout_constraintStart_toStartOf="@+id/textView2"

@@ -250,7 +250,7 @@ public class Activity_Setting_Help extends DefaultActivity implements View.OnCli
                 intent = new Intent(Activity_Setting_Help.this, Activity_Setting_Detail.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                
                 startActivity(intent);
                 finish();
             }
@@ -264,21 +264,21 @@ public class Activity_Setting_Help extends DefaultActivity implements View.OnCli
             intent = new Intent(Activity_Setting_Help.this, Activity_Help_Detail.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            
             startActivity(intent);
             finish();
         } else if (view.getId() == R.id.btn_terms) {
             intent = new Intent(Activity_Setting_Help.this, Activity_Term_Detail.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            
             startActivity(intent);
             finish();
         } else if (view.getId() == R.id.btn_privacy) {
             intent = new Intent(Activity_Setting_Help.this, Activity_Privacy_Detail.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            
             startActivity(intent);
             finish();
         } else if (view.getId() == R.id.btn_language) {
@@ -346,7 +346,7 @@ public class Activity_Setting_Help extends DefaultActivity implements View.OnCli
             intent = new Intent(Activity_Setting_Help.this, Activity_Send_Support_Detail.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            
             startActivity(intent);
             finish();
         } else if (view.getId() == R.id.btnBack) {

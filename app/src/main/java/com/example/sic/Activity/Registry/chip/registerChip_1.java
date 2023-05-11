@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatCheckBox;
 
 import com.example.sic.Activity.Registry.register_info_otp;
+import com.example.sic.AppData;
 import com.example.sic.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -22,6 +23,7 @@ public class registerChip_1 extends AppCompatActivity implements View.OnClickLis
     String s;
     AppCompatCheckBox checkBox1, checkBox2;
     boolean checked1, checked2;
+    int selection = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +62,10 @@ public class registerChip_1 extends AppCompatActivity implements View.OnClickLis
                 txt_e_id_card.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        selection = 1;
                         s = txt_e_id_card.getText().toString();
                         txt_select_id.setText(s);
+                        AppData.getInstance().setDocumentType(view.getResources().getString(R.string.button_eid_card));
                         PreferenceManager.getDefaultSharedPreferences(registerChip_1.this).edit()
                                 .putBoolean("check_register_1", true).apply();
                         PreferenceManager.getDefaultSharedPreferences(registerChip_1.this).edit()
@@ -72,8 +76,10 @@ public class registerChip_1 extends AppCompatActivity implements View.OnClickLis
                 txt_e_passport.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        selection = 2;
                         s = txt_e_passport.getText().toString();
                         txt_select_id.setText(s);
+                        AppData.getInstance().setDocumentType(view.getResources().getString(R.string.button_epassport));
                         PreferenceManager.getDefaultSharedPreferences(registerChip_1.this).edit()
                                 .putBoolean("check_register_1", false).apply();
                         PreferenceManager.getDefaultSharedPreferences(registerChip_1.this).edit()
@@ -94,26 +100,35 @@ public class registerChip_1 extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View view) {
         Intent intent;
-        switch (view.getId()) {
-            case R.id.btnContinue:
+        if (view.getId() == R.id.btnContinue) {
+            if (selection == 1) {
+                AppData.getInstance().setDocumentType(view.getResources().getString(R.string.button_eid_card));
                 intent = new Intent(registerChip_1.this, registerChip_2.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                
                 startActivity(intent);
                 finish();
-                break;
-            case R.id.btnBack:
-                intent = new Intent(registerChip_1.this, register_info_otp.class);
+            } else if (selection == 2) {
+                AppData.getInstance().setDocumentType(view.getResources().getString(R.string.button_epassport));
+                intent = new Intent(registerChip_1.this, registerChip_2.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                
                 startActivity(intent);
                 finish();
-        }
+            }
 
+
+        } else if (view.getId() == R.id.btnBack) {
+            intent = new Intent(registerChip_1.this, register_info_otp.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            
+            startActivity(intent);
+            finish();
+
+        }
     }
 
     @Override

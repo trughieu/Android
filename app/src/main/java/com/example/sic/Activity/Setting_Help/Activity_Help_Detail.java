@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.FrameLayout;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.sic.DefaultActivity;
 import com.example.sic.R;
 
-public class Activity_Help_Detail extends DefaultActivity {
+public class Activity_Help_Detail extends AppCompatActivity {
 
     FrameLayout btnBack;
 

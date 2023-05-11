@@ -8,10 +8,12 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.sic.DefaultActivity;
 import com.example.sic.R;
 
-public class Activity_Manage_Order_Payment extends DefaultActivity {
+public class Activity_Manage_Order_Payment extends AppCompatActivity {
 
     TextView btnPayment;
     FrameLayout btnBack;

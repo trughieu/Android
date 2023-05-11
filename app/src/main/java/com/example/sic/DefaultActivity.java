@@ -21,8 +21,10 @@ import com.example.sic.Activity.Login.MainActivity;
 import java.util.Locale;
 import java.util.concurrent.Executor;
 
+import vn.mobileid.tse.model.client.HttpRequest;
 import vn.mobileid.tse.model.client.activate.ActivateModule;
 import vn.mobileid.tse.model.connector.AWSRequest;
+import vn.mobileid.tse.model.connector.plugin.Response;
 import vn.mobileid.tse.model.database.SettingData;
 import vn.mobileid.tse.model.logger.Log4jHelper;
 
@@ -57,26 +59,26 @@ public class DefaultActivity extends AppCompatActivity {
         waitingPrepare();
         start();
         AWSRequest.lang = SettingData.getLanguage(this);
-//        LoginData.updateAccessToken(this, "eyJzZXJ2aWNlIjoidHNlLWFkciIsInVzZXJOYW1lIjoiaGlldW50IiwiZGV2aWNlVVVJRCI6Ijk0N2ZlZWJlLTdjMWMtNDNjNS1hYmFlLTdjMTVlNmRlMDIzZSIsInZhbHVlIjoiNjA5OTUzMjctMGExYy00MjA1LTk2YWUtOGVhMWNmNTUxYjhmIn0=");
         ActivateModule module = ActivateModule.createModule(this);
-        module.setResponseGetRequestList((b, response) -> {
-            if (response == null)// chua dang nhap
-            {
-                intent = new Intent(this, MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-                stop();
-            } else if (
-                    response.getError() == 3208 ||
-                            response.getError() == 3209 ||
-                            response.getError() == 3210)   //-- het access token
-            {
-                module.reLogin();
+
+        module.setResponseGetRequestList(new HttpRequest.AsyncResponse() {
+            @Override
+            public void process(boolean b, Response response) {
+                if (response == null)// chua dang nhap
+                {
+                    intent = new Intent(getApplicationContext(), MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    stop();
+                } else if (
+                        response.getError() == 3208 || response.getError() == 3209 || response.getError() == 3210)   //-- het access token
+                {
+                    module.reLogin();
+                    stop();
+                }
                 stop();
             }
-            stop();
         }).requestList();
     }
 

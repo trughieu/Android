@@ -10,8 +10,11 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.checkid.icao.CheckId;
+import com.checkid.icao.nfc.NfcStatus;
 import com.example.sic.Activity.Registry.Register;
 import com.example.sic.Activity.Registry.register_info_1;
+import com.example.sic.AppData;
 import com.example.sic.R;
 
 public class registerChip extends AppCompatActivity implements View.OnClickListener {
@@ -30,8 +33,7 @@ public class registerChip extends AppCompatActivity implements View.OnClickListe
         btnBack.setOnClickListener(this);
 
         txtTitle = findViewById(R.id.txtTitle);
-        txtTitle.setText(title);
-    }
+        txtTitle.setText(AppData.getInstance().getAppTitle());    }
 
     @Override
     public void onClick(View view) {
@@ -41,7 +43,7 @@ public class registerChip extends AppCompatActivity implements View.OnClickListe
                 intent = new Intent(registerChip.this, register_info_1.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                
 
                 startActivity(intent);
                 finish();
@@ -51,13 +53,14 @@ public class registerChip extends AppCompatActivity implements View.OnClickListe
                 intent = new Intent(registerChip.this, Register.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                
 
                 startActivity(intent);
                 finish();
                 break;
         }
     }
+
 
     @Override
     public void onBackPressed() {

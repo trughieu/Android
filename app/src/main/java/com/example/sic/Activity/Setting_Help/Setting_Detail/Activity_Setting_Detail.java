@@ -293,15 +293,16 @@ public class Activity_Setting_Detail extends DefaultActivity implements View.OnC
                 intent = new Intent(Activity_Setting_Detail.this, Activity_Setting_Detail_Change_Pin_Code.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                
                 startActivity(intent);
                 finish();
                 break;
             case R.id.id_recover_account:
                 intent = new Intent(Activity_Setting_Detail.this, MainActivity.class);
+                intent.putExtra("recover",true);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                
                 startActivity(intent);
                 finish();
                 break;
@@ -312,7 +313,7 @@ public class Activity_Setting_Detail extends DefaultActivity implements View.OnC
                 intent = new Intent(Activity_Setting_Detail.this, Activity_Manage_Certificate.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                
                 startActivity(intent);
                 finish();
                 break;
@@ -320,7 +321,7 @@ public class Activity_Setting_Detail extends DefaultActivity implements View.OnC
                 intent = new Intent(Activity_Setting_Detail.this, Activity_Manage_Sim.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                
                 startActivity(intent);
                 finish();
                 break;
@@ -328,7 +329,7 @@ public class Activity_Setting_Detail extends DefaultActivity implements View.OnC
                 intent = new Intent(Activity_Setting_Detail.this, Activity_Manage_Order.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                
                 startActivity(intent);
                 finish();
                 break;
@@ -336,7 +337,7 @@ public class Activity_Setting_Detail extends DefaultActivity implements View.OnC
                 intent = new Intent(Activity_Setting_Detail.this, Activity_Setting_Help.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                
                 startActivity(intent);
                 finish();
                 break;
@@ -344,7 +345,7 @@ public class Activity_Setting_Detail extends DefaultActivity implements View.OnC
                 intent = new Intent(Activity_Setting_Detail.this, Activity_Action_History.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                
                 startActivity(intent);
                 finish();
                 break;

@@ -19,6 +19,7 @@ public class Activity_Activate_Create_New_Pin extends AppCompatActivity {
     FrameLayout btnBack;
     TextView enter;
     EditText txt_pin_view1, txt_pin_view2, txt_pin_view3, txt_pin_view4, txt_pin_view5, txt_pin_view6, pinValue;
+
     private final TextWatcher textWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int start, int i1, int i2) {
@@ -98,7 +99,7 @@ public class Activity_Activate_Create_New_Pin extends AppCompatActivity {
             }
         }
     };
-    String pin1, pin2, pin3, pin4;
+
     AppCompatButton bt1, bt2, bt3, bt4, bt5, bt6, bt7, bt8, bt9, bt0, Key_delete;
     String text;
     View.OnClickListener numKey = new View.OnClickListener() {
@@ -110,7 +111,7 @@ public class Activity_Activate_Create_New_Pin extends AppCompatActivity {
             pinValue.setText(text);
         }
     };
-
+    EditText[] otpEt = new EditText[6];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,6 +123,14 @@ public class Activity_Activate_Create_New_Pin extends AppCompatActivity {
         txt_pin_view5 = findViewById(R.id.txt_pin_view_5);
         txt_pin_view6 = findViewById(R.id.txt_pin_view_6);
         btnBack = findViewById(R.id.btnBack);
+
+
+        otpEt[0] = findViewById(R.id.txt_pin_view_1);
+        otpEt[1] = findViewById(R.id.txt_pin_view_2);
+        otpEt[2] = findViewById(R.id.txt_pin_view_3);
+        otpEt[3] = findViewById(R.id.txt_pin_view_4);
+        otpEt[4] = findViewById(R.id.txt_pin_view_5);
+        otpEt[5] = findViewById(R.id.txt_pin_view_6);
 
         bt1 = findViewById(R.id.btn1);
         bt2 = findViewById(R.id.btn2);

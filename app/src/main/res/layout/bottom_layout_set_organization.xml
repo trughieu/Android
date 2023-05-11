@@ -87,14 +87,14 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/password"
+                    android:id="@+id/organization"
                     android:layout_width="290dp"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:fontFamily="@font/atb_digital_regular"
                     android:gravity="start"
                     android:hint="@string/prompt_organization"
-                    android:inputType="textPassword"
+                    android:inputType="text"
                     android:paddingTop="10dp"
                     android:paddingEnd="10dp"
                     android:paddingBottom="10dp"

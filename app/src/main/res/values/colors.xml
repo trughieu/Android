@@ -26,4 +26,6 @@
     <color name="gray">#999797</color>
     <color name="background">#00224A</color>
     <color name="gray_DO">#D0D0D0</color>
+    <color name="gray_ncf">#8F8E94</color>
+    <color name="gray_button_nfc">#D5D4DB</color>
 </resources>

@@ -88,7 +88,7 @@ public class Activity_Manage_Certificate_Renew_Check extends DefaultActivity imp
                 intent = new Intent(Activity_Manage_Certificate_Renew_Check.this, Activity_Manage_Certificate_Renew.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            
         startActivity(intent);
                 finish();
                 break;
@@ -96,7 +96,7 @@ public class Activity_Manage_Certificate_Renew_Check extends DefaultActivity imp
                 intent = new Intent(Activity_Manage_Certificate_Renew_Check.this, Activity_Manage_Certificate_Renew_Check_Detail.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            
         startActivity(intent);
                 finish();
                 break;

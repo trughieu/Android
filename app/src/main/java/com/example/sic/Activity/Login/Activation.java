@@ -1,6 +1,5 @@
 package com.example.sic.Activity.Login;
 
-import static com.example.sic.Activity.Login.Activity_Activate_Confirm_New_Pin.from;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -24,6 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.sic.AppData;
 import com.example.sic.R;
 import com.example.sic.SmsBroadcastReceiver;
 import com.google.android.gms.auth.api.phone.SmsRetriever;
@@ -40,7 +40,7 @@ import vn.mobileid.tse.model.connector.plugin.Response;
 public class Activation extends AppCompatActivity implements View.OnClickListener {
     public static final int REQ_USER_CONSENT = 200;
     FrameLayout btnBack;
-    TextView btn_Close, btn_resend, button;
+    TextView btn_Close, btn_resend, btnContinue;
     String text;
     EditText pinValue, pin6_dialog_hand;
     SmsBroadcastReceiver smsBroadcastReceiver;
@@ -60,12 +60,12 @@ public class Activation extends AppCompatActivity implements View.OnClickListene
         pin6_dialog_hand = findViewById(R.id.pin6_dialog_hand);
         pinValue = findViewById(R.id.pin6_dialog);
 
-        button = findViewById(R.id.btnContinue);
+        btnContinue = findViewById(R.id.btnContinue);
         btnBack = findViewById(R.id.btnBack);
-        button.setOnClickListener(this);
+        btnContinue.setOnClickListener(this);
         btnBack.setOnClickListener(this);
         btn_resend.setOnClickListener(this);
-        button.setEnabled(false);
+        btnContinue.setEnabled(false);
         btn_resend.setEnabled(true);
         smsPrepare();
 
@@ -93,22 +93,23 @@ public class Activation extends AppCompatActivity implements View.OnClickListene
                     String pin5 = otpEt[4].getText().toString();
                     String pin6 = otpEt[5].getText().toString();
                     if ((pin1.isEmpty() || pin2.isEmpty() || pin3.isEmpty() || pin4.isEmpty() || pin5.isEmpty() || pin6.isEmpty())) {
-                        button.setAlpha(0.5f);
-                        button.setEnabled(false);
+                        btnContinue.setAlpha(0.5f);
+                        btnContinue.setEnabled(false);
                     } else {
-                        button.setAlpha(1);
-                        button.setEnabled(true);
+                        btnContinue.setAlpha(1);
+                        btnContinue.setEnabled(true);
                     }
                 }
 
                 @Override
                 public void afterTextChanged(Editable s) {
-
                     if (i1 == 5 && !otpEt[i1].getText().toString().isEmpty()) {
                         otpEt[i1].clearFocus();
                         text = text + otpEt[i1].getText().toString();
                         Log.d("text", "afterTextChanged: " + text);
                         pin6_dialog_hand.setText(text);
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(otpEt[i1].getWindowToken(), 0);
                     } else if (!otpEt[i1].getText().toString().isEmpty()) {
                         otpEt[i1 + 1].requestFocus();
                         text = pin6_dialog_hand.getText().toString();
@@ -116,7 +117,6 @@ public class Activation extends AppCompatActivity implements View.OnClickListene
                         pin6_dialog_hand.setText(text);
                     }
                     Log.e("hand", "afterTextChanged: " + pin6_dialog_hand.getText().toString());
-
                 }
             });
 
@@ -124,11 +124,24 @@ public class Activation extends AppCompatActivity implements View.OnClickListene
                 @Override
                 public boolean onKey(View v, int keyCode, KeyEvent event) {
                     if (event.getAction() != KeyEvent.ACTION_DOWN) {
-                        return false; //Dont get confused by this, it is because onKeyListener is called twice and this condition is to avoid it.
+                        return false;
                     }
-                    if (keyCode == KeyEvent.KEYCODE_DEL && otpEt[i1].getText().toString().isEmpty() && i1 != 0) {
-                        otpEt[i1 - 1].setText("");
-                        otpEt[i1 - 1].requestFocus();
+                    if (keyCode == KeyEvent.KEYCODE_DEL) {
+                        if (otpEt[i1].getText().toString().isEmpty() && i1 != 0) {
+                            otpEt[i1 - 1].setText("");
+                            otpEt[i1 - 1].requestFocus();
+                            text = pin6_dialog_hand.getText().toString();
+                            if (text.length() > 0) {
+                                text = text.substring(0, text.length() - 1);
+                            }
+                            pin6_dialog_hand.setText(text);
+                        } else {
+                            text = pin6_dialog_hand.getText().toString();
+                            if (text.length() >= 1) {
+                                text = text.substring(0, text.length() - 1);
+                            }
+                            pin6_dialog_hand.setText(text);
+                        }
                     }
                     if (i1 == 0) {
                         pin6_dialog_hand.setText("");
@@ -273,19 +286,19 @@ public class Activation extends AppCompatActivity implements View.OnClickListene
                                         handler.postDelayed(new Runnable() {
                                             @Override
                                             public void run() {
-                                                from = 1;
+                                                AppData.getInstance().setKakPrivate(false);
                                                 Intent intent= new Intent(Activation.this, Activity_Activate_Create_New_Pin.class);
-                                               startActivity(intent);
-                finish();
+                                                startActivity(intent);
+                                                finish();
                                             }
                                         }, 3000);
                                     }
                                 });
                             } else if (response.getError() == 0 && response.getKakPrivateEncrypted() != null) {
-                                from = 2;
+                                AppData.getInstance().setKakPrivate(true);
                                 Intent intent= new Intent(Activation.this, Activity_Activate_Create_New_Pin.class);
-                               startActivity(intent);
-                finish();
+                                startActivity(intent);
+                                finish();
                             } else {
                                 runOnUiThread(new Runnable() {
                                     @Override
@@ -293,12 +306,12 @@ public class Activation extends AppCompatActivity implements View.OnClickListene
                                         Dialog dialog = new Dialog(Activation.this);
                                         dialog.setContentView(R.layout.dialog_fail_activation);
                                         btn_resend.setVisibility(View.INVISIBLE);
-                                        button.setVisibility(View.INVISIBLE);
+                                        btnContinue.setVisibility(View.INVISIBLE);
                                         btn_Close = dialog.findViewById(R.id.btn_Close);
                                         btn_Close.setOnClickListener(view1 -> {
                                             pinValue.setText("");
                                             btn_resend.setVisibility(View.VISIBLE);
-                                            button.setVisibility(View.VISIBLE);
+                                            btnContinue.setVisibility(View.VISIBLE);
                                             pin6_dialog_hand.setText("");
                                             otpEt[0].setText("");
                                             otpEt[1].setText("");
@@ -324,7 +337,7 @@ public class Activation extends AppCompatActivity implements View.OnClickListene
                 break;
             case R.id.btnBack:
                 Intent intent= new Intent(Activation.this, MainActivity.class);
-               startActivity(intent);
+                startActivity(intent);
                 finish();
                 break;
             case R.id.txt_resend_active:

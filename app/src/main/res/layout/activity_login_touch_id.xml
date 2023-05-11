@@ -44,7 +44,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@drawable/flag_us" />
+            android:src="@drawable/flag_usa" />
 
         <ImageView
             android:layout_width="24dp"

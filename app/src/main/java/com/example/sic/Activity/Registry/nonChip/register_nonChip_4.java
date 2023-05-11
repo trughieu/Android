@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,6 +19,7 @@ public class register_nonChip_4 extends Dev_activity {
 
     ImageView imgLiveness;
     TextView btnContinue;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,11 +28,13 @@ public class register_nonChip_4 extends Dev_activity {
         btnContinue = findViewById(R.id.btnContinue);
         imgLiveness = findViewById(R.id.imgLiveness);
         byte[] byteArray = getIntent().getByteArrayExtra("faceByteArray");
+//        String encodedByteArray = Base64.encodeToString(byteArray, Base64.DEFAULT);
         Bitmap faceBitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
 
         // Gắn hình ảnh khuôn mặt vào ImageView
         imgLiveness.setImageBitmap(faceBitmap);
-
+//        editor=getSharedPreferences("FACE",MODE_PRIVATE).edit();
+//        editor.putString("byteArrayKey", encodedByteArray).apply();
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

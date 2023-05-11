@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -19,8 +20,6 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.checkid.icao.exception.FaceException;
@@ -34,7 +33,11 @@ import com.checkid.icao.model.FaceResult;
 import com.checkid.icao.model.FaceScanOptions;
 import com.checkid.icao.model.FaceScannerProgress;
 import com.checkid.icao.model.TransactionInfo;
+import com.checkid.icao.nfc.NfcInfo;
 import com.checkid.icao.utils.FaceMethod;
+import com.example.sic.Activity.Registry.chip.registerChip_6;
+import com.example.sic.Activity.Registry.chip.registerChip_7;
+import com.example.sic.AppData;
 import com.example.sic.Dev_activity;
 import com.example.sic.R;
 import com.example.sic.WaitingTaskDialog;
@@ -46,27 +49,30 @@ import java.io.File;
 public class register_nonChip_3 extends Dev_activity {
 
     public static final String KEY_SCAN_TYPE = "scanType";
-    private final String licenseFile = "checkid.lic";
     FaceScanner faceScanner;
     ScanType scanType;
     FaceMethod faceMethod;
-    TextView prompt_face;
+    TextView prompt_face,txtTitle;
     ProgressBar progressBar;
-    AlertDialog dialog;
     FaceScanOptions options;
     DetectionPreview preview;
     AnimationDrawable loading_animation;
     WaitingTaskDialog waitingDialog;
     FaceProcessListener faceProcessListener;
+    NfcInfo nfcInfo;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         waitingPrepare();
         setContentView(R.layout.register_non_chip_3);
+        nfcInfo = (NfcInfo) getIntent().getSerializableExtra("nfclistener");
         prompt_face = findViewById(R.id.prompt_face);
         progressBar = findViewById(R.id.progressBar);
         preview = findViewById(R.id.preview);
+        txtTitle=findViewById(R.id.txtTitle);
+        txtTitle.setText(AppData.getInstance().getAppTitle());
         progressBar.setMax(100);
         scanType = (ScanType) getIntent().getSerializableExtra(KEY_SCAN_TYPE);
         faceMethod = scanType.getMethod();
@@ -83,42 +89,10 @@ public class register_nonChip_3 extends Dev_activity {
         faceProcessListener = new FaceProcessListener() {
             @Override
             public void onDetectionType(@NonNull DetectionType type) {
-//                if (dialog != null) {
-//                    return;
-//                }
-//                String title = "";
-//                switch (type) {
-//                    case PASSIVE:
-//                        title = "PASSIVE INSTRUCTION";
-//                        break;
-//                    case PASSIVE_WITH_BLINK:
-//                        title = "PASSIVE WITH BLINK";
-//                        break;
-//                    case NOSE_ACTIVE:
-//                        title = "NOSE ACTIVE INSTRUCTION";
-//                        break;
-//                    case NOSE_ACTIVE_WITH_BLINK:
-//                        title = "NOSE ACTIVE WITH BLINK INSTRUCTION";
-//                        break;
-//                }
-
                 if (faceScanner != null) {
                     faceScanner.setIsDetecting(true);
                 }
-
-//                AlertDialog.Builder builder = new AlertDialog.Builder(register_nonChip_3.this);
-//                builder.setCancelable(false);
-//                builder.setTitle(title);
-//                builder.setPositiveButton("OK", (dialog, which) -> {
-//                    if (faceScanner != null) {
-//                        faceScanner.setIsDetecting(true);
-//                    }
-//                });
-//                dialog = builder.create();
-//                dialog.show();
-
             }
-
             @Override
             public void onProgress(@NonNull FaceScannerProgress status) {
                 switch (status) {
@@ -182,9 +156,10 @@ public class register_nonChip_3 extends Dev_activity {
             faceScanner = new FaceScanner(this, preview, options, new FaceListener() {
                 @Override
                 public void onResult(@NonNull TransactionInfo info, File file, Bitmap bitmap) {
-                    boolean faceResult = info.getFaceResult() == FaceResult.OK;
-
+                    boolean faceResult = info.getFaceResult() == FaceResult.OK && info.getJWT() != null;
+                    Log.d("dsdad", "onResult: "+info.getJWT ());
                     if (faceResult) {
+                        AppData.getInstance().setJWT(info.getJWT());
                         start();
                         ByteArrayOutputStream stream = new ByteArrayOutputStream();
                         bitmap.compress(Bitmap.CompressFormat.JPEG, 80, stream); // Nén với chất lượng 80%
@@ -194,25 +169,45 @@ public class register_nonChip_3 extends Dev_activity {
                         dialog1.getWindow().setBackgroundDrawableResource(R.color.transparent);
                         dialog1.show();
                         setResult(RESULT_OK);
-                        Intent intent = new Intent(register_nonChip_3.this, register_nonChip_4.class);
-                        intent.putExtra("faceByteArray", byteArray);
-                        startActivity(intent);
+                        if (AppData.getInstance().isChip()) {
+                            Intent intent = new Intent(register_nonChip_3.this, registerChip_7.class);
+                            intent.putExtra("nfclistener", nfcInfo);
+                            intent.putExtra("faceByteArray", byteArray);
+                            startActivity(intent);
+                        } else {
+                            Intent intent = new Intent(register_nonChip_3.this, register_nonChip_4.class);
+                            intent.putExtra("faceByteArray", byteArray);
+                            startActivity(intent);
+                        }
+
                     } else {
                         Dialog dialog2 = new Dialog(preview.getContext());
                         dialog2.setContentView(R.layout.dialog_fail);
                         dialog2.getWindow().setBackgroundDrawableResource(R.color.transparent);
                         dialog2.show();
+                        dialog2.setCanceledOnTouchOutside(false);
                         TextView close = dialog2.findViewById(R.id.btn_Close);
                         close.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Intent intent = new Intent(v.getContext(), register_nonChip_2.class);
-                                startActivity(intent);
+                                Log.d("chipclose", "onClick: "+AppData.getInstance().isChip());
+                                if (AppData.getInstance().isChip()) {
+                                    Intent intent = new Intent(v.getContext(), registerChip_6.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    intent.putExtra("nfclistener", nfcInfo);
+                                    startActivity(intent);
+                                } else {
+                                    Intent intent = new Intent(v.getContext(), register_nonChip_2.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(intent);
+
+                                }
                             }
                         });
                     }
                     Toast.makeText(register_nonChip_3.this, info.getFaceResult().toString(), Toast.LENGTH_SHORT).show();
-
                 }
 
                 @Override
@@ -272,14 +267,6 @@ public class register_nonChip_3 extends Dev_activity {
             dialog1.setContentView(R.layout.dialog_success);
             dialog1.getWindow().setBackgroundDrawableResource(R.color.transparent);
             dialog1.show();
-//            binding.textProgress.setText("SUCCESSFUL");
-//            binding.img.show();
-//            binding.img.setBackground(ContextCompat.getDrawable(
-//                    ScanFaceActivity.this,
-//                    R.drawable.cid_ic_baseline_check
-//            ));
-//            binding.progress.invisible();
-//            delay(3000);
             setResult(RESULT_OK);
             finish();
         } else {
@@ -291,22 +278,22 @@ public class register_nonChip_3 extends Dev_activity {
             close.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(register_nonChip_3.this, register_nonChip_2.class);
-                    startActivity(intent);
+                    Log.d("chipclose", "onClick: "+AppData.getInstance().isChip());
+                    if (AppData.getInstance().isChip()) {
+                        Intent intent = new Intent(v.getContext(), registerChip_6.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.putExtra("nfclistener", nfcInfo);
+                        startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(v.getContext(), register_nonChip_2.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                    }
                 }
             });
 
-//
-//            binding.loadingLayout.show();
-//            binding.textProgress.setText("ERROR");
-//            binding.img.show
-//            binding.img.setBackground(ContextCompat.getDrawable(
-//                    ScanFaceActivity.this,
-//                    R.drawable.cid_ic_baseline_failed
-//            ));
-//            binding.progress.invisible();
-//            delay(3000);
-//            finish();
         }
     }
 
@@ -317,10 +304,7 @@ public class register_nonChip_3 extends Dev_activity {
             faceScanner.release();
             faceScanner = null;
         }
-        if (dialog != null) {
-            dialog.cancel();
-            dialog = null;
-        }
+
     }
 
     @Override

@@ -30,6 +30,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.sic.Activity.Login.MainActivity;
+import com.example.sic.AppData;
 import com.example.sic.Dev_activity;
 import com.example.sic.R;
 import com.github.gcacace.signaturepad.views.SignaturePad;
@@ -44,6 +45,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import vn.mobileid.tse.model.client.HttpRequest;
 import vn.mobileid.tse.model.client.register.RegisterModule;
 import vn.mobileid.tse.model.connector.plugin.Response;
@@ -65,12 +67,9 @@ public class register_nonChip_5 extends Dev_activity {
     int selectionGender = 0;
     CheckBox checkBox1, checkBox2, checkBox3;
 
-    @Override
-    public void onBackPressed() {
-        moveTaskToBack(true);
-    }
 
-    ImageView avt, imgSignature;
+    ImageView imgSignature;
+    CircleImageView avt;
     List<District> districtList;
     List<Province> provinceList;
     List<Ward> wardList;
@@ -132,25 +131,38 @@ public class register_nonChip_5 extends Dev_activity {
         btnContinue = findViewById(R.id.btnContinue);
         calendar = Calendar.getInstance();
         module = RegisterModule.createModule(this);
+        SharedPreferences face = getSharedPreferences("FACE", MODE_PRIVATE);
+        String encodedByteArray = face.getString("byteArrayKey", null);
+//        if (encodedByteArray != null) {
+//            byte[] byteArray = Base64.decode(encodedByteArray, Base64.DEFAULT);
+////            int desiredSize = 400;
+//            Bitmap faceBitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+////            Bitmap resizedBitmap = Bitmap.createScaledBitmap(faceBitmap, desiredSize, desiredSize, false);
+////            Bitmap circularBitmap = getCircularBitmap(resizedBitmap);
+////            Glide.with(this).load(byteArray)
+////                    .transform(new CircleCrop())
+////
+//            avt.setImageBitmap(faceBitmap);
+//        }
+
 
         byte[] byteArray = getIntent().getByteArrayExtra("faceByteArray");
         if (byteArray != null) {
             Bitmap faceBitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-            int desiredSize = 400; // Kích thước mong muốn
-            Bitmap resizedBitmap = Bitmap.createScaledBitmap(faceBitmap, desiredSize, desiredSize, false);
-            Bitmap circularBitmap = getCircularBitmap(resizedBitmap);
-            avt.setImageBitmap(circularBitmap);
+//            int desiredSize = 300; // Kích thước mong muốn
+//            Bitmap resizedBitmap = Bitmap.createScaledBitmap(faceBitmap, desiredSize, desiredSize, false);
+//            Bitmap circularBitmap = getCircularBitmap(resizedBitmap);
+            avt.setImageBitmap(faceBitmap);
             module.setImagePortrait(convertToBase64(faceBitmap));
         }
-        pref = getSharedPreferences("username", MODE_PRIVATE);
-        String s = pref.getString("user", null);
-        if (s != null) {
-            UserName.setText(s);
-            /**
-             * sai
-             */
-            module.setUsername(s);
-        }
+//        pref = getSharedPreferences("username", MODE_PRIVATE);
+//        String s = pref.getString("user", null);
+//        if (s != null) {
+//            UserName.setText(s);
+//            module.setUsername(s);
+//        }
+        UserName.setText(AppData.getInstance().getPhone());
+        module.setUsername(AppData.getInstance().getPhone());
         module.setNationality("VIETNAM");
 
         SharedPreferences sharedPreferences = getSharedPreferences("IMG", MODE_PRIVATE);
@@ -764,8 +776,6 @@ public class register_nonChip_5 extends Dev_activity {
                     Bitmap signatureBitmap = signature_pad.getSignatureBitmap();
                     String base64Signature = convertToBase64PNG(signatureBitmap);
                     module.setImagesignature(base64Signature);
-//                    module.setImageBack(base64Signature);
-//                    module.setImageFront(base64Signature);
                     imgSignature.setImageBitmap(signatureBitmap);
                     userSign.setText(v1.getContext().getResources().getString(R.string.registrant) + ": " + fullName.getText().toString());
                     bottomSheetDialog.dismiss();
@@ -776,7 +786,6 @@ public class register_nonChip_5 extends Dev_activity {
         module.setDocumentType(typeDocument.getString("typeDocument", null));
 
         btnContinue.setOnClickListener(v -> {
-
             module.setResponseRegistrationsFinalize(new HttpRequest.AsyncResponse() {
                 @Override
                 public void process(boolean b, Response response) {
@@ -784,6 +793,7 @@ public class register_nonChip_5 extends Dev_activity {
                         @Override
                         public void run() {
                             if (response.getError() == 0 || response.getError() == 3249) {
+                                AppData.getInstance().setRegister(true);
                                 Dialog dialog = new Dialog(v.getContext());
                                 dialog.setContentView(R.layout.dialog_success_register);
                                 dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
@@ -801,9 +811,14 @@ public class register_nonChip_5 extends Dev_activity {
                     });
                 }
             });
-            module.registrationsFinalize();
+            try {
+                module.registrationsFinalize();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         });
     }
+
 
     public String generateTodayDate() {
         // Lấy ngày hiện tại
@@ -834,5 +849,10 @@ public class register_nonChip_5 extends Dev_activity {
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
 
         datePickerDialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
     }
 }

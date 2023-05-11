@@ -22,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatCheckBox;
 
 import com.example.sic.Activity.Registry.register_info_otp;
+import com.example.sic.AppData;
 import com.example.sic.Dev_activity;
 import com.example.sic.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -130,7 +131,7 @@ public class register_nonChip_1 extends Dev_activity implements View.OnClickList
         editor = getSharedPreferences("IMG", MODE_PRIVATE).edit();
         edit = getSharedPreferences("documentType", MODE_PRIVATE).edit();
         txtTitle = findViewById(R.id.txtTitle);
-        txtTitle.setText(title);
+        txtTitle.setText(AppData.getInstance().getAppTitle());
         textBackSide = findViewById(R.id.textBackside);
         textFrontSide = findViewById(R.id.textFrontSide);
         txt_select_id = findViewById(R.id.txt_select_id);
@@ -252,14 +253,14 @@ public class register_nonChip_1 extends Dev_activity implements View.OnClickList
                 intent = new Intent(register_nonChip_1.this, register_nonChip_2.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                
                 startActivity(intent);
             } else if (selection == 2) {
                 edit.putString("typeDocument", "PERSONAL-ID").apply();
                 intent = new Intent(register_nonChip_1.this, register_nonChip_2.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                
                 startActivity(intent);
 
             } else if (selection == 3) {
@@ -267,7 +268,7 @@ public class register_nonChip_1 extends Dev_activity implements View.OnClickList
                 intent = new Intent(register_nonChip_1.this, register_nonChip_2.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                
                 startActivity(intent);
             }
 
@@ -276,7 +277,7 @@ public class register_nonChip_1 extends Dev_activity implements View.OnClickList
             intent = new Intent(register_nonChip_1.this, register_info_otp.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            
             startActivity(intent);
             finish();
         }

@@ -58,7 +58,7 @@ public class Activity_Manage_Sim extends DefaultActivity implements View.OnClick
                     intent = new Intent(Activity_Manage_Sim.this, Activity_Manage_Sim_Bind_New_Sim.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);        startActivity(intent);
+                            startActivity(intent);
                 finish();
 
                 }
@@ -67,7 +67,7 @@ public class Activity_Manage_Sim extends DefaultActivity implements View.OnClick
                 intent = new Intent(Activity_Manage_Sim.this, Activity_Setting_Detail.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            
        startActivity(intent);
                 finish();
                 break;

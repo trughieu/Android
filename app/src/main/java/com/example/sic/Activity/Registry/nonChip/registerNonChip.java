@@ -52,7 +52,7 @@ public class registerNonChip extends Dev_activity implements View.OnClickListene
                 intent = new Intent(registerNonChip.this, register_info_1.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            
      intent.putExtra("title", title);
                startActivity(intent);
                 finish();
@@ -61,7 +61,7 @@ public class registerNonChip extends Dev_activity implements View.OnClickListene
                 intent = new Intent(registerNonChip.this, Register.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            
        startActivity(intent);
                 finish();
                 break;

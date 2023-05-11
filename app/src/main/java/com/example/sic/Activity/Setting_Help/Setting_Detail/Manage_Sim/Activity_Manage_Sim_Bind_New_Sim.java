@@ -41,7 +41,7 @@ public class Activity_Manage_Sim_Bind_New_Sim extends DefaultActivity {
             Intent intent= new Intent(this,Activity_Manage_Sim.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            
            startActivity(intent);
                 finish();
         });

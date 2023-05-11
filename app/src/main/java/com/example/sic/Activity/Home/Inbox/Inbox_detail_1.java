@@ -100,7 +100,7 @@ public class Inbox_detail_1 extends DefaultActivity {
             Intent intent= new Intent(Inbox_detail_1.this, Activity_Manage_Certificate_Add_New_Certificate_More_Detail.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            
 
             intent.putExtra("response", response);
             intent.putExtra("id", credentialID);

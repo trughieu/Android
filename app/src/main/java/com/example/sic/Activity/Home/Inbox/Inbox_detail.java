@@ -139,7 +139,7 @@ public class Inbox_detail extends DefaultActivity implements View.OnClickListene
                                 Intent intent = new Intent(Inbox_detail.this, Activity_inbox_detail_submit.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                
                                 intent.putExtra("performed", performed);
                                 startActivity(intent);
                                 finish();
@@ -428,7 +428,7 @@ public class Inbox_detail extends DefaultActivity implements View.OnClickListene
             intent = new Intent(Inbox_detail.this, Inbox_detail_1.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            
             intent.putExtra("id", performed.getCredentialID());
             intent.putExtra("transactionId", idTransaction);
             startActivity(intent);
@@ -836,7 +836,7 @@ public class Inbox_detail extends DefaultActivity implements View.OnClickListene
                                             Intent intent = new Intent(Inbox_detail.this, Activity_inbox_detail_submit.class);
                                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            
                                             intent.putExtra("performed", performed);
                                             startActivity(intent);
                                             finish();
@@ -883,7 +883,7 @@ public class Inbox_detail extends DefaultActivity implements View.OnClickListene
                                             Intent intent = new Intent(Inbox_detail.this, Activity_inbox_detail_submit.class);
                                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            
                                             intent.putExtra("performed", performed);
                                             startActivity(intent);
                                             finish();
@@ -920,7 +920,7 @@ public class Inbox_detail extends DefaultActivity implements View.OnClickListene
                                             Intent intent = new Intent(Inbox_detail.this, Activity_inbox_detail_submit.class);
                                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            
                                             intent.putExtra("performed", performed);
                                             startActivity(intent);
                                             finish();
@@ -958,7 +958,7 @@ public class Inbox_detail extends DefaultActivity implements View.OnClickListene
                                             Intent intent = new Intent(Inbox_detail.this, Activity_inbox_detail_submit.class);
                                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            
                                             intent.putExtra("performed", performed);
                                             startActivity(intent);
                                             finish();
@@ -995,7 +995,7 @@ public class Inbox_detail extends DefaultActivity implements View.OnClickListene
                                         Intent intent = new Intent(Inbox_detail.this, Activity_inbox_detail_submit.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        
                                         intent.putExtra("performed", performed);
                                         startActivity(intent);
                                         finish();
@@ -1069,7 +1069,7 @@ public class Inbox_detail extends DefaultActivity implements View.OnClickListene
                                         Intent intent = new Intent(Inbox_detail.this, Activity_inbox_detail_submit.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        
                                         intent.putExtra("performed", performed);
                                         startActivity(intent);
                                         finish();
@@ -1136,7 +1136,7 @@ public class Inbox_detail extends DefaultActivity implements View.OnClickListene
                                         Intent intent = new Intent(Inbox_detail.this, Activity_inbox_detail_submit.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        
                                         intent.putExtra("performed", performed);
                                         startActivity(intent);
                                         finish();

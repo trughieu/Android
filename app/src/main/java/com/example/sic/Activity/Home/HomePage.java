@@ -195,7 +195,7 @@ public class HomePage extends DefaultActivity implements View.OnClickListener {
                             Intent intent = new Intent(HomePage.this, Inbox_detail.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            
                             intent.putExtra("transactionId", request.transactionID);
                             startActivity(intent);
                             finish();
@@ -367,7 +367,7 @@ public class HomePage extends DefaultActivity implements View.OnClickListener {
                                 Intent intent = new Intent(HomePage.this, Inbox_detail.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                
                                 intent.putExtra("transactionId", request.transactionID);
                                 startActivity(intent);
                             }
@@ -389,7 +389,7 @@ public class HomePage extends DefaultActivity implements View.OnClickListener {
             intent = new Intent(HomePage.this, Activity_Scan_QR.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            
             startActivity(intent);
             finish();
         } else if (view.getId() == R.id.menu_inbox) {
@@ -401,7 +401,7 @@ public class HomePage extends DefaultActivity implements View.OnClickListener {
             intent = new Intent(HomePage.this, Inbox.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            
             startActivity(intent);
         } else if (view.getId() == R.id.menu_setting_help) {
             txt_setting_help.setTextColor(Color.parseColor("#004B7D"));
@@ -412,7 +412,7 @@ public class HomePage extends DefaultActivity implements View.OnClickListener {
             intent = new Intent(HomePage.this, Activity_Setting_Help.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            
             startActivity(intent);
             finish();
         }

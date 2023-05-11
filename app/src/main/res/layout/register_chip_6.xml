@@ -89,10 +89,17 @@
             android:layout_height="wrap_content"
             android:background="@drawable/corner_card"
             android:orientation="vertical"
-            android:paddingTop="60dp"
             android:paddingBottom="77dp">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/avt"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/img_front" />
 
             <TextView
+                android:layout_marginTop="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_round_right_bot"
@@ -160,13 +167,13 @@
                         android:textColor="@color/white" />
 
                     <TextView
+                        android:id="@+id/user"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/atb_digital_medium"
                         android:gravity="right"
                         android:paddingBottom="5dp"
-                        android:text="@string/user_name"
                         android:textColor="@color/white"
                         android:textSize="12dp" />
                 </LinearLayout>
@@ -206,14 +213,13 @@
                         />
 
                     <TextView
+                        android:id="@+id/gender"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/atb_digital_medium"
                         android:gravity="right|top"
                         android:paddingBottom="5dp"
-                        android:text="@string/female"
-
                         android:textColor="@color/white"
                         android:textSize="12dp" />
                 </LinearLayout>
@@ -252,13 +258,13 @@
                         />
 
                     <TextView
+                        android:id="@+id/nationality"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/atb_digital_medium"
                         android:gravity="right|top"
                         android:paddingBottom="5dp"
-                        android:text="@string/prompt_optional_viet_nam"
                         android:textColor="@color/white"
                         android:textSize="12dp" />
                 </LinearLayout>
@@ -298,12 +304,12 @@
                         />
 
                     <TextView
+                        android:id="@+id/ethnic"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/atb_digital_medium"
                         android:gravity="right|top"
-                        android:text="@string/kinh"
                         android:textColor="@color/white"
                         android:textSize="12dp" />
                 </LinearLayout>
@@ -343,13 +349,13 @@
                         />
 
                     <TextView
+                        android:id="@+id/religion"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/atb_digital_medium"
                         android:gravity="right|top"
                         android:paddingBottom="5dp"
-                        android:text="@string/phat"
                         android:textColor="@color/white"
                         android:textSize="12dp" />
                 </LinearLayout>
@@ -389,13 +395,12 @@
                         />
 
                     <TextView
+                        android:id="@+id/dateBirth"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/atb_digital_medium"
                         android:gravity="right|top"
-                        android:text="@string/date"
-
                         android:textColor="@color/white"
                         android:textSize="12dp" />
                 </LinearLayout>
@@ -435,13 +440,13 @@
                         />
 
                     <TextView
+                        android:id="@+id/placeO"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/atb_digital_medium"
                         android:gravity="right|top"
                         android:paddingBottom="5dp"
-                        android:text="@string/address"
                         android:textColor="@color/white"
                         android:textSize="12dp" />
                 </LinearLayout>
@@ -481,12 +486,12 @@
                         />
 
                     <TextView
+                        android:id="@+id/placeR"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/atb_digital_medium"
                         android:gravity="right|top"
-                        android:text="@string/address_resident"
                         android:textColor="@color/white"
                         android:textSize="12dp" />
                 </LinearLayout>
@@ -526,13 +531,13 @@
                         />
 
                     <TextView
+                        android:id="@+id/personalIdent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/atb_digital_medium"
                         android:gravity="right|top"
                         android:paddingBottom="5dp"
-                        android:text="@string/nhan_dang"
                         android:textColor="@color/white"
                         android:textSize="12dp" />
                 </LinearLayout>
@@ -572,13 +577,13 @@
                         />
 
                     <TextView
+                        android:id="@+id/fullnameParent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/atb_digital_medium"
                         android:gravity="right|top"
                         android:paddingBottom="5dp"
-                        android:text="@string/name_parent"
                         android:textColor="@color/white"
                         android:textSize="12dp" />
                 </LinearLayout>
@@ -618,6 +623,7 @@
                         />
 
                     <TextView
+                        android:id="@+id/fullNameSpouse"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -668,17 +674,22 @@
                         />
 
                     <TextView
+                        android:id="@+id/documentType"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/atb_digital_medium"
                         android:gravity="right|top"
                         android:paddingBottom="5dp"
-                        android:text="@string/button_eid_card"
                         android:textColor="@color/white"
                         android:textSize="12dp" />
                 </LinearLayout>
-
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/line_dotted" />
             </LinearLayout>
 
             <LinearLayout
@@ -708,17 +719,22 @@
                         />
 
                     <TextView
+                        android:id="@+id/documentNumber"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/atb_digital_medium"
                         android:gravity="right|top"
                         android:paddingBottom="5dp"
-                        android:text="@string/some_id"
                         android:textColor="@color/white"
                         android:textSize="12dp" />
                 </LinearLayout>
-
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/line_dotted" />
             </LinearLayout>
 
             <LinearLayout
@@ -741,21 +757,20 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/atb_digital_regular"
                         android:gravity="top"
-                        android:text="@string/prompt_nationality"
+                        android:text="@string/prompt_ex_document_number"
                         android:textColor="@color/white"
 
 
                         />
 
                     <TextView
+                        android:id="@+id/documentEx"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/atb_digital_medium"
-                        android:gravity="right|top"
+                        android:gravity="end|top"
                         android:paddingBottom="5dp"
-                        android:text="@string/prompt_optional_viet_nam"
-
                         android:textColor="@color/white"
                         android:textSize="12dp" />
                 </LinearLayout>
@@ -788,19 +803,19 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/atb_digital_regular"
                         android:gravity="top"
-                        android:text="@string/prompt_ethnic"
+                        android:text="@string/prompt_issuing_country"
                         android:textColor="@color/white"
 
 
                         />
 
                     <TextView
+                        android:id="@+id/issuingCountry"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/atb_digital_medium"
                         android:gravity="right|top"
-                        android:text="@string/kinh"
                         android:textColor="@color/white"
                         android:textSize="12dp" />
                 </LinearLayout>
@@ -833,20 +848,20 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/atb_digital_regular"
                         android:gravity="top"
-                        android:text="@string/prompt_religion"
+                        android:text="@string/prompt_issuance_date"
                         android:textColor="@color/white"
 
 
                         />
 
                     <TextView
+                        android:id="@+id/issuanceDate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/atb_digital_medium"
                         android:gravity="right|top"
                         android:paddingBottom="5dp"
-                        android:text="@string/phat"
                         android:textColor="@color/white"
                         android:textSize="12dp" />
                 </LinearLayout>
@@ -879,245 +894,25 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/atb_digital_regular"
                         android:gravity="top"
-                        android:text="@string/prompt_date_of_birth"
+                        android:text="@string/prompt_expiration_date"
                         android:textColor="@color/white"
 
 
                         />
 
                     <TextView
+                        android:id="@+id/dateExpire"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/atb_digital_medium"
-                        android:gravity="right|top"
-                        android:text="@string/date"
-
-                        android:textColor="@color/white"
-                        android:textSize="12dp" />
-                </LinearLayout>
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:background="@drawable/line_dotted" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="10dp"
-                    android:orientation="horizontal"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="20dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/atb_digital_regular"
-                        android:gravity="top"
-                        android:text="@string/prompt_native_place"
-                        android:textColor="@color/white"
-
-
-                        />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/atb_digital_medium"
-                        android:gravity="right|top"
-                        android:paddingBottom="5dp"
-                        android:text="@string/address"
-                        android:textColor="@color/white"
-                        android:textSize="12dp" />
-                </LinearLayout>
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:background="@drawable/line_dotted" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="10dp"
-                    android:orientation="horizontal"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="20dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/atb_digital_regular"
-                        android:gravity="top"
-                        android:text="@string/prompt_place_of_residence"
-                        android:textColor="@color/white"
-
-
-                        />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/atb_digital_medium"
-                        android:gravity="right|top"
-                        android:text="@string/address_resident"
-                        android:textColor="@color/white"
-                        android:textSize="12dp" />
-                </LinearLayout>
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:background="@drawable/line_dotted" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="10dp"
-                    android:orientation="horizontal"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="20dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/atb_digital_regular"
-                        android:gravity="top"
-                        android:text="@string/prompt_how_to_identity"
-                        android:textColor="@color/white" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/atb_digital_medium"
-                        android:gravity="right|top"
-                        android:paddingBottom="5dp"
-                        android:text="@string/nhan_dang"
-                        android:textColor="@color/white"
-                        android:textSize="12dp" />
-                </LinearLayout>
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:background="@drawable/line_dotted" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="10dp"
-                    android:orientation="horizontal"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="20dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/atb_digital_regular"
-                        android:gravity="top"
-                        android:text="@string/prompt_name_of_parents"
-                        android:textColor="@color/white" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/atb_digital_medium"
-                        android:gravity="right|top"
-                        android:paddingBottom="5dp"
-                        android:text="@string/name_parent"
-                        android:textColor="@color/white"
-                        android:textSize="12dp" />
-                </LinearLayout>
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/line_dotted" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="10dp"
-                    android:orientation="horizontal"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="20dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/atb_digital_regular"
-                        android:gravity="top"
-                        android:text="@string/prompt_name_of_wife_or_husband"
-                        android:textColor="@color/white" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/atb_digital_medium"
-                        android:gravity="right|top"
-                        android:paddingBottom="5dp"
-                        android:text="@string/spouse"
+                        android:gravity="end|top"
                         android:textColor="@color/white"
                         android:textSize="12dp" />
                 </LinearLayout>
 
             </LinearLayout>
+
 
             <TextView
                 android:layout_width="wrap_content"
@@ -1130,7 +925,10 @@
                 android:textColor="@color/white" />
 
             <TextView
-                android:layout_width="350dp"
+                android:id="@+id/mrz"
+                android:layout_width="match_parent"
+                android:paddingStart="30dp"
+                android:paddingEnd="30dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:fontFamily="@font/atb_digital_medium"

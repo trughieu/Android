@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.sic.AppData;
 import com.example.sic.Dev_activity;
 import com.example.sic.R;
 import com.example.sic.model.ScanType;
@@ -28,7 +29,7 @@ public class register_nonChip_2 extends Dev_activity implements View.OnClickList
         setContentView(R.layout.register_non_chip_2);
 
         txtTitle = findViewById(R.id.txtTitle);
-        txtTitle.setText(title);
+        txtTitle.setText(AppData.getInstance().getAppTitle());
         img_add = findViewById(R.id.img_add);
         btnContinue = findViewById(R.id.btnContinue);
         btnBack = findViewById(R.id.btnBack);
@@ -50,7 +51,7 @@ public class register_nonChip_2 extends Dev_activity implements View.OnClickList
             intent = new Intent(register_nonChip_2.this, register_nonChip_3.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            
             intent.putExtra(KEY_SCAN_TYPE, new ScanType.Liveness());
             startActivity(intent);
             finish();
@@ -58,14 +59,14 @@ public class register_nonChip_2 extends Dev_activity implements View.OnClickList
             intent = new Intent(register_nonChip_2.this, register_nonChip_1.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            
             startActivity(intent);
             finish();
         } else if (view.getId() == R.id.img_add) {
             intent = new Intent(register_nonChip_2.this, register_nonChip_3.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            
             intent.putExtra(KEY_SCAN_TYPE, new ScanType.Liveness());
             startActivity(intent);
             finish();

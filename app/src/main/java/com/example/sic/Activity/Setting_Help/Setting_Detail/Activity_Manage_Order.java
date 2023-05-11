@@ -9,6 +9,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,7 +25,7 @@ import java.util.ArrayList;
 
 import vn.mobileid.tse.model.client.managecertificate.CertificateProfilesModule;
 
-public class Activity_Manage_Order extends DefaultActivity implements View.OnClickListener
+public class Activity_Manage_Order extends AppCompatActivity implements View.OnClickListener
 //        , Adapter_item_Certificate.Listener
 {
     @Override
@@ -168,7 +169,7 @@ public class Activity_Manage_Order extends DefaultActivity implements View.OnCli
                 intent = new Intent(Activity_Manage_Order.this, Activity_Setting_Detail.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                
                 startActivity(intent);
                 finish();
         }

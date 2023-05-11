@@ -67,7 +67,7 @@ public class Activity_Manage_Certificate_Add_New_Certificate_More_Detail extends
             }
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            
     
             intent.putExtra("id", credentialID);
             intent.putExtra("transactionId", transactionID);
@@ -87,7 +87,7 @@ public class Activity_Manage_Certificate_Add_New_Certificate_More_Detail extends
             }
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            
     
             intent.putExtra("id", credentialID);
            startActivity(intent);

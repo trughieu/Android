@@ -26,7 +26,53 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:id="@+id/topPanel"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
+        <FrameLayout
+            android:id="@+id/btnBack"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/arrow_white" />
+        </FrameLayout>
+
+        <Space
+            android:id="@+id/txtTitle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:visibility="invisible"
+            android:fontFamily="@font/atb_digital_medium"
+            android:gravity="center_horizontal|center"
+            android:text="@string/button_identification_chip"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+    </LinearLayout>
     <LinearLayout
         android:id="@+id/languages"
         android:layout_width="60dp"
@@ -41,7 +87,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@drawable/flag_us" />
+            android:src="@drawable/flag_usa" />
 
         <ImageView
             android:layout_width="24dp"
@@ -110,7 +156,7 @@
                 android:fontFamily="@font/atb_digital_regular"
                 android:gravity="start"
                 android:hint="@string/hint_password"
-                android:inputType="textPassword"
+                android:inputType="numberPassword"
                 android:padding="10dp"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"

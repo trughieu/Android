@@ -79,6 +79,7 @@
             android:orientation="vertical">
 
             <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/avt"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_gravity="center"
@@ -126,7 +127,6 @@
                         android:fontFamily="@font/atb_digital_medium"
                         android:gravity="right"
                         android:paddingBottom="5dp"
-                        android:text="@string/some_id"
                         android:textColor="@color/white"
                         android:textSize="12dp"
                         app:drawableEndCompat="@drawable/arrow_right" />
@@ -168,13 +168,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:drawablePadding="20dp"
                         android:fontFamily="@font/atb_digital_medium"
                         android:gravity="right"
                         android:paddingBottom="5dp"
+                        android:paddingEnd="28dp"
                         android:textColor="@color/white"
                         android:textSize="12dp"
-                        app:drawableEndCompat="@drawable/arrow_right" />
+                        />
                 </LinearLayout>
 
                 <ImageView
@@ -213,13 +213,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:drawablePadding="20dp"
                         android:fontFamily="@font/atb_digital_medium"
                         android:gravity="right"
+                        android:paddingEnd="28dp"
                         android:paddingBottom="5dp"
                         android:textColor="@color/white"
-                        android:textSize="12dp"
-                        app:drawableEndCompat="@drawable/arrow_right" />
+                        android:textSize="12dp" />
                 </LinearLayout>
 
                 <ImageView
@@ -273,43 +272,41 @@
                     android:layout_marginTop="20dp"
                     android:background="@drawable/bg_round_right_bot"
                     android:fontFamily="@font/atb_digital_medium"
-                    android:text="@string/title_register_information"
+                    android:text="@string/prompt_personal_info"
+                    android:layout_marginBottom="15dp"
                     android:textColor="@color/white" />
 
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_height="match_parent"
                     android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
                         android:orientation="horizontal"
                         android:paddingStart="20dp"
                         android:paddingEnd="20dp">
 
                         <TextView
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:fontFamily="@font/atb_digital_medium"
+                            android:fontFamily="@font/atb_digital_regular"
                             android:gravity="top"
                             android:text="@string/hint_name"
-                            android:textColor="@color/white"
-                            android:textSize="12dp" />
+                            android:textColor="@color/white" />
 
                         <TextView
-                            android:id="@+id/name"
-                            android:layout_width="0dp"
+                            android:id="@+id/user"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:drawablePadding="10dp"
                             android:fontFamily="@font/atb_digital_medium"
                             android:gravity="right"
                             android:paddingBottom="5dp"
-                            android:text="@string/nguyen_truo"
                             android:textColor="@color/white"
                             android:textSize="12dp" />
                     </LinearLayout>
@@ -324,13 +321,14 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_height="match_parent"
                     android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
                         android:orientation="horizontal"
                         android:paddingStart="20dp"
                         android:paddingEnd="20dp">
@@ -339,22 +337,22 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:fontFamily="@font/atb_digital_medium"
+                            android:fontFamily="@font/atb_digital_regular"
                             android:gravity="top"
                             android:text="@string/prompt_gender"
                             android:textColor="@color/white"
-                            android:textSize="12dp" />
+
+
+                            />
 
                         <TextView
                             android:id="@+id/gender"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:drawablePadding="10dp"
                             android:fontFamily="@font/atb_digital_medium"
-                            android:gravity="right"
+                            android:gravity="right|top"
                             android:paddingBottom="5dp"
-                            android:text="@string/prompt_male"
                             android:textColor="@color/white"
                             android:textSize="12dp" />
                     </LinearLayout>
@@ -369,13 +367,14 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_height="match_parent"
                     android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
                         android:orientation="horizontal"
                         android:paddingStart="20dp"
                         android:paddingEnd="20dp">
@@ -384,22 +383,21 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:fontFamily="@font/atb_digital_medium"
+                            android:fontFamily="@font/atb_digital_regular"
                             android:gravity="top"
                             android:text="@string/prompt_nationality"
                             android:textColor="@color/white"
-                            android:textSize="12dp" />
+
+                            />
 
                         <TextView
-                            android:id="@+id/nationalLity"
+                            android:id="@+id/nationality"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:drawablePadding="10dp"
                             android:fontFamily="@font/atb_digital_medium"
-                            android:gravity="right"
+                            android:gravity="right|top"
                             android:paddingBottom="5dp"
-                            android:text="@string/prompt_optional_viet_nam"
                             android:textColor="@color/white"
                             android:textSize="12dp" />
                     </LinearLayout>
@@ -414,13 +412,14 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_height="match_parent"
                     android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
                         android:orientation="horizontal"
                         android:paddingStart="20dp"
                         android:paddingEnd="20dp">
@@ -429,21 +428,21 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:fontFamily="@font/atb_digital_medium"
+                            android:fontFamily="@font/atb_digital_regular"
                             android:gravity="top"
                             android:text="@string/prompt_ethnic"
                             android:textColor="@color/white"
-                            android:textSize="12dp" />
+
+
+                            />
 
                         <TextView
-                            android:id="@+id/ethinic"
+                            android:id="@+id/ethnic"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:drawablePadding="10dp"
                             android:fontFamily="@font/atb_digital_medium"
-                            android:gravity="right"
-                            android:paddingBottom="5dp"
+                            android:gravity="right|top"
                             android:textColor="@color/white"
                             android:textSize="12dp" />
                     </LinearLayout>
@@ -458,13 +457,14 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_height="match_parent"
                     android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
                         android:orientation="horizontal"
                         android:paddingStart="20dp"
                         android:paddingEnd="20dp">
@@ -473,20 +473,21 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:fontFamily="@font/atb_digital_medium"
+                            android:fontFamily="@font/atb_digital_regular"
                             android:gravity="top"
                             android:text="@string/prompt_religion"
                             android:textColor="@color/white"
-                            android:textSize="12dp" />
+
+
+                            />
 
                         <TextView
                             android:id="@+id/religion"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:drawablePadding="10dp"
                             android:fontFamily="@font/atb_digital_medium"
-                            android:gravity="right"
+                            android:gravity="right|top"
                             android:paddingBottom="5dp"
                             android:textColor="@color/white"
                             android:textSize="12dp" />
@@ -502,13 +503,14 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_height="match_parent"
                     android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
                         android:orientation="horizontal"
                         android:paddingStart="20dp"
                         android:paddingEnd="20dp">
@@ -517,21 +519,21 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:fontFamily="@font/atb_digital_medium"
+                            android:fontFamily="@font/atb_digital_regular"
                             android:gravity="top"
                             android:text="@string/prompt_date_of_birth"
                             android:textColor="@color/white"
-                            android:textSize="12dp" />
+
+
+                            />
 
                         <TextView
                             android:id="@+id/dateBirth"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:drawablePadding="10dp"
                             android:fontFamily="@font/atb_digital_medium"
-                            android:gravity="right"
-                            android:paddingBottom="5dp"
+                            android:gravity="right|top"
                             android:textColor="@color/white"
                             android:textSize="12dp" />
                     </LinearLayout>
@@ -546,13 +548,14 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_height="match_parent"
                     android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
                         android:orientation="horizontal"
                         android:paddingStart="20dp"
                         android:paddingEnd="20dp">
@@ -561,20 +564,21 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:fontFamily="@font/atb_digital_medium"
+                            android:fontFamily="@font/atb_digital_regular"
                             android:gravity="top"
                             android:text="@string/prompt_native_place"
                             android:textColor="@color/white"
-                            android:textSize="12dp" />
+
+
+                            />
 
                         <TextView
-                            android:id="@+id/placeOrigin"
+                            android:id="@+id/placeO"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:drawablePadding="10dp"
                             android:fontFamily="@font/atb_digital_medium"
-                            android:gravity="right"
+                            android:gravity="right|top"
                             android:paddingBottom="5dp"
                             android:textColor="@color/white"
                             android:textSize="12dp" />
@@ -590,13 +594,14 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_height="match_parent"
                     android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
                         android:orientation="horizontal"
                         android:paddingStart="20dp"
                         android:paddingEnd="20dp">
@@ -605,21 +610,21 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:fontFamily="@font/atb_digital_medium"
+                            android:fontFamily="@font/atb_digital_regular"
                             android:gravity="top"
                             android:text="@string/prompt_place_of_residence"
                             android:textColor="@color/white"
-                            android:textSize="12dp" />
+
+
+                            />
 
                         <TextView
-                            android:id="@+id/placeResidence"
+                            android:id="@+id/placeR"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:drawablePadding="10dp"
                             android:fontFamily="@font/atb_digital_medium"
-                            android:gravity="right"
-                            android:paddingBottom="5dp"
+                            android:gravity="right|top"
                             android:textColor="@color/white"
                             android:textSize="12dp" />
                     </LinearLayout>
@@ -634,13 +639,14 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_height="match_parent"
                     android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
                         android:orientation="horizontal"
                         android:paddingStart="20dp"
                         android:paddingEnd="20dp">
@@ -649,20 +655,21 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:fontFamily="@font/atb_digital_medium"
+                            android:fontFamily="@font/atb_digital_regular"
                             android:gravity="top"
                             android:text="@string/prompt_how_to_identity"
                             android:textColor="@color/white"
-                            android:textSize="12dp" />
+
+
+                            />
 
                         <TextView
-                            android:id="@+id/personalIdentification"
+                            android:id="@+id/personalIdent"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:drawablePadding="10dp"
                             android:fontFamily="@font/atb_digital_medium"
-                            android:gravity="right"
+                            android:gravity="right|top"
                             android:paddingBottom="5dp"
                             android:textColor="@color/white"
                             android:textSize="12dp" />
@@ -678,13 +685,14 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_height="match_parent"
                     android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
                         android:orientation="horizontal"
                         android:paddingStart="20dp"
                         android:paddingEnd="20dp">
@@ -693,20 +701,21 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:fontFamily="@font/atb_digital_medium"
+                            android:fontFamily="@font/atb_digital_regular"
                             android:gravity="top"
                             android:text="@string/prompt_name_of_parents"
                             android:textColor="@color/white"
-                            android:textSize="12dp" />
+
+
+                            />
 
                         <TextView
-                            android:id="@+id/fullNameParent"
+                            android:id="@+id/fullnameParent"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:drawablePadding="10dp"
                             android:fontFamily="@font/atb_digital_medium"
-                            android:gravity="right"
+                            android:gravity="right|top"
                             android:paddingBottom="5dp"
                             android:textColor="@color/white"
                             android:textSize="12dp" />
@@ -716,19 +725,20 @@
                         android:layout_width="match_parent"
                         android:layout_height="2dp"
                         android:layout_marginStart="20dp"
-                        android:layout_marginEnd="20dp"
+                        android:layout_weight="1"
                         android:background="@drawable/line_dotted" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_height="match_parent"
                     android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
                         android:orientation="horizontal"
                         android:paddingStart="20dp"
                         android:paddingEnd="20dp">
@@ -737,30 +747,32 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:fontFamily="@font/atb_digital_medium"
+                            android:fontFamily="@font/atb_digital_regular"
                             android:gravity="top"
                             android:text="@string/prompt_name_of_wife_or_husband"
                             android:textColor="@color/white"
-                            android:textSize="12dp" />
+
+
+                            />
 
                         <TextView
                             android:id="@+id/fullNameSpouse"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:drawablePadding="10dp"
                             android:fontFamily="@font/atb_digital_medium"
-                            android:gravity="right"
+                            android:gravity="right|top"
                             android:paddingBottom="5dp"
+                            android:text="@string/spouse"
                             android:textColor="@color/white"
                             android:textSize="12dp" />
                     </LinearLayout>
-                </LinearLayout>
 
+                </LinearLayout>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="15dp"
                     android:background="@drawable/bg_round_right_bot"
                     android:fontFamily="@font/atb_digital_medium"
                     android:text="@string/prompt_document_information"
@@ -768,41 +780,41 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_height="match_parent"
                     android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
                         android:orientation="horizontal"
                         android:paddingStart="20dp"
                         android:paddingEnd="20dp">
 
                         <TextView
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:fontFamily="@font/atb_digital_medium"
+                            android:fontFamily="@font/atb_digital_regular"
                             android:gravity="top"
                             android:text="@string/prompt_document_type"
                             android:textColor="@color/white"
-                            android:textSize="12dp" />
+
+
+                            />
 
                         <TextView
                             android:id="@+id/documentType"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:drawablePadding="10dp"
                             android:fontFamily="@font/atb_digital_medium"
-                            android:gravity="right"
+                            android:gravity="right|top"
                             android:paddingBottom="5dp"
-                            android:text="@string/nguyen_truo"
                             android:textColor="@color/white"
                             android:textSize="12dp" />
                     </LinearLayout>
-
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="2dp"
@@ -813,13 +825,14 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_height="match_parent"
                     android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
                         android:orientation="horizontal"
                         android:paddingStart="20dp"
                         android:paddingEnd="20dp">
@@ -828,26 +841,25 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:fontFamily="@font/atb_digital_medium"
+                            android:fontFamily="@font/atb_digital_regular"
                             android:gravity="top"
-                            android:text="@string/prompt_document_number"
+                            android:text="@string/custom_cid_prompt_personal_number"
                             android:textColor="@color/white"
-                            android:textSize="12dp" />
+
+
+                            />
 
                         <TextView
                             android:id="@+id/documentNumber"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:drawablePadding="10dp"
                             android:fontFamily="@font/atb_digital_medium"
-                            android:gravity="right"
+                            android:gravity="right|top"
                             android:paddingBottom="5dp"
-                            android:text="@string/prompt_male"
                             android:textColor="@color/white"
                             android:textSize="12dp" />
                     </LinearLayout>
-
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="2dp"
@@ -858,13 +870,14 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_height="match_parent"
                     android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
                         android:orientation="horizontal"
                         android:paddingStart="20dp"
                         android:paddingEnd="20dp">
@@ -873,20 +886,21 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:fontFamily="@font/atb_digital_medium"
+                            android:fontFamily="@font/atb_digital_regular"
                             android:gravity="top"
                             android:text="@string/prompt_ex_document_number"
                             android:textColor="@color/white"
-                            android:textSize="12dp" />
+
+
+                            />
 
                         <TextView
-                            android:id="@+id/exDocumentNumber"
+                            android:id="@+id/documentEx"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:drawablePadding="10dp"
                             android:fontFamily="@font/atb_digital_medium"
-                            android:gravity="right"
+                            android:gravity="end|top"
                             android:paddingBottom="5dp"
                             android:textColor="@color/white"
                             android:textSize="12dp" />
@@ -902,13 +916,14 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_height="match_parent"
                     android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
                         android:orientation="horizontal"
                         android:paddingStart="20dp"
                         android:paddingEnd="20dp">
@@ -917,21 +932,21 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:fontFamily="@font/atb_digital_medium"
+                            android:fontFamily="@font/atb_digital_regular"
                             android:gravity="top"
                             android:text="@string/prompt_issuing_country"
                             android:textColor="@color/white"
-                            android:textSize="12dp" />
+
+
+                            />
 
                         <TextView
                             android:id="@+id/issuingCountry"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:drawablePadding="10dp"
                             android:fontFamily="@font/atb_digital_medium"
-                            android:gravity="right"
-                            android:paddingBottom="5dp"
+                            android:gravity="right|top"
                             android:textColor="@color/white"
                             android:textSize="12dp" />
                     </LinearLayout>
@@ -946,13 +961,14 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_height="match_parent"
                     android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
                         android:orientation="horizontal"
                         android:paddingStart="20dp"
                         android:paddingEnd="20dp">
@@ -961,20 +977,21 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:fontFamily="@font/atb_digital_medium"
+                            android:fontFamily="@font/atb_digital_regular"
                             android:gravity="top"
-                            android:text="@string/prompt_issuing_date"
+                            android:text="@string/prompt_issuance_date"
                             android:textColor="@color/white"
-                            android:textSize="12dp" />
+
+
+                            />
 
                         <TextView
-                            android:id="@+id/issuingDate"
+                            android:id="@+id/issuanceDate"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:drawablePadding="10dp"
                             android:fontFamily="@font/atb_digital_medium"
-                            android:gravity="right"
+                            android:gravity="right|top"
                             android:paddingBottom="5dp"
                             android:textColor="@color/white"
                             android:textSize="12dp" />
@@ -990,13 +1007,14 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_height="match_parent"
                     android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
                         android:orientation="horizontal"
                         android:paddingStart="20dp"
                         android:paddingEnd="20dp">
@@ -1005,31 +1023,25 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:fontFamily="@font/atb_digital_medium"
+                            android:fontFamily="@font/atb_digital_regular"
                             android:gravity="top"
                             android:text="@string/prompt_expiration_date"
                             android:textColor="@color/white"
-                            android:textSize="12dp" />
+
+
+                            />
 
                         <TextView
                             android:id="@+id/dateExpire"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:drawablePadding="10dp"
                             android:fontFamily="@font/atb_digital_medium"
-                            android:gravity="right"
-                            android:paddingBottom="5dp"
+                            android:gravity="end|top"
                             android:textColor="@color/white"
                             android:textSize="12dp" />
                     </LinearLayout>
 
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="2dp"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginEnd="20dp"
-                        android:background="@drawable/line_dotted" />
                 </LinearLayout>
 
                 <TextView
@@ -1069,13 +1081,13 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:drawablePadding="10dp"
                             android:fontFamily="@font/atb_digital_medium"
                             android:gravity="right"
                             android:paddingBottom="5dp"
                             android:text="@string/nguyen_truo"
                             android:textColor="@color/white"
                             android:textSize="12dp"
+                            android:drawablePadding="10dp"
                             app:drawableEndCompat="@drawable/arrow_right" />
                     </LinearLayout>
 
@@ -1116,6 +1128,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:drawablePadding="10dp"
+                            app:drawableEndCompat="@drawable/arrow_right"
                             android:fontFamily="@font/atb_digital_medium"
                             android:gravity="right"
                             android:paddingBottom="5dp"
@@ -1161,6 +1174,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:drawablePadding="10dp"
+                            app:drawableEndCompat="@drawable/arrow_right"
                             android:fontFamily="@font/atb_digital_medium"
                             android:gravity="right"
                             android:paddingBottom="5dp"
@@ -1206,6 +1220,7 @@
                             android:layout_weight="1"
                             android:drawablePadding="10dp"
                             android:fontFamily="@font/atb_digital_medium"
+                            app:drawableEndCompat="@drawable/arrow_right"
                             android:gravity="right"
                             android:paddingBottom="5dp"
                             android:textColor="@color/white"
@@ -1230,49 +1245,64 @@
                         android:layout_marginStart="45dp"
                         android:layout_marginTop="20dp"
                         android:layout_marginEnd="45dp"
+                        android:orientation="vertical"
                         android:background="@drawable/dotted"
-                        android:backgroundTint="@color/white"
-                        android:orientation="vertical">
+                        android:backgroundTint="@color/white">
 
-                        <ImageView
+                        <LinearLayout
+
+                            android:id="@+id/sign"
+                            android:layout_weight="2"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            android:layout_marginBottom="10dp"
-                            android:layout_weight="1"
-                            android:visibility="gone" />
+                            android:orientation="vertical">
 
-                        <TextView
+                            <ImageView
+                                android:id="@+id/imgSignature"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginBottom="10dp"
+                                android:layout_weight="2"
+                                android:visibility="gone" />
+
+                            <TextView
+                                android:id="@+id/enterSignature"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/atb_digital_regular"
+                                android:gravity="center"
+                                android:text="@string/prompt_enter_signature"
+                                android:textColor="@color/gray_DO"
+                                android:textSize="12dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="1"
-                            android:fontFamily="@font/atb_digital_regular"
-                            android:gravity="center"
-                            android:textColor="@color/gray_DO"
-                            android:text="@string/prompt_enter_signature"
-                            android:textSize="12dp" />
+                            android:orientation="vertical"
+                            android:layout_gravity="bottom">
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/atb_digital_regular"
-                            android:gravity="center"
-                            android:text="Registant: "
-                            android:textColor="@color/gray"
-                            android:textSize="12dp" />
+                            <TextView
+                                android:id="@+id/daySign"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/atb_digital_regular"
+                                android:gravity="center"
+                                android:textColor="@color/gray" />
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginBottom="20dp"
-                            android:fontFamily="@font/atb_digital_regular"
-                            android:gravity="center"
-
-                            android:text="Registant: Nguyyễn Trung Hiếu"
-                            android:textColor="@color/gray"
-                            android:textSize="12dp" />
-
+                            <TextView
+                                android:id="@+id/userSign"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:fontFamily="@font/atb_digital_regular"
+                                android:gravity="center"
+                                android:textColor="@color/gray" />
+                        </LinearLayout>
                     </LinearLayout>
+
 
                     <TextView
                         android:id="@+id/btnContinue"

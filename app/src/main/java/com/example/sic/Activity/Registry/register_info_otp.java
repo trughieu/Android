@@ -21,10 +21,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.sic.Activity.Registry.chip.registerChip_1;
 import com.example.sic.Activity.Registry.nonChip.register_nonChip_1;
+import com.example.sic.AppData;
 import com.example.sic.Dev_activity;
 import com.example.sic.R;
 import com.example.sic.SmsBroadcastReceiver;
@@ -59,6 +59,7 @@ public class register_info_otp extends Dev_activity implements View.OnClickListe
     RegisterModule module;
     SharedPreferences pref;
     boolean checkChip, checkNonChip;
+    private int lastTextLength = 0;
 
     @Override
     public void onBackPressed() {
@@ -72,8 +73,7 @@ public class register_info_otp extends Dev_activity implements View.OnClickListe
         setContentView(R.layout.register_info_otp);
         startCountDown();
         txtTitle = findViewById(R.id.txtTitle);
-        txtTitle.setText(title);
-        Log.d("chip", "onCreate: " + title);
+        txtTitle.setText(AppData.getInstance().getAppTitle());
         pin6_dialog_hand = findViewById(R.id.pin6_dialog_hand);
         tv_resend = findViewById(R.id.txt_resend_active);
         tv_resend.setEnabled(false);
@@ -125,12 +125,13 @@ public class register_info_otp extends Dev_activity implements View.OnClickListe
 
                 @Override
                 public void afterTextChanged(Editable s) {
-
                     if (i1 == 5 && !otpEt[i1].getText().toString().isEmpty()) {
                         otpEt[i1].clearFocus();
                         text = text + otpEt[i1].getText().toString();
                         Log.d("text", "afterTextChanged: " + text);
                         pin6_dialog_hand.setText(text);
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(otpEt[i1].getWindowToken(), 0);
                     } else if (!otpEt[i1].getText().toString().isEmpty()) {
                         otpEt[i1 + 1].requestFocus();
                         text = pin6_dialog_hand.getText().toString();
@@ -138,7 +139,6 @@ public class register_info_otp extends Dev_activity implements View.OnClickListe
                         pin6_dialog_hand.setText(text);
                     }
                     Log.e("hand", "afterTextChanged: " + pin6_dialog_hand.getText().toString());
-
                 }
             });
 
@@ -146,11 +146,24 @@ public class register_info_otp extends Dev_activity implements View.OnClickListe
                 @Override
                 public boolean onKey(View v, int keyCode, KeyEvent event) {
                     if (event.getAction() != KeyEvent.ACTION_DOWN) {
-                        return false; //Dont get confused by this, it is because onKeyListener is called twice and this condition is to avoid it.
+                        return false;
                     }
-                    if (keyCode == KeyEvent.KEYCODE_DEL && otpEt[i1].getText().toString().isEmpty() && i1 != 0) {
-                        otpEt[i1 - 1].setText("");
-                        otpEt[i1 - 1].requestFocus();
+                    if (keyCode == KeyEvent.KEYCODE_DEL) {
+                        if (otpEt[i1].getText().toString().isEmpty() && i1 != 0) {
+                            otpEt[i1 - 1].setText("");
+                            otpEt[i1 - 1].requestFocus();
+                            text = pin6_dialog_hand.getText().toString();
+                            if (text.length() > 0) {
+                                text = text.substring(0, text.length() - 1);
+                            }
+                            pin6_dialog_hand.setText(text);
+                        } else {
+                            text = pin6_dialog_hand.getText().toString();
+                            if (text.length() >= 1) {
+                                text = text.substring(0, text.length() - 1);
+                            }
+                            pin6_dialog_hand.setText(text);
+                        }
                     }
                     if (i1 == 0) {
                         pin6_dialog_hand.setText("");
@@ -174,7 +187,10 @@ public class register_info_otp extends Dev_activity implements View.OnClickListe
                 if (pinValue.getText().toString().length() >= 6) {
                     onOTPReceived(pinValue.getText().toString());
                     text = pinValue.getText().toString();
+                } else if (pinValue.getText().toString().length() < lastTextLength) {
+                    text = text.substring(0, pinValue.getText().toString().length());
                 }
+                lastTextLength = pinValue.getText().toString().length();
             }
         });
 
@@ -205,6 +221,7 @@ public class register_info_otp extends Dev_activity implements View.OnClickListe
 //        if(view.getId()==R.id.btnContinue)
         switch (view.getId()) {
             case R.id.btnContinue:
+                Log.d("otp", "onClick: " + text);
                 module.setResponseRegistrationsVerify(new HttpRequest.AsyncResponse() {
                     @Override
                     public void process(boolean b, Response response) {
@@ -213,13 +230,13 @@ public class register_info_otp extends Dev_activity implements View.OnClickListe
                                 Intent intent = new Intent(view.getContext(), register_nonChip_1.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                
                                 startActivity(intent);
                             } else if (checkChip) {
                                 Intent intent = new Intent(view.getContext(), registerChip_1.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                
                                 startActivity(intent);
                             }
                         }
@@ -275,7 +292,7 @@ public class register_info_otp extends Dev_activity implements View.OnClickListe
                 intent = new Intent(register_info_otp.this, register_info_phone_email.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                
                 startActivity(intent);
                 finish();
                 break;

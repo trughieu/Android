@@ -27,7 +27,7 @@
     <string name="prompt_register_ca_bi_step_1_1">Consent to process personal data via automated biometric identity verification</string>
     <string name="prompt_register_ca_bi_step_1_2">As you have chosen automated biometric identity verification for authentication method, please read the following conditions very carefully and proceed only if you have fully understood and agreed with the conditions. \n\nIf you do not agree with the processing of your biometric personal data (your facial image) and the making of automated decisions based on this data for identification purposes, please choose another authentication method for registration. \n\nPlease be aware that you have the right to withdraw your consent at any time. note that as trust service provider we are under legal obligation to store your personal data within the period prescribed in the law no. screenshot description.\n\n<b>- I confirm that i am at least 18 years old\n\n- I confirm that mobile-id may process my biometric personal data (facial image) and carry out automated decision-making based on this data to identify me for remote signing account registion purposes.\n\n - I confirm that mobile-id may perform verification based on my biometric personal data in order to ensure the security of my electronic identity and test the quality of the technical solutions that are used.</b>\n\nShould you have any questions relating to the processing of your personal data, please do not hesitate to contact us.\n\nMobie-id technologies and service jsc (data controller, hereafter "mobile-id").\n\n<b>Address:</b> 19 dang tien dong street, an phu ward, district 2, ho chi minh city, vietnam.\n\nTax code: 0313994173\n\n<b>Email:</b> info@mobile-id.vn\n\n<b>Hotline:</b> 1900 6884</string>
     <string name="prompt_register_ca_bi_step_2_2">I agree that my personal data which i have presented is used for generating my remote signing account and certificates.i agree that my remote signing account and certificates are used to identify me in e-services and in electronic signatures.\n\n I am aware that by entering my pincode/tapping my fingerytip either for authentication of for creating electronic signatures.\n\n - I verify that i have initiated a session, agree with it and that i am responsible for its conesequences.\n\n - I verify that i have made sure that the verification code sent to me, is correct.\n\n - I allow my name and personal code to be sent to the e-service provider i am also aware that if i have lost my device or my pincodes have become known to third parties, i am obliged to immediately revoke my remot signing ceritificates.\n\n Information on deleting remote signing account or revocation of the certificates is available at https://rssp.mobile-id.vn \n\n I am aware that use of the remote signing application is described in the remote signing end-user license agreement.\n\n Full version of the terms and conditions on the use of the remote signing certificates is available at https://rssp.mobile-id.vn/terms \n\n Full version of the end-user license agreement is available at https://rssp.mobile-id.vn/privacy \n\n I am aware that by choosing \'i agree\' i confirm that i am familiar and agree with the terms and conditions on the use of remote signing certificates and with the remote signing end-user license agreement. \n\n</string>
-
+    <string name="promt_ready_to_scan">Ready to Scan</string>
     <string name="prompt_person_existed">The Person Is Already Registered</string>
     <string name="prompt_username_existed">The Username Is Already Registered</string>
     <string name="prompt_attribute_require">Mandatory Information</string>
@@ -40,7 +40,7 @@
     <string name="result_certificate_has_been_activated">Your Certificate has been synchronized successfully</string>
     <string name="promt_you_need_your_recovery" translatable="false">you need your Recovery Code if you\n   \u2022 forget your PIN Code\n   \u2022 change the\n   \u2022 change your account configuration\n\nPlease send the Recovery Code to your mobile or write it down and keep it in a safe place.\nPlease protect your mobile device so that the link and Recovery Code will not be accessed by anybody else.</string>
     <string name="button_agree">Agree</string>
-
+    <string name="button_disagree">Disagree</string>
     <string name="button_resend">Resend Activation Code</string>
     <string name="failed">FAILED!</string>
     <string name="success">SUCCESS!</string>
@@ -88,6 +88,7 @@
     <string name="prompt_to">To</string>
     <string name="prompt_read_id_card">Read your Identity document to save your details</string>
     <string name="prompt_hold_to_id_card">Please hold the Identity Document to the back of your phone</string>
+    <string name="prompt_reading_data_successfully">Reading Data successfully</string>
     <string name="button_continue">Continue</string>
     <string name="prompt_enable_nfc">Enable NFC - in order to continue scanning your Identity Document, you must enable NFC on your smart device</string>
     <string name="prompt_validity">Validity</string>
@@ -416,7 +417,7 @@
     <string name="prompt_other">Other</string>
 
     <string name="prompt_description_confirm_to_change_pin">Enter Current PIN</string>
-
+    <string name="prompt_issuance_date">Issuance Date</string>
     <string name="deleting_a_" translatable="false">Deleting a user account involves the following procedures  1. Submit a request to delete your account 2. The administrator approves the request</string>
     <string name="button_delete_account">Delete Account</string>
     <string name="ok" translatable="false">OK</string>
@@ -571,56 +572,5 @@
     <string name="hint_email">Email Address</string>
     <string name="prompt_organization">Organization</string>
 
-    <string-array name="State_array">
-        <item >s1</item>
-        <item >s2</item>
-        <item >s3</item>
-        <item >s4</item>
-    </string-array>
-    //then cities array for each states, like
-    <string-array name="State1Cities_array">
-        <item>Select Your State</item>
-        <item >quan 1 </item>
-        <item >quan 2</item>
-        <item >quan 3</item>
-        <item >quan 5</item>
-    </string-array>
-    <string-array name="State2Cities_array">
-        <item>Select Your State</item>
-        <item >tan binh</item>
-        <item >tan phu</item>
-        <item >tan thanh</item>
-        <item >c3</item>
-    </string-array>
-    <string-array name="array_default_districts">
-        <item>Select Your District</item>
-    </string-array>
-    <string-array name="province">
-        <item>Select Your State</item>
-        <item>Hồ Chí Minh</item>
-        <item>Bến Tre</item>
-        <item>Cần Thơ</item>
-        <item>Sài gòn</item>
-        <item>Hồ Chí Minh</item>
-        <item>Bến Tre</item>
-        <item>Cần Thơ</item>
-        <item>Sài gòn</item>
-        <item>Hồ Chí Minh</item>
-        <item>Bến Tre</item>
-        <item>Cần Thơ</item>
-        <item>Sài gòn</item>
-        <item>Hồ Chí Minh</item>
-        <item>Bến Tre</item>
-        <item>Cần Thơ</item>
-        <item>Sài gòn</item>
-        <item>Hồ Chí Minh</item>
-        <item>Bến Tre</item>
-        <item>Cần Thơ</item>
-        <item>Sài gòn</item>
-        <item>Hồ Chí Minh</item>
-        <item>Bến Tre</item>
-        <item>Cần Thơ</item>
-        <item>Sài gòn</item>
-    </string-array>
 
 </resources>

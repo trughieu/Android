@@ -1,9 +1,6 @@
 package com.example.sic.Activity.Login;
 
 
-import static com.example.sic.Activity.Login.Activity_Activate_Confirm_New_Pin.from;
-
-import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,10 +20,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.AppCompatCheckBox;
-import androidx.core.app.ActivityCompat;
 
 import com.example.sic.Activity.Home.HomePage;
 import com.example.sic.Activity.Registry.Register;
+import com.example.sic.AppData;
 import com.example.sic.Dev_activity;
 import com.example.sic.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -36,36 +33,40 @@ import vn.mobileid.tse.model.config.PermissionManager;
 import vn.mobileid.tse.model.database.SettingData;
 
 public class MainActivity extends Dev_activity {
-
-    private static final int MY_CAMERA_REQUEST_CODE = 100;
     public String username;
     public String password;
     TextView txtRegister, txtUsername, txtPassword, btn_Yes, btn_No, btn_resend, txt_forgot_password, tv_English, tv_Vietnamese, btn_Continue;
     ImageView show_password;
     FrameLayout frame_show_password;
-    LinearLayout linearLayout, languages;
+    LinearLayout linearLayout, languages, topPanel;
     ImageView btn_Close;
     AppCompatCheckBox checkBox1, checkBox2;
     TextView Continue;
-    boolean checked1, checked2;
+
 
     private ActivateModule module;
     private static final int PERMISSION_REQUEST_CODE = 999;
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         PermissionManager.checkPermission(this, PERMISSION_REQUEST_CODE);
-        SettingData.create(this, "en");
-        anh_xa();
 
+
+        anh_xa();
+        if (AppData.getInstance().isRegister()) {
+            txtRegister.setVisibility(View.INVISIBLE);
+        }
+        if (getIntent().getBooleanExtra("recover", false)) {
+            topPanel.setVisibility(View.VISIBLE);
+            txtRegister.setVisibility(View.INVISIBLE);
+        }
         module = ActivateModule.createModule(MainActivity.this);
 
-        if (from == 1) {
+        if (!AppData.getInstance().isKakPrivate()) {
             Dialog_SetRecoveryCode();
         }
-//        txtUsername.setText("hieunt");
-//        txtPassword.setText("12345678");
 
         txtPassword.setTransformationMethod(new AsteriskPasswordTransformationMethod());
 
@@ -75,9 +76,9 @@ public class MainActivity extends Dev_activity {
             Intent intent = new Intent(MainActivity.this, Register.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-     startActivity(intent);
-                finish();
+
+            startActivity(intent);
+            finish();
 
         });
         // show password
@@ -126,7 +127,6 @@ public class MainActivity extends Dev_activity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-
                             finish();
                             startActivity(getIntent());
                         }
@@ -155,10 +155,6 @@ public class MainActivity extends Dev_activity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-//                            Intent intent= new Intent(MainActivity.this, MainActivity.class);
-//                           startActivity(intent);
-//                finish();
-//                            MainActivity.this.recreate();
                             finish();
                             startActivity(getIntent());
                         }
@@ -204,7 +200,6 @@ public class MainActivity extends Dev_activity {
         txtUsername.addTextChangedListener(textWatcher);
         txtPassword.addTextChangedListener(textWatcher);
 
-
         module.setResponsePreLogin((b, response) -> {
 
         }).setResponseActiveLogin((b, response) -> {
@@ -226,9 +221,14 @@ public class MainActivity extends Dev_activity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Intent intent= new Intent(MainActivity.this, Activation.class);
-                       startActivity(intent);
-                finish();
+                        Dialog();
+                    }
+                });
+            } else if (response.getError() == 3000) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(MainActivity.this, response.getErrorDescription(), Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -238,12 +238,7 @@ public class MainActivity extends Dev_activity {
         btn_Continue.setOnClickListener(view -> {
             username = txtUsername.getText().toString();
             password = txtPassword.getText().toString();
-
-            Handler handler = new Handler();
-            handler.postDelayed(() -> {
-                login();
-                Dialog();
-            }, 0);
+            login();
         });
     }
 
@@ -252,10 +247,6 @@ public class MainActivity extends Dev_activity {
         module.preLogin(username).activateLogin(password);
     }
 
-    protected void makeRequest() {
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.INTERNET}, 1);
-
-    }
 
 
 
@@ -271,6 +262,16 @@ public class MainActivity extends Dev_activity {
         dialog1.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
         dialog1.show();
         dialog1.setCanceledOnTouchOutside(false);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(MainActivity.this, Activation.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+            }
+        }, 2000);
     }
 
     private void anh_xa() {
@@ -283,6 +284,7 @@ public class MainActivity extends Dev_activity {
         linearLayout = findViewById(R.id.linearLayout);
         languages = findViewById(R.id.languages);
         frame_show_password = findViewById(R.id.frame_show_password);
+        topPanel = findViewById(R.id.topPanel);
     }
 
     private void Dialog_SetRecoveryCode() {
@@ -301,19 +303,19 @@ public class MainActivity extends Dev_activity {
             dialog1.dismiss();
             Handler handler = new Handler();
             handler.postDelayed(() -> {
-                Intent i= new Intent(MainActivity.this, HomePage.class);
+                Intent i = new Intent(MainActivity.this, HomePage.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 i.putExtra("password", s);
-               startActivity(intent);
-                finish();
+                startActivity(i);
             }, 2000);
         });
         btn_Yes.setOnClickListener(view -> {
-            Intent i= new Intent(MainActivity.this, Activity_Recovery_Code_6_digit_number.class);
+            Intent i = new Intent(MainActivity.this, Activity_Recovery_Code_6_digit_number.class);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-           startActivity(intent);
-                finish();
+            startActivity(i);
+            finish();
             dialog.dismiss();
 
         });
