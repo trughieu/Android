@@ -20,85 +20,85 @@ public class Activity_Activate_Create_New_Pin extends AppCompatActivity {
     TextView enter;
     EditText txt_pin_view1, txt_pin_view2, txt_pin_view3, txt_pin_view4, txt_pin_view5, txt_pin_view6, pinValue;
 
-    private final TextWatcher textWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence charSequence, int start, int i1, int i2) {
-        }
-
-        @Override
-        public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-            switch (pinValue.length()) {
-                case 0:
-                    txt_pin_view1.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-                    txt_pin_view2.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-                    txt_pin_view3.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-                    txt_pin_view4.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-                    txt_pin_view5.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-                    txt_pin_view6.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-                    break;
-                case 1:
-                    txt_pin_view1.setBackgroundResource(R.drawable.ic_edit_text_pin_enable);
-                    txt_pin_view2.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-                    txt_pin_view3.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-                    txt_pin_view4.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-                    txt_pin_view5.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-                    txt_pin_view6.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-                    break;
-                case 2:
-                    txt_pin_view2.setBackgroundResource(R.drawable.ic_edit_text_pin_enable);
-                    txt_pin_view3.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-                    txt_pin_view4.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-                    txt_pin_view5.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-                    txt_pin_view6.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-                    break;
-                case 3:
-                    txt_pin_view3.setBackgroundResource(R.drawable.ic_edit_text_pin_enable);
-                    txt_pin_view4.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-                    txt_pin_view5.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-                    txt_pin_view6.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-                    break;
-                case 4:
-                    txt_pin_view4.setBackgroundResource(R.drawable.ic_edit_text_pin_enable);
-                    txt_pin_view5.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-                    txt_pin_view6.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-                    break;
-                case 5:
-                    txt_pin_view5.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-                    txt_pin_view6.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-                    break;
-                case 6:
-                    txt_pin_view6.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-                    break;
-            }
-        }
-
-        @Override
-        public void afterTextChanged(Editable editable) {
-            switch (pinValue.getText().toString().length()) {
-                case 1:
-                    txt_pin_view1.setBackgroundResource(R.drawable.ic_edit_text_pin_enable);
-                    break;
-                case 2:
-                    txt_pin_view2.setBackgroundResource(R.drawable.ic_edit_text_pin_enable);
-                    break;
-                case 3:
-                    txt_pin_view3.setBackgroundResource(R.drawable.ic_edit_text_pin_enable);
-                    break;
-                case 4:
-                    txt_pin_view4.setBackgroundResource(R.drawable.ic_edit_text_pin_enable);
-                    break;
-                case 5:
-                    txt_pin_view5.setBackgroundResource(R.drawable.ic_edit_text_pin_enable);
-                    break;
-                case 6:
-                    txt_pin_view6.setBackgroundResource(R.drawable.ic_edit_text_pin_enable);
-                    Intent intent= new Intent(Activity_Activate_Create_New_Pin.this, Activity_Activate_Confirm_New_Pin.class);
-                    intent.putExtra("otp", pinValue.getText().toString());
-                   startActivity(intent);
-                finish();
-            }
-        }
-    };
+//    private final TextWatcher textWatcher = new TextWatcher() {
+//        @Override
+//        public void beforeTextChanged(CharSequence charSequence, int start, int i1, int i2) {
+//        }
+//
+//        @Override
+//        public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+//            switch (pinValue.length()) {
+//                case 0:
+//                    txt_pin_view1.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+//                    txt_pin_view2.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+//                    txt_pin_view3.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+//                    txt_pin_view4.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+//                    txt_pin_view5.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+//                    txt_pin_view6.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+//                    break;
+//                case 1:
+//                    txt_pin_view1.setBackgroundResource(R.drawable.ic_edit_text_pin_enable);
+//                    txt_pin_view2.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+//                    txt_pin_view3.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+//                    txt_pin_view4.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+//                    txt_pin_view5.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+//                    txt_pin_view6.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+//                    break;
+//                case 2:
+//                    txt_pin_view2.setBackgroundResource(R.drawable.ic_edit_text_pin_enable);
+//                    txt_pin_view3.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+//                    txt_pin_view4.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+//                    txt_pin_view5.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+//                    txt_pin_view6.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+//                    break;
+//                case 3:
+//                    txt_pin_view3.setBackgroundResource(R.drawable.ic_edit_text_pin_enable);
+//                    txt_pin_view4.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+//                    txt_pin_view5.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+//                    txt_pin_view6.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+//                    break;
+//                case 4:
+//                    txt_pin_view4.setBackgroundResource(R.drawable.ic_edit_text_pin_enable);
+//                    txt_pin_view5.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+//                    txt_pin_view6.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+//                    break;
+//                case 5:
+//                    txt_pin_view5.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+//                    txt_pin_view6.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+//                    break;
+//                case 6:
+//                    txt_pin_view6.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+//                    break;
+//            }
+//        }
+//
+//        @Override
+//        public void afterTextChanged(Editable editable) {
+//            switch (pinValue.getText().toString().length()) {
+//                case 1:
+//                    txt_pin_view1.setBackgroundResource(R.drawable.ic_edit_text_pin_enable);
+//                    break;
+//                case 2:
+//                    txt_pin_view2.setBackgroundResource(R.drawable.ic_edit_text_pin_enable);
+//                    break;
+//                case 3:
+//                    txt_pin_view3.setBackgroundResource(R.drawable.ic_edit_text_pin_enable);
+//                    break;
+//                case 4:
+//                    txt_pin_view4.setBackgroundResource(R.drawable.ic_edit_text_pin_enable);
+//                    break;
+//                case 5:
+//                    txt_pin_view5.setBackgroundResource(R.drawable.ic_edit_text_pin_enable);
+//                    break;
+//                case 6:
+//                    txt_pin_view6.setBackgroundResource(R.drawable.ic_edit_text_pin_enable);
+//                    Intent intent = new Intent(Activity_Activate_Create_New_Pin.this, Activity_Activate_Confirm_New_Pin.class);
+//                    intent.putExtra("otp", pinValue.getText().toString());
+//                    startActivity(intent);
+//                    finish();
+//            }
+//        }
+//    };
 
     AppCompatButton bt1, bt2, bt3, bt4, bt5, bt6, bt7, bt8, bt9, bt0, Key_delete;
     String text;
@@ -132,6 +132,8 @@ public class Activity_Activate_Create_New_Pin extends AppCompatActivity {
         otpEt[4] = findViewById(R.id.txt_pin_view_5);
         otpEt[5] = findViewById(R.id.txt_pin_view_6);
 
+
+
         bt1 = findViewById(R.id.btn1);
         bt2 = findViewById(R.id.btn2);
         bt3 = findViewById(R.id.btn3);
@@ -145,7 +147,7 @@ public class Activity_Activate_Create_New_Pin extends AppCompatActivity {
 
         Key_delete = findViewById(R.id.Key_delete);
         pinValue = findViewById(R.id.pin6_dialog);
-        pinValue.addTextChangedListener(textWatcher);
+//        pinValue.addTextChangedListener(textWatcher);
 
         bt1.setOnClickListener(numKey);
         bt2.setOnClickListener(numKey);
@@ -170,6 +172,97 @@ public class Activity_Activate_Create_New_Pin extends AppCompatActivity {
                 }
             }
         });
+        for (int i = 0; i < 6; i++) {
+            final int i1 = i;
+            pinValue.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    switch (pinValue.length()) {
+                        case 0:
+                            otpEt[0].setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+                            otpEt[1].setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+                            otpEt[2].setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+                            otpEt[3].setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+                            otpEt[4].setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+                            otpEt[5].setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+                            break;
+                        case 1:
+                            otpEt[0].setBackgroundResource(R.drawable.ic_edit_text_pin_enable);
+                            otpEt[1].setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+                            otpEt[2].setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+                            otpEt[3].setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+                            otpEt[4].setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+                            otpEt[5].setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+                            break;
+                        case 2:
+                            otpEt[1].setBackgroundResource(R.drawable.ic_edit_text_pin_enable);
+                            otpEt[2].setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+                            otpEt[3].setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+                            otpEt[4].setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+                            otpEt[5].setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+                            break;
+                        case 3:
+                            otpEt[2].setBackgroundResource(R.drawable.ic_edit_text_pin_enable);
+                            otpEt[3].setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+                            otpEt[4].setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+                            otpEt[5].setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+                            break;
+                        case 4:
+
+                            otpEt[3].setBackgroundResource(R.drawable.ic_edit_text_pin_enable);
+                            otpEt[4].setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+                            otpEt[5].setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+                            break;
+                        case 5:
+
+                            otpEt[4].setBackgroundResource(R.drawable.ic_edit_text_pin_enable);
+                            otpEt[5].setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+                            break;
+                        case 6:
+
+                            otpEt[5].setBackgroundResource(R.drawable.ic_edit_text_pin_enable);
+                            Intent intent = new Intent(Activity_Activate_Create_New_Pin.this, Activity_Activate_Confirm_New_Pin.class);
+                            intent.putExtra("otp", pinValue.getText().toString());
+                            startActivity(intent);
+                            finish();
+                            break;
+                    }
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    switch (pinValue.getText().toString().length()) {
+                        case 1:
+                            otpEt[0].setBackgroundResource(R.drawable.ic_edit_text_pin_enable);
+                            break;
+                        case 2:
+                            otpEt[1].setBackgroundResource(R.drawable.ic_edit_text_pin_enable);
+                            break;
+                        case 3:
+                            otpEt[2].setBackgroundResource(R.drawable.ic_edit_text_pin_enable);
+                            break;
+                        case 4:
+                            otpEt[3].setBackgroundResource(R.drawable.ic_edit_text_pin_enable);
+                            break;
+                        case 5:
+                            otpEt[4].setBackgroundResource(R.drawable.ic_edit_text_pin_enable);
+                            break;
+                        case 6:
+                            otpEt[5].setBackgroundResource(R.drawable.ic_edit_text_pin_enable);
+                            Intent intent = new Intent(Activity_Activate_Create_New_Pin.this, Activity_Activate_Confirm_New_Pin.class);
+                            intent.putExtra("otp", pinValue.getText().toString());
+                            startActivity(intent);
+                            finish();
+                    }
+                }
+            });
+        }
+
     }
 
     public void scaleView(View v) {

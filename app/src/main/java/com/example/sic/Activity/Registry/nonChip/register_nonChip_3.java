@@ -61,7 +61,7 @@ public class register_nonChip_3 extends Dev_activity {
     FaceProcessListener faceProcessListener;
     NfcInfo nfcInfo;
 
-
+    boolean faceResult;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -156,8 +156,13 @@ public class register_nonChip_3 extends Dev_activity {
             faceScanner = new FaceScanner(this, preview, options, new FaceListener() {
                 @Override
                 public void onResult(@NonNull TransactionInfo info, File file, Bitmap bitmap) {
-                    boolean faceResult = info.getFaceResult() == FaceResult.OK && info.getJWT() != null;
-                    Log.d("dsdad", "onResult: "+info.getJWT ());
+                    if (AppData.getInstance().isChip()) {
+                        faceResult = info.getFaceResult() == FaceResult.OK && info.getJWT() != null;
+
+                    } else {
+                        faceResult = info.getFaceResult() == FaceResult.OK;
+                    }
+                    Log.d("dsdad", "onResult: " + info.getJWT());
                     if (faceResult) {
                         AppData.getInstance().setJWT(info.getJWT());
                         start();
@@ -238,7 +243,7 @@ public class register_nonChip_3 extends Dev_activity {
                     }
 
                     Toast.makeText(register_nonChip_3.this, errorMessage, Toast.LENGTH_SHORT).show();
-                    onFinish(false);
+                    onFinish();
 //                    Intent intent = new Intent(register_nonChip_3.this, register_nonChip_2.class);
 //                    startActivity(intent);
                 }
@@ -250,7 +255,7 @@ public class register_nonChip_3 extends Dev_activity {
                 @Override
                 public void onLicenseFailure(LicenseStatus licenseStatus) {
                     Toast.makeText(register_nonChip_3.this, licenseStatus.toString(), Toast.LENGTH_SHORT).show();
-                    onFinish(false);
+                    onFinish();
 //                    Intent intent = new Intent(register_nonChip_3.this, register_nonChip_2.class);
 //                    startActivity(intent);
                 }
@@ -260,8 +265,8 @@ public class register_nonChip_3 extends Dev_activity {
         }
     }
 
-    private void onFinish(boolean result) {
-        if (result) {
+    private void onFinish() {
+        if (false) {
 //            start();
             Dialog dialog1 = new Dialog(this);
             dialog1.setContentView(R.layout.dialog_success);

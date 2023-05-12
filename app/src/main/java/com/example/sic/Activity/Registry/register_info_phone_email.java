@@ -116,7 +116,6 @@ public class register_info_phone_email extends Dev_activity implements View.OnCl
                         Intent intent = new Intent(view.getContext(), register_info_otp.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        
                         startActivity(intent);
                         finish();
                     } else if (response.getError() == 3251) {

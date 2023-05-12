@@ -80,6 +80,7 @@ public class register_nonChip_5 extends Dev_activity {
     RegisterModule module;
     private Calendar calendar;
 
+
     public static String convertToBase64PNG(Bitmap bitmap) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 80, outputStream);
@@ -161,7 +162,25 @@ public class register_nonChip_5 extends Dev_activity {
 //            UserName.setText(s);
 //            module.setUsername(s);
 //        }
+        typeDocument = getSharedPreferences("documentType", MODE_PRIVATE);
+        module.setDocumentType(AppData.getInstance().getDocumentType());
         UserName.setText(AppData.getInstance().getPhone());
+        module.setResponseOwnersCheckExist(new HttpRequest.AsyncResponse() {
+            @Override
+            public void process(boolean b, Response response) {
+                if (response.getError() == 0 && response.getExist()) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ShowDialog();
+                        }
+                    });
+                }
+            }
+        });
+        module.ownersCheckExist(null, AppData.getInstance().getPhone(),null,
+                null);
+
         module.setUsername(AppData.getInstance().getPhone());
         module.setNationality("VIETNAM");
 
@@ -192,7 +211,6 @@ public class register_nonChip_5 extends Dev_activity {
                         bottomSheetDialog.dismiss();
                     }
                 });
-
             }
         });
         fullName.setOnClickListener(new View.OnClickListener() {
@@ -782,8 +800,7 @@ public class register_nonChip_5 extends Dev_activity {
                 });
             }
         });
-        typeDocument = getSharedPreferences("documentType", MODE_PRIVATE);
-        module.setDocumentType(typeDocument.getString("typeDocument", null));
+
 
         btnContinue.setOnClickListener(v -> {
             module.setResponseRegistrationsFinalize(new HttpRequest.AsyncResponse() {
@@ -819,6 +836,16 @@ public class register_nonChip_5 extends Dev_activity {
         });
     }
 
+    private void ShowDialog() {
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialog_account_already);
+        dialog.show();
+        dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
+        TextView btnClose = dialog.findViewById(R.id.btn_Close);
+        btnClose.setOnClickListener(v -> {
+            dialog.dismiss();
+        });
+    }
 
     public String generateTodayDate() {
         // Lấy ngày hiện tại

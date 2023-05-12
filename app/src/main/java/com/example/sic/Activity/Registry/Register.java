@@ -55,7 +55,8 @@ public class Register extends Dev_activity implements View.OnClickListener {
             txt_select_id.setText(this.getResources().getString(R.string.button_identification_chipless));
             id = 1;
         } else {
-            txt_select_id.setText(this.getResources().getString(R.string.button_identification_chip));
+            txt_select_id.setText(
+                    this.getResources().getString(R.string.button_identification_chip));
             id = 2;
         }
 

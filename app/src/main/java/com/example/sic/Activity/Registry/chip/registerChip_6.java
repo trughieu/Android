@@ -2,6 +2,7 @@ package com.example.sic.Activity.Registry.chip;
 
 import static com.example.sic.Activity.Registry.nonChip.register_nonChip_3.KEY_SCAN_TYPE;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,7 +15,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.checkid.icao.model.ProcessType;
 import com.checkid.icao.nfc.NfcInfo;
+import com.example.sic.Activity.Login.MainActivity;
 import com.example.sic.Activity.Registry.nonChip.register_nonChip_3;
 import com.example.sic.AppData;
 import com.example.sic.R;
@@ -23,6 +26,10 @@ import com.example.sic.model.ScanType;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import vn.mobileid.tse.model.client.HttpRequest;
+import vn.mobileid.tse.model.client.register.RegisterModule;
+import vn.mobileid.tse.model.connector.plugin.Response;
+import vn.mobileid.tse.model.database.ActivationData;
 
 public class registerChip_6 extends AppCompatActivity implements View.OnClickListener {
     FrameLayout btnBack;
@@ -30,12 +37,13 @@ public class registerChip_6 extends AppCompatActivity implements View.OnClickLis
 
     NfcInfo nfcInfo;
     CircleImageView avt;
+    RegisterModule module;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_chip_6);
-
+        module = RegisterModule.createModule(this);
         btnContinue = findViewById(R.id.btnContinue);
         btnBack = findViewById(R.id.btnBack);
         user = findViewById(R.id.user);
@@ -86,6 +94,27 @@ public class registerChip_6 extends AppCompatActivity implements View.OnClickLis
             } else if (parentName.size() == 2) {
                 fullnameParent.setText(parentName.get(0) + "/" + parentName.get(1));
             }
+
+            Log.d("owners_checkExist", "onCreate: " + ProcessType.identificationType.getValue());
+            Log.d("owners_checkExist", "onCreate: " + nfcInfo.getPersonal_number());
+            Log.d("owners_checkExist", "onCreate: " + ActivationData.getClientUUID(this));
+
+            module.setResponseOwnersCheckExist(new HttpRequest.AsyncResponse() {
+                @Override
+                public void process(boolean b, Response response) {
+                    if (response.getError() == 0 && response.getExist()) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                ShowDialog();
+                            }
+                        });
+                    }
+                }
+            });
+            module.ownersCheckExist(null, null, ProcessType.identificationType.getValue(),
+                    nfcInfo.getPersonal_number());
+
         }
     }
 
@@ -124,4 +153,18 @@ public class registerChip_6 extends AppCompatActivity implements View.OnClickLis
         moveTaskToBack(true);
     }
 
+    private void ShowDialog() {
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialog_account_already);
+        dialog.show();
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
+        TextView btnClose = dialog.findViewById(R.id.btn_Close);
+        btnClose.setOnClickListener(v -> {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        });
+    }
 }

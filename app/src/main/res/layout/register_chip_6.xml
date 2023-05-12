@@ -121,6 +121,7 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/atb_digital_regular"
                     android:gravity="top"
+                    android:textSize="12dp"
                     android:text="@string/prompt_validity_result"
                     android:textColor="@color/white" />
 
@@ -130,6 +131,7 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/atb_digital_medium"
                     android:gravity="right|top"
+                    android:textSize="12dp"
                     android:text="@string/prompt_valid"
                     android:textColor="@color/white" />
             </LinearLayout>
@@ -146,7 +148,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -161,6 +163,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:textSize="12dp"
                         android:fontFamily="@font/atb_digital_regular"
                         android:gravity="top"
                         android:text="@string/hint_name"
@@ -188,7 +191,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -204,6 +207,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:textSize="12dp"
                         android:fontFamily="@font/atb_digital_regular"
                         android:gravity="top"
                         android:text="@string/prompt_gender"
@@ -234,7 +238,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -252,6 +256,7 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/atb_digital_regular"
                         android:gravity="top"
+                        android:textSize="12dp"
                         android:text="@string/prompt_nationality"
                         android:textColor="@color/white"
 
@@ -279,7 +284,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -296,6 +301,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/atb_digital_regular"
+                        android:textSize="12dp"
                         android:gravity="top"
                         android:text="@string/prompt_ethnic"
                         android:textColor="@color/white"
@@ -324,7 +330,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -342,6 +348,7 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/atb_digital_regular"
                         android:gravity="top"
+                        android:textSize="12dp"
                         android:text="@string/prompt_religion"
                         android:textColor="@color/white"
 
@@ -370,7 +377,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -387,6 +394,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/atb_digital_regular"
+                        android:textSize="12dp"
                         android:gravity="top"
                         android:text="@string/prompt_date_of_birth"
                         android:textColor="@color/white"
@@ -415,7 +423,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -430,6 +438,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="12dp"
                         android:layout_weight="1"
                         android:fontFamily="@font/atb_digital_regular"
                         android:gravity="top"
@@ -461,7 +470,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -477,6 +486,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:textSize="12dp"
                         android:fontFamily="@font/atb_digital_regular"
                         android:gravity="top"
                         android:text="@string/prompt_place_of_residence"
@@ -506,7 +516,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -525,6 +535,7 @@
                         android:fontFamily="@font/atb_digital_regular"
                         android:gravity="top"
                         android:text="@string/prompt_how_to_identity"
+                        android:textSize="12dp"
                         android:textColor="@color/white"
 
 
@@ -552,7 +563,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -567,6 +578,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="12dp"
                         android:layout_weight="1"
                         android:fontFamily="@font/atb_digital_regular"
                         android:gravity="top"
@@ -598,7 +610,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -615,6 +627,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/atb_digital_regular"
+                        android:textSize="12dp"
                         android:gravity="top"
                         android:text="@string/prompt_name_of_wife_or_husband"
                         android:textColor="@color/white"
@@ -649,7 +662,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -665,6 +678,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:textSize="12dp"
                         android:fontFamily="@font/atb_digital_regular"
                         android:gravity="top"
                         android:text="@string/prompt_document_type"
@@ -694,7 +708,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -711,6 +725,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/atb_digital_regular"
+                        android:textSize="12dp"
                         android:gravity="top"
                         android:text="@string/custom_cid_prompt_personal_number"
                         android:textColor="@color/white"
@@ -739,7 +754,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -754,6 +769,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="12dp"
                         android:layout_weight="1"
                         android:fontFamily="@font/atb_digital_regular"
                         android:gravity="top"
@@ -785,7 +801,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -802,6 +818,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/atb_digital_regular"
+                        android:textSize="12dp"
                         android:gravity="top"
                         android:text="@string/prompt_issuing_country"
                         android:textColor="@color/white"
@@ -830,7 +847,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -846,6 +863,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:textSize="12dp"
                         android:fontFamily="@font/atb_digital_regular"
                         android:gravity="top"
                         android:text="@string/prompt_issuance_date"
@@ -876,7 +894,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -892,6 +910,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:textSize="12dp"
                         android:fontFamily="@font/atb_digital_regular"
                         android:gravity="top"
                         android:text="@string/prompt_expiration_date"

@@ -52,6 +52,8 @@ public class registerChip_5 extends AppCompatActivity implements View.OnClickLis
         btnContinue.setOnClickListener(this);
         waitingPrepare();
         mrzObject = (MrzObject) getIntent().getSerializableExtra("mrz");
+        Log.d("mrz", "onCreate: " + mrzObject);
+
 
         nfcListener = new NfcListener() {
             @Override
@@ -61,7 +63,6 @@ public class registerChip_5 extends AppCompatActivity implements View.OnClickLis
                 ImageView imgNFC = bottomSheetDialog.findViewById(R.id.imgNFC);
                 TextView titleNFC = bottomSheetDialog.findViewById(R.id.titleNFC);
                 TextView desNFC = bottomSheetDialog.findViewById(R.id.desNFC);
-                TextView btnContinue = bottomSheetDialog.findViewById(R.id.btnContinue);
                 desNFC.setText(registerChip_5.this.getResources().getString(R.string.prompt_reading_data_successfully));
                 titleNFC.setVisibility(View.GONE);
                 imgNFC.setImageResource(R.drawable.nfccomplete);
@@ -74,7 +75,6 @@ public class registerChip_5 extends AppCompatActivity implements View.OnClickLis
                         intent.putExtra("nfclistener", nfcInfo);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
                         startActivity(intent);
                         finish();
                     }
@@ -83,6 +83,7 @@ public class registerChip_5 extends AppCompatActivity implements View.OnClickLis
 
             @Override
             public void onNfcFailure(NfcException e) {
+                Log.d("err", "onNfcFailure: " + e.toString());
                 stop();
                 switch (e) {
                     case NFC_CARD_VALIDATION_FAILED:
@@ -132,14 +133,11 @@ public class registerChip_5 extends AppCompatActivity implements View.OnClickLis
             NfcScanOptions nfcScanOptions = new NfcScanOptions.Builder(mrzAccessKey)
                     .setEmail(AppData.getInstance().getEmail())
                     .setPhoneNumber(AppData.getInstance().getPhone()).build();
-            Log.d("AppData.getInstance().getPhone()", "onCreate: "+AppData.getInstance().getPhone());
-            Log.d("AppData.getInstance().getPhone()", "onCreate: "+AppData.getInstance().getEmail());
 
             nfcScanner = new NfcScanner(nfcScanOptions, nfcListener);
         } else {
             Toast.makeText(this, "INVALID MRZ ACCESS KEY", Toast.LENGTH_SHORT).show();
-            bottomSheetDialog.dismiss();
-//                finish();
+                finish();
         }
 
     }
@@ -149,99 +147,16 @@ public class registerChip_5 extends AppCompatActivity implements View.OnClickLis
     public void onClick(@NonNull View view) {
         Intent intent;
         if (view.getId() == R.id.btnContinue) {
-//            NfcListener nfcListener = new NfcListener() {
-//                @Override
-//                public void onNfcSuccess(NfcInfo nfcInfo, String s) {
-//                    Log.d("nfcinfo", "onNfcSuccess: " + nfcInfo);
-//                    stop();
-//                    Intent intent = new Intent(registerChip_5.this, registerChip_6.class);
-//                    intent.putExtra("nfclistener", nfcInfo);
-//                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                    
-//                    startActivity(intent);
-//                    finish();
-//                }
-//
-//                @Override
-//                public void onNfcFailure(NfcException e) {
-//                    stop();
-//                    switch (e) {
-//                        case NFC_CARD_VALIDATION_FAILED:
-//                            Toast.makeText(registerChip_5.this, "CARD VALIDATION FAILED", Toast.LENGTH_SHORT).show();
-//                            bottomSheetDialog.dismiss();
-//                            break;
-//                        case NFC_FAILED:
-//                            Toast.makeText(registerChip_5.this, "SCAN FAILED", Toast.LENGTH_SHORT).show();
-//                            bottomSheetDialog.dismiss();
-//                            break;
-//                        case NFC_ADAPTER_NOT_SUPPORTED:
-//                            Toast.makeText(registerChip_5.this, "NFC ADAPTER IS NOT SUPPORTED", Toast.LENGTH_SHORT).show();
-//                            bottomSheetDialog.dismiss();
-//                            break;
-//                        case NFC_ADAPTER_NOT_ACTIVATED:
-//                            Toast.makeText(registerChip_5.this, "NFC ADAPTER IS NOT ACTIVATED", Toast.LENGTH_SHORT).show();
-//                            bottomSheetDialog.dismiss();
-//                            break;
-//                        case NFC_INVALID_ACCESS_KEY:
-//                            Toast.makeText(registerChip_5.this, "ACCESS KEY IS INVALID", Toast.LENGTH_SHORT).show();
-//                            bottomSheetDialog.dismiss();
-//                            break;
-//                        case NFC_SERVER_ERROR:
-//                            Toast.makeText(registerChip_5.this, "SERVER ERROR", Toast.LENGTH_SHORT).show();
-//                            bottomSheetDialog.dismiss();
-//                            break;
-//                        case NFC_CARD_ACCESS_DENIED:
-//                            Toast.makeText(registerChip_5.this, "CARD ACCESS DENIED. PLEASE CHECK INPUT VALUE", Toast.LENGTH_SHORT).show();
-//                            bottomSheetDialog.dismiss();
-//                            break;
-//                        default:
-//                            Toast.makeText(registerChip_5.this, "UNKNOWN ERROR", Toast.LENGTH_SHORT).show();
-//                            bottomSheetDialog.dismiss();
-//                            break;
-//                    }
-//                }
-//
-//                @Override
-//                public void onLicenseFailure(LicenseStatus licenseStatus) {
-//                    NfcListener.super.onLicenseFailure(licenseStatus);
-//                    bottomSheetDialog.dismiss();
-//                }
-//            };
-//            if (mrzObject != null) {
-//                MrzAccessKey mrzAccessKey = new MrzAccessKey(mrzObject);
-//                NfcScanOptions nfcScanOptions = new NfcScanOptions.Builder(mrzAccessKey).build();
-//                nfcScanner = new NfcScanner(nfcScanOptions, nfcListener);
-//
-//                nfcScanner.setProgressListener(new NfcProgressListener() {
-//                    @Override
-//                    public void onProgressUpdate(@NonNull NfcProgress nfcProgress) {
-//                        switch (nfcProgress) {
-//                            case READING_CARD:
-//                                start();
-//                                Toast.makeText(registerChip_5.this, "READING CARD", Toast.LENGTH_SHORT).show();
-//                                break;
-//                            case CHECKING_VALIDITY:
-//                                start();
-//                                Toast.makeText(registerChip_5.this, "CHECKING VALIDITY", Toast.LENGTH_SHORT).show();
-//                                break;
-//                            case FINISHED:
-//                                stop();
-//                                break;
-//                        }
-//                    }
-//                });
-//            } else {
-//                Toast.makeText(this, "INVALID MRZ ACCESS KEY", Toast.LENGTH_SHORT).show();
-//                bottomSheetDialog.dismiss();
-////                finish();
-            ShowBottomNFC();
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    ShowBottomNFC();
+                }
+            });
         } else if (view.getId() == R.id.btnBack) {
-            intent = new Intent(view.getContext(), registerChip_4.class);
+            intent = new Intent(view.getContext(), registerChip_3.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-
             startActivity(intent);
             finish();
         }

@@ -286,7 +286,7 @@ public class Activation extends AppCompatActivity implements View.OnClickListene
                                         handler.postDelayed(new Runnable() {
                                             @Override
                                             public void run() {
-                                                AppData.getInstance().setKakPrivate(false);
+                                                AppData.getInstance().setKakPrivate(true);
                                                 Intent intent= new Intent(Activation.this, Activity_Activate_Create_New_Pin.class);
                                                 startActivity(intent);
                                                 finish();
@@ -295,7 +295,7 @@ public class Activation extends AppCompatActivity implements View.OnClickListene
                                     }
                                 });
                             } else if (response.getError() == 0 && response.getKakPrivateEncrypted() != null) {
-                                AppData.getInstance().setKakPrivate(true);
+                                AppData.getInstance().setKakPrivate(false);
                                 Intent intent= new Intent(Activation.this, Activity_Activate_Create_New_Pin.class);
                                 startActivity(intent);
                                 finish();

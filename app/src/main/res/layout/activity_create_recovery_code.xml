@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.Login.Activity_Recovery_Code_6_digit_number">
+    tools:context=".Activity.Login.Activity_Create_Recovery_Code">
 
     <ImageView
         android:id="@+id/background_default"
@@ -76,6 +76,7 @@
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <EditText
         android:id="@+id/pin6_dialogRandom"
         android:layout_width="wrap_content"
@@ -83,13 +84,14 @@
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="68dp"
         android:fontFamily="@font/atb_digital_medium"
-        android:text="@string/enter_recov"
+        android:text="@string/prompt_activate_create_recovery_code_text_1"
         android:textColor="@color/white"
         android:textSize="12dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -172,16 +174,13 @@
             android:layout_height="45dp"
             android:layout_marginEnd="15dp"
             android:background="@drawable/corner_pinview"
-            android:clickable="true"
             android:focusable="false"
             android:fontFamily="@font/atb_digital_medium"
             android:gravity="center"
-
             android:imeOptions="actionNext"
             android:importantForAutofill="no"
             android:inputType="number"
             android:maxLength="1"
-
             android:textColor="@color/white"
             android:textSize="13dp"
 
@@ -194,7 +193,6 @@
             android:layout_height="45dp"
             android:layout_marginEnd="15dp"
             android:background="@drawable/corner_pinview"
-            android:clickable="true"
             android:focusable="false"
             android:fontFamily="@font/atb_digital_medium"
             android:gravity="center"
@@ -247,7 +245,7 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/digit_number">
+        app:layout_constraintTop_toBottomOf="@+id/pin">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -417,24 +415,37 @@
         </LinearLayout>
     </LinearLayout>
 
-<FrameLayout
-    android:id="@+id/digit_number"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/pin"
-    android:layout_width="wrap_content"
-    android:layout_marginTop="20dp"
-    android:padding="10dp"
-    android:layout_height="wrap_content">
-
-
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/atb_digital_regular"
-        android:text="@string/digit_12_number"
+        android:id="@+id/sendRecovery"
+        android:layout_width="257dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/square"
+        android:fontFamily="@font/atb_digital_medium"
+        android:gravity="center"
+        android:text="@string/button_activate_send_continue"
         android:textColor="@color/white"
         android:textSize="12dp"
-      />
-</FrameLayout>
+        android:alpha="0.5"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/keyboard" />
+
+    <TextView
+        android:id="@+id/btnContinue"
+        android:layout_width="257dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/square"
+        android:fontFamily="@font/atb_digital_medium"
+        android:gravity="center"
+        android:text="@string/button_continue"
+        android:textColor="@color/white"
+        android:textSize="12dp"
+        android:alpha="0.5"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sendRecovery" />
 </androidx.constraintlayout.widget.ConstraintLayout>

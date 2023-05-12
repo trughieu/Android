@@ -41,6 +41,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SIC_no"
         tools:targetApi="31">
+        <activity
+            android:name=".Activity.Login.Activity_Create_Recovery_Code"
+            android:exported="true" >
+
+        </activity>
         <receiver
             android:name=".SmsBroadcastReceiver"
             android:exported="true">
@@ -54,23 +59,19 @@
             android:name=".Activity.Registry.chip.registerChip_7"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustNothing">
+            android:windowSoftInputMode="adjustNothing"/>
 
-        </activity>
         <activity
             android:name=".Activity.Registry.nonChip.register_nonChip_5"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustNothing">
-
-        </activity>
+            android:windowSoftInputMode="adjustNothing"/>
         <activity
             android:name=".Activity.Registry.nonChip.register_nonChip_4"
             android:exported="false"
-            
-
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing" />
+
         <service
             android:name=".MyFirebaseMessagingService"
             android:exported="true">
@@ -83,16 +84,12 @@
         <activity
             android:name=".test_2"
             android:exported="false"
-            
             android:screenOrientation="portrait"
-
             android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".Activity.Setting_Help.Setting_Detail.Activity_Action_History"
             android:exported="false"
-            
             android:screenOrientation="portrait"
-
             android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".Activity.Login.Activity_Recovery_Code_12_digit_number"
@@ -203,10 +200,7 @@
             android:name=".Activity.Setting_Help.Setting_Detail.Manage_Certificate.Activity_Manage_Certificate_Forget_Passphrase"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustNothing">
-
-        </activity>
-
+            android:windowSoftInputMode="adjustNothing"></activity>
         <activity
             android:name=".Activity.Setting_Help.Setting_Detail.Manage_Certificate.Activity_Manage_Certificate_Change_Passphrase"
             android:exported="false"
@@ -306,9 +300,7 @@
             android:name=".Activity.test"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustNothing">
-
-        </activity>
+            android:windowSoftInputMode="adjustNothing"></activity>
         <activity
             android:name=".Activity.Home.Inbox.Inbox"
             android:exported="true"
@@ -322,6 +314,7 @@
             android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -339,9 +332,7 @@
             android:name=".Activity.Registry.chip.registerChip_5"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustNothing" >
-
-        </activity>
+            android:windowSoftInputMode="adjustNothing"></activity>
         <activity
             android:name=".Activity.Registry.chip.registerChip_4"
             android:exported="true"
@@ -356,9 +347,7 @@
             android:name=".Activity.Registry.chip.registerChip_2"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustNothing" >
-
-        </activity>
+            android:windowSoftInputMode="adjustNothing"></activity>
         <activity
             android:name=".Activity.Registry.chip.registerChip_1"
             android:exported="true"
@@ -368,23 +357,17 @@
             android:name=".Activity.Registry.nonChip.register_nonChip_3"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustNothing" >
-
-        </activity>
+            android:windowSoftInputMode="adjustNothing"></activity>
         <activity
             android:name=".Activity.Registry.nonChip.register_nonChip_2"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustNothing" >
-
-        </activity>
+            android:windowSoftInputMode="adjustNothing"></activity>
         <activity
             android:name=".Activity.Registry.nonChip.register_nonChip_1"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustNothing" >
-
-        </activity>
+            android:windowSoftInputMode="adjustNothing"></activity>
         <activity
             android:name=".Activity.Registry.register_info_otp"
             android:exported="true"
@@ -419,8 +402,7 @@
             android:name=".Activity.Registry.Register"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustNothing">
-        </activity>
+            android:windowSoftInputMode="adjustNothing"></activity>
         <activity
             android:name=".Activity.Login.MainActivity"
             android:exported="true"
@@ -429,8 +411,6 @@
 
         </activity>
         <activity android:name=".MyFirebaseMessagingService" />
-
-
     </application>
 
 </manifest>

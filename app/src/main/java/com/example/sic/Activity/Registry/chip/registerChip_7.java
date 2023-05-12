@@ -1,5 +1,6 @@
 package com.example.sic.Activity.Registry.chip;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.checkid.icao.model.ProcessType;
 import com.checkid.icao.nfc.NfcInfo;
 import com.example.sic.Activity.Login.MainActivity;
 import com.example.sic.AppData;
@@ -130,6 +132,23 @@ public class registerChip_7 extends AppCompatActivity {
         EmailAddress.setText(AppData.getInstance().getEmail());
 
 
+        module.setResponseOwnersCheckExist(new HttpRequest.AsyncResponse() {
+            @Override
+            public void process(boolean b, Response response) {
+                if (response.getError() == 0 && response.getExist()) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ShowDialog();
+                        }
+                    });
+                }
+            }
+        });
+        module.ownersCheckExist(null, AppData.getInstance().getPhone(), ProcessType.identificationType.getValue(),
+                nfcInfo.getPersonal_number());
+
+
         userName.setOnClickListener(v -> {
             BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(v.getContext(), R.style.BottomSheetDialogTheme);
             bottomSheetDialog.setContentView(R.layout.bottom_layout_set_user_name);
@@ -138,8 +157,27 @@ public class registerChip_7 extends AppCompatActivity {
             EditText user = bottomSheetDialog.findViewById(R.id.user);
             close = bottomSheetDialog.findViewById(R.id.close);
             save.setOnClickListener(v1 -> {
-                userName.setText(user.getText().toString());
-                bottomSheetDialog.dismiss();
+                module.setResponseOwnersCheckExist(new HttpRequest.AsyncResponse() {
+                    @Override
+                    public void process(boolean b, Response response) {
+                        if (response.getError() == 0 && response.getExist()) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    bottomSheetDialog.dismiss();
+                                    ShowDialog();
+                                }
+                            });
+                        } else {
+                            userName.setText(user.getText().toString());
+                            bottomSheetDialog.dismiss();
+                        }
+                    }
+                });
+
+                module.ownersCheckExist(null, user.getText().toString(), ProcessType.identificationType.getValue(),
+                        nfcInfo.getPersonal_number());
+
             });
         });
         Organization.setOnClickListener(v -> {
@@ -253,11 +291,6 @@ public class registerChip_7 extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Log.d("username", "onClick: " + userName.getText().toString());
-                        Log.d("base64Signature", "onClick: " + base64Signature);
-                        Log.d("jwt", "onClick: "  + AppData.getInstance().getJWT());
-                        Log.d("jwt", "onClick: " + AppData.getInstance().getPhone());
-                        Log.d("jwt", "onClick: " + AppData.getInstance().getEmail());
                         try {
                             RegisterModule.createModule(registerChip_7.this).setResponseOwnersRegistration(new HttpRequest.AsyncResponse() {
                                 @Override
@@ -267,6 +300,13 @@ public class registerChip_7 extends AppCompatActivity {
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                         startActivity(intent);
+                                    } else if (response.getError() == 1032) {
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                Toast.makeText(registerChip_7.this, response.getErrorDescription(), Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
                                     }
                                 }
                             });
@@ -296,6 +336,17 @@ public class registerChip_7 extends AppCompatActivity {
     Bitmap base64ToBitmap(String base64String) {
         byte[] decodedString = Base64.decode(base64String, Base64.DEFAULT);
         return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+    }
+
+    private void ShowDialog() {
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialog_account_already);
+        dialog.show();
+        dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
+        TextView btnClose = dialog.findViewById(R.id.btn_Close);
+        btnClose.setOnClickListener(v -> {
+            dialog.dismiss();
+        });
     }
 
     @Override

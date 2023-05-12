@@ -104,11 +104,11 @@ public class Activity_Activate_Confirm_New_Pin extends AppCompatActivity {
                         SharedPreferences.Editor editor = getSharedPreferences("MY_PREFS_NAME", MODE_PRIVATE).edit();
                         editor.putString("6_digit", pinValue.getText().toString());
                         editor.apply();
-                        if (!AppData.getInstance().isKakPrivate()) {
+                        if (AppData.getInstance().isKakPrivate()) {
                             Intent intent = new Intent(Activity_Activate_Confirm_New_Pin.this, MainActivity.class);
                             startActivity(intent);
                             finish();
-                        } else if (AppData.getInstance().isKakPrivate()) {
+                        } else if (!AppData.getInstance().isKakPrivate()) {
                             Intent intent = new Intent(Activity_Activate_Confirm_New_Pin.this, Activity_Recovery_Code_6_digit_number.class);
                             startActivity(intent);
                             finish();
@@ -142,30 +142,13 @@ public class Activity_Activate_Confirm_New_Pin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activate_confirm_new_pin);
         keyboard = findViewById(R.id.keyboard);
-//        Intent intent = getIntent();
-//         value = intent.getExtras();
-        if (savedInstanceState == null) {
-            value = getIntent().getExtras();
-            if (value == null) {
-                ditgit_6 = null;
-            } else {
-                ditgit_6 = value.getString("otp");
-            }
-        } else {
-            ditgit_6 = (String) savedInstanceState.getSerializable("otp");
-        }
-
+        ditgit_6 = getIntent().getStringExtra("otp");
 
         txt_pin_view1 = findViewById(R.id.txt_pin_view_1);
-
         txt_pin_view2 = findViewById(R.id.txt_pin_view_2);
-
         txt_pin_view3 = findViewById(R.id.txt_pin_view_3);
-
         txt_pin_view4 = findViewById(R.id.txt_pin_view_4);
-
         txt_pin_view5 = findViewById(R.id.txt_pin_view_5);
-
         txt_pin_view6 = findViewById(R.id.txt_pin_view_6);
 
         btnBack = findViewById(R.id.btnBack);

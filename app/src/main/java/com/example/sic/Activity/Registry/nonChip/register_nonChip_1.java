@@ -193,7 +193,6 @@ public class register_nonChip_1 extends Dev_activity implements View.OnClickList
                         PreferenceManager.getDefaultSharedPreferences(register_nonChip_1.this).edit()
                                 .putBoolean("check_Register_8_3", false).apply();
                         selection = 1;
-
                         bottomSheetDialog.dismiss();
                     }
                 });
@@ -249,14 +248,16 @@ public class register_nonChip_1 extends Dev_activity implements View.OnClickList
         Intent intent;
         if (view.getId() == R.id.btnContinue) {
             if (selection == 1) {
-                edit.putString("typeDocument", "CITIZEN-IDENTITY-CARD").apply();
+//                edit.putString("typeDocument", "CITIZEN-IDENTITY-CARD").apply();
+                AppData.getInstance().setDocumentType("CITIZEN-IDENTITY-CARD");
                 intent = new Intent(register_nonChip_1.this, register_nonChip_2.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 
                 startActivity(intent);
             } else if (selection == 2) {
-                edit.putString("typeDocument", "PERSONAL-ID").apply();
+//                edit.putString("typeDocument", "PERSONAL-ID").apply();
+                AppData.getInstance().setDocumentType("PERSONAL-ID");
                 intent = new Intent(register_nonChip_1.this, register_nonChip_2.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -264,7 +265,8 @@ public class register_nonChip_1 extends Dev_activity implements View.OnClickList
                 startActivity(intent);
 
             } else if (selection == 3) {
-                edit.putString("typeDocument", "PASSPORT-ID").apply();
+//                edit.putString("typeDocument", "PASSPORT-ID").apply();
+                AppData.getInstance().setDocumentType("PASSPORT-ID");
                 intent = new Intent(register_nonChip_1.this, register_nonChip_2.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

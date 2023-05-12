@@ -1,7 +1,6 @@
 package com.example.sic.Activity.Registry;
 
 import static com.example.sic.Activity.Login.Activation.REQ_USER_CONSENT;
-import static com.example.sic.Activity.Registry.Register.title;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,6 +17,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -99,13 +99,13 @@ public class register_info_otp extends Dev_activity implements View.OnClickListe
         btnBack.setOnClickListener(this);
         tv_resend.setOnClickListener(this);
         showKeyBoard(pinValue);
+
         for (int i = 0; i < 6; i++) {
             final int i1 = i;
             otpEt[i1].addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 }
-
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
                     String pin1 = otpEt[0].getText().toString();
@@ -187,13 +187,9 @@ public class register_info_otp extends Dev_activity implements View.OnClickListe
                 if (pinValue.getText().toString().length() >= 6) {
                     onOTPReceived(pinValue.getText().toString());
                     text = pinValue.getText().toString();
-                } else if (pinValue.getText().toString().length() < lastTextLength) {
-                    text = text.substring(0, pinValue.getText().toString().length());
                 }
-                lastTextLength = pinValue.getText().toString().length();
             }
         });
-
     }
 
 
@@ -230,15 +226,21 @@ public class register_info_otp extends Dev_activity implements View.OnClickListe
                                 Intent intent = new Intent(view.getContext(), register_nonChip_1.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                
                                 startActivity(intent);
                             } else if (checkChip) {
                                 Intent intent = new Intent(view.getContext(), registerChip_1.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                
                                 startActivity(intent);
                             }
+                        } else  {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(register_info_otp.this, response.getErrorDescription(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
                         }
                     }
                 });
@@ -311,7 +313,6 @@ public class register_info_otp extends Dev_activity implements View.OnClickListe
                 otpEt[3].setText("");
                 otpEt[4].setText("");
                 otpEt[5].setText("");
-
                 module.registrationsReSendOTP();
         }
     }
@@ -351,7 +352,6 @@ public class register_info_otp extends Dev_activity implements View.OnClickListe
             @Override
             public void onSuccess(Intent intent) {
                 startActivityForResult(intent, REQ_USER_CONSENT);
-
             }
 
             @Override

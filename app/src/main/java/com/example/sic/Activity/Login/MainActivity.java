@@ -38,7 +38,7 @@ public class MainActivity extends Dev_activity {
     TextView txtRegister, txtUsername, txtPassword, btn_Yes, btn_No, btn_resend, txt_forgot_password, tv_English, tv_Vietnamese, btn_Continue;
     ImageView show_password;
     FrameLayout frame_show_password;
-    LinearLayout linearLayout, languages, topPanel;
+    LinearLayout linearLayout, languages, topPanel, framePassword;
     ImageView btn_Close;
     AppCompatCheckBox checkBox1, checkBox2;
     TextView Continue;
@@ -53,8 +53,8 @@ public class MainActivity extends Dev_activity {
         setContentView(R.layout.activity_main);
         PermissionManager.checkPermission(this, PERMISSION_REQUEST_CODE);
 
-
         anh_xa();
+        btn_Continue.setEnabled(false);
         if (AppData.getInstance().isRegister()) {
             txtRegister.setVisibility(View.INVISIBLE);
         }
@@ -64,7 +64,7 @@ public class MainActivity extends Dev_activity {
         }
         module = ActivateModule.createModule(MainActivity.this);
 
-        if (!AppData.getInstance().isKakPrivate()) {
+        if (AppData.getInstance().isKakPrivate()) {
             Dialog_SetRecoveryCode();
         }
 
@@ -176,6 +176,7 @@ public class MainActivity extends Dev_activity {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 btn_Continue.setAlpha(0.5f);
+                btn_Continue.setEnabled(false);
             }
 
             @Override
@@ -239,6 +240,8 @@ public class MainActivity extends Dev_activity {
             username = txtUsername.getText().toString();
             password = txtPassword.getText().toString();
             login();
+//            Intent intent = new Intent(this, Activity_Create_Recovery_Code.class);
+//            startActivity(intent);
         });
     }
 
@@ -258,10 +261,12 @@ public class MainActivity extends Dev_activity {
         txtRegister.setVisibility(View.INVISIBLE);
         txt_forgot_password.setVisibility(View.INVISIBLE);
         languages.setVisibility(View.INVISIBLE);
+        framePassword.setVisibility(View.INVISIBLE);
         dialog1.getWindow().setBackgroundDrawableResource(R.color.transparent);
         dialog1.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
         dialog1.show();
         dialog1.setCanceledOnTouchOutside(false);
+
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -272,6 +277,7 @@ public class MainActivity extends Dev_activity {
                 startActivity(intent);
             }
         }, 2000);
+
     }
 
     private void anh_xa() {
@@ -285,6 +291,7 @@ public class MainActivity extends Dev_activity {
         languages = findViewById(R.id.languages);
         frame_show_password = findViewById(R.id.frame_show_password);
         topPanel = findViewById(R.id.topPanel);
+        framePassword = findViewById(R.id.layout_password);
     }
 
     private void Dialog_SetRecoveryCode() {
@@ -311,7 +318,7 @@ public class MainActivity extends Dev_activity {
             }, 2000);
         });
         btn_Yes.setOnClickListener(view -> {
-            Intent i = new Intent(MainActivity.this, Activity_Recovery_Code_6_digit_number.class);
+            Intent i = new Intent(MainActivity.this, Activity_Create_Recovery_Code.class);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);

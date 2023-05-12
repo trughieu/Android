@@ -1,22 +1,20 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="292dp"
     android:layout_height="wrap_content"
     android:background="@drawable/corner"
-    android:backgroundTint="@color/black"
+    android:backgroundTint="#000000"
     android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/linearLayout7"
-        android:layout_width="292dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-
         <TextView
             android:id="@+id/text_dialog"
             android:layout_width="wrap_content"
@@ -34,21 +32,13 @@
             app:layout_constraintTop_toBottomOf="@+id/a" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center_vertical"
-            android:padding="15dp"
-            android:text="@string/promt_you_need_your_recovery"
-            android:textColor="@color/nfc" />
-
-        <TextView
             android:id="@+id/textView4"
-            android:layout_width="207dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/atb_digital_regular"
             android:gravity="center_horizontal|center_vertical"
-            android:text="@string/do_you_want"
+            android:text="@string/prompt_person_existed"
             android:textColor="@color/white"
             android:textSize="14dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -59,48 +49,25 @@
             android:id="@+id/b"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:layout_marginTop="14dp"
-            android:background="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+            android:layout_marginTop="10dp"
+            android:background="@color/line_gray" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:padding="10dp"
-           >
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:gravity="center">
 
             <TextView
-                android:id="@+id/No"
+                android:id="@+id/btn_Close"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:fontFamily="@font/atb_digital_medium"
-                android:gravity="center_horizontal|center"
-                android:text="@string/no"
+                android:gravity="center_vertical"
+                android:text="@string/ok"
                 android:textColor="@color/text_blue"
-                android:textSize="19dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/b" />
-
-            <TextView
-                android:id="@+id/Yes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/atb_digital_medium"
-                android:gravity="center_horizontal|center"
-                android:text="@string/yes"
-                android:textColor="@color/text_blue"
-                android:textSize="19dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/b" />
-
+                android:textSize="19dp" />
         </LinearLayout>
     </LinearLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

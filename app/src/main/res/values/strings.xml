@@ -38,7 +38,8 @@
     <string name="hint_recovery_code">Recovery Code</string>
     <string name="prompt_certificate_profile_sync">Synchronize Certificate</string>
     <string name="result_certificate_has_been_activated">Your Certificate has been synchronized successfully</string>
-    <string name="promt_you_need_your_recovery" translatable="false">you need your Recovery Code if you\n   \u2022 forget your PIN Code\n   \u2022 change the\n   \u2022 change your account configuration\n\nPlease send the Recovery Code to your mobile or write it down and keep it in a safe place.\nPlease protect your mobile device so that the link and Recovery Code will not be accessed by anybody else.</string>
+    <string name="promt_you_need_your_recovery">you need your Recovery Code if you\n   \u2022 forget your PIN Code\n   \u2022 change the\n   \u2022 change your account configuration\n\nPlease send the Recovery Code to your mobile or write it down and keep it in a safe place.\nPlease protect your mobile device so that the link and Recovery Code will not be accessed by anybody else.</string>
+    <string name="prompt_activate_create_recovery_code_text_1">Your Recovery Code is</string>
     <string name="button_agree">Agree</string>
     <string name="button_disagree">Disagree</string>
     <string name="button_resend">Resend Activation Code</string>
@@ -90,6 +91,7 @@
     <string name="prompt_hold_to_id_card">Please hold the Identity Document to the back of your phone</string>
     <string name="prompt_reading_data_successfully">Reading Data successfully</string>
     <string name="button_continue">Continue</string>
+    <string name="button_activate_send_continue">Send and Continue</string>
     <string name="prompt_enable_nfc">Enable NFC - in order to continue scanning your Identity Document, you must enable NFC on your smart device</string>
     <string name="prompt_validity">Validity</string>
     <string name="prompt_validity_result">Verification Result</string>
@@ -134,9 +136,9 @@
     <string name="select_province">Province</string>
     <string name="select_distict">District</string>
     <string name="select_ward">Ward</string>
-    <string name="do_you_want" translatable="false">Do you want to create Recovery Code?</string>
-    <string name="yes" translatable="false">Yes</string>
-    <string name="no" translatable="false">No</string>
+    <string name="do_you_want">Do you want to create Recovery Code?</string>
+    <string name="yes" >Yes</string>
+    <string name="no">No</string>
 
 
     <string name="hint_activation_code">Activation Code</string>
@@ -315,7 +317,7 @@
     <string name="error_message_pin_wrong">WRONG PIN CODE, YOU HAVE REMAINING [text] TIMES TO ATTEMPT</string>
     <string name="button_user_connect_service">Connect</string>
     <string name="Scan_QR" translatable="false">Scan QR</string>
-    <string name="button_user_settings">Settings and\nHelp</string>
+    <string name="button_user_settings">Settings and Help</string>
     <string name="enter_recov" translatable="false">ENTER Recovery Code</string>
     <!-- Help  -->
     <string name="rssp_is_par" translatable="false">© 2016- RSSP is part of MOBILE-ID™</string>
