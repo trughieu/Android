@@ -271,6 +271,7 @@ public class MainActivity extends Dev_activity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
+                dialog1.dismiss();
                 Intent intent = new Intent(MainActivity.this, Activation.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);

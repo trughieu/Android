@@ -1,7 +1,6 @@
 package com.example.sic.Activity.Registry;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -100,6 +99,7 @@ public class register_info_phone_email extends Dev_activity implements View.OnCl
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btnContinue) {
+            start();
             email = edt_Email.getText().toString();
             phone = edt_Phone.getText().toString();
 //            editor.putString("user", phone);
