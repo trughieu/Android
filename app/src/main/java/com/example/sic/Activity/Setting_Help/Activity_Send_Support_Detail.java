@@ -1,35 +1,43 @@
 package com.example.sic.Activity.Setting_Help;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatCheckBox;
 
-import com.example.sic.DefaultActivity;
 import com.example.sic.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+
+import vn.mobileid.tse.model.client.HttpRequest;
+import vn.mobileid.tse.model.client.activate.ActivateModule;
+import vn.mobileid.tse.model.connector.plugin.Response;
 
 
 public class Activity_Send_Support_Detail extends AppCompatActivity {
 
 
     String s;
-    TextView txt_select_id;
+    TextView txt_select_id, btnContinue;
     TextView tv_trans_error, tv_certificate_error, tv_other;
     boolean checked1, checked2, checked3;
     AppCompatCheckBox checkBox1, checkBox2, checkBox3;
     FrameLayout btnBack;
+    EditText sendDes;
 
-    @Override
-    public void onBackPressed() {
-        moveTaskToBack(true);
-    }
+    ActivateModule module;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +46,43 @@ public class Activity_Send_Support_Detail extends AppCompatActivity {
 
         txt_select_id = findViewById(R.id.txt_select_id);
         btnBack = findViewById(R.id.btnBack);
-        btnBack.setOnClickListener(view -> {
-            Intent intent = new Intent(Activity_Send_Support_Detail.this,
-                    Activity_Setting_Help.class);
-           startActivity(intent);
-                finish();
+        sendDes = findViewById(R.id.desSend);
+        module = ActivateModule.createModule(this);
+        btnContinue = findViewById(R.id.btnContinue);
+
+        btnContinue.setOnClickListener(v -> {
+            module.setResponseSendLogFile(new HttpRequest.AsyncResponse() {
+                @Override
+                public void process(boolean b, Response response) {
+                    if (response.getError() == 0) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Dialog dialog = new Dialog(v.getContext());
+                                dialog.setContentView(R.layout.dialog_success);
+                                dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
+                                dialog.show();
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        dialog.dismiss();
+                                        sendDes.getText().clear();
+                                    }
+                                }, 2000);
+                            }
+                        });
+                    }
+                }
+            }).sendLogFile(txt_select_id.getText().toString(), sendDes.getText().toString());
         });
+
+
+        btnBack.setOnClickListener(view -> {
+            Intent intent = new Intent(Activity_Send_Support_Detail.this, Activity_Setting_Help.class);
+            startActivity(intent);
+            finish();
+        });
+
         txt_select_id.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -135,4 +174,8 @@ public class Activity_Send_Support_Detail extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
 }

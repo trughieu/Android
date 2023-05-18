@@ -44,12 +44,14 @@
 
         <TextView
             android:id="@+id/textView4"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="9dp"
             android:fontFamily="@font/atb_digital_regular"
             android:gravity="center_horizontal|center_vertical"
-            android:text="@string/the_certifi"
+            android:text="@string/the_certificate"
             android:textColor="@color/white"
             android:textSize="14dp"
             app:layout_constraintEnd_toEndOf="parent"

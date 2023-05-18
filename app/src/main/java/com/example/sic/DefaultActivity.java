@@ -60,7 +60,6 @@ public class DefaultActivity extends AppCompatActivity {
         start();
         AWSRequest.lang = SettingData.getLanguage(this);
         ActivateModule module = ActivateModule.createModule(this);
-
         module.setResponseGetRequestList(new HttpRequest.AsyncResponse() {
             @Override
             public void process(boolean b, Response response) {
@@ -76,8 +75,10 @@ public class DefaultActivity extends AppCompatActivity {
                 {
                     module.reLogin();
                     stop();
+                }else {
+                    stop();
+
                 }
-                stop();
             }
         }).requestList();
     }

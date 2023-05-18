@@ -36,13 +36,14 @@ public class MainActivity extends Dev_activity {
     public String username;
     public String password;
     TextView txtRegister, txtUsername, txtPassword, btn_Yes, btn_No, btn_resend, txt_forgot_password, tv_English, tv_Vietnamese, btn_Continue;
-    ImageView show_password;
+    ImageView show_password, flag;
     FrameLayout frame_show_password;
     LinearLayout linearLayout, languages, topPanel, framePassword;
     ImageView btn_Close;
     AppCompatCheckBox checkBox1, checkBox2;
     TextView Continue;
 
+    String language;
 
     private ActivateModule module;
     private static final int PERMISSION_REQUEST_CODE = 999;
@@ -51,9 +52,18 @@ public class MainActivity extends Dev_activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        PermissionManager.checkPermission(this, PERMISSION_REQUEST_CODE);
-
         anh_xa();
+        PermissionManager.checkPermission(this, PERMISSION_REQUEST_CODE);
+        language = SettingData.getLanguage(this);
+        if (language == null) {
+            SettingData.create(this, "en");
+        } else if (language.equals("en")) {
+            SettingData.create(this, "en");
+            flag.setImageResource(R.drawable.flag_usa);
+        } else if (language.equals("vi")) {
+            SettingData.create(this, "vi");
+            flag.setImageResource(R.drawable.flag_vn);
+        }
         btn_Continue.setEnabled(false);
         if (AppData.getInstance().isRegister()) {
             txtRegister.setVisibility(View.INVISIBLE);
@@ -108,10 +118,9 @@ public class MainActivity extends Dev_activity {
             checkBox1 = bottomSheetView.findViewById(R.id.checkBox1);
             checkBox2 = bottomSheetView.findViewById(R.id.checkBox2);
 
-            String s = SettingData.getLanguage(this);
-            if (s.equals("en")) {
+            if (language.equals("en")) {
                 checkBox1.setChecked(true);
-            } else if (s.equals("vi")){
+            } else if (language.equals("vi")) {
                 checkBox2.setChecked(true);
             }
 
@@ -293,6 +302,7 @@ public class MainActivity extends Dev_activity {
         frame_show_password = findViewById(R.id.frame_show_password);
         topPanel = findViewById(R.id.topPanel);
         framePassword = findViewById(R.id.layout_password);
+        flag = findViewById(R.id.flag);
     }
 
     private void Dialog_SetRecoveryCode() {

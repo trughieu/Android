@@ -32,12 +32,14 @@
 
 
         <LinearLayout
+            android:id="@+id/topPanel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:orientation="horizontal"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
+            android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -45,7 +47,8 @@
             <FrameLayout
                 android:id="@+id/btnBack"
                 android:layout_width="0dp"
-                android:layout_weight="1"                android:layout_height="30dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -60,7 +63,8 @@
             <TextView
                 android:id="@+id/textView15"
                 android:layout_width="0dp"
-                android:layout_weight="5"                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:layout_height="wrap_content"
                 android:fontFamily="@font/atb_digital_medium"
                 android:gravity="center_horizontal|top"
                 android:text="@string/prompt_add_new_certificate"
@@ -72,11 +76,17 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
 
-            <Space
-                android:id="@+id/btn_Log_out"
+            <TextView
+                android:id="@+id/btnDetail"
+                android:text="@string/certificate_info"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="35dp"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:gravity="center"
+                android:fontFamily="@font/atb_digital_regular"
+                android:textColor="@color/white"
+                android:background="@drawable/corner_logout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </LinearLayout>
@@ -84,12 +94,13 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="64dp"
+            android:layout_height="0dp"
             android:background="@drawable/corner_card"
             android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/topPanel">
 
             <TextView
                 android:layout_width="340dp"
@@ -97,7 +108,6 @@
                 android:layout_marginTop="63dp"
                 android:background="@drawable/bg_round_right_bot"
                 android:fontFamily="@font/atb_digital_medium"
-                android:paddingLeft="40dp"
                 android:text="@string/certificate_subject_name"
                 android:textColor="@color/white"
                 android:textSize="15dp" />
@@ -367,7 +377,7 @@
             app:layout_constraintTop_toBottomOf="@id/txt_select_id" />
 
         <TextView
-            android:id="@+id/tv_add_new_Cer"
+            android:id="@+id/btnCancel"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
             android:layout_marginTop="15dp"

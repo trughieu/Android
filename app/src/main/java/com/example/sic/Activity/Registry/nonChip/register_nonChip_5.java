@@ -13,6 +13,9 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -75,7 +78,7 @@ public class register_nonChip_5 extends Dev_activity {
     List<Ward> wardList;
     ArrayAdapter<String> adapter;
     SharedPreferences pref, typeDocument;
-    FrameLayout close;
+    FrameLayout close, btnBack;
     LinearLayout sign;
     RegisterModule module;
     private Calendar calendar;
@@ -125,13 +128,69 @@ public class register_nonChip_5 extends Dev_activity {
         ethinic = findViewById(R.id.ethinic);
         relogion = findViewById(R.id.religion);
         address = findViewById(R.id.address);
-        sign = findViewById(R.id.sign);
+        sign = findViewById(R.id.sign);//
         imgSignature = findViewById(R.id.imgSignature);
         userSign = findViewById(R.id.userSign);
         daySign = findViewById(R.id.daySign);
         btnContinue = findViewById(R.id.btnContinue);
+        btnBack = findViewById(R.id.btnBack);
         calendar = Calendar.getInstance();
         module = RegisterModule.createModule(this);
+        btnBack.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), register_nonChip_4.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        });
+
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                if (TextUtils.isEmpty(UserName.getText().toString()) || TextUtils.isEmpty(placeOrigin.getText().toString()) || TextUtils.isEmpty(placeResidence.getText().toString())
+                        || TextUtils.isEmpty(fullName.getText().toString()) || TextUtils.isEmpty(dateBirth.getText().toString()) || TextUtils.isEmpty(genDer.getText().toString())
+                        || TextUtils.isEmpty(documentNumber.getText().toString()) ||
+                        TextUtils.isEmpty(userSign.getText().toString()) || TextUtils.isEmpty(daySign.getText().toString())) {
+                    btnContinue.setAlpha(0.5f);
+                    btnContinue.setEnabled(false);
+                } else {
+                    btnContinue.setAlpha(1);
+                    btnContinue.setEnabled(true);
+                }
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (TextUtils.isEmpty(UserName.getText().toString()) || TextUtils.isEmpty(placeOrigin.getText().toString()) || TextUtils.isEmpty(placeResidence.getText().toString())
+                        || TextUtils.isEmpty(fullName.getText().toString()) || TextUtils.isEmpty(dateBirth.getText().toString()) || TextUtils.isEmpty(genDer.getText().toString())
+                        || TextUtils.isEmpty(documentNumber.getText().toString()) || TextUtils.isEmpty(nationality.getText().toString()) ||
+                        TextUtils.isEmpty(ethinic.getText().toString()) || TextUtils.isEmpty(relogion.getText().toString()) ||
+                        TextUtils.isEmpty(address.getText().toString()) || TextUtils.isEmpty(userSign.getText().toString()) || TextUtils.isEmpty(daySign.getText().toString())) {
+                    btnContinue.setAlpha(0.5f);
+                    btnContinue.setEnabled(false);
+                } else {
+                    btnContinue.setAlpha(1);
+                    btnContinue.setEnabled(true);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        };
+        UserName.addTextChangedListener(textWatcher);
+        placeOrigin.addTextChangedListener(textWatcher);
+        placeResidence.addTextChangedListener(textWatcher);
+        documentNumber.addTextChangedListener(textWatcher);
+        nationality.addTextChangedListener(textWatcher);
+        ethinic.addTextChangedListener(textWatcher);
+        relogion.addTextChangedListener(textWatcher);
+        address.addTextChangedListener(textWatcher);
+        userSign.addTextChangedListener(textWatcher);
+        daySign.addTextChangedListener(textWatcher);
+        relogion.addTextChangedListener(textWatcher);
+
+
         SharedPreferences face = getSharedPreferences("FACE", MODE_PRIVATE);
         String encodedByteArray = face.getString("byteArrayKey", null);
 //        if (encodedByteArray != null) {
@@ -178,15 +237,15 @@ public class register_nonChip_5 extends Dev_activity {
                 }
             }
         });
-        module.ownersCheckExist(null, AppData.getInstance().getPhone(),null,
+        module.ownersCheckExist(null, AppData.getInstance().getPhone(), null,
                 null);
 
         module.setUsername(AppData.getInstance().getPhone());
         module.setNationality("VIETNAM");
 
         SharedPreferences sharedPreferences = getSharedPreferences("IMG", MODE_PRIVATE);
-        module.setImageBack(sharedPreferences.getString("backside", null));
-        module.setImageFront(sharedPreferences.getString("frontside", null));
+//        module.setImageBack(sharedPreferences.getString("backside", null));
+//        module.setImageFront(sharedPreferences.getString("frontside", null));
         UserName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -793,6 +852,7 @@ public class register_nonChip_5 extends Dev_activity {
                     imgSignature.setVisibility(View.VISIBLE);
                     Bitmap signatureBitmap = signature_pad.getSignatureBitmap();
                     String base64Signature = convertToBase64PNG(signatureBitmap);
+                    Log.d("avb", "onClick: " + base64Signature);
                     module.setImagesignature(base64Signature);
                     imgSignature.setImageBitmap(signatureBitmap);
                     userSign.setText(v1.getContext().getResources().getString(R.string.registrant) + ": " + fullName.getText().toString());
@@ -800,8 +860,6 @@ public class register_nonChip_5 extends Dev_activity {
                 });
             }
         });
-
-
         btnContinue.setOnClickListener(v -> {
             module.setResponseRegistrationsFinalize(new HttpRequest.AsyncResponse() {
                 @Override
@@ -834,6 +892,7 @@ public class register_nonChip_5 extends Dev_activity {
                 throw new RuntimeException(e);
             }
         });
+
     }
 
     private void ShowDialog() {

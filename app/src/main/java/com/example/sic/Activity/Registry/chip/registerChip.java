@@ -43,8 +43,6 @@ public class registerChip extends AppCompatActivity implements View.OnClickListe
                 intent = new Intent(registerChip.this, register_info_1.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                
-
                 startActivity(intent);
                 finish();
                 finish();
@@ -53,8 +51,6 @@ public class registerChip extends AppCompatActivity implements View.OnClickListe
                 intent = new Intent(registerChip.this, Register.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                
-
                 startActivity(intent);
                 finish();
                 break;

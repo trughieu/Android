@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -60,6 +61,7 @@ public class register_nonChip_3 extends Dev_activity {
     WaitingTaskDialog waitingDialog;
     FaceProcessListener faceProcessListener;
     NfcInfo nfcInfo;
+    FrameLayout btnBack;
 
     boolean faceResult;
     @Override
@@ -71,8 +73,26 @@ public class register_nonChip_3 extends Dev_activity {
         prompt_face = findViewById(R.id.prompt_face);
         progressBar = findViewById(R.id.progressBar);
         preview = findViewById(R.id.preview);
-        txtTitle=findViewById(R.id.txtTitle);
+        txtTitle = findViewById(R.id.txtTitle);
+        btnBack = findViewById(R.id.btnBack);
         txtTitle.setText(AppData.getInstance().getAppTitle());
+
+        btnBack.setOnClickListener(v -> {
+            if (AppData.getInstance().isChip()) {
+                Intent intent = new Intent(v.getContext(), registerChip_6.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("nfclistener", nfcInfo);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(v.getContext(), register_nonChip_2.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+
+            }
+        });
+
         progressBar.setMax(100);
         scanType = (ScanType) getIntent().getSerializableExtra(KEY_SCAN_TYPE);
         faceMethod = scanType.getMethod();

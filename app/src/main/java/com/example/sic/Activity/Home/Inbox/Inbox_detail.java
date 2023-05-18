@@ -139,7 +139,7 @@ public class Inbox_detail extends DefaultActivity implements View.OnClickListene
                                 Intent intent = new Intent(Inbox_detail.this, Activity_inbox_detail_submit.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                
+
                                 intent.putExtra("performed", performed);
                                 startActivity(intent);
                                 finish();
@@ -563,198 +563,198 @@ public class Inbox_detail extends DefaultActivity implements View.OnClickListene
         });
 
         idTransaction = getIntent().getStringExtra("transactionId");
+        if(idTransaction!=null){
+            module.setResponseCRequestInfo(new HttpRequest.AsyncResponse() {
+                @Override
+                public void process(boolean b, Response response) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            stop();
+                            if (response != null) {
+                                performed = new Performed();
+                                performed.setSubmitFrom(response.getScaIdentity());
+                                performed.setMessage(response.getMessage());
+                                performed.setMessageCaption(response.getMessageCaption());
+                                performed.setCredentialID(response.getCredentialID());
+                                performed.setType(response.getType());
+                                if (performed.getType().equals("SIGN")) {
+                                    String data = response.getRpName();
+                                    if (data != null) {
+                                        try {
+                                            JSONObject json_data = new JSONObject(data);
+                                            performed.setOperating(json_data.getString("OPERATING SYSTEM"));
+                                            performed.setIP(json_data.getString("IP ADDRESS"));
+                                            performed.setBrowser(json_data.getString("BROWSER"));
+                                            performed.setRP(json_data.getString("RP NAME"));
 
-        module.setResponseCRequestInfo(new HttpRequest.AsyncResponse() {
-            @Override
-            public void process(boolean b, Response response) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        stop();
-                        if (response != null) {
-                            performed = new Performed();
-                            performed.setSubmitFrom(response.getScaIdentity());
-//                            submit_from.setText(getResources().getString(R.string.orders_prefix_issued_by) + " " + response.getScaIdentity());
-                            performed.setMessage(response.getMessage());
-                            performed.setMessageCaption(response.getMessageCaption());
-//                            messageCaption.setText(response.getMessageCaption());
-                            performed.setCredentialID(response.getCredentialID());
-                            performed.setType(response.getType());
-                            if (performed.getType().equals("SIGN")) {
-                                String data = response.getRpName();
+                                        } catch (JSONException e) {
+                                            throw new RuntimeException(e);
+                                        }
+                                    }
+                                } else if (performed.getType().equals("LOGIN")) {
 
-                                if (data != null) {
+                                    String data = response.getRpName();
+
+                                    if (data != null) {
+                                        try {
+                                            JSONObject json_data = new JSONObject(data);
+                                            performed.setOS(json_data.getString("OS"));
+                                            performed.setIP(json_data.getString("IP"));
+                                            performed.setMAC(json_data.getString("MAC"));
+                                            performed.setCOMPUTER_NAME(json_data.getString("COMPUTER NAME"));
+
+                                        } catch (JSONException e) {
+                                            throw new RuntimeException(e);
+                                        }
+                                    }
+                                }
+
+
+                                List<String> hashStringList = response.getDocumentDigests().getHashes();
+
+                                if (hashStringList == null) {
                                     try {
-                                        JSONObject json_data = new JSONObject(data);
-                                        performed.setOperating(json_data.getString("OPERATING SYSTEM"));
-                                        performed.setIP(json_data.getString("IP ADDRESS"));
-                                        performed.setBrowser(json_data.getString("BROWSER"));
-                                        performed.setRP(json_data.getString("RP NAME"));
-
-                                    } catch (JSONException e) {
+                                        throw new Exception(getBaseContext().getResources().getString(R.string.error_hash_data_not_found));
+                                    } catch (Exception e) {
                                         throw new RuntimeException(e);
                                     }
                                 }
-                            } else if (performed.getType().equals("LOGIN")) {
-                                String data = response.getRpName();
 
-                                if (data != null) {
-                                    try {
-                                        JSONObject json_data = new JSONObject(data);
-                                        performed.setOS(json_data.getString("OS"));
-                                        performed.setIP(json_data.getString("IP"));
-                                        performed.setMAC(json_data.getString("MAC"));
-                                        performed.setCOMPUTER_NAME(json_data.getString("COMPUTER NAME"));
+                                List<byte[]> hashByteList = new ArrayList<>();
 
-                                    } catch (JSONException e) {
-                                        throw new RuntimeException(e);
-                                    }
+                                for (String hash : hashStringList) {
+                                    hashByteList.add(Base64.decode(hash.getBytes(), Base64.DEFAULT));
                                 }
-                            }
 
-
-                            List<String> hashStringList = response.getDocumentDigests().getHashes();
-
-                            if (hashStringList == null) {
                                 try {
-                                    throw new Exception(getBaseContext().getResources().getString(R.string.error_hash_data_not_found));
-                                } catch (Exception e) {
+                                    transactionVC = Cryptography.computeVC(hashByteList.toArray(new byte[][]{}));
+                                } catch (NoSuchAlgorithmException e) {
                                     throw new RuntimeException(e);
                                 }
-                            }
 
-                            List<byte[]> hashByteList = new ArrayList<>();
-
-                            for (String hash : hashStringList) {
-                                hashByteList.add(Base64.decode(hash.getBytes(), Base64.DEFAULT));
-                            }
-
-                            try {
-                                transactionVC = Cryptography.computeVC(hashByteList.toArray(new byte[][]{}));
-                            } catch (NoSuchAlgorithmException e) {
-                                throw new RuntimeException(e);
-                            }
-
-                            List<String> code = new ArrayList<>();
-                            code.add(transactionVC);
-                            String rd1 = null;
-                            try {
-                                rd1 = Cryptography.cloneVC(UUID.randomUUID().toString().getBytes());
-                                String rd2 = Cryptography.cloneVC(UUID.randomUUID().toString().getBytes());
-                                while (true) {
-                                    if (rd1 != transactionVC
-                                            && rd2 != transactionID
-                                            && rd1 != rd2) {
-                                        break;
-                                    }
+                                List<String> code = new ArrayList<>();
+                                code.add(transactionVC);
+                                String rd1 = null;
+                                try {
                                     rd1 = Cryptography.cloneVC(UUID.randomUUID().toString().getBytes());
-                                    rd2 = Cryptography.cloneVC(UUID.randomUUID().toString().getBytes());
+                                    String rd2 = Cryptography.cloneVC(UUID.randomUUID().toString().getBytes());
+                                    while (true) {
+                                        if (rd1 != transactionVC
+                                                && rd2 != transactionID
+                                                && rd1 != rd2) {
+                                            break;
+                                        }
+                                        rd1 = Cryptography.cloneVC(UUID.randomUUID().toString().getBytes());
+                                        rd2 = Cryptography.cloneVC(UUID.randomUUID().toString().getBytes());
+                                    }
+                                    code.add(rd1);
+                                    code.add(rd2);
+                                } catch (NoSuchAlgorithmException e) {
+                                    throw new RuntimeException(e);
                                 }
-                                code.add(rd1);
-                                code.add(rd2);
-                            } catch (NoSuchAlgorithmException e) {
-                                throw new RuntimeException(e);
+                                List<String> newCode = Utils.getRandomElement(code);
+
+                                if (verification && authentication && approve) {
+                                    tab1.setText(newCode.get(0));
+                                    tab2.setText(newCode.get(1));
+                                    tab3.setText(newCode.get(2));
+                                    txt_select_id.setEnabled(false);
+                                    btnContinue.setVisibility(View.INVISIBLE);
+                                } else if (verification && authentication) {
+                                    tab1.setText(newCode.get(0));
+                                    tab2.setText(newCode.get(1));
+                                    tab3.setText(newCode.get(2));
+                                    btnContinue.setVisibility(View.INVISIBLE);
+                                    txt_select_id.setEnabled(false);
+                                } else if (approve && verification) {
+
+                                    tab1.setText(newCode.get(0));
+                                    tab2.setText(newCode.get(1));
+                                    tab3.setText(newCode.get(2));
+
+
+                                } else if (approve && authentication) {
+                                    currentSelectedNumber = 4;
+                                    tab1.setVisibility(View.INVISIBLE);
+                                    tab3.setVisibility(View.INVISIBLE);
+                                    background_Tab.setBackgroundResource(R.drawable.corner_tab_transparent);
+                                    tab2.setText(transactionVC);
+                                    tab2.setBackgroundResource(R.drawable.tab_select);
+                                    tab2.setTextColor(Color.parseColor("#0070F4"));
+                                    btnContinue.setVisibility(View.INVISIBLE);
+
+                                } else if (verification) {
+                                    tab1.setText(newCode.get(0));
+                                    tab2.setText(newCode.get(1));
+                                    tab3.setText(newCode.get(2));
+                                    txt_select_id.setVisibility(View.INVISIBLE);
+
+                                } else if (authentication) {
+                                    tab1.setVisibility(View.INVISIBLE);
+                                    tab3.setVisibility(View.INVISIBLE);
+                                    background_Tab.setBackgroundResource(R.drawable.corner_tab_transparent);
+                                    tab2.setText(transactionVC);
+                                    tab2.setBackgroundResource(R.drawable.tab_select);
+                                    tab2.setTextColor(Color.parseColor("#0070F4"));
+                                    btnContinue.setVisibility(View.INVISIBLE);
+                                } else if (approve) {
+                                    tab1.setVisibility(View.INVISIBLE);
+                                    tab3.setVisibility(View.INVISIBLE);
+                                    btnContinue.setAlpha(1);
+                                    btnContinue.setEnabled(true);
+                                    background_Tab.setBackgroundResource(R.drawable.corner_tab_transparent);
+                                    tab2.setText(transactionVC);
+                                    tab2.setBackgroundResource(R.drawable.tab_select);
+                                    tab2.setTextColor(Color.parseColor("#0070F4"));
+                                } else {
+                                    tab1.setVisibility(View.INVISIBLE);
+                                    tab3.setVisibility(View.INVISIBLE);
+                                    txt_select_id.setVisibility(View.INVISIBLE);
+                                    background_Tab.setBackgroundResource(R.drawable.corner_tab_transparent);
+                                    tab2.setText(transactionVC);
+                                    tab2.setBackgroundResource(R.drawable.tab_select);
+                                    tab2.setTextColor(Color.parseColor("#0070F4"));
+                                    btnContinue.setEnabled(true);
+                                    btnContinue.setAlpha(1);
+                                }
+
+                                if (performed.getType().equals("LOGIN")) {
+                                    btn_Detail.setVisibility(View.INVISIBLE);
+                                    tv_operating.setText(getResources().getString(R.string.ri_computer_name));
+                                    tv_ip.setText(getResources().getString(R.string.ri_os));
+                                    tv_browser.setText(getResources().getString(R.string.ri_mac));
+                                    tv_rp.setText(getResources().getString(R.string.ri_rp_name));
+                                    tv_operating_detail.setText(performed.getCOMPUTER_NAME());
+                                    tv_ip_detail.setText(performed.getOS());
+                                    tv_browser_detail.setText(performed.getMAC());
+                                    tv_rp_detail.setText(performed.getIP());
+                                    submit_from.setText(getResources().getString(R.string.orders_prefix_issued_by) + " " + performed.getSubmitFrom());
+                                    message.setText(performed.getMessage());
+                                    messageCaption.setText(performed.getMessageCaption());
+                                } else if (performed.getType().equals("SIGN")) {
+                                    tv_operating_detail.setText(performed.getOperating());
+                                    tv_ip_detail.setText(performed.getIP());
+                                    tv_browser_detail.setText(performed.getBrowser());
+                                    tv_rp_detail.setText(performed.getRP());
+                                    submit_from.setText(getResources().getString(R.string.orders_prefix_issued_by) + " " + performed.getSubmitFrom());
+                                    message.setText(performed.getMessage());
+                                    messageCaption.setText(performed.getMessageCaption());
+                                }
+
+
                             }
-                            List<String> newCode = Utils.getRandomElement(code);
-
-                            if (verification && authentication && approve) {
-                                tab1.setText(newCode.get(0));
-                                tab2.setText(newCode.get(1));
-                                tab3.setText(newCode.get(2));
-                                txt_select_id.setEnabled(false);
-                                btnContinue.setVisibility(View.INVISIBLE);
-                            } else if (verification && authentication) {
-                                tab1.setText(newCode.get(0));
-                                tab2.setText(newCode.get(1));
-                                tab3.setText(newCode.get(2));
-                                btnContinue.setVisibility(View.INVISIBLE);
-                                txt_select_id.setEnabled(false);
-                            } else if (approve && verification) {
-
-                                tab1.setText(newCode.get(0));
-                                tab2.setText(newCode.get(1));
-                                tab3.setText(newCode.get(2));
-
-
-                            } else if (approve && authentication) {
-                                currentSelectedNumber = 4;
-                                tab1.setVisibility(View.INVISIBLE);
-                                tab3.setVisibility(View.INVISIBLE);
-                                background_Tab.setBackgroundResource(R.drawable.corner_tab_transparent);
-                                tab2.setText(transactionVC);
-                                tab2.setBackgroundResource(R.drawable.tab_select);
-                                tab2.setTextColor(Color.parseColor("#0070F4"));
-                                btnContinue.setVisibility(View.INVISIBLE);
-
-                            } else if (verification) {
-                                tab1.setText(newCode.get(0));
-                                tab2.setText(newCode.get(1));
-                                tab3.setText(newCode.get(2));
-                                txt_select_id.setVisibility(View.INVISIBLE);
-
-                            } else if (authentication) {
-                                tab1.setVisibility(View.INVISIBLE);
-                                tab3.setVisibility(View.INVISIBLE);
-                                background_Tab.setBackgroundResource(R.drawable.corner_tab_transparent);
-                                tab2.setText(transactionVC);
-                                tab2.setBackgroundResource(R.drawable.tab_select);
-                                tab2.setTextColor(Color.parseColor("#0070F4"));
-                                btnContinue.setVisibility(View.INVISIBLE);
-                            } else if (approve) {
-                                tab1.setVisibility(View.INVISIBLE);
-                                tab3.setVisibility(View.INVISIBLE);
-                                btnContinue.setAlpha(1);
-                                btnContinue.setEnabled(true);
-                                background_Tab.setBackgroundResource(R.drawable.corner_tab_transparent);
-                                tab2.setText(transactionVC);
-                                tab2.setBackgroundResource(R.drawable.tab_select);
-                                tab2.setTextColor(Color.parseColor("#0070F4"));
-                            } else {
-                                tab1.setVisibility(View.INVISIBLE);
-                                tab3.setVisibility(View.INVISIBLE);
-                                txt_select_id.setVisibility(View.INVISIBLE);
-                                background_Tab.setBackgroundResource(R.drawable.corner_tab_transparent);
-                                tab2.setText(transactionVC);
-                                tab2.setBackgroundResource(R.drawable.tab_select);
-                                tab2.setTextColor(Color.parseColor("#0070F4"));
-                                btnContinue.setEnabled(true);
-                                btnContinue.setAlpha(1);
-                            }
-
-                            if (performed.getType().equals("LOGIN")) {
-                                tv_operating.setText(getResources().getString(R.string.ri_computer_name));
-                                tv_ip.setText(getResources().getString(R.string.ri_os));
-                                tv_browser.setText(getResources().getString(R.string.ri_mac));
-                                tv_rp.setText(getResources().getString(R.string.ri_rp_name));
-                                tv_operating_detail.setText(performed.getCOMPUTER_NAME());
-                                tv_ip_detail.setText(performed.getOS());
-                                tv_browser_detail.setText(performed.getMAC());
-                                tv_rp_detail.setText(performed.getIP());
-                                submit_from.setText(getResources().getString(R.string.orders_prefix_issued_by) + " " + performed.getSubmitFrom());
-                                message.setText(performed.getMessage());
-                                messageCaption.setText(performed.getMessageCaption());
-                            } else if (performed.getType().equals("SIGN")) {
-                                tv_operating_detail.setText(performed.getOperating());
-                                tv_ip_detail.setText(performed.getIP());
-                                tv_browser_detail.setText(performed.getBrowser());
-                                tv_rp_detail.setText(performed.getRP());
-                                submit_from.setText(getResources().getString(R.string.orders_prefix_issued_by) + " " + performed.getSubmitFrom());
-                                message.setText(performed.getMessage());
-                                messageCaption.setText(performed.getMessageCaption());
-                            }
-
-
                         }
-                    }
-                });
-            }
-        }).setTransactionID(idTransaction);
+                    });
+                }
+            }).setTransactionID(idTransaction);
+        }
 
 
     }
 
     @Override
-    public void onClick(View view) {
+    public void onClick(@NonNull View view) {
         switch (view.getId()) {
             case R.id.tab1:
                 currentSelectedNumber = 1;
@@ -920,7 +920,6 @@ public class Inbox_detail extends DefaultActivity implements View.OnClickListene
                                             Intent intent = new Intent(Inbox_detail.this, Activity_inbox_detail_submit.class);
                                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                            
                                             intent.putExtra("performed", performed);
                                             startActivity(intent);
                                             finish();
@@ -1049,38 +1048,41 @@ public class Inbox_detail extends DefaultActivity implements View.OnClickListene
             dialog.show();
             dialog.setCanceledOnTouchOutside(false);
         } else {
-            module.setResponseConfirmTransaction(new HttpRequest.AsyncResponse() {
-                @Override
-                public void process(boolean b, Response response) {
-
-                    if (response.getError() == 0) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Dialog dialog1 = new Dialog(Inbox_detail.this);
-                                dialog1.setContentView(R.layout.dialog_success);
-                                dialog1.getWindow().setBackgroundDrawableResource(R.color.transparent);
-                                dialog1.show();
-                                dialog1.setCanceledOnTouchOutside(false);
-                                Handler handler = new Handler();
-                                handler.postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Intent intent = new Intent(Inbox_detail.this, Activity_inbox_detail_submit.class);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                        
-                                        intent.putExtra("performed", performed);
-                                        startActivity(intent);
-                                        finish();
-                                    }
-                                }, 2000);
-
-                            }
-                        });
-                    }
-                }
-            }).confirmTransaction();
+            dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
+            dialog.show();
+            dialog.setCanceledOnTouchOutside(false);
+//            module.setResponseConfirmTransaction(new HttpRequest.AsyncResponse() {
+//                @Override
+//                public void process(boolean b, Response response) {
+//
+//                    if (response.getError() == 0) {
+//                        runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                Dialog dialog1 = new Dialog(Inbox_detail.this);
+//                                dialog1.setContentView(R.layout.dialog_success);
+//                                dialog1.getWindow().setBackgroundDrawableResource(R.color.transparent);
+//                                dialog1.show();
+//                                dialog1.setCanceledOnTouchOutside(false);
+//                                Handler handler = new Handler();
+//                                handler.postDelayed(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        Intent intent = new Intent(Inbox_detail.this, Activity_inbox_detail_submit.class);
+//                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//
+//                                        intent.putExtra("performed", performed);
+//                                        startActivity(intent);
+//                                        finish();
+//                                    }
+//                                }, 2000);
+//
+//                            }
+//                        });
+//                    }
+//                }
+//            }).confirmTransaction();
         }
     }
 
@@ -1116,38 +1118,40 @@ public class Inbox_detail extends DefaultActivity implements View.OnClickListene
             biometricPrompt.authenticate(promptInfo);
 
         } else {
-            module.setResponseConfirmTransaction(new HttpRequest.AsyncResponse() {
-                @Override
-                public void process(boolean b, Response response) {
-
-                    if (response.getError() == 0) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Dialog dialog1 = new Dialog(Inbox_detail.this);
-                                dialog1.setContentView(R.layout.dialog_success);
-                                dialog1.getWindow().setBackgroundDrawableResource(R.color.transparent);
-                                dialog1.show();
-                                dialog1.setCanceledOnTouchOutside(false);
-                                Handler handler = new Handler();
-                                handler.postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Intent intent = new Intent(Inbox_detail.this, Activity_inbox_detail_submit.class);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                        
-                                        intent.putExtra("performed", performed);
-                                        startActivity(intent);
-                                        finish();
-                                    }
-                                }, 2000);
-
-                            }
-                        });
-                    }
-                }
-            }).confirmTransaction();
+            Biometric();
+            biometricPrompt.authenticate(promptInfo);
+//            module.setResponseConfirmTransaction(new HttpRequest.AsyncResponse() {
+//                @Override
+//                public void process(boolean b, Response response) {
+//
+//                    if (response.getError() == 0) {
+//                        runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                Dialog dialog1 = new Dialog(Inbox_detail.this);
+//                                dialog1.setContentView(R.layout.dialog_success);
+//                                dialog1.getWindow().setBackgroundDrawableResource(R.color.transparent);
+//                                dialog1.show();
+//                                dialog1.setCanceledOnTouchOutside(false);
+//                                Handler handler = new Handler();
+//                                handler.postDelayed(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        Intent intent = new Intent(Inbox_detail.this, Activity_inbox_detail_submit.class);
+//                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//
+//                                        intent.putExtra("performed", performed);
+//                                        startActivity(intent);
+//                                        finish();
+//                                    }
+//                                }, 2000);
+//
+//                            }
+//                        });
+//                    }
+//                }
+//            }).confirmTransaction();
         }
     }
 

@@ -113,6 +113,7 @@ public class register_info_phone_email extends Dev_activity implements View.OnCl
                 @Override
                 public void process(boolean b, Response response) {
                     if (response.getError() == 0) {
+                        stop();
                         Intent intent = new Intent(view.getContext(), register_info_otp.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -122,6 +123,7 @@ public class register_info_phone_email extends Dev_activity implements View.OnCl
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                stop();
                                 Toast.makeText(register_info_phone_email.this, response.getErrorDescription(), Toast.LENGTH_SHORT).show();
                             }
                         });
@@ -130,6 +132,7 @@ public class register_info_phone_email extends Dev_activity implements View.OnCl
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                stop();
                                 Toast.makeText(register_info_phone_email.this, response.getErrorDescription(), Toast.LENGTH_SHORT).show();
                             }
                         });

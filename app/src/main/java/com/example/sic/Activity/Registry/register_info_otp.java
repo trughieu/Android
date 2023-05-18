@@ -214,106 +214,57 @@ public class register_info_otp extends Dev_activity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         Intent intent;
-//        if(view.getId()==R.id.btnContinue)
-        switch (view.getId()) {
-            case R.id.btnContinue:
-                Log.d("otp", "onClick: " + text);
-                module.setResponseRegistrationsVerify(new HttpRequest.AsyncResponse() {
-                    @Override
-                    public void process(boolean b, Response response) {
-                        if (response.getError() == 0) {
-                            if (checkNonChip) {
-                                Intent intent = new Intent(view.getContext(), register_nonChip_1.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                startActivity(intent);
-                            } else if (checkChip) {
-                                Intent intent = new Intent(view.getContext(), registerChip_1.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                startActivity(intent);
-                            }
-                        } else  {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Toast.makeText(register_info_otp.this, response.getErrorDescription(), Toast.LENGTH_SHORT).show();
-                                }
-                            });
-
+        if(view.getId()==R.id.btnContinue) {
+            Log.d("otp", "onClick: " + text);
+            module.setResponseRegistrationsVerify(new HttpRequest.AsyncResponse() {
+                @Override
+                public void process(boolean b, Response response) {
+                    if (response.getError() == 0) {
+                        if (checkNonChip) {
+                            Intent intent = new Intent(view.getContext(), register_nonChip_1.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                        } else if (checkChip) {
+                            Intent intent = new Intent(view.getContext(), registerChip_1.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
                         }
-                    }
-                });
-                module.registrationsVerify(text);
+                    } else  {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(register_info_otp.this, response.getErrorDescription(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
 
-//                if (pinValue.getText().toString().equals(otp)) {
-//                    Dialog dialog = new Dialog(register_info_otp.this);
-//                    dialog.setContentView(R.layout.dialog_success_bind_new_sim);
-//                    dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
-//                    dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
-//
-//                    dialog.show();
-//                    dialog.setCanceledOnTouchOutside(false);
-//                    Handler handler = new Handler();
-//                    handler.postDelayed(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            Intent intent= new Intent(register_info_otp.this, register_nonChip_1.class);
-//                           startActivity(intent);
-//                finish();
-//                        }
-//                    }, 3000);
-//
-//                } else {
-//                    Dialog dialog = new Dialog(register_info_otp.this);
-//                    dialog.setContentView(R.layout.dialog_fail_activation);
-//                    btn_Close = dialog.findViewById(R.id.btn_Close);
-//                    btn_Close.setOnClickListener(view1 -> {
-//                        txt_pin_view1.setText("");
-//                        txt_pin_view2.setText("");
-//                        txt_pin_view3.setText("");
-//                        txt_pin_view4.setText("");
-//                        txt_pin_view5.setText("");
-//                        txt_pin_view6.setText("");
-//                        pinValue.setText("");
-//                        text = pinValue.getText().toString();
-//                        pinValue.setText(text);
-//                        Log.d("pin1", "onCreate: " + text);
-//                        selected_position = 0;
-//                        showKeyBoard(txt_pin_view1);
-//                        dialog.dismiss();
-//                    });
-//                    dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
-//                    dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
-//
-//                    dialog.show();
-//                    dialog.setCanceledOnTouchOutside(false);
-//                }
-                break;
-            case R.id.btnBack:
-                intent = new Intent(register_info_otp.this, register_info_phone_email.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                
-                startActivity(intent);
-                finish();
-                break;
-            case R.id.txt_resend_active:
-                tv_resend.setEnabled(false);
-                tv_resend.setBackgroundResource(R.drawable.square_no_border);
-                smsPrepare();
-                countDownTimer.cancel();
-                timeLeftinMillis = 60000;
-                startCountDown();
-                pinValue.setText("");
-                pin6_dialog_hand.setText("");
-                otpEt[0].setText("");
-                otpEt[1].setText("");
-                otpEt[2].setText("");
-                otpEt[3].setText("");
-                otpEt[4].setText("");
-                otpEt[5].setText("");
-                module.registrationsReSendOTP();
+                    }
+                }
+            });
+            module.registrationsVerify(text);
+        } else if (view.getId()==R.id.btnBack) {
+            intent = new Intent(register_info_otp.this, register_info_phone_email.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+        } else if (view.getId()==R.id.txt_resend_active) {
+            tv_resend.setEnabled(false);
+            tv_resend.setBackgroundResource(R.drawable.square_no_border);
+            smsPrepare();
+            countDownTimer.cancel();
+            timeLeftinMillis = 60000;
+            startCountDown();
+            pinValue.setText("");
+            pin6_dialog_hand.setText("");
+            otpEt[0].setText("");
+            otpEt[1].setText("");
+            otpEt[2].setText("");
+            otpEt[3].setText("");
+            otpEt[4].setText("");
+            otpEt[5].setText("");
+            module.registrationsReSendOTP();
         }
     }
 

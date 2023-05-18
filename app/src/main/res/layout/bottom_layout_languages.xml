@@ -65,7 +65,6 @@
                 android:layout_width="340dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="20dp"
-                android:layout_marginBottom="7dp"
                 android:backgroundTint="@color/white"
                 android:fontFamily="@font/atb_digital_medium"
                 android:text="@string/english"

@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatCheckBox;
 
-import com.example.sic.Activity.Registry.register_info_otp;
+import com.example.sic.Activity.Registry.register_info_phone_email;
 import com.example.sic.AppData;
 import com.example.sic.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -106,7 +106,6 @@ public class registerChip_1 extends AppCompatActivity implements View.OnClickLis
                 intent = new Intent(registerChip_1.this, registerChip_2.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                
                 startActivity(intent);
                 finish();
             } else if (selection == 2) {
@@ -114,17 +113,15 @@ public class registerChip_1 extends AppCompatActivity implements View.OnClickLis
                 intent = new Intent(registerChip_1.this, registerChip_2.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                
                 startActivity(intent);
                 finish();
             }
 
 
         } else if (view.getId() == R.id.btnBack) {
-            intent = new Intent(registerChip_1.this, register_info_otp.class);
+            intent = new Intent(registerChip_1.this, register_info_phone_email.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            
             startActivity(intent);
             finish();
 

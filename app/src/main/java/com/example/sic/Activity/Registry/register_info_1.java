@@ -1,7 +1,6 @@
 package com.example.sic.Activity.Registry;
 
 import static com.example.sic.Activity.Registry.Register.id;
-import static com.example.sic.Activity.Registry.Register.title;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -49,7 +48,6 @@ public class register_info_1 extends Dev_activity implements View.OnClickListene
                 intent = new Intent(register_info_1.this, register_info_2.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                
                 startActivity(intent);
                 finish();
                 break;
@@ -59,14 +57,14 @@ public class register_info_1 extends Dev_activity implements View.OnClickListene
                     intent = new Intent(register_info_1.this, registerNonChip.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
-                finish();
+                    startActivity(intent);
+                    finish();
                 } else if (id == 2) {
                     intent = new Intent(register_info_1.this, registerChip.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
-                finish();
+                    startActivity(intent);
+                    finish();
                 }
                 break;
         }

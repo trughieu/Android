@@ -171,7 +171,6 @@
                         android:fontFamily="@font/atb_digital_medium"
                         android:gravity="right"
                         android:paddingBottom="5dp"
-                        android:paddingEnd="28dp"
                         android:textColor="@color/white"
                         android:textSize="12dp"
                         />
@@ -199,7 +198,7 @@
                     android:paddingEnd="20dp">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/atb_digital_medium"
@@ -210,13 +209,13 @@
 
                     <TextView
                         android:id="@+id/emailAddress"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="3"
                         android:fontFamily="@font/atb_digital_medium"
                         android:gravity="right"
-                        android:paddingEnd="28dp"
                         android:paddingBottom="5dp"
+                        android:text="fit.nguyentrunghieu.711@gmail.com"
                         android:textColor="@color/white"
                         android:textSize="12dp" />
                 </LinearLayout>
@@ -1221,7 +1220,7 @@
                         android:paddingEnd="20dp">
 
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:fontFamily="@font/atb_digital_medium"
@@ -1232,9 +1231,9 @@
 
                         <TextView
                             android:id="@+id/emailAddressEdit"
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_weight="3"
                             android:drawablePadding="10dp"
                             android:fontFamily="@font/atb_digital_medium"
                             app:drawableEndCompat="@drawable/arrow_right"
@@ -1333,7 +1332,7 @@
                         android:background="@drawable/square"
                         android:fontFamily="@font/atb_digital_medium"
                         android:gravity="center"
-                        android:text="Continue"
+                        android:text="@string/button_continue"
                         android:textColor="@color/white"
                         android:textSize="12dp"
                         android:textStyle="bold" />

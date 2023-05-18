@@ -56,26 +56,29 @@
         <LinearLayout
             android:id="@+id/check_trans_error"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="25dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="7dp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/tv_trans_error"
-                android:layout_width="340dp"
-                android:layout_height="20dp"
+                android:layout_width="0dp"
+                android:layout_weight="9"
+                android:layout_height="match_parent"
                 android:layout_marginStart="20dp"
                 android:fontFamily="@font/atb_digital_medium"
-                android:text="@string/transaction"
+                android:text="@string/spinner_issue_te"
                 android:textColor="@color/text_blue"
+                android:inputType="text"
                 android:textSize="15dp" />
 
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/checkBox1"
                 style="@style/custom_checkbox_blue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
         </LinearLayout>
 
         <ImageView
@@ -90,14 +93,15 @@
         <LinearLayout
             android:id="@+id/check_certificate_error"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="25dp"
             android:layout_marginBottom="7dp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/tv_certificate_error"
-                android:layout_width="340dp"
-                android:layout_height="20dp"
+                android:layout_width="0dp"
+                android:layout_weight="9"
+                android:layout_height="match_parent"
                 android:layout_marginStart="20dp"
                 android:fontFamily="@font/atb_digital_medium"
                 android:text="@string/spinner_issue_ce"
@@ -107,8 +111,9 @@
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/checkBox2"
                 style="@style/custom_checkbox_blue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
         </LinearLayout>
 
         <ImageView
@@ -123,24 +128,26 @@
         <LinearLayout
             android:id="@+id/check_other"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="25dp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/tv_other"
-                android:layout_width="340dp"
-                android:layout_height="20dp"
+                android:layout_width="0dp"
+                android:layout_weight="9"
+                android:layout_height="match_parent"
                 android:layout_marginStart="20dp"
                 android:fontFamily="@font/atb_digital_medium"
-                android:text="@string/prompt_other"
+                android:text="@string/spinner_issue_o"
                 android:textColor="@color/text_blue"
                 android:textSize="15dp" />
 
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/checkBox3"
                 style="@style/custom_checkbox_blue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

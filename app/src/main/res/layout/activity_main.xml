@@ -85,9 +85,9 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
+            android:id="@+id/flag"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/flag_usa" />
+            android:layout_height="match_parent" />
 
         <ImageView
             android:layout_width="24dp"
@@ -193,7 +193,7 @@
         android:background="@drawable/square"
         android:fontFamily="@font/atb_digital_medium"
         android:gravity="center"
-        android:text="Continue"
+        android:text="@string/button_continue"
         android:textColor="@color/white"
         android:textSize="12dp"
         android:textStyle="bold"

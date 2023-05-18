@@ -1,7 +1,5 @@
 package com.example.sic.Activity.Registry.nonChip;
 
-import static com.example.sic.Activity.Registry.Register.title;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -21,7 +19,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatCheckBox;
 
-import com.example.sic.Activity.Registry.register_info_otp;
+import com.example.sic.Activity.Registry.register_info_phone_email;
 import com.example.sic.AppData;
 import com.example.sic.Dev_activity;
 import com.example.sic.R;
@@ -53,8 +51,9 @@ public class register_nonChip_1 extends Dev_activity implements View.OnClickList
 
     int selection = 1;
     SharedPreferences.Editor edit;
-
-    ImageView front_side_id, backSide, frontSideDemo;
+    boolean isImageView1Set = false;
+    boolean isImageView2Set = false;
+    ImageView frontSide, backSide, frontSideDemo;
     SharedPreferences.Editor editor;
     ActivityResultLauncher<Intent> launcherA = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(), result -> {
@@ -63,15 +62,14 @@ public class register_nonChip_1 extends Dev_activity implements View.OnClickList
                     ArrayList<String> croppedImageResults = data.getStringArrayListExtra("croppedImageResults");
                     if (croppedImageResults != null) {
                         for (int i = 0; i < croppedImageResults.size(); i++) {
-
                             Bitmap bitmap = BitmapFactory.decodeFile(croppedImageResults.get(i));
-
-                            front_side_id.setImageBitmap(bitmap);
+                            frontSide.setImageBitmap(bitmap);
+                            AppData.getInstance().setImageFront(bitmap);
                             textFrontSide.setVisibility(View.GONE);
                             frontSideDemo.setVisibility(View.GONE);
                             textFront.setVisibility(View.VISIBLE);
                             String base64ImageFront = convertToBase64(bitmap);
-//                    module.setImageFront(base64ImageFront);
+                            module.setImageFront(base64ImageFront);
                             editor.putString("frontside", base64ImageFront);
                             editor.apply();
                         }
@@ -88,17 +86,17 @@ public class register_nonChip_1 extends Dev_activity implements View.OnClickList
                         for (int i = 0; i < croppedImageResults.size(); i++) {
                             Bitmap bitmap = BitmapFactory.decodeFile(croppedImageResults.get(0));
                             backSide.setImageBitmap(bitmap);
+                            AppData.getInstance().setImageBack(bitmap);
                             textBackSide.setVisibility(View.GONE);
                             textBack.setVisibility(View.VISIBLE);
                             String base64ImageBack = convertToBase64(bitmap);
-//                          module.setImageBack(base64ImageBack);
+                            module.setImageBack(base64ImageBack);
                             editor.putString("backside", base64ImageBack);
                             editor.apply();
                             Log.d("abc", "backside: " + base64ImageBack);
 
                         }
                     }
-
                 }
             }
     );
@@ -120,7 +118,7 @@ public class register_nonChip_1 extends Dev_activity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_non_chip_1);
 
-//        module = RegisterModule.createModule(this);
+        module = RegisterModule.createModule(this);
         btnBack = findViewById(R.id.btnBack);
         btnContinue = findViewById(R.id.btnContinue);
         frontSideDemo = findViewById(R.id.frontSideDemo);
@@ -135,10 +133,50 @@ public class register_nonChip_1 extends Dev_activity implements View.OnClickList
         textBackSide = findViewById(R.id.textBackside);
         textFrontSide = findViewById(R.id.textFrontSide);
         txt_select_id = findViewById(R.id.txt_select_id);
-        front_side_id = findViewById(R.id.frontSide);
+        frontSide = findViewById(R.id.frontSide);
         backSide = findViewById(R.id.backSide);
 
-        front_side_id.setOnClickListener(view -> {
+        checkImageViewsState();
+        frontSide.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                if (frontSide.getDrawable() == null) {
+                    isImageView1Set = false;
+                    checkImageViewsState();
+
+                } else if (frontSide.getDrawable() != null) {
+                    isImageView1Set = true;
+                    checkImageViewsState();
+                }
+            }
+        });
+        backSide.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                if (backSide.getDrawable() == null) {
+                    isImageView2Set = false;
+                    checkImageViewsState();
+                } else if (backSide.getDrawable() != null) {
+                    isImageView2Set = true;
+                    checkImageViewsState();
+                }
+            }
+        });
+
+
+        if (AppData.getInstance().getImageBack() != null) {
+            backSide.setImageBitmap(AppData.getInstance().getImageBack());
+            textBackSide.setVisibility(View.GONE);
+            textBack.setVisibility(View.VISIBLE);
+        }
+        if (AppData.getInstance().getImageFront() != null) {
+            frontSide.setImageBitmap(AppData.getInstance().getImageFront());
+            textFrontSide.setVisibility(View.GONE);
+            frontSideDemo.setVisibility(View.GONE);
+            textFront.setVisibility(View.VISIBLE);
+        }
+
+        frontSide.setOnClickListener(view -> {
             Intent i = new Intent(view.getContext(), DocumentScannerActivity.class);
             launcherA.launch(i);
         });
@@ -275,13 +313,23 @@ public class register_nonChip_1 extends Dev_activity implements View.OnClickList
             }
 
         } else if (view.getId() == R.id.btnBack) {
-
-            intent = new Intent(register_nonChip_1.this, register_info_otp.class);
+            intent = new Intent(register_nonChip_1.this, register_info_phone_email.class);
+            AppData.getInstance().resetImage();
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            
             startActivity(intent);
             finish();
+        }
+    }
+
+    private void checkImageViewsState() {
+        if (isImageView1Set && isImageView2Set) {
+
+            btnContinue.setEnabled(true);
+            btnContinue.setAlpha(1);
+        } else {
+            btnContinue.setEnabled(false);
+            btnContinue.setAlpha(0.5f);
         }
     }
 }

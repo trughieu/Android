@@ -75,8 +75,9 @@
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/checkBox1"
                 style="@style/custom_checkbox_blue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
         </LinearLayout>
 
         <ImageView
@@ -108,8 +109,9 @@
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/checkBox2"
                 style="@style/custom_checkbox_blue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
         </LinearLayout>
 
         <ImageView
@@ -141,8 +143,9 @@
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/checkBox3"
                 style="@style/custom_checkbox_blue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
         </LinearLayout>
 
         <ImageView
@@ -174,8 +177,9 @@
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/checkBox4"
                 style="@style/custom_checkbox_blue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
         </LinearLayout>
     </LinearLayout>
 </androidx.appcompat.widget.LinearLayoutCompat>

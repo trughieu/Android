@@ -7,6 +7,7 @@
     tools:context=".Activity.Setting_Help.Setting_Detail.Manage_Certificate.Activity_Manage_Certificate_Renew">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".Activity.Setting_Help.Setting_Detail.Manage_Certificate.Activity_Manage_Certificate_Renew">
@@ -45,8 +46,8 @@
             <FrameLayout
                 android:id="@+id/btnBack"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="30dp"
+                android:layout_weight="1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -61,12 +62,12 @@
             <TextView
                 android:id="@+id/tv_name"
                 android:layout_width="0dp"
-                android:layout_weight="4"
                 android:layout_height="wrap_content"
+                android:layout_weight="4"
                 android:fontFamily="@font/atb_digital_medium"
                 android:gravity="center_horizontal|top"
-                android:textColor="@color/blue_text"
                 android:text="@string/certificate_manage_renew"
+                android:textColor="@color/blue_text"
                 android:textSize="20dp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -77,8 +78,8 @@
             <Space
                 android:id="@+id/btn_Log_out"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="35dp"
+                android:layout_weight="1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </LinearLayout>
@@ -126,43 +127,42 @@
                 />
 
             <TextView
-                android:id="@+id/txt_select_id_certificate_autho"
+                android:id="@+id/selectCA"
                 android:layout_width="350dp"
                 android:layout_height="35dp"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/corner_select"
                 android:backgroundTint="@color/white"
-                android:drawableEnd="@drawable/baseline_keyboard_arrow_down_24"
                 android:fontFamily="@font/atb_digital_medium"
                 android:gravity="center_vertical"
                 android:padding="2dp"
                 android:paddingStart="20dp"
-                android:text="@string/mobile_id_trust_tpcloud"
+                android:text="@string/easyca_test"
                 android:textColor="@color/blue_text"
                 android:textSize="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ln" />
+                app:layout_constraintTop_toBottomOf="@id/ln"
+                app:drawableEndCompat="@drawable/baseline_keyboard_arrow_down_24" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
                 android:fontFamily="@font/atb_digital_medium"
-                android:text="@string/certificate_bc_cert_authority"
+                android:text="@string/prompt_cert_sign_profile"
                 android:textColor="@color/white"
                 android:textSize="12dp"
 
                 />
 
             <TextView
-                android:id="@+id/txt_select_id_certificate_profile"
+                android:id="@+id/selectCP"
                 android:layout_width="350dp"
                 android:layout_height="35dp"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/corner_select"
                 android:backgroundTint="@color/white"
-                android:drawableEnd="@drawable/baseline_keyboard_arrow_down_24"
                 android:fontFamily="@font/atb_digital_medium"
                 android:gravity="center_vertical"
                 android:padding="2dp"
@@ -172,27 +172,27 @@
                 android:textSize="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ln" />
+                app:layout_constraintTop_toBottomOf="@id/ln"
+                app:drawableEndCompat="@drawable/baseline_keyboard_arrow_down_24" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
                 android:fontFamily="@font/atb_digital_medium"
-                android:text="@string/certificate_bc_cert_authority"
+                android:text="@string/signing_counter"
                 android:textColor="@color/white"
                 android:textSize="12dp"
 
                 />
 
             <TextView
-                android:id="@+id/txt_select_id_signing_counter"
+                android:id="@+id/selectSC"
                 android:layout_width="350dp"
                 android:layout_height="35dp"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/corner_select"
                 android:backgroundTint="@color/white"
-                android:drawableEnd="@drawable/baseline_keyboard_arrow_down_24"
                 android:fontFamily="@font/atb_digital_medium"
                 android:gravity="center_vertical"
                 android:padding="2dp"
@@ -202,7 +202,8 @@
                 android:textSize="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ln" />
+                app:layout_constraintTop_toBottomOf="@id/ln"
+                app:drawableEndCompat="@drawable/baseline_keyboard_arrow_down_24" />
 
         </LinearLayout>
 
@@ -210,18 +211,17 @@
             android:id="@+id/btnContinue"
             android:layout_width="257dp"
             android:layout_height="40dp"
-            android:layout_marginTop="150dp"
             android:background="@drawable/square"
             android:fontFamily="@font/atb_digital_medium"
             android:gravity="center"
-            android:text="Continue"
+            android:layout_marginBottom="77dp"
             android:textColor="@color/white"
             android:textSize="12dp"
+            android:text="@string/button_continue"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/ln_id"
-            app:layout_constraintStart_toStartOf="@+id/ln_id"
-            app:layout_constraintTop_toBottomOf="@+id/ln_id" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

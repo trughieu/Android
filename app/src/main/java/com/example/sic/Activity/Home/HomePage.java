@@ -247,7 +247,6 @@ public class HomePage extends DefaultActivity implements View.OnClickListener {
             Biometric();
             biometricPrompt.authenticate(promptInfo);
         }
-
     }
 
     private void Dialog_pin() {
@@ -353,7 +352,6 @@ public class HomePage extends DefaultActivity implements View.OnClickListener {
                             }
                         }
                     }).requestList();
-            start();
             requestInfoModule.setResponseGetTransactionsList(new HttpRequest.AsyncResponse() {
                 @Override
                 public void process(boolean b, Response response) {
@@ -367,7 +365,6 @@ public class HomePage extends DefaultActivity implements View.OnClickListener {
                                 Intent intent = new Intent(HomePage.this, Inbox_detail.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                
                                 intent.putExtra("transactionId", request.transactionID);
                                 startActivity(intent);
                             }

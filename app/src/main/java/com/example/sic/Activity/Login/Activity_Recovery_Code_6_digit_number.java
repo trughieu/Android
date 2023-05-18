@@ -218,6 +218,7 @@ public class Activity_Recovery_Code_6_digit_number extends Dev_activity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
+                dialog.dismiss();
                 Intent intent= new Intent(Activity_Recovery_Code_6_digit_number.this, HomePage.class);
                startActivity(intent);
                 finish();

@@ -142,7 +142,6 @@ public class registerChip_6 extends AppCompatActivity implements View.OnClickLis
                 intent = new Intent(registerChip_6.this, registerChip_5.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
                 startActivity(intent);
                 finish();
         }
@@ -155,7 +154,7 @@ public class registerChip_6 extends AppCompatActivity implements View.OnClickLis
 
     private void ShowDialog() {
         Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.dialog_account_already);
+        dialog.setContentView(R.layout.dialog_person_already);
         dialog.show();
         dialog.setCanceledOnTouchOutside(false);
         dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);

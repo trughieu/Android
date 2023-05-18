@@ -154,7 +154,7 @@ public class registerChip_5 extends AppCompatActivity implements View.OnClickLis
                 }
             });
         } else if (view.getId() == R.id.btnBack) {
-            intent = new Intent(view.getContext(), registerChip_3.class);
+            intent = new Intent(view.getContext(), registerChip_1.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);

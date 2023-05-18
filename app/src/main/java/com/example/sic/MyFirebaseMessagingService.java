@@ -2,6 +2,7 @@ package com.example.sic;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -25,6 +26,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         if (message.getData().size() > 0) {
             Intent intent = new Intent(getBaseContext(), Inbox_detail.class);
+            Log.d("mes", "onMessageReceived: "+message.getData());
             intent.putExtra("transactionId", message.getData().get("transactionID"));
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);

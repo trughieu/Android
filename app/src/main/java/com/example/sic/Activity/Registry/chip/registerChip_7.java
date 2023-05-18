@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.checkid.icao.model.ProcessType;
 import com.checkid.icao.nfc.NfcInfo;
 import com.example.sic.Activity.Login.MainActivity;
+import com.example.sic.Activity.Registry.nonChip.register_nonChip_3;
 import com.example.sic.AppData;
 import com.example.sic.R;
 import com.github.gcacace.signaturepad.views.SignaturePad;
@@ -131,7 +133,12 @@ public class registerChip_7 extends AppCompatActivity {
         phoneNumber.setText(AppData.getInstance().getPhone());
         EmailAddress.setText(AppData.getInstance().getEmail());
 
+        btnBack.setOnClickListener(v -> {
+            Intent intent = new Intent(registerChip_7.this, registerChip_6.class);
+            intent.putExtra("nfclistener", nfcInfo);
+            startActivity(intent);
 
+        });
         module.setResponseOwnersCheckExist(new HttpRequest.AsyncResponse() {
             @Override
             public void process(boolean b, Response response) {
@@ -299,7 +306,23 @@ public class registerChip_7 extends AppCompatActivity {
                                         Intent intent = new Intent(registerChip_7.this, MainActivity.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                        startActivity(intent);
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                Dialog dialog = new Dialog(v.getContext());
+                                                dialog.setContentView(R.layout.dialog_success_register);
+                                                dialog.show();
+                                                dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
+                                                new Handler().postDelayed(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        dialog.dismiss();
+                                                        startActivity(intent);
+                                                    }
+                                                }, 2000);
+                                            }
+                                        });
+
                                     } else if (response.getError() == 1032) {
                                         runOnUiThread(new Runnable() {
                                             @Override
@@ -314,7 +337,7 @@ public class registerChip_7 extends AppCompatActivity {
                         } catch (Exception e) {
                             Toast.makeText(registerChip_7.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                             Log.d("err", "run: " + e.getLocalizedMessage());
-//                            throw new RuntimeException(e);
+                            throw new RuntimeException(e);
                         }
                     }
                 });
@@ -324,11 +347,8 @@ public class registerChip_7 extends AppCompatActivity {
     }
 
     public String generateTodayDate() {
-        // Lấy ngày hiện tại
         Date currentDate = new Date();
-        // Định dạng ngày tháng
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        // Chuyển đổi ngày thành chuỗi theo định dạng
         String formattedDate = dateFormat.format(currentDate);
         return formattedDate;
     }

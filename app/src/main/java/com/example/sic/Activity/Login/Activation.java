@@ -106,8 +106,8 @@ public class Activation extends AppCompatActivity implements View.OnClickListene
                     if (i1 == 5 && !otpEt[i1].getText().toString().isEmpty()) {
                         otpEt[i1].clearFocus();
                         text = text + otpEt[i1].getText().toString();
-                        Log.d("text", "afterTextChanged: " + text);
                         pin6_dialog_hand.setText(text);
+                        otpEt[i1].clearFocus();
                         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(otpEt[i1].getWindowToken(), 0);
                     } else if (!otpEt[i1].getText().toString().isEmpty()) {
@@ -116,7 +116,6 @@ public class Activation extends AppCompatActivity implements View.OnClickListene
                         text = text + otpEt[i1].getText().toString();
                         pin6_dialog_hand.setText(text);
                     }
-                    Log.e("hand", "afterTextChanged: " + pin6_dialog_hand.getText().toString());
                 }
             });
 

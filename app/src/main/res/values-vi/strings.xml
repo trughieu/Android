@@ -24,6 +24,7 @@
     <string name="prompt_terms_of_service">Điều khoản\ndịch vụ</string>
     <string name="prompt_user_awaiting">Đang chờ yêu cầu xác thực</string>
     <string name="prompt_privacy_policy">Chính sách\nbảo mật</string>
+    <string name="privacy_policy" >Chính sách bảo mật</string>
     <string name="prompt_cert_signing_profile">Thông tin gói ký</string>
     <string name="prompt_cert_sign_count">Số lần ký</string>
     <string name="certificate_issuer_name">Tên nơi cấp</string>
@@ -52,6 +53,8 @@
     <string name="certificate_duration_by_day">Tính Theo Ngày</string>
     <string name="certificate_duration">Thời Hạn</string>
     <string name="hint_passphrase">Passphrase hiện tại</string>
+    <string name="the_certificate">Không Tìm Thấy Yêu Cầu Cấp Chứng Thư Số Cho Mã Kích Hoạt</string>
+
     <string name="custom_cid_button_continue">Tiếp Tục</string>
     <string name="hint_support_request_issue_description">Mô Tả Vấn Đề</string>
     <string name="button_change_pin">Thay Đổi\nMã Pin</string>
@@ -87,7 +90,7 @@
     <string name="button_user_require_match_verification_code">Yêu Cầu Phải Đúng Mã Xác Thực</string>
     <string name="button_user_direct_sim_priority">Ưu Tiên Tác Động Trực Tiếp Lên Sim</string>
     <string name="prompt_enter_pin_code">Nhập Mã Pin</string>
-    <string name="spinner_issue_ce">Lỗi Chứng Thư Số</string>
+
     <string name="prompt_other">Khác</string>
     <string name="prompt_description_confirm_to_change_pin">Nhập Pin Hiện Tại</string>
     <string name="button_delete_account">Xoá Tài Khoản</string>
@@ -158,8 +161,11 @@
     <string name="prompt_register_ca_bi_step_4_1">Cách Để Liên Hệ Với Bạn</string>
     <string name="enter_active">ENTER Activation Code sent to your phone</string>
     <string name="you_don_t_h">You don\'t have any account?<b> Register now</b></string>
+    <string name="prompt_capture_code">1. Quét mã mrz trên thẻ căn cước công dân</string>
+    <string name="prompt_scan_nfc">2. Quét căn cước công dân bằng cách để thiết bị đối diện thẻ</string>
+    <string name="prompt_scan_face">3. Quét khuôn mặt để so sánh với ảnh căn cước công dân</string>
     <string name="select_type">1. Select type of Identity Document \n2. Capture the sides of Identification Card \n3. Add Personal Information \n4. Add Information</string>
-    <string name="capture_the_MRZ">1. Capture the MRZ Code of your ID Document 2. Scan your Identity Document by holding your      smart device against it 3. Scan your face for comparison with your ID      Document Photo</string>
+    <string name="capture_the_MRZ">1. Capture the MRZ Code of your ID Document\n2. Scan your Identity Document by holding your\n     smart device against it \n3. Scan your face for comparison with your ID\n     Document Photo</string>
     <string name="hint_recovery_code">Mã Phục Hồi</string>
     <string name="prompt_certificate_profile_sync">Đồng Bộ Chứng Thư Số</string>
     <string name="result_certificate_has_been_activated">Chứng Thư Số Đã Được Đồng Bộ Thành Công</string>
@@ -248,6 +254,7 @@
     <string name="button_manage_order">Quản Lý Đơn Hàng</string>
     <string name="prompt_manage_sim">Quản Lý Sim</string>
     <string name="hint_activation_code">Mã Kích Hoạt</string>
+    <string name="hint_enter_activation_code">Nhập Mã Kích Hoạt</string>
     <string name="error_new_pin_and_confirm_pin_not_match">Mã Pin Mới Và Xác Nhận Mã Pin Mới Không Giống Nhau</string>
     <string name="error_new_pin_match_old_pin">Mã Pin Mới Phải Khác Với Mã Pin Cũ</string>
     <string name="result_pin_have_been_change">Mã Pin Của Bạn Đã Được Thay Đổi</string>
@@ -265,6 +272,10 @@
     <string name="button_request_info_do_later">Duyệt Sau</string>
     <string name="button_request_info_identity_confirm">Xác Nhận Bằng Định Danh Điện Tử</string>
     <string name="button_confirm_with_pin">Xác Nhận Bằng Mã Pin</string>
+    <string name="prompt_transaction">Giao dịch</string>
+    <string name="spinner_issue_te">Lỗi giao dịch</string>
+    <string name="spinner_issue_ce">Lỗi Chứng Thư Số</string>
+    <string name="spinner_issue_o">Lỗi khác</string>
     <string name="prompt_add_new_certificate">Thêm Mới Chứng Thư Số</string>
     <string name="prompt_sign_at">Thực Hiện Tại</string>
     <string name="prompt_change_language_require">Ngôn Ngữ Sẽ Được Thay Đổi Khi\nKhởi Động Lại Ứng Dụng</string>
@@ -278,7 +289,7 @@
     <string name="ri_rp_name">Rp</string>
     <string name="ri_mac">Địa Chỉ MAC</string>
     <string name="ri_computer_name">Tên Máy Tính</string>
-
+    <string name="prompt_request_info_submitted_from">Gửi từ</string>
     <string name="orders_prefix_issued_by">Tên Nơi Cấp</string>
     <string name="orders_prefix_expires">Hết Hạn Vào</string>
     <string name="prompt_credential_change_scal">Scal</string>

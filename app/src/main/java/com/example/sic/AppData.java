@@ -1,5 +1,7 @@
 package com.example.sic;
 
+import android.graphics.Bitmap;
+
 public class AppData {
     private static AppData instance;
     private String appTitle;
@@ -51,6 +53,34 @@ public class AppData {
         this.chip = chip;
     }
 
+    private Bitmap imageFront;
+    private Bitmap imageBack;
+    private Bitmap Face;
+
+    public Bitmap getFace() {
+        return Face;
+    }
+
+    public void setFace(Bitmap face) {
+        Face = face;
+    }
+
+    public Bitmap getImageFront() {
+        return imageFront;
+    }
+
+    public void setImageFront(Bitmap imageFront) {
+        this.imageFront = imageFront;
+    }
+
+    public Bitmap getImageBack() {
+        return imageBack;
+    }
+
+    public void setImageBack(Bitmap imageBack) {
+        this.imageBack = imageBack;
+    }
+
     private AppData() {}
 
     public static synchronized AppData getInstance() {
@@ -82,5 +112,10 @@ public class AppData {
 
     public void setRegister(boolean register) {
         this.register = register;
+    }
+
+    public void resetImage() {
+        imageBack = null;
+        imageFront=null;
     }
 }

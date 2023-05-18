@@ -1,41 +1,49 @@
 package com.example.sic.Activity.Setting_Help.Setting_Detail.Manage_Certificate;
 
+import static androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG;
+import static androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL;
+import static com.example.sic.Encrypt.decrypt;
+
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatCheckBox;
+import androidx.biometric.BiometricPrompt;
+import androidx.core.content.ContextCompat;
 
 import com.example.sic.DefaultActivity;
 import com.example.sic.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import vn.mobileid.tse.model.client.HttpRequest;
+import vn.mobileid.tse.model.client.managecertificate.CertificateConfirmModule;
+import vn.mobileid.tse.model.connector.plugin.Response;
+
 public class Activity_Manage_Certificate_Add_New_Certificate_Check extends DefaultActivity implements View.OnClickListener {
-    TextView txt_select_id, conf_E_iden, conf_bio, conf_Pin, tv_add_new_Cer, btn_Close, btn_Cancel, btn_Detail;
     String s;
     FrameLayout btnBack;
     AppCompatButton bt1, bt2, bt3, bt4, bt5, bt6, bt7, bt8, bt9, bt0, Key_delete;
     EditText txt_pin_view1, txt_pin_view2, txt_pin_view3, txt_pin_view4, txt_pin_view5, txt_pin_view6, pinValue;
     String text;
-    String otp;
-
-    @Override
-    public void onBackPressed() {
-        moveTaskToBack(true);
-    }
-
+    String otp, digit_6;
+    TextView txt_select_id, conf_E_iden, conf_bio, conf_Pin, btnCancel, btn_Close, btn_Cancel, btn_Detail, uid_detail, common_detail, o_detail, state_detail, country_detail;
+    Dialog dialog;
+    CertificateConfirmModule module;
     private final TextWatcher textWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int start, int i1, int i2) {
@@ -109,24 +117,41 @@ public class Activity_Manage_Certificate_Add_New_Certificate_Check extends Defau
                 case 6:
                     txt_pin_view6.setBackgroundResource(R.drawable.ic_pinview_enable);
                     if (pinValue.getText().toString().equals(otp)) {
-                        Dialog dialog = new Dialog(Activity_Manage_Certificate_Add_New_Certificate_Check.this);
-                        dialog.setContentView(R.layout.dialog_success);
-                        dialog.show();
-                        dialog.setCanceledOnTouchOutside(false);
-                        dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
-                        dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
-
+                        Dialog dialog1 = new Dialog(Activity_Manage_Certificate_Add_New_Certificate_Check.this);
+                        dialog1.setContentView(R.layout.dialog_success);
+//                        dialog1.setCanceledOnTouchOutside(false);
+                        dialog1.getWindow().setBackgroundDrawableResource(R.color.transparent);
+                        dialog1.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
                         Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
+
+                        module.setResponseConfirmCer(new HttpRequest.AsyncResponse() {
                             @Override
-                            public void run() {
-                                Intent intent= new Intent(Activity_Manage_Certificate_Add_New_Certificate_Check.this, Activity_Manage_Certificate_Add_New_Certificate_Check_Confirm.class);
-//                        intent.putExtra("otp", pinValue.getText().toString());
-                                Log.d("afb", "afterTextChanged: " + pinValue.getText().toString());
-                               startActivity(intent);
-                finish();
+                            public void process(boolean b, Response response) {
+                                if (response.getError() == 0) {
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            dialog.dismiss();
+                                            dialog1.show();
+                                            handler.postDelayed(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    dialog1.dismiss();
+                                                    Intent intent = new Intent(Activity_Manage_Certificate_Add_New_Certificate_Check.this,
+                                                            Activity_Manage_Certificate_Add_New_Certificate_Check_Confirm.class);
+                                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                    intent.putExtra("response", response);
+                                                    startActivity(intent);
+                                                    finish();
+                                                }
+                                            }, 3000);
+                                        }
+                                    });
+                                }
                             }
-                        }, 3000);
+                        }).confirmCer();
+
 
                     } else {
                         Dialog dialog = new Dialog(Activity_Manage_Certificate_Add_New_Certificate_Check.this);
@@ -147,12 +172,18 @@ public class Activity_Manage_Certificate_Add_New_Certificate_Check extends Defau
                             txt_pin_view6.setBackgroundResource(R.drawable.ic_pinview_disable);
                             pinValue.setText("");
                         });
-
                     }
 
             }
         }
     };
+    Response response;
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
+
     boolean checked1, checked2, checked3;
     AppCompatCheckBox checkBox1, checkBox2, checkBox3;
     View.OnClickListener numKey = new View.OnClickListener() {
@@ -162,7 +193,6 @@ public class Activity_Manage_Certificate_Add_New_Certificate_Check extends Defau
             TextView button = (TextView) v;
             text = text + button.getText().toString();
             pinValue.setText(text);
-            Log.d("123", "value:" + pinValue.getText().toString());
         }
     };
 
@@ -172,9 +202,45 @@ public class Activity_Manage_Certificate_Add_New_Certificate_Check extends Defau
         setContentView(R.layout.activity_manage_certificate_add_new_certificate_check);
         txt_select_id = findViewById(R.id.txt_select_id);
         btnBack = findViewById(R.id.btnBack);
-        tv_add_new_Cer = findViewById(R.id.tv_add_new_Cer);
+        btnCancel = findViewById(R.id.btnCancel);
         txt_select_id = findViewById(R.id.txt_select_id);
-        otp = "111111";
+        uid_detail = findViewById(R.id.uid_detail);
+        common_detail = findViewById(R.id.common_detail);
+        o_detail = findViewById(R.id.orga_detail);
+        state_detail = findViewById(R.id.state_detail);
+        country_detail = findViewById(R.id.country_detail);
+        btn_Detail = findViewById(R.id.btnDetail);
+        module = CertificateConfirmModule.createModule(this);
+        btnBack.setOnClickListener(this);
+        btnCancel.setOnClickListener(this);
+        SharedPreferences my_6_digit = getSharedPreferences("MY_6_DIGIT", MODE_PRIVATE);
+        digit_6 = my_6_digit.getString("my_6_digit", null);
+
+        try {
+            otp = decrypt(getApplicationContext(), digit_6);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        response = (Response) getIntent().getSerializableExtra("response");
+        if (response != null) {
+            uid_detail.setText(response.getSubject().get("UID").get(0));
+            common_detail.setText(response.getSubject().get("CN").get(0));
+            o_detail.setText(response.getSubject().get("O").get(0));
+            state_detail.setText(response.getSubject().get("ST").get(0));
+            country_detail.setText(response.getSubject().get("C").get(0));
+        }
+
+        btn_Detail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), Activity_Manage_Certificate_Add_New_Certificate_Check_Detail.class);
+                intent.putExtra("response", response);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         txt_select_id.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -218,13 +284,13 @@ public class Activity_Manage_Certificate_Add_New_Certificate_Check extends Defau
                                 .putBoolean("check_manage_add_new_certificate_3", true).apply();
                         bottomSheetDialog.dismiss();
 
-                        Dialog dialog = new Dialog(Activity_Manage_Certificate_Add_New_Certificate_Check.this);
+                        dialog = new Dialog(Activity_Manage_Certificate_Add_New_Certificate_Check.this);
                         dialog.setContentView(R.layout.layout_enter_pin_code_setting_unlock_with_pin);
                         dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
                         dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
 
                         dialog.show();
-                        dialog.setCanceledOnTouchOutside(false);
+//                        dialog.setCanceledOnTouchOutside(false);
 
                         txt_pin_view1 = dialog.findViewById(R.id.txt_pin_view_1);
                         txt_pin_view2 = dialog.findViewById(R.id.txt_pin_view_2);
@@ -258,8 +324,6 @@ public class Activity_Manage_Certificate_Add_New_Certificate_Check extends Defau
                         bt8.setOnClickListener(numKey);
                         bt9.setOnClickListener(numKey);
                         bt0.setOnClickListener(numKey);
-
-
                     }
                 });
 
@@ -283,7 +347,8 @@ public class Activity_Manage_Certificate_Add_New_Certificate_Check extends Defau
                     public void onClick(View view) {
                         s = conf_bio.getText().toString();
                         txt_select_id.setText(s);
-
+                        Biometric();
+                        biometricPrompt.authenticate(promptInfo);
                         PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate_Add_New_Certificate_Check.this).edit()
                                 .putBoolean("check_manage_add_new_certificate_1", false).apply();
                         PreferenceManager.getDefaultSharedPreferences(Activity_Manage_Certificate_Add_New_Certificate_Check.this).edit()
@@ -312,26 +377,91 @@ public class Activity_Manage_Certificate_Add_New_Certificate_Check extends Defau
         });
     }
 
+    private void Biometric() {
+        executor = ContextCompat.getMainExecutor(this);
+        biometricPrompt = new BiometricPrompt(this,
+                executor, new BiometricPrompt.AuthenticationCallback() {
+            @Override
+            public void onAuthenticationError(int errorCode,
+                                              @NonNull CharSequence errString) {
+                super.onAuthenticationError(errorCode, errString);
+
+            }
+
+            @Override
+            public void onAuthenticationSucceeded(
+                    @NonNull BiometricPrompt.AuthenticationResult result) {
+                super.onAuthenticationSucceeded(result);
+                Toast.makeText(getApplicationContext(),
+                        "Authentication succeeded!", Toast.LENGTH_SHORT).show();
+                Dialog dialog1 = new Dialog(Activity_Manage_Certificate_Add_New_Certificate_Check.this);
+                dialog1.setContentView(R.layout.dialog_success);
+//                        dialog1.setCanceledOnTouchOutside(false);
+                dialog1.getWindow().setBackgroundDrawableResource(R.color.transparent);
+                dialog1.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+                Handler handler = new Handler();
+
+                module.setResponseConfirmCer(new HttpRequest.AsyncResponse() {
+                    @Override
+                    public void process(boolean b, Response response) {
+                        if (response.getError() == 0) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    dialog1.show();
+                                    handler.postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            dialog1.dismiss();
+                                            Intent intent = new Intent(Activity_Manage_Certificate_Add_New_Certificate_Check.this,
+                                                    Activity_Manage_Certificate_Add_New_Certificate_Check_Confirm.class);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                            intent.putExtra("response", response);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                    }, 3000);
+                                }
+                            });
+                        }
+                    }
+                }).confirmCer();
+            }
+
+            @Override
+            public void onAuthenticationFailed() {
+                super.onAuthenticationFailed();
+                Toast.makeText(getApplicationContext(), "Authentication failed",
+                                Toast.LENGTH_SHORT)
+                        .show();
+            }
+        });
+
+        promptInfo = new BiometricPrompt.PromptInfo.Builder()
+                .setTitle("Biometric login for my app")
+                .setSubtitle("Log in using your biometric credential")
+                .setAllowedAuthenticators(BIOMETRIC_STRONG | DEVICE_CREDENTIAL)
+                .build();
+    }
     @Override
     public void onClick(View view) {
         Intent intent;
-        switch (view.getId()) {
-            case R.id.tv_Cancel:
-            case R.id.btnBack:
-                intent = new Intent(Activity_Manage_Certificate_Add_New_Certificate_Check.this, Activity_Manage_Certificate_Add_New_Certificate.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        if (view.getId() == R.id.btnBack || view.getId() == R.id.tv_Cancel) {
+            intent = new Intent(Activity_Manage_Certificate_Add_New_Certificate_Check.this, Activity_Manage_Certificate_Add_New_Certificate.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            
-       startActivity(intent);
-                finish();
-                break;
-            case R.id.btn_Detail:
-                intent = new Intent(Activity_Manage_Certificate_Add_New_Certificate_Check.this, Activity_Manage_Certificate_Add_New_Certificate_Check_Detail.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+            startActivity(intent);
+            finish();
+        } else if (view.getId() == R.id.btn_Detail) {
+            intent = new Intent(Activity_Manage_Certificate_Add_New_Certificate_Check.this, Activity_Manage_Certificate_Add_New_Certificate_Check_Detail.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            
-      startActivity(intent);
-                finish();
+
+            startActivity(intent);
+            finish();
+
         }
     }
 }

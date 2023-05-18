@@ -92,7 +92,7 @@
                     android:background="@color/transparent"
                     android:fontFamily="@font/atb_digital_regular"
                     android:hint="@string/custom_cid_prompt_personal_number"
-                    android:inputType="text"
+                    android:inputType="number"
                     android:textColor="@color/blue_text"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"

@@ -76,6 +76,7 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
         checked8 = false;
         checked9 = false;
         start();
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.addItemDecoration(new DividerItemDecoration(this, 0));
         dialog = new Dialog(this);
@@ -1138,7 +1139,6 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
                 });
 
             }
-
         });
     }
 
@@ -1150,17 +1150,15 @@ public class Activity_Manage_Certificate extends DefaultActivity implements View
             case R.id.btnBack:
                 intent = new Intent(Activity_Manage_Certificate.this, Activity_Setting_Detail.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            
-       startActivity(intent);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
                 finish();
                 break;
             case R.id.tv_add_new_Cer:
                 intent = new Intent(Activity_Manage_Certificate.this, Activity_Manage_Certificate_Add_New_Certificate.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            
-       startActivity(intent);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
                 finish();
                 break;
 

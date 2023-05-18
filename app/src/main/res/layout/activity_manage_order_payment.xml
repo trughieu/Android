@@ -865,7 +865,6 @@
                 android:layout_marginTop="15dp"
                 android:background="@drawable/bg_round_right_bot"
                 android:fontFamily="@font/atb_digital_medium"
-                android:paddingLeft="40dp"
                 android:text="@string/prompt_sign_at"
                 android:textColor="@color/white"
                 android:textSize="15dp" />

@@ -66,30 +66,32 @@
         android:layout_marginTop="64dp"
         android:background="@drawable/corner_card"
         android:gravity="center_horizontal"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/txt_select_id"
-            android:layout_width="350dp"
-            android:layout_height="35dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="71dp"
             android:background="@drawable/corner_select"
             android:backgroundTint="@color/white"
-            android:drawableEnd="@drawable/baseline_keyboard_arrow_down_24"
             android:fontFamily="@font/atb_digital_medium"
             android:gravity="center_vertical"
             android:paddingStart="20dp"
-            android:text="@string/transaction"
+            android:text="@string/spinner_issue_te"
             android:textColor="@color/blue_text"
             android:textSize="12dp"
             app:layout_constraintEnd_toEndOf="@+id/logo"
             app:layout_constraintStart_toStartOf="@+id/logo"
-            app:layout_constraintTop_toBottomOf="@+id/logo" />
+            app:layout_constraintTop_toBottomOf="@+id/logo"
+            app:drawableEndCompat="@drawable/baseline_keyboard_arrow_down_24" />
 
         <LinearLayout
-            android:layout_width="350dp"
+            android:layout_width="match_parent"
             android:layout_height="447dp"
             android:layout_marginTop="40dp"
             android:background="@drawable/corner_dotted"
@@ -97,11 +99,15 @@
             android:orientation="vertical"
             android:padding="10dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <EditText
+                android:id="@+id/desSend"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/transparent"
                 android:fontFamily="@font/atb_digital_medium"
-                android:text="@string/hint_support_request_issue_description"
+                android:gravity="top|start"
+                android:text=""
+                android:inputType="text"
                 android:textColor="@color/white"
                 android:textSize="12dp" />
 
@@ -120,6 +126,7 @@
             android:paddingBottom="10dp">
 
             <TextView
+                android:id="@+id/btnContinue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/atb_digital_medium"

@@ -91,7 +91,6 @@
             android:layout_marginTop="63dp"
             android:background="@drawable/bg_round_right_bot"
             android:fontFamily="@font/atb_digital_medium"
-            android:paddingLeft="40dp"
             android:text="@string/certificate_subject_name"
             android:textColor="@color/white"
             android:textSize="15dp" />

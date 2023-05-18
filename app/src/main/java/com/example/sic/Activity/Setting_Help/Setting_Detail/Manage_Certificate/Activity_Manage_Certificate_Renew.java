@@ -2,18 +2,33 @@ package com.example.sic.Activity.Setting_Help.Setting_Detail.Manage_Certificate;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.sic.Adapter.AdapterCP;
+import com.example.sic.Adapter.AdapterSC;
+import com.example.sic.Adapter.CertificateAuthorityAdapter;
 import com.example.sic.DefaultActivity;
 import com.example.sic.R;
+import com.example.sic.model.CertificateCA;
+import com.example.sic.model.CertificateCP;
+import com.example.sic.model.CertificateSC;
 import com.example.sic.model.Manage_Certificate;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import java.util.ArrayList;
+
+import vn.mobileid.tse.model.client.HttpRequest;
+import vn.mobileid.tse.model.client.managecertificate.CertificateProfilesModule;
+import vn.mobileid.tse.model.connector.plugin.CertificateAuthority;
+import vn.mobileid.tse.model.connector.plugin.Profiles;
+import vn.mobileid.tse.model.connector.plugin.Response;
+
 public class Activity_Manage_Certificate_Renew extends DefaultActivity {
-    TextView txt_select_id_certificate_autho, txt_select_id_certificate_profile, txt_select_id_signing_counter, title;
+    TextView selectCA, selectCP, selectSC, title;
     TextView mobile_id, mobile_id_1, mobile_id_2, mobile_id_3, mobile_id_4, mobile_id_5,
             mobile_id_6, mobile_id_7, mobile_id_8, mobile_id_9,
             one_year, two_year, third_year, unlimited, tenk_signed_profile,
@@ -24,311 +39,144 @@ public class Activity_Manage_Certificate_Renew extends DefaultActivity {
     FrameLayout btnBack;
     TextView btnContinue;
 
-    @Override
-    public void onBackPressed() {
-        moveTaskToBack(true);
-    }
+
+    CertificateCA certificateCA;
+    ArrayList<CertificateCA> certificateCAs = new ArrayList<>();
+    CertificateSC certificateSC;
+    ArrayList<CertificateSC> certificateSCs = new ArrayList<>();
+
+    CertificateCP certificateCP;
+    ArrayList<CertificateCP> certificateCPs = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_certificate_renew);
 
-        txt_select_id_certificate_profile = findViewById(R.id.txt_select_id_certificate_profile);
-        txt_select_id_certificate_autho = findViewById(R.id.txt_select_id_certificate_autho);
-        txt_select_id_signing_counter = findViewById(R.id.txt_select_id_signing_counter);
+        selectCP = findViewById(R.id.selectCP);
+        selectCA = findViewById(R.id.selectCA);
+        selectSC = findViewById(R.id.selectSC);
         btnBack = findViewById(R.id.btnBack);
         btnContinue = findViewById(R.id.btnContinue);
-        title=findViewById(R.id.title);
+        title = findViewById(R.id.title);
         btnBack.setOnClickListener(view -> {
-            Intent intent= new Intent(Activity_Manage_Certificate_Renew.this, Activity_Manage_Certificate.class);
-           startActivity(intent);
-                finish();
+            Intent intent = new Intent(Activity_Manage_Certificate_Renew.this, Activity_Manage_Certificate.class);
+            startActivity(intent);
+            finish();
         });
         btnContinue.setOnClickListener(view -> {
-            Intent intent= new Intent(Activity_Manage_Certificate_Renew.this, Activity_Manage_Certificate_Renew_Check.class);
-           startActivity(intent);
-                finish();
+            Intent intent = new Intent(Activity_Manage_Certificate_Renew.this, Activity_Manage_Certificate_Renew_Check.class);
+            startActivity(intent);
+            finish();
 
         });
 
-        Manage_Certificate manage_certificate= (Manage_Certificate) getIntent().getSerializableExtra("certificate");
+        Manage_Certificate manage_certificate = (Manage_Certificate) getIntent().getSerializableExtra("certificate");
         title.setText(manage_certificate.getCNSubjectDN());
-        txt_select_id_certificate_autho.setOnClickListener(new View.OnClickListener() {
+
+        CertificateProfilesModule.createModule(this).setResponseGetCertificateAuthorities(new HttpRequest.AsyncResponse() {
             @Override
-            public void onClick(View view) {
-                final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(
-                        Activity_Manage_Certificate_Renew.this, R.style.BottomSheetDialogTheme);
+            public void process(boolean b, Response response) {
+                for (CertificateAuthority cer : response.getCertificateAuthorities()) {
+                    String name = cer.getName();
+                    certificateCA = new CertificateCA();
+                    certificateCA.setDescription(name);
+                    certificateCAs.add(certificateCA);
 
-                View bottomsheet_autho = LayoutInflater.from(getBaseContext())
-                        .inflate(R.layout.bottom_sheet_layout_manage_certificate_renew_certificate_autho,
-                                findViewById(R.id.bottom_sheet_certificate_autho));
-
-                mobile_id = bottomsheet_autho.findViewById(R.id.mobile_id);
-                mobile_id_1 = bottomsheet_autho.findViewById(R.id.mobile_id_1);
-                mobile_id_2 = bottomsheet_autho.findViewById(R.id.mobile_id_2);
-                mobile_id_3 = bottomsheet_autho.findViewById(R.id.mobile_id_3);
-                mobile_id_4 = bottomsheet_autho.findViewById(R.id.mobile_id_4);
-                mobile_id_5 = bottomsheet_autho.findViewById(R.id.mobile_id_5);
-                mobile_id_6 = bottomsheet_autho.findViewById(R.id.mobile_id_6);
-                mobile_id_7 = bottomsheet_autho.findViewById(R.id.mobile_id_7);
-                mobile_id_8 = bottomsheet_autho.findViewById(R.id.mobile_id_8);
-                mobile_id_9 = bottomsheet_autho.findViewById(R.id.mobile_id_9);
-
-                mobile_id.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        s = mobile_id.getText().toString();
-                        txt_select_id_certificate_autho.setText(s);
-                        bottomSheetDialog.dismiss();
-                    }
-                });
-                mobile_id_1.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        s = mobile_id_1.getText().toString();
-                        txt_select_id_certificate_autho.setText(s);
-                        bottomSheetDialog.dismiss();
-                    }
-                });
-                mobile_id_2.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        s = mobile_id_2.getText().toString();
-                        txt_select_id_certificate_autho.setText(s);
-                        bottomSheetDialog.dismiss();
-                    }
-                });
-                mobile_id_3.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        s = mobile_id_3.getText().toString();
-                        txt_select_id_certificate_autho.setText(s);
-                        bottomSheetDialog.dismiss();
-                    }
-                });
-                mobile_id_4.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        s = mobile_id_4.getText().toString();
-                        txt_select_id_certificate_autho.setText(s);
-                        bottomSheetDialog.dismiss();
-                    }
-                });
-                mobile_id_5.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        s = mobile_id_5.getText().toString();
-                        txt_select_id_certificate_autho.setText(s);
-                        bottomSheetDialog.dismiss();
-                    }
-                });
-                mobile_id_6.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        s = mobile_id_6.getText().toString();
-                        txt_select_id_certificate_autho.setText(s);
-                        bottomSheetDialog.dismiss();
-                    }
-                });
-                mobile_id_7.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        s = mobile_id_7.getText().toString();
-                        txt_select_id_certificate_autho.setText(s);
-                        bottomSheetDialog.dismiss();
-                    }
-                });
-                mobile_id_8.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        s = mobile_id_8.getText().toString();
-                        txt_select_id_certificate_autho.setText(s);
-                        bottomSheetDialog.dismiss();
-                    }
-                });
-                mobile_id_9.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        s = mobile_id_9.getText().toString();
-                        txt_select_id_certificate_autho.setText(s);
-                        bottomSheetDialog.dismiss();
-                    }
-                });
-
-                bottomSheetDialog.setContentView(bottomsheet_autho);
-                bottomSheetDialog.show();
+                }
             }
+        }).getCertificateAuthorities();
+
+        CertificateProfilesModule.createModule(this).setResponseSystemsGetsigningProfiles(new HttpRequest.AsyncResponse() {
+            @Override
+            public void process(boolean b, Response response) {
+                for (Profiles profiles : response.getProfiles()) {
+                    String name = profiles.getName();
+                    certificateSC = new CertificateSC();
+                    certificateSC.setName(name);
+                    certificateSCs.add(certificateSC);
+                }
+
+            }
+        }).systemsGetsigningProfiles();
+
+
+        CertificateProfilesModule.createModule(this).setResponseSystemsGetCertificateProfiles(new HttpRequest.AsyncResponse() {
+            @Override
+            public void process(boolean b, Response response) {
+                for (Profiles profiles : response.getProfiles()) {
+                    String name = profiles.getName();
+                    certificateCP = new CertificateCP();
+                    certificateCP.setDescription(name);
+                    certificateCPs.add(certificateCP);
+                }
+
+            }
+        }).systemsGetCertificateProfiles(selectCA.getText().toString());
+
+        selectCA.setOnClickListener(v -> {
+            bottomCA();
+        });
+        selectCP.setOnClickListener(v -> {
+            bottomCP();
+        });
+        selectSC.setOnClickListener(v -> {
+            CertificateProfilesModule.createModule(this).setResponseSystemsGetCertificateProfiles(new HttpRequest.AsyncResponse() {
+                @Override
+                public void process(boolean b, Response response) {
+                    for (Profiles profiles : response.getProfiles()) {
+                        String name = profiles.getName();
+                        certificateCP = new CertificateCP();
+                        certificateCP.setDescription(name);
+                        certificateCPs.add(certificateCP);
+                    }
+
+                }
+            }).systemsGetCertificateProfiles(selectCA.getText().toString());
+
+            BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(Activity_Manage_Certificate_Renew.this, R.style.BottomSheetDialogTheme);
+            AdapterSC adapter = new AdapterSC(certificateSCs, selectSC, bottomSheetDialog);
+            RecyclerView recyclerView = new RecyclerView(this);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            recyclerView.setAdapter(adapter);
+            bottomSheetDialog.setContentView(recyclerView);
+            bottomSheetDialog.show();
         });
 
-        txt_select_id_certificate_profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(
-                        Activity_Manage_Certificate_Renew.this, R.style.BottomSheetDialogTheme);
+    }
 
-                View bottomsheet_profile = LayoutInflater.from(getBaseContext())
-                        .inflate(R.layout.bottom_sheet_layout_manage_certificate_renew_certificate_profile,
-                                findViewById(R.id.bottom_sheet_certificate_profile));
+    private void bottomCA() {
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(Activity_Manage_Certificate_Renew.this, R.style.BottomSheetDialogTheme);
+        CertificateAuthorityAdapter adapter = new CertificateAuthorityAdapter(certificateCAs, selectCA, bottomSheetDialog);
+        RecyclerView recyclerView = new RecyclerView(this);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+        bottomSheetDialog.setContentView(recyclerView);
+        bottomSheetDialog.show();
+    }
 
-                one_year = bottomsheet_profile.findViewById(R.id.one_year);
-                two_year = bottomsheet_profile.findViewById(R.id.two_year);
-                third_year = bottomsheet_profile.findViewById(R.id.third_year);
+    private void bottomCP() {
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(Activity_Manage_Certificate_Renew.this, R.style.BottomSheetDialogTheme);
+        AdapterCP adapter = new AdapterCP(certificateCPs, selectCA, bottomSheetDialog);
+        RecyclerView recyclerView = new RecyclerView(this);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+        bottomSheetDialog.setContentView(recyclerView);
+        bottomSheetDialog.show();
+    }
 
-                one_year.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        s = one_year.getText().toString();
-                        txt_select_id_certificate_profile.setText(s);
-                        bottomSheetDialog.dismiss();
-                    }
-                });
-                two_year.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        s = two_year.getText().toString();
-                        txt_select_id_certificate_profile.setText(s);
-                        bottomSheetDialog.dismiss();
-                    }
-                });
-                third_year.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        s = third_year.getText().toString();
-                        txt_select_id_certificate_profile.setText(s);
-                        bottomSheetDialog.dismiss();
-                    }
-                });
+    private void bottomSC() {
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(Activity_Manage_Certificate_Renew.this, R.style.BottomSheetDialogTheme);
+        AdapterSC adapter = new AdapterSC(certificateSCs, selectSC, bottomSheetDialog);
+        RecyclerView recyclerView = new RecyclerView(this);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+        bottomSheetDialog.setContentView(recyclerView);
+        bottomSheetDialog.show();
+    }
 
-                bottomSheetDialog.setContentView(bottomsheet_profile);
-                bottomSheetDialog.show();
-            }
-        });
-        txt_select_id_signing_counter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(
-                        Activity_Manage_Certificate_Renew.this, R.style.BottomSheetDialogTheme);
-
-                View bottomsheet_counter = LayoutInflater.from(getBaseContext())
-                        .inflate(R.layout.bottom_sheet_layout_manage_certificate_renew_signing_counter,
-                                findViewById(R.id.bottom_sheet_signing_counter));
-
-                unlimited = bottomsheet_counter.findViewById(R.id.unlimited);
-
-                tenk_signed_profile = bottomsheet_counter.findViewById(R.id.tenk_signed_profile);
-                ten_signed_profile = bottomsheet_counter.findViewById(R.id.ten_signed_profile);
-                five_signed_profiled = bottomsheet_counter.findViewById(R.id.five_signed_profile);
-
-                unlimited.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        s = unlimited.getText().toString();
-                        txt_select_id_signing_counter.setText(s);
-                        bottomSheetDialog.dismiss();
-                    }
-                });
-                ten_signed_profile.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        s = ten_signed_profile.getText().toString();
-                        txt_select_id_signing_counter.setText(s);
-                        bottomSheetDialog.dismiss();
-                    }
-                });
-                tenk_signed_profile.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        s = tenk_signed_profile.getText().toString();
-                        txt_select_id_signing_counter.setText(s);
-                        bottomSheetDialog.dismiss();
-                    }
-                });
-                five_signed_profiled.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        s = five_signed_profiled.getText().toString();
-                        txt_select_id_signing_counter.setText(s);
-                        bottomSheetDialog.dismiss();
-                    }
-                });
-
-
-                bottomSheetDialog.setContentView(bottomsheet_counter);
-                bottomSheetDialog.show();
-            }
-        });
-
-
-/**
- LinearLayout llBottomSheet_autho = findViewById(R.id.bottom_sheet_certificate_autho);
- LinearLayout llBottomSheet_profile = findViewById(R.id.bottom_sheet_certificate_profile);
- LinearLayout llBottomSheet_signing_counter = findViewById(R.id.bottom_sheet_signing_counter);
- BottomSheetBehavior bottomSheetBehavior_autho = BottomSheetBehavior.from(llBottomSheet_autho);
- BottomSheetBehavior bottomSheetBehavior_profile = BottomSheetBehavior.from(llBottomSheet_profile);
- BottomSheetBehavior bottomSheetBehavior_signing_counter = BottomSheetBehavior.from(llBottomSheet_signing_counter);
- /** Profile
- txt_select_id_certificate_profile.setOnClickListener(new View.OnClickListener() {
-@Override public void onClick(View view) {
-if (bottomSheetBehavior_profile.getState() != BottomSheetBehavior.STATE_EXPANDED) {
-
-bottomSheetBehavior_autho.setState(BottomSheetBehavior.STATE_HIDDEN);
-bottomSheetBehavior_signing_counter.setState(BottomSheetBehavior.STATE_HIDDEN);
-bottomSheetBehavior_profile.setState(BottomSheetBehavior.STATE_EXPANDED);
-
-
-//                bottomSheetBehavior.setPeekHeight(200);
-} else bottomSheetBehavior_profile.setState(BottomSheetBehavior.STATE_HIDDEN);
-
-// set the peek height
-bottomSheetBehavior_profile.setPeekHeight(0);
-
-// set hideable or not
-bottomSheetBehavior_profile.setHideable(true);
-}
-});
-
- /**            Autho
- txt_select_id_certificate_autho.setOnClickListener(new View.OnClickListener() {
-@Override public void onClick(View view) {
-if (bottomSheetBehavior_autho.getState() != BottomSheetBehavior.STATE_EXPANDED) {
-bottomSheetBehavior_signing_counter.setState(BottomSheetBehavior.STATE_HIDDEN);
-bottomSheetBehavior_profile.setState(BottomSheetBehavior.STATE_HIDDEN);
-bottomSheetBehavior_autho.setState(BottomSheetBehavior.STATE_EXPANDED);
-
-
-//                bottomSheetBehavior.setPeekHeight(200);
-} else
-bottomSheetBehavior_autho.setState(BottomSheetBehavior.STATE_HIDDEN);
-
-// set the peek height
-bottomSheetBehavior_autho.setPeekHeight(0);
-
-// set hideable or not
-bottomSheetBehavior_autho.setHideable(true);
-
-}
-});
-
- /**           Singing Counter
- txt_select_id_signing_counter.setOnClickListener(new View.OnClickListener() {
-@Override public void onClick(View view) {
-if (bottomSheetBehavior_signing_counter.getState() != BottomSheetBehavior.STATE_EXPANDED) {
-bottomSheetBehavior_profile.setState(BottomSheetBehavior.STATE_HIDDEN);
-bottomSheetBehavior_autho.setState(BottomSheetBehavior.STATE_HIDDEN);
-bottomSheetBehavior_signing_counter.setState(BottomSheetBehavior.STATE_EXPANDED);
-
-//                bottomSheetBehavior.setPeekHeight(200);
-} else
-bottomSheetBehavior_signing_counter.setState(BottomSheetBehavior.STATE_HIDDEN);
-
-// set the peek height
-bottomSheetBehavior_signing_counter.setPeekHeight(0);
-
-// set hideable or not
-bottomSheetBehavior_signing_counter.setHideable(true);
-
-}
-});*/
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
     }
 }

@@ -23,12 +23,6 @@ import com.example.sic.R;
 public class registerChip_2 extends AppCompatActivity {
 
     FrameLayout btnBack;
-
-    @Override
-    public void onBackPressed() {
-        moveTaskToBack(true);
-    }
-
     MrzScanner mrzScanner;
     MrzPreview mrzPreview;
     TextView txt_click_here;
@@ -41,7 +35,8 @@ public class registerChip_2 extends AppCompatActivity {
         mrzPreview = findViewById(R.id.preview);
         txt_click_here = findViewById(R.id.txt_click_here);
         btnBack.setOnClickListener(view -> {
-            Intent intent = new Intent(registerChip_2.this, registerChip_3.class);
+
+            Intent intent = new Intent(registerChip_2.this, registerChip_1.class);
             startActivity(intent);
             finish();
         });
@@ -94,7 +89,10 @@ public class registerChip_2 extends AppCompatActivity {
             }
         }, 10000);
     }
-
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
     @Override
     public void onPause() {
         super.onPause();

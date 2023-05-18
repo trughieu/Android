@@ -101,7 +101,7 @@
             android:layout_marginTop="60dp"
             android:layout_marginEnd="70dp"
             android:fontFamily="@font/atb_digital_medium"
-            android:text="@string/enter_active"
+            android:text="@string/hint_enter_activation_code"
             android:textColor="@color/white"
             android:textSize="12dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -115,26 +115,8 @@
             android:visibility="invisible"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <!--        <com.chaos.view.PinView-->
-        <!--            android:id="@+id/pinview"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginTop="24dp"-->
-        <!--            android:fontFamily="@font/inter_bold"-->
-        <!--            android:inputType="numberPassword"-->
-        <!--            android:itemBackground="@color/gray_box"-->
-        <!--            android:textColor="@color/white"-->
-        <!--            android:textSize="13dp"-->
-        <!--            android:textStyle="bold"-->
-        <!--            app:itemCount="6"-->
-        <!--            app:itemRadius="5dp"-->
-        <!--            app:itemSpacing="15dp"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toBottomOf="@id/tv_pin_code"-->
-        <!--            app:lineColor="#00000000" />-->
         <LinearLayout
+            android:id="@+id/pin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -252,13 +234,25 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/choose"
+            android:layout_width="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/pin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="20dp"
+            android:text="@string/digit_8_number"
+            android:textColor="@color/white"
+            android:textSize="12dp"
+            android:fontFamily="@font/atb_digital_regular"
+            android:layout_height="wrap_content"/>
+
+        <TextView
             android:id="@+id/txt_select_id"
             android:layout_width="350dp"
             android:layout_height="35dp"
             android:layout_marginTop="110dp"
             android:background="@drawable/corner_select"
             android:backgroundTint="@color/white"
-            android:drawableEnd="@drawable/baseline_keyboard_arrow_down_24"
             android:fontFamily="@font/atb_digital_medium"
             android:gravity="center_vertical"
             android:paddingStart="20dp"
@@ -267,19 +261,20 @@
             android:textSize="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/img_corner" />
+            app:layout_constraintTop_toTopOf="@id/img_corner"
+            app:drawableEndCompat="@drawable/baseline_keyboard_arrow_down_24" />
 
 
         <TextView
             android:id="@+id/btnContinue"
             android:layout_width="257dp"
             android:layout_height="40dp"
-            android:layout_marginBottom="90dp"
+            android:layout_marginBottom="100dp"
             android:alpha="0.5"
             android:background="@drawable/square"
             android:fontFamily="@font/atb_digital_medium"
             android:gravity="center"
-            android:text="Continue"
+            android:text="@string/button_continue"
             android:textColor="@color/white"
             android:textSize="12dp"
             android:textStyle="bold"

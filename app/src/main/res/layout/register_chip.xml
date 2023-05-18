@@ -117,14 +117,36 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_1">
 
         <TextView
-            android:id="@+id/tv_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="@font/atb_digital_regular"
+            android:gravity="left"
+            android:layout_marginBottom="5dp"
+            android:text="@string/prompt_capture_code"
+            android:textColor="@color/white"
+            android:textSize="14dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/atb_digital_regular"
+            android:gravity="left"
+            android:lineSpacingExtra="8sp"
+            android:text="@string/prompt_scan_nfc"
+            android:textColor="@color/white"
+            android:textSize="14dp" />
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:fontFamily="@font/atb_digital_regular"
             android:gravity="left"
             android:lineSpacingExtra="8sp"
-            android:text="@string/capture_the_MRZ"
+            android:text="@string/prompt_scan_face"
             android:textColor="@color/white"
             android:textSize="14dp" />
 
@@ -161,7 +183,7 @@
         android:background="@drawable/square"
         android:fontFamily="@font/atb_digital_medium"
         android:gravity="center"
-        android:text="Continue"
+        android:text="@string/button_continue"
         android:textColor="@color/white"
         android:textSize="12dp"
         android:textStyle="bold"

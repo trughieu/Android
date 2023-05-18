@@ -56,13 +56,18 @@
                 android:layout_height="match_parent" />
         </LinearLayout>
 
-        <ImageView
+<!--        <ImageView-->
+<!--            android:layout_width="370dp"-->
+<!--            android:layout_height="2dp"-->
+<!--            android:layout_marginStart="20dp"-->
+<!--            android:layout_marginBottom="6dp"-->
+<!--            android:src="@drawable/line_3" />-->
+        <View
             android:layout_width="370dp"
-            android:layout_height="2dp"
+            android:layout_height="1dp"
             android:layout_marginStart="20dp"
             android:layout_marginBottom="6dp"
-            android:src="@drawable/line_3" />
-
+            android:background="@drawable/line_3" />
         <LinearLayout
             android:id="@+id/check_forget_passphrase"
             android:layout_width="match_parent"
@@ -88,15 +93,20 @@
                 android:layout_height="match_parent" />
         </LinearLayout>
 
-        <ImageView
+<!--        <ImageView-->
+<!--            android:layout_width="370dp"-->
+<!--            android:layout_height="2dp"-->
+<!--            android:layout_alignParentLeft="true"-->
+<!--            android:layout_alignParentTop="true"-->
+<!--            android:layout_marginStart="20dp"-->
+<!--            android:layout_marginBottom="6dp"-->
+<!--            android:src="@drawable/line_3" />-->
+        <View
             android:layout_width="370dp"
-            android:layout_height="2dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
+            android:layout_height="1dp"
             android:layout_marginStart="20dp"
             android:layout_marginBottom="6dp"
-            android:src="@drawable/line_3" />
-
+            android:background="@drawable/line_3" />
         <LinearLayout
             android:id="@+id/check_change_email"
             android:layout_width="match_parent"
@@ -121,13 +131,18 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent" />
         </LinearLayout>
-
-        <ImageView
+        <View
             android:layout_width="370dp"
-            android:layout_height="2dp"
+            android:layout_height="1dp"
             android:layout_marginStart="20dp"
             android:layout_marginBottom="6dp"
-            android:src="@drawable/line_3" />
+            android:background="@drawable/line_3" />
+        <!--        <ImageView-->
+        <!--            android:layout_width="370dp"-->
+        <!--            android:layout_height="2dp"-->
+        <!--            android:layout_marginStart="20dp"-->
+        <!--            android:layout_marginBottom="6dp"-->
+        <!--            android:src="@drawable/line_3" />-->
 
         <LinearLayout
             android:id="@+id/check_change_scal"
@@ -151,15 +166,21 @@
                 style="@style/custom_checkbox_blue"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent" />
         </LinearLayout>
 
-        <ImageView
+        <!--        <ImageView-->
+        <!--            android:layout_width="370dp"-->
+        <!--            android:layout_height="2dp"-->
+        <!--            android:layout_marginStart="20dp"-->
+        <!--            android:layout_marginBottom="6dp"-->
+        <!--            android:src="@drawable/line_3" />-->
+        <View
             android:layout_width="370dp"
-            android:layout_height="2dp"
+            android:layout_height="1dp"
             android:layout_marginStart="20dp"
             android:layout_marginBottom="6dp"
-            android:src="@drawable/line_3" />
+            android:background="@drawable/line_3" />
 
         <LinearLayout
             android:id="@+id/check_renew"
@@ -186,13 +207,18 @@
                 android:layout_height="match_parent" />
         </LinearLayout>
 
-        <ImageView
+<!--        <ImageView-->
+<!--            android:layout_width="370dp"-->
+<!--            android:layout_height="2dp"-->
+<!--            android:layout_marginStart="20dp"-->
+<!--            android:layout_marginBottom="6dp"-->
+<!--            android:src="@drawable/line_3" />-->
+        <View
             android:layout_width="370dp"
-            android:layout_height="2dp"
+            android:layout_height="1dp"
             android:layout_marginStart="20dp"
             android:layout_marginBottom="6dp"
-            android:src="@drawable/line_3" />
-
+            android:background="@drawable/line_3" />
         <LinearLayout
             android:id="@+id/check_history"
             android:layout_width="match_parent"
