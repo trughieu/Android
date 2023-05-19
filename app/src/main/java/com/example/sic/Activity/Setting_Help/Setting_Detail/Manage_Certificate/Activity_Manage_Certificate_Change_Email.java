@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 
 import com.example.sic.DefaultActivity;
 import com.example.sic.R;
-import com.example.sic.model.Manage_Certificate;
 import com.google.android.material.textfield.TextInputEditText;
 
 import vn.mobileid.tse.model.client.HttpRequest;
@@ -73,7 +72,7 @@ public class Activity_Manage_Certificate_Change_Email extends DefaultActivity im
         module = CertificateProfilesModule.createModule(this);
 
         module.credentialsInfo(credentialID);
-        Manage_Certificate manage_certificate = (Manage_Certificate) getIntent().getSerializableExtra("certificate");
+        com.example.sic.model.Manage_Certificate manage_certificate = (com.example.sic.model.Manage_Certificate) getIntent().getSerializableExtra("certificate");
         title.setText(manage_certificate.getCNSubjectDN());
     }
 
@@ -96,7 +95,7 @@ public class Activity_Manage_Certificate_Change_Email extends DefaultActivity im
                 module.changeEmailRequest(txt_email_address.getText().toString());
                 break;
             case R.id.btnBack:
-                Intent intent= new Intent(getBaseContext(), Activity_Manage_Certificate.class);
+                Intent intent= new Intent(getBaseContext(), Manage_Certificate.class);
                startActivity(intent);
                 finish();
         }

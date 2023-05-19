@@ -182,7 +182,6 @@ public class Activity_Manage_Certificate_Add_New_Certificate extends DefaultActi
         Intent intent;
         switch (view.getId()) {
             case R.id.btnContinue:
-
                 start();
                 module.setResponseCredentialsSendActivationCode(new HttpRequest.AsyncResponse() {
                     @Override
@@ -219,7 +218,7 @@ public class Activity_Manage_Certificate_Add_New_Certificate extends DefaultActi
                 }).credentialsSendActivationCode(pinValue.getText().toString(), null, txt_select_id.getText().toString());
                 break;
             case R.id.btnBack:
-                intent = new Intent(Activity_Manage_Certificate_Add_New_Certificate.this, Activity_Manage_Certificate.class);
+                intent = new Intent(Activity_Manage_Certificate_Add_New_Certificate.this, Manage_Certificate.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);

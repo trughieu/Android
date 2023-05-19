@@ -134,9 +134,8 @@ public class Adapter_item_Manage_Certificate extends RecyclerView.Adapter<Adapte
             holder.select_item.setOnClickListener(view -> {
                 intent = new Intent(activity, Activity_Manage_Certificate_Add_New_Certificate_Detail.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            
-         intent.putExtra("kakChanged", false);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("kakChanged", false);
                 intent.putExtra("id", manage_certificate.getCredentialID());
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 activity.startActivity(intent);
@@ -181,9 +180,8 @@ public class Adapter_item_Manage_Certificate extends RecyclerView.Adapter<Adapte
             holder.select_item.setOnClickListener(view -> {
                 intent = new Intent(activity, Activity_Manage_Certificate_Add_New_Certificate_Detail.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            
-        intent.putExtra("id", manage_certificate.getCredentialID());
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("id", manage_certificate.getCredentialID());
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 activity.startActivity(intent);
 

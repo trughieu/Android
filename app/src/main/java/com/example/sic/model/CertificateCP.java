@@ -2,12 +2,18 @@ package com.example.sic.model;
 
 public class CertificateCP {
     String description;
+    String name;
 
-    public CertificateCP(String description) {
-        this.description = description;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public CertificateCP() {
+
     }
 
     public String getDescription() {

@@ -21,7 +21,6 @@ import com.example.sic.Adapter.CertificateAuthorityAdapter;
 import com.example.sic.DefaultActivity;
 import com.example.sic.R;
 import com.example.sic.model.CertificateCA;
-import com.example.sic.model.Manage_Certificate;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
@@ -147,7 +146,7 @@ public class Activity_Manage_Certificate_Add_New_8_Certificate extends DefaultAc
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), Activity_Manage_Certificate.class);
+                Intent intent = new Intent(v.getContext(), Manage_Certificate.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);

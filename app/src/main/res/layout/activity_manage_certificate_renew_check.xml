@@ -38,6 +38,7 @@
             android:orientation="horizontal"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
+            android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -74,11 +75,17 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
 
-            <Space
-                android:id="@+id/btn_Log_out"
+            <TextView
+                android:id="@+id/btn_Detail"
+                android:layout_height="wrap_content"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="35dp"
+                android:background="@drawable/corner_logout"
+                android:fontFamily="@font/atb_digital_regular"
+                android:gravity="center"
+                android:text="@string/certificate_info"
+                android:textColor="@color/white"
+                android:textSize="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </LinearLayout>
@@ -278,9 +285,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/atb_digital_medium"
-                        android:gravity="right|top"
+                        android:gravity="end|top"
                         android:text="@string/h_n_i"
-
                         android:textColor="@color/white"
                         android:textSize="12dp" />
                 </LinearLayout>

@@ -49,7 +49,8 @@ public class AdapterSC extends RecyclerView.Adapter<AdapterSC.ViewHolder> {
         if (holder.getAdapterPosition() == 0) {
             holder.lnstate.setPadding(0, 40, 0, 0);
             holder.title.setVisibility(View.VISIBLE);
-        } else if (position == certificateSC.size() - 1) {
+        } else if (holder.getAdapterPosition() == certificateSC.size() - 1) {
+            holder.title.setVisibility(View.GONE);
             holder.img.setVisibility(View.GONE);
         } else if (holder.getAdapterPosition() != 0) {
             holder.title.setVisibility(View.GONE);

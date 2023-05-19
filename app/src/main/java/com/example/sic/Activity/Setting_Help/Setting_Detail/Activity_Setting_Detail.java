@@ -35,7 +35,7 @@ import androidx.core.content.ContextCompat;
 import com.example.sic.Activity.Login.MainActivity;
 import com.example.sic.Activity.Setting_Help.Activity_Setting_Help;
 import com.example.sic.Activity.Setting_Help.Setting_Detail.Change_Pin.Activity_Setting_Detail_Change_Pin_Code;
-import com.example.sic.Activity.Setting_Help.Setting_Detail.Manage_Certificate.Activity_Manage_Certificate;
+import com.example.sic.Activity.Setting_Help.Setting_Detail.Manage_Certificate.Manage_Certificate;
 import com.example.sic.Activity.Setting_Help.Setting_Detail.Manage_Sim.Activity_Manage_Sim;
 import com.example.sic.DefaultActivity;
 import com.example.sic.R;
@@ -310,7 +310,7 @@ public class Activity_Setting_Detail extends DefaultActivity implements View.OnC
                 Dialog_delete_account();
                 break;
             case R.id.id_manage_certificate:
-                intent = new Intent(Activity_Setting_Detail.this, Activity_Manage_Certificate.class);
+                intent = new Intent(Activity_Setting_Detail.this, Manage_Certificate.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 
@@ -463,7 +463,7 @@ public class Activity_Setting_Detail extends DefaultActivity implements View.OnC
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(getApplicationContext(), Activity_Manage_Certificate.class);
+                Intent intent = new Intent(getApplicationContext(), Manage_Certificate.class);
                 startActivity(intent);
                 finish();
                 dialog.dismiss();

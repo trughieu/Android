@@ -1,25 +1,28 @@
 package com.example.sic.Activity.Setting_Help.Setting_Detail.Manage_Certificate;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.sic.Adapter.AdapterCA;
 import com.example.sic.Adapter.AdapterCP;
 import com.example.sic.Adapter.AdapterSC;
-import com.example.sic.Adapter.CertificateAuthorityAdapter;
 import com.example.sic.DefaultActivity;
 import com.example.sic.R;
 import com.example.sic.model.CertificateCA;
 import com.example.sic.model.CertificateCP;
 import com.example.sic.model.CertificateSC;
-import com.example.sic.model.Manage_Certificate;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import vn.mobileid.tse.model.client.HttpRequest;
 import vn.mobileid.tse.model.client.managecertificate.CertificateProfilesModule;
@@ -47,6 +50,9 @@ public class Activity_Manage_Certificate_Renew extends DefaultActivity {
 
     CertificateCP certificateCP;
     ArrayList<CertificateCP> certificateCPs = new ArrayList<>();
+    public static boolean isDialogDismissed = false;
+
+    CertificateProfilesModule module;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,34 +66,58 @@ public class Activity_Manage_Certificate_Renew extends DefaultActivity {
         btnContinue = findViewById(R.id.btnContinue);
         title = findViewById(R.id.title);
         btnBack.setOnClickListener(view -> {
-            Intent intent = new Intent(Activity_Manage_Certificate_Renew.this, Activity_Manage_Certificate.class);
+            Intent intent = new Intent(Activity_Manage_Certificate_Renew.this, Manage_Certificate.class);
             startActivity(intent);
             finish();
         });
-        btnContinue.setOnClickListener(view -> {
-            Intent intent = new Intent(Activity_Manage_Certificate_Renew.this, Activity_Manage_Certificate_Renew_Check.class);
-            startActivity(intent);
-            finish();
+        String credentialID = getIntent().getStringExtra("id");
 
-        });
+        module = CertificateProfilesModule.createModule(this);
 
-        Manage_Certificate manage_certificate = (Manage_Certificate) getIntent().getSerializableExtra("certificate");
+        com.example.sic.model.Manage_Certificate manage_certificate = (com.example.sic.model.Manage_Certificate) getIntent().getSerializableExtra("certificate");
         title.setText(manage_certificate.getCNSubjectDN());
+        /**
+         * 	    systems/getCertificateAuthorities
+         * 	    Certificate Authority
+         */
 
-        CertificateProfilesModule.createModule(this).setResponseGetCertificateAuthorities(new HttpRequest.AsyncResponse() {
+        module.setResponseGetCertificateAuthorities(new HttpRequest.AsyncResponse() {
             @Override
             public void process(boolean b, Response response) {
                 for (CertificateAuthority cer : response.getCertificateAuthorities()) {
                     String name = cer.getName();
                     certificateCA = new CertificateCA();
-                    certificateCA.setDescription(name);
+                    certificateCA.setName(name);
                     certificateCAs.add(certificateCA);
+                    selectCA.setText(certificateCAs.get(0).getName());
+                    /**
+                     * 	systems/getCertificateProfiles
+                     * 	Certificate Profile
+                     */
+
 
                 }
             }
         }).getCertificateAuthorities();
 
-        CertificateProfilesModule.createModule(this).setResponseSystemsGetsigningProfiles(new HttpRequest.AsyncResponse() {
+        module.setResponseSystemsGetCertificateProfiles(new HttpRequest.AsyncResponse() {
+            @Override
+            public void process(boolean b, Response response) {
+                for (Profiles profiles : response.getProfiles()) {
+                    certificateCP = new CertificateCP();
+                    certificateCP.setDescription(profiles.getDescription());
+                    certificateCP.setName(profiles.getName());
+                    certificateCPs.add(certificateCP);
+                    selectCP.setText(certificateCPs.get(0).getDescription());
+                }
+            }
+        }).systemsGetCertificateProfiles(selectCA.getText().toString());
+
+        /**
+         * 		systems/getSigningProfiles
+         * 	Signing Counter
+         */
+        module.setResponseSystemsGetsigningProfiles(new HttpRequest.AsyncResponse() {
             @Override
             public void process(boolean b, Response response) {
                 for (Profiles profiles : response.getProfiles()) {
@@ -95,74 +125,91 @@ public class Activity_Manage_Certificate_Renew extends DefaultActivity {
                     certificateSC = new CertificateSC();
                     certificateSC.setName(name);
                     certificateSCs.add(certificateSC);
+                    selectSC.setText(certificateSCs.get(0).getName());
                 }
-
             }
         }).systemsGetsigningProfiles();
-
-
-        CertificateProfilesModule.createModule(this).setResponseSystemsGetCertificateProfiles(new HttpRequest.AsyncResponse() {
-            @Override
-            public void process(boolean b, Response response) {
-                for (Profiles profiles : response.getProfiles()) {
-                    String name = profiles.getName();
-                    certificateCP = new CertificateCP();
-                    certificateCP.setDescription(name);
-                    certificateCPs.add(certificateCP);
-                }
-
-            }
-        }).systemsGetCertificateProfiles(selectCA.getText().toString());
 
         selectCA.setOnClickListener(v -> {
             bottomCA();
         });
+
         selectCP.setOnClickListener(v -> {
             bottomCP();
         });
+
         selectSC.setOnClickListener(v -> {
-            CertificateProfilesModule.createModule(this).setResponseSystemsGetCertificateProfiles(new HttpRequest.AsyncResponse() {
+            bottomSC();
+        });
+
+
+        btnContinue.setOnClickListener(view -> {
+            Log.d("aas", "onCreate: " + certificateCPs.get(0).getName());
+            module.setResponseCredentialsRenewRequest(new HttpRequest.AsyncResponse() {
                 @Override
                 public void process(boolean b, Response response) {
-                    for (Profiles profiles : response.getProfiles()) {
-                        String name = profiles.getName();
-                        certificateCP = new CertificateCP();
-                        certificateCP.setDescription(name);
-                        certificateCPs.add(certificateCP);
+                    if (response.getError() == 0) {
+                        Intent intent = new Intent(Activity_Manage_Certificate_Renew.this, Activity_Manage_Certificate_Renew_Check.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.putExtra("id",credentialID);
+                        startActivity(intent);
+                        finish();
+
                     }
 
                 }
-            }).systemsGetCertificateProfiles(selectCA.getText().toString());
+            }).credentialsRenewRequest(certificateCPs.get(0).getName(), selectSC.getText().toString());
 
-            BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(Activity_Manage_Certificate_Renew.this, R.style.BottomSheetDialogTheme);
-            AdapterSC adapter = new AdapterSC(certificateSCs, selectSC, bottomSheetDialog);
-            RecyclerView recyclerView = new RecyclerView(this);
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            recyclerView.setAdapter(adapter);
-            bottomSheetDialog.setContentView(recyclerView);
-            bottomSheetDialog.show();
+        });
+    }
+
+    private void bottomCA() {
+        clearCertificateCPs();
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(Activity_Manage_Certificate_Renew.this, R.style.BottomSheetDialogTheme);
+        AdapterCA adapter = new AdapterCA(certificateCAs, selectCA, bottomSheetDialog, this);
+        RecyclerView recyclerView = new RecyclerView(this);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+        bottomSheetDialog.setContentView(recyclerView);
+        bottomSheetDialog.show();
+
+        bottomSheetDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                module.setResponseSystemsGetCertificateProfiles(new HttpRequest.AsyncResponse() {
+                    @Override
+                    public void process(boolean b, Response response) {
+                        for (Profiles profiles : response.getProfiles()) {
+                            certificateCP = new CertificateCP();
+                            certificateCP.setDescription(profiles.getDescription());
+                            certificateCP.setName(profiles.getName());
+                            certificateCPs.add(certificateCP);
+                            selectCP.setText(certificateCPs.get(0).getDescription());
+                        }
+                    }
+                }).systemsGetCertificateProfiles(selectCA.getText().toString());
+            }
+        });
+        bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                start();
+            }
         });
 
     }
 
-    private void bottomCA() {
-        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(Activity_Manage_Certificate_Renew.this, R.style.BottomSheetDialogTheme);
-        CertificateAuthorityAdapter adapter = new CertificateAuthorityAdapter(certificateCAs, selectCA, bottomSheetDialog);
-        RecyclerView recyclerView = new RecyclerView(this);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
-        bottomSheetDialog.setContentView(recyclerView);
-        bottomSheetDialog.show();
-    }
 
     private void bottomCP() {
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(Activity_Manage_Certificate_Renew.this, R.style.BottomSheetDialogTheme);
-        AdapterCP adapter = new AdapterCP(certificateCPs, selectCA, bottomSheetDialog);
+        AdapterCP adapter = new AdapterCP(certificateCPs, selectCP, bottomSheetDialog);
         RecyclerView recyclerView = new RecyclerView(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
         bottomSheetDialog.setContentView(recyclerView);
         bottomSheetDialog.show();
+
     }
 
     private void bottomSC() {
@@ -175,8 +222,46 @@ public class Activity_Manage_Certificate_Renew extends DefaultActivity {
         bottomSheetDialog.show();
     }
 
+    public void passSelectedCAToModule(@NonNull String selectedCA) {
+        module.setResponseSystemsGetCertificateProfiles(new HttpRequest.AsyncResponse() {
+            @Override
+            public void process(boolean b, Response response) {
+                if (response.getError() == 0) {
+                    stop();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            List<Profiles> profilesList = response.getProfiles();
+                            if (profilesList != null && !profilesList.isEmpty()) {
+                                selectCP.setEnabled(true);
+                                selectCP.setAlpha(1);
+                                for (Profiles profiles : profilesList) {
+                                    certificateCP = new CertificateCP();
+                                    certificateCP.setDescription(profiles.getDescription());
+                                    certificateCP.setName(profiles.getName());
+                                    certificateCPs.add(certificateCP);
+                                    selectCP.setText(certificateCPs.get(0).getDescription());
+                                }
+                            } else {
+                                selectCP.setEnabled(false);
+                                selectCP.setAlpha(0.5f);
+                                selectCP.setText("");
+                            }
+                        }
+                    });
+
+                }
+            }
+        }).systemsGetCertificateProfiles(selectedCA);
+
+    }
+
     @Override
     public void onBackPressed() {
         moveTaskToBack(true);
+    }
+
+    public void clearCertificateCPs() {
+        certificateCPs.clear();
     }
 }

@@ -3,9 +3,13 @@ package com.example.sic.Activity.Setting_Help;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,11 +17,13 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatCheckBox;
 
+import com.example.sic.DefaultActivity;
 import com.example.sic.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -26,7 +32,7 @@ import vn.mobileid.tse.model.client.activate.ActivateModule;
 import vn.mobileid.tse.model.connector.plugin.Response;
 
 
-public class Activity_Send_Support_Detail extends AppCompatActivity {
+public class Activity_Send_Support_Detail extends DefaultActivity {
 
 
     String s;
@@ -38,6 +44,7 @@ public class Activity_Send_Support_Detail extends AppCompatActivity {
     EditText sendDes;
 
     ActivateModule module;
+    LinearLayout backgroundtext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +56,34 @@ public class Activity_Send_Support_Detail extends AppCompatActivity {
         sendDes = findViewById(R.id.desSend);
         module = ActivateModule.createModule(this);
         btnContinue = findViewById(R.id.btnContinue);
+        backgroundtext=findViewById(R.id.backgroundtext);
+        sendDes.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(TextUtils.isEmpty(sendDes.getText().toString())){
+                    btnContinue.setEnabled(false);
+                    btnContinue.setTextColor(Color.parseColor("#FFFFFF"));
+                    backgroundtext.setBackgroundResource(R.drawable.corner_inbox_detail);
+                }
+                else {
+                    btnContinue.setEnabled(true);
+                    btnContinue.setTextColor(Color.parseColor("#0070F4"));
+                    backgroundtext.setBackgroundResource(R.drawable.corner_white);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
         btnContinue.setOnClickListener(v -> {
+            start();
             module.setResponseSendLogFile(new HttpRequest.AsyncResponse() {
                 @Override
                 public void process(boolean b, Response response) {
@@ -65,8 +98,10 @@ public class Activity_Send_Support_Detail extends AppCompatActivity {
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
+                                        stop();
                                         dialog.dismiss();
                                         sendDes.getText().clear();
+                                        sendDes.clearFocus();
                                     }
                                 }, 2000);
                             }

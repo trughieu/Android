@@ -11,16 +11,22 @@ import com.example.sic.DefaultActivity;
 import com.example.sic.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import java.security.cert.X509Certificate;
+
+import vn.mobileid.tse.model.client.HttpRequest;
+import vn.mobileid.tse.model.client.managecertificate.CertificateProfilesModule;
+import vn.mobileid.tse.model.connector.plugin.Response;
+import vn.mobileid.tse.model.utils.CertificateUtils;
+
 public class Activity_Manage_Certificate_Renew_Check extends DefaultActivity implements View.OnClickListener {
-    TextView txt_select_id;
+    TextView txt_select_id, uid_detail, common_detail, orga_detail, state_detail, country_detail;
     String s;
     TextView conf_E_iden, conf_bio, conf_Pin, btn_Detail;
     FrameLayout btnBack;
 
-    @Override
-    public void onBackPressed() {
-        moveTaskToBack(true);
-    }
+    CertificateProfilesModule module;
+    String credentialID;
+    Response response;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,10 +35,16 @@ public class Activity_Manage_Certificate_Renew_Check extends DefaultActivity imp
         txt_select_id = findViewById(R.id.txt_select_id);
         btnBack = findViewById(R.id.btnBack);
         btn_Detail = findViewById(R.id.btn_Detail);
+        uid_detail = findViewById(R.id.uid_detail);
+        common_detail = findViewById(R.id.common_detail);
+        orga_detail = findViewById(R.id.orga_detail);
+        state_detail = findViewById(R.id.state_detail);
+        country_detail = findViewById(R.id.country_detail);
         btn_Detail.setOnClickListener(this);
         btnBack.setOnClickListener(this);
-
-
+        module = CertificateProfilesModule.createModule(this);
+        credentialID = getIntent().getStringExtra("id");
+        start();
         txt_select_id.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,6 +90,47 @@ public class Activity_Manage_Certificate_Renew_Check extends DefaultActivity imp
                 bottomSheetDialog.show();
             }
         });
+
+
+        if (credentialID != null) {
+            module.setResponseCredentialsInfo(new HttpRequest.AsyncResponse() {
+                @Override
+                public void process(boolean b, Response response_info) {
+                    stop();
+                    response = response_info;
+                    try {
+                        X509Certificate x509Certificate = CertificateUtils.getCertFormBase64(response_info.getCert().getCertificates().get(0));
+                        CertificateUtils SubjectDN = CertificateUtils.getCertificateInfoFormString(x509Certificate.getSubjectDN().toString());
+
+                        String uid_SN = SubjectDN.getMap().get("UID");
+                        String CN_SN = SubjectDN.getMap().get("CN");
+                        String SP_SN = SubjectDN.getMap().get("ST");
+                        String C_SN = SubjectDN.getMap().get("C");
+                        String O_SN = SubjectDN.getMap().get("O");
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                stop();
+                                uid_detail.setText(uid_SN);
+                                common_detail.setText(CN_SN);
+                                state_detail.setText(SP_SN);
+                                country_detail.setText(C_SN);
+                                orga_detail.setText(O_SN);
+
+                            }
+                        });
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+
+                }
+            });
+
+            module.credentialsInfo(credentialID);
+        }
+
+
     }
 
     @Override
@@ -87,19 +140,24 @@ public class Activity_Manage_Certificate_Renew_Check extends DefaultActivity imp
             case R.id.btnBack:
                 intent = new Intent(Activity_Manage_Certificate_Renew_Check.this, Activity_Manage_Certificate_Renew.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            
-        startActivity(intent);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                startActivity(intent);
                 finish();
                 break;
             case R.id.btn_Detail:
                 intent = new Intent(Activity_Manage_Certificate_Renew_Check.this, Activity_Manage_Certificate_Renew_Check_Detail.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            
-        startActivity(intent);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("response",response);
+                startActivity(intent);
                 finish();
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
     }
 }

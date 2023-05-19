@@ -262,7 +262,7 @@
                 android:fontFamily="@font/atb_digital_medium"
                 android:text="@string/prompt_help"
                 android:textAlignment="center"
-                android:textColor="@color/white"
+                android:textColor="@color/blue_white"
                 android:textSize="12dp" />
 
         </LinearLayout>
@@ -288,7 +288,7 @@
                 android:fontFamily="@font/atb_digital_medium"
                 android:text="@string/prompt_terms_of_service"
                 android:textAlignment="center"
-                android:textColor="@color/white"
+                android:textColor="@color/blue_white"
                 android:textSize="12dp" />
 
 
@@ -315,7 +315,7 @@
                 android:fontFamily="@font/atb_digital_medium"
                 android:text="@string/privacy_policy"
                 android:textAlignment="center"
-                android:textColor="@color/white"
+                android:textColor="@color/blue_white"
                 android:textSize="12dp" />
         </LinearLayout>
     </LinearLayout>

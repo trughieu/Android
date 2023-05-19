@@ -42,10 +42,7 @@ import vn.mobileid.tse.model.connector.plugin.Response;
 import vn.mobileid.tse.model.utils.CertificateUtils;
 
 public class Activity_Manage_Certificate_Add_New_Certificate_Detail extends DefaultActivity {
-    @Override
-    public void onBackPressed() {
-        moveTaskToBack(true);
-    }
+
 
     static int success = 0;
     LinearLayout more_detail;
@@ -172,7 +169,7 @@ public class Activity_Manage_Certificate_Add_New_Certificate_Detail extends Defa
 
         btnBack.setOnClickListener(view -> {
             Intent intent= new Intent(Activity_Manage_Certificate_Add_New_Certificate_Detail.this
-                    , Activity_Manage_Certificate.class);
+                    , Manage_Certificate.class);
            startActivity(intent);
                 finish();
         });
@@ -472,5 +469,8 @@ public class Activity_Manage_Certificate_Add_New_Certificate_Detail extends Defa
         txt_select_id = findViewById(R.id.txt_select_id);
         successful = findViewById(R.id.success);
 
+    }  @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
     }
 }

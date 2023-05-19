@@ -206,7 +206,7 @@
     <string name="chrome_107_" translatable="false">Chrome 107.0</string>
     <string name="chrome_102_" translatable="false">Chrome 102.0</string>
     <string name="backoffice_" translatable="false">Backoffice_RP</string>
-    <string name="term_of_ser" translatable="false">Term of service</string>
+    <string name="term_of_ser">Terms of service</string>
     <string name="uyen_nguyen" translatable="false">UYEN NGUYEN 3_2</string>
     <string name="orders_prefix_issued_by">Issued by</string>
     <string name="mobile_id_t" translatable="false">Mobile-ID Trusted Network</string>
@@ -410,7 +410,7 @@
     <string name="prompt_manage_sim">Manage SIM</string>
     <string name="button_manage_order">Manage\nOrder</string>
     <string name="prompt_login_with_bio">Login with Biometrics</string>
-    <string name="action_history">Action\nHistory</string>
+    <string name="action_history">Action History</string>
     <string name="actionhitory">Action History</string>
     <string name="button_user_setting_app_security">App Security</string>
     <string name="button_no_unlock">No Unlock</string>

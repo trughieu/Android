@@ -27,7 +27,6 @@ import androidx.annotation.NonNull;
 import com.example.sic.DefaultActivity;
 import com.example.sic.R;
 import com.example.sic.SmsBroadcastReceiver;
-import com.example.sic.model.Manage_Certificate;
 import com.google.android.gms.auth.api.phone.SmsRetriever;
 import com.google.android.gms.auth.api.phone.SmsRetrieverClient;
 import com.google.android.material.textfield.TextInputEditText;
@@ -92,7 +91,7 @@ public class Activity_Manage_Certificate_Forget_Passphrase extends DefaultActivi
                 stop();
             }
         }).forgetPassphraseRequest();
-        Manage_Certificate manage_certificate = (Manage_Certificate) getIntent().getSerializableExtra("certificate");
+        com.example.sic.model.Manage_Certificate manage_certificate = (com.example.sic.model.Manage_Certificate) getIntent().getSerializableExtra("certificate");
         title.setText(manage_certificate.getCNSubjectDN());
 
         otpEt[0] = findViewById(R.id.txt_pin_view_1);
@@ -302,7 +301,7 @@ public class Activity_Manage_Certificate_Forget_Passphrase extends DefaultActivi
                 }
                 break;
             case R.id.btnBack:
-                Intent intent = new Intent(Activity_Manage_Certificate_Forget_Passphrase.this, Activity_Manage_Certificate.class);
+                Intent intent = new Intent(Activity_Manage_Certificate_Forget_Passphrase.this, Manage_Certificate.class);
                 startActivity(intent);
                 finish();
         }
@@ -320,7 +319,7 @@ public class Activity_Manage_Certificate_Forget_Passphrase extends DefaultActivi
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(Activity_Manage_Certificate_Forget_Passphrase.this, Activity_Manage_Certificate.class);
+                Intent intent = new Intent(Activity_Manage_Certificate_Forget_Passphrase.this, Manage_Certificate.class);
                 startActivity(intent);
                 finish();
             }

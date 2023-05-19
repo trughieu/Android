@@ -31,7 +31,6 @@ import androidx.core.content.ContextCompat;
 
 import com.example.sic.DefaultActivity;
 import com.example.sic.R;
-import com.example.sic.model.Manage_Certificate;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import vn.mobileid.tse.model.client.HttpRequest;
@@ -162,7 +161,7 @@ public class Activity_Manage_Certificate_Change_Scal extends DefaultActivity imp
         credentialID = getIntent().getStringExtra("id");
 
         module = CertificateProfilesModule.createModule(Activity_Manage_Certificate_Change_Scal.this);
-        Manage_Certificate manage_certificate= (Manage_Certificate) getIntent().getSerializableExtra("certificate");
+        com.example.sic.model.Manage_Certificate manage_certificate= (com.example.sic.model.Manage_Certificate) getIntent().getSerializableExtra("certificate");
         title.setText(manage_certificate.getCNSubjectDN());
         module.setResponseCredentialsInfo(new HttpRequest.AsyncResponse() {
             @Override
@@ -264,7 +263,7 @@ public class Activity_Manage_Certificate_Change_Scal extends DefaultActivity imp
                 });
                 btnBack.setOnClickListener(view1 -> {
                     Intent intent= new Intent(Activity_Manage_Certificate_Change_Scal.this,
-                            Activity_Manage_Certificate.class);
+                            Manage_Certificate.class);
                    startActivity(intent);
                 finish();
                 });
@@ -355,7 +354,7 @@ public class Activity_Manage_Certificate_Change_Scal extends DefaultActivity imp
                 value_multisign = 0;
                 break;
             case R.id.btnBack:
-                Intent intent= new Intent(Activity_Manage_Certificate_Change_Scal.this, Activity_Manage_Certificate.class);
+                Intent intent= new Intent(Activity_Manage_Certificate_Change_Scal.this, Manage_Certificate.class);
                startActivity(intent);
                 finish();
         }
@@ -462,7 +461,7 @@ public class Activity_Manage_Certificate_Change_Scal extends DefaultActivity imp
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent= new Intent(getApplicationContext(), Activity_Manage_Certificate.class);
+                Intent intent= new Intent(getApplicationContext(), Manage_Certificate.class);
                startActivity(intent);
                 finish();
                 dialog.dismiss();
@@ -499,7 +498,7 @@ public class Activity_Manage_Certificate_Change_Scal extends DefaultActivity imp
                 }
                 editor.putString("6_digit", hash_code);
                 editor.apply();
-                Intent intent= new Intent(Activity_Manage_Certificate_Change_Scal.this, Activity_Manage_Certificate.class);
+                Intent intent= new Intent(Activity_Manage_Certificate_Change_Scal.this, Manage_Certificate.class);
                 Log.d("afb", "afterTextChanged: " + pinValue.getText().toString());
                startActivity(intent);
                 finish();

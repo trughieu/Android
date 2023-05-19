@@ -54,6 +54,7 @@
     <string name="certificate_duration">Thời Hạn</string>
     <string name="hint_passphrase">Passphrase hiện tại</string>
     <string name="the_certificate">Không Tìm Thấy Yêu Cầu Cấp Chứng Thư Số Cho Mã Kích Hoạt</string>
+    <string name="term_of_ser">Điều khoản dịch vụ</string>
 
     <string name="custom_cid_button_continue">Tiếp Tục</string>
     <string name="hint_support_request_issue_description">Mô Tả Vấn Đề</string>

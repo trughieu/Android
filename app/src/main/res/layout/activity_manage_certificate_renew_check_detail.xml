@@ -41,8 +41,7 @@
         <FrameLayout
             android:id="@+id/btnBack"
             android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="30dp"
+            android:layout_weight="1"                android:layout_height="30dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -55,9 +54,9 @@
 
 
         <TextView
-            android:id="@+id/tv_name"
+            android:id="@+id/textView15"
             android:layout_width="0dp"
-            android:layout_weight="4"
+            android:layout_weight="5"
             android:layout_height="wrap_content"
             android:fontFamily="@font/atb_digital_medium"
             android:gravity="center_horizontal|top"
@@ -80,6 +79,7 @@
 
 
     <androidx.core.widget.NestedScrollView
+
         android:id="@+id/scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -99,7 +99,6 @@
                 android:layout_marginTop="63dp"
                 android:background="@drawable/bg_round_right_bot"
                 android:fontFamily="@font/atb_digital_medium"
-                
                 android:text="@string/certificate_subject_name"
                 android:textColor="@color/white"
                 android:textSize="15dp" />
@@ -340,8 +339,7 @@
                 android:layout_marginTop="15dp"
                 android:background="@drawable/bg_round_right_bot"
                 android:fontFamily="@font/atb_digital_medium"
-                
-                android:text="@string/certificate_subject_name"
+                android:text="@string/certificate_issuer_name"
                 android:textColor="@color/white"
                 android:textSize="15dp" />
 
@@ -628,7 +626,6 @@
                 android:layout_marginTop="15dp"
                 android:background="@drawable/bg_round_right_bot"
                 android:fontFamily="@font/atb_digital_medium"
-                
                 android:text="@string/prompt_certificate_profile"
                 android:textColor="@color/white"
                 android:textSize="15dp" />
@@ -727,7 +724,6 @@
                 android:layout_marginTop="15dp"
                 android:background="@drawable/bg_round_right_bot"
                 android:fontFamily="@font/atb_digital_medium"
-                
                 android:text="@string/certificate_duration"
                 android:textColor="@color/white"
                 android:textSize="15dp" />
@@ -750,7 +746,9 @@
                     android:gravity="top"
                     android:text="@string/certificate_duration_by_day"
                     android:textColor="@color/white"
-                    android:textSize="12dp" />
+                    android:textSize="12dp"
+
+                    />
 
                 <TextView
                     android:id="@+id/day_365"
@@ -763,6 +761,7 @@
                     android:textColor="@color/white"
                     android:textSize="12dp" />
             </LinearLayout>
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

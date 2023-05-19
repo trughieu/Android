@@ -1,7 +1,6 @@
 package com.example.sic.Adapter;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.sic.Activity.Setting_Help.Setting_Detail.Manage_Certificate.Activity_Manage_Certificate_Renew;
 import com.example.sic.R;
 import com.example.sic.model.CertificateCA;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -18,27 +18,24 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import java.util.List;
 
 public class AdapterCA extends RecyclerView.Adapter<AdapterCA.ViewHolder> {
-    int row_index;
-    boolean isLastPosition = false;
     private List<CertificateCA> certificateCa;
     private TextView txt_select_id;
     private BottomSheetDialog bottomSheetDialog;
+    Activity_Manage_Certificate_Renew activity_manage_certificate_renew;
 
-    public AdapterCA(List<CertificateCA> certificateAuthorities, TextView txt_select_id) {
-        this.certificateCa = certificateAuthorities;
-        this.txt_select_id = txt_select_id;
-    }
 
-    public AdapterCA(List<CertificateCA> certificateCa, TextView txt_select_id, BottomSheetDialog bottomSheetDialog) {
+    public AdapterCA(List<CertificateCA> certificateCa, TextView txt_select_id, BottomSheetDialog bottomSheetDialog, Activity_Manage_Certificate_Renew activity_manage_certificate_renew) {
         this.certificateCa = certificateCa;
         this.txt_select_id = txt_select_id;
         this.bottomSheetDialog = bottomSheetDialog;
+        this.activity_manage_certificate_renew = activity_manage_certificate_renew;
     }
+
 
     @NonNull
     @Override
     public AdapterCA.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.bottom_sheet_ca, parent, false);
+        View view = LayoutInflater.from(activity_manage_certificate_renew).inflate(R.layout.bottom_sheet_ca, parent, false);
         return new AdapterCA.ViewHolder(view);
     }
 
@@ -49,8 +46,10 @@ public class AdapterCA extends RecyclerView.Adapter<AdapterCA.ViewHolder> {
         if (holder.getAdapterPosition() == 0) {
             holder.lnstate.setPadding(0, 40, 0, 0);
             holder.title.setVisibility(View.VISIBLE);
-        } else if (position == certificateCa.size() - 1) {
+        } else if (position == certificateCa.size() - 1 && holder.getAdapterPosition() != 0) {
+            holder.title.setVisibility(View.GONE);
             holder.img.setVisibility(View.GONE);
+            holder.lnstate.setPadding(0, 0, 0, 0);
         } else if (holder.getAdapterPosition() != 0) {
             holder.title.setVisibility(View.GONE);
             holder.lnstate.setPadding(0, 0, 0, 0);
@@ -60,11 +59,14 @@ public class AdapterCA extends RecyclerView.Adapter<AdapterCA.ViewHolder> {
             public void onClick(View v) {
                 String selectedData = certificateCA.getName();
                 txt_select_id.setText(selectedData);
-                Log.d("posistion", "onClick: " + holder.getAdapterPosition());
-
+                if (!selectedData.isEmpty() && activity_manage_certificate_renew instanceof Activity_Manage_Certificate_Renew) {
+                    (((Activity_Manage_Certificate_Renew) activity_manage_certificate_renew)).passSelectedCAToModule(selectedData);
+                }
                 bottomSheetDialog.dismiss();
+
             }
         });
+
     }
 
     @Override

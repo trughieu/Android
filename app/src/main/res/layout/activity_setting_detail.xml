@@ -322,6 +322,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
 
@@ -359,16 +360,39 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="11dp"
                         android:fontFamily="@font/roboto_medium"
+                        android:paddingStart="15dp"
+                        android:paddingEnd="15dp"
                         android:gravity="center_horizontal|top"
                         android:text="@string/action_history"
                         android:textColor="@color/white"
                         android:textSize="12dp" />
                 </LinearLayout>
 
-                <Space
+                <LinearLayout
+                    android:id="@+id/id_change_password"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/select_state_change_password" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="11dp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:paddingStart="15dp"
+                        android:paddingEnd="15dp"
+                        android:gravity="center_horizontal|top"
+                        android:text="@string/button_change_password"
+                        android:textColor="@color/white"
+                        android:textSize="12dp" />
+                </LinearLayout>
             </LinearLayout>
 
             <TextView

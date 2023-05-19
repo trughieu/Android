@@ -560,7 +560,7 @@ public class Activity_Manage_Certificate_Change_Email_Confirm_Code extends Defau
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent= new Intent(Activity_Manage_Certificate_Change_Email_Confirm_Code.this, Activity_Manage_Certificate.class);
+                Intent intent= new Intent(Activity_Manage_Certificate_Change_Email_Confirm_Code.this, Manage_Certificate.class);
                startActivity(intent);
                 finish();
             }

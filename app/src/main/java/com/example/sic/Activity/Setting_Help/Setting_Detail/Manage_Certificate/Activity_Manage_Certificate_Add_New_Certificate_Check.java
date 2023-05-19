@@ -41,7 +41,7 @@ public class Activity_Manage_Certificate_Add_New_Certificate_Check extends Defau
     EditText txt_pin_view1, txt_pin_view2, txt_pin_view3, txt_pin_view4, txt_pin_view5, txt_pin_view6, pinValue;
     String text;
     String otp, digit_6;
-    TextView txt_select_id, conf_E_iden, conf_bio, conf_Pin, btnCancel, btn_Close, btn_Cancel, btn_Detail, uid_detail, common_detail, o_detail, state_detail, country_detail;
+    TextView txt_select_id, conf_E_iden, conf_bio, conf_Pin, btnCancel, btn_Close, btn_Cancel, btn_Detail, uid_detail, common_detail, o_detail, state_detail, country_detail, test;
     Dialog dialog;
     CertificateConfirmModule module;
     private final TextWatcher textWatcher = new TextWatcher() {
@@ -210,6 +210,7 @@ public class Activity_Manage_Certificate_Add_New_Certificate_Check extends Defau
         state_detail = findViewById(R.id.state_detail);
         country_detail = findViewById(R.id.country_detail);
         btn_Detail = findViewById(R.id.btnDetail);
+        test = findViewById(R.id.tv_not_your_re);
         module = CertificateConfirmModule.createModule(this);
         btnBack.setOnClickListener(this);
         btnCancel.setOnClickListener(this);
@@ -229,6 +230,9 @@ public class Activity_Manage_Certificate_Add_New_Certificate_Check extends Defau
             state_detail.setText(response.getSubject().get("ST").get(0));
             country_detail.setText(response.getSubject().get("C").get(0));
         }
+        test.setOnClickListener(v -> {
+            module.confirmCer();
+        });
 
         btn_Detail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -451,7 +455,6 @@ public class Activity_Manage_Certificate_Add_New_Certificate_Check extends Defau
             intent = new Intent(Activity_Manage_Certificate_Add_New_Certificate_Check.this, Activity_Manage_Certificate_Add_New_Certificate.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
             startActivity(intent);
             finish();
         } else if (view.getId() == R.id.btn_Detail) {

@@ -12,7 +12,6 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sic.R;
-import com.example.sic.model.CertificateCA;
 import com.example.sic.model.CertificateCP;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -24,11 +23,6 @@ public class AdapterCP extends RecyclerView.Adapter<AdapterCP.ViewHolder> {
     private List<CertificateCP> certificateCP;
     private TextView txt_select_id;
     private BottomSheetDialog bottomSheetDialog;
-
-    public AdapterCP(List<CertificateCP> certificateCP, TextView txt_select_id) {
-        this.certificateCP = certificateCP;
-        this.txt_select_id = txt_select_id;
-    }
 
     public AdapterCP(List<CertificateCP> certificateCP, TextView txt_select_id, BottomSheetDialog bottomSheetDialog) {
         this.certificateCP = certificateCP;
@@ -50,7 +44,8 @@ public class AdapterCP extends RecyclerView.Adapter<AdapterCP.ViewHolder> {
         if (holder.getAdapterPosition() == 0) {
             holder.lnstate.setPadding(0, 40, 0, 0);
             holder.title.setVisibility(View.VISIBLE);
-        } else if (position == certificateCP.size() - 1) {
+        } else if (holder.getAdapterPosition() == certificateCP.size() - 1 && holder.getAdapterPosition() != 0) {
+            holder.title.setVisibility(View.GONE);
             holder.img.setVisibility(View.GONE);
         } else if (holder.getAdapterPosition() != 0) {
             holder.title.setVisibility(View.GONE);
@@ -61,9 +56,9 @@ public class AdapterCP extends RecyclerView.Adapter<AdapterCP.ViewHolder> {
             public void onClick(View v) {
                 String selectedData = certificateCPs.getDescription();
                 txt_select_id.setText(selectedData);
-                Log.d("posistion", "onClick: " + holder.getAdapterPosition());
-
                 bottomSheetDialog.dismiss();
+                Log.d("dess", "onClick: "+certificateCPs.getDescription());
+                Log.d("name", "onClick: "+certificateCPs.getName());
             }
         });
     }
