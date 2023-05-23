@@ -18,15 +18,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.sic.Activity.Setting_Help.Setting_Detail.Manage_Certificate.Activity_Manage_Certificate_Add_New_Certificate_Detail;
-import com.example.sic.Activity.Setting_Help.Setting_Detail.Manage_Certificate.Activity_Manage_Certificate_Change_Email;
-import com.example.sic.Activity.Setting_Help.Setting_Detail.Manage_Certificate.Activity_Manage_Certificate_Change_Passphrase;
-import com.example.sic.Activity.Setting_Help.Setting_Detail.Manage_Certificate.Activity_Manage_Certificate_Change_Scal;
-import com.example.sic.Activity.Setting_Help.Setting_Detail.Manage_Certificate.Activity_Manage_Certificate_Forget_Passphrase;
-import com.example.sic.Activity.Setting_Help.Setting_Detail.Manage_Certificate.Activity_Manage_Certificate_GoHistory;
-import com.example.sic.Activity.Setting_Help.Setting_Detail.Manage_Certificate.Activity_Manage_Certificate_Renew;
+import com.example.sic.Activity.Setting_Help.Setting_Detail.ManageCertificate.Certificates.CertificateDetail;
+import com.example.sic.Activity.Setting_Help.Setting_Detail.ManageCertificate.ChangeEmail.ChangeEmailStep1;
+import com.example.sic.Activity.Setting_Help.Setting_Detail.ManageCertificate.PassPhrase.ChangePassphrase;
+import com.example.sic.Activity.Setting_Help.Setting_Detail.ManageCertificate.ChangeScal;
+import com.example.sic.Activity.Setting_Help.Setting_Detail.ManageCertificate.PassPhrase.ForgetPassphrase;
+import com.example.sic.Activity.Setting_Help.Setting_Detail.ManageCertificate.GoHistory;
+import com.example.sic.Activity.Setting_Help.Setting_Detail.ManageCertificate.Renew.RenewStep1;
 import com.example.sic.R;
-import com.example.sic.model.Manage_Certificate;
+import com.example.sic.model.ManageCertificate;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
@@ -41,9 +41,9 @@ public class Adapter_item_Manage_Certificate extends RecyclerView.Adapter<Adapte
     AppCompatCheckBox checkBox1, checkBox2, checkBox3, checkBox4, checkBox5, checkBox6;
     boolean checked1, checked2, checked3, checked4, checked5, checked6;
 
-    ArrayList<Manage_Certificate> manageCertificateArrayList;
+    ArrayList<ManageCertificate> manageCertificateArrayList;
 
-    public Adapter_item_Manage_Certificate(Activity activity, ArrayList<Manage_Certificate> manageCertificateArrayList) {
+    public Adapter_item_Manage_Certificate(Activity activity, ArrayList<ManageCertificate> manageCertificateArrayList) {
         this.activity = activity;
         this.manageCertificateArrayList = manageCertificateArrayList;
     }
@@ -63,7 +63,7 @@ public class Adapter_item_Manage_Certificate extends RecyclerView.Adapter<Adapte
 
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
 
-        Manage_Certificate manage_certificate = manageCertificateArrayList.get(position);
+        ManageCertificate manage_certificate = manageCertificateArrayList.get(position);
         holder.tv_certificate.setText(manage_certificate.getCNSubjectDN());
         holder.tv_issue_by.setText(activity.getResources().getString(R.string.orders_prefix_issued_by) + " " + manage_certificate.getCNIssuerDN());
 
@@ -74,17 +74,17 @@ public class Adapter_item_Manage_Certificate extends RecyclerView.Adapter<Adapte
 //            holder.option.setEnabled(false);
 //            holder.ic_option.setImageResource(R.drawable.ic_sync);
 //            holder.select_item.setOnClickListener(view -> {
-//                intent = new Intent(activity, Activity_Manage_Certificate_Add_New_Certificate_Detail.class);
+//                intent = new Intent(activity, CertificateDetail.class);
 //                intent.putExtra("kakChanged", false);
 //                intent.putExtra("id", manage_certificate.getCredentialID());
-//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                
 //                activity.startActivity(intent);
 //            });
 //        } else if (manage_certificate.isKakChange()) {
 //            holder.select_item.setOnClickListener(view -> {
-//                intent = new Intent(activity, Activity_Manage_Certificate_Add_New_Certificate_Detail.class);
+//                intent = new Intent(activity, CertificateDetail.class);
 //                intent.putExtra("id", manage_certificate.getCredentialID());
-//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                
 //                activity.startActivity(intent);
 //            });
 //        }
@@ -104,17 +104,17 @@ public class Adapter_item_Manage_Certificate extends RecyclerView.Adapter<Adapte
 //                            holder.ic_option.setImageResource(R.drawable.ic_sync);
 //                            holder.option.setEnabled(false);
 //                            holder.select_item.setOnClickListener(view -> {
-//                                intent = new Intent(activity, Activity_Manage_Certificate_Add_New_Certificate_Detail.class);
+//                                intent = new Intent(activity, CertificateDetail.class);
 //                                intent.putExtra("kakChanged", false);
 //                                intent.putExtra("id", manage_certificate.getCredentialID());
-//                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                
 //                                activity.startActivity(intent);
 //                            });
 //                        } else {
 //                            holder.select_item.setOnClickListener(view -> {
-//                                intent = new Intent(activity, Activity_Manage_Certificate_Add_New_Certificate_Detail.class);
+//                                intent = new Intent(activity, CertificateDetail.class);
 //                                intent.putExtra("id", manage_certificate.getCredentialID());
-//                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                
 //                                activity.startActivity(intent);
 //                            });
 //                        }
@@ -132,12 +132,12 @@ public class Adapter_item_Manage_Certificate extends RecyclerView.Adapter<Adapte
             holder.tv_issue_by.setTextColor(Color.parseColor("#0070F4"));
 //            holder.ic_option.setImageResource(R.drawable.union_blue);
             holder.select_item.setOnClickListener(view -> {
-                intent = new Intent(activity, Activity_Manage_Certificate_Add_New_Certificate_Detail.class);
+                intent = new Intent(activity, CertificateDetail.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("kakChanged", false);
                 intent.putExtra("id", manage_certificate.getCredentialID());
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                
                 activity.startActivity(intent);
             });
         } else if (row_index == holder.getAdapterPosition() && manage_certificate.isKakChange()) {
@@ -150,12 +150,12 @@ public class Adapter_item_Manage_Certificate extends RecyclerView.Adapter<Adapte
             holder.ic_option.setImageResource(R.drawable.union_blue);
             Log.d("row", "onBindViewHolder: " + row_index);
             holder.select_item.setOnClickListener(view -> {
-                intent = new Intent(activity, Activity_Manage_Certificate_Add_New_Certificate_Detail.class);
+                intent = new Intent(activity, CertificateDetail.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 
                 intent.putExtra("id", manage_certificate.getCredentialID());
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                
                 activity.startActivity(intent);
 
             });
@@ -178,11 +178,11 @@ public class Adapter_item_Manage_Certificate extends RecyclerView.Adapter<Adapte
             holder.ic_option.setImageResource(R.drawable.union);
             Log.d("row", "onBindViewHolder: " + row_index);
             holder.select_item.setOnClickListener(view -> {
-                intent = new Intent(activity, Activity_Manage_Certificate_Add_New_Certificate_Detail.class);
+                intent = new Intent(activity, CertificateDetail.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("id", manage_certificate.getCredentialID());
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                
                 activity.startActivity(intent);
 
             });
@@ -230,8 +230,8 @@ public class Adapter_item_Manage_Certificate extends RecyclerView.Adapter<Adapte
                                                  checkBox5.setChecked(checked5);
                                                  checkBox6.setChecked(checked6);
                                                  change_passphrase.setOnClickListener(view2 -> {
-                                                     intent = new Intent(activity, Activity_Manage_Certificate_Change_Passphrase.class);
-                                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                     intent = new Intent(activity, ChangePassphrase.class);
+                                                     
                                                      intent.putExtra("id", manage_certificate.getCredentialID());
                                                      intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                                      intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -241,8 +241,8 @@ public class Adapter_item_Manage_Certificate extends RecyclerView.Adapter<Adapte
                                                      bottomSheetDialog.dismiss();
                                                  });
                                                  forget_passphrase.setOnClickListener(view2 -> {
-                                                     intent = new Intent(activity, Activity_Manage_Certificate_Forget_Passphrase.class);
-                                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                     intent = new Intent(activity, ForgetPassphrase.class);
+                                                     
                                                      intent.putExtra("id", manage_certificate.getCredentialID());
                                                      intent.putExtra("certificate",manage_certificate);
                                                      intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -253,8 +253,8 @@ public class Adapter_item_Manage_Certificate extends RecyclerView.Adapter<Adapte
                                                      bottomSheetDialog.dismiss();
                                                  });
                                                  change_email.setOnClickListener(view2 -> {
-                                                     intent = new Intent(activity, Activity_Manage_Certificate_Change_Email.class);
-                                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                     intent = new Intent(activity, ChangeEmailStep1.class);
+                                                     
                                                      intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                                      intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                                      intent.putExtra("id", manage_certificate.getCredentialID());
@@ -264,8 +264,8 @@ public class Adapter_item_Manage_Certificate extends RecyclerView.Adapter<Adapte
                                                      bottomSheetDialog.dismiss();
                                                  });
                                                  renew.setOnClickListener(view2 -> {
-                                                     intent = new Intent(activity, Activity_Manage_Certificate_Renew.class);
-                                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                     intent = new Intent(activity, RenewStep1.class);
+                                                     
                                                      intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                                      intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                                      intent.putExtra("id", manage_certificate.getCredentialID());
@@ -275,9 +275,9 @@ public class Adapter_item_Manage_Certificate extends RecyclerView.Adapter<Adapte
                                                      bottomSheetDialog.dismiss();
                                                  });
                                                  change_scal.setOnClickListener(view2 -> {
-                                                     intent = new Intent(activity, Activity_Manage_Certificate_Change_Scal.class);
+                                                     intent = new Intent(activity, ChangeScal.class);
                                                      intent.putExtra("id", manage_certificate.getCredentialID());
-                                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                     
                                                      intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                                      intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                                      intent.putExtra("certificate",manage_certificate);
@@ -286,8 +286,8 @@ public class Adapter_item_Manage_Certificate extends RecyclerView.Adapter<Adapte
                                                      bottomSheetDialog.dismiss();
                                                  });
                                                  history.setOnClickListener(view2 -> {
-                                                     intent = new Intent(activity, Activity_Manage_Certificate_GoHistory.class);
-                                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                     intent = new Intent(activity, GoHistory.class);
+                                                     
                                                      intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                                      intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                                      intent.putExtra("id", manage_certificate.getCredentialID());

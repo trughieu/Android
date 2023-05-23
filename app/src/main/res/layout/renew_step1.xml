@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.Setting_Help.Setting_Detail.ManageCertificate.Renew.RenewStep1">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".Activity.Setting_Help.Setting_Detail.ManageCertificate.Renew.RenewStep1">
+
+        <ImageView
+            android:id="@+id/imageView14"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/bg_1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView10"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/rectangle_inbox"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <FrameLayout
+                android:id="@+id/btnBack"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/arrow" />
+            </FrameLayout>
+
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:fontFamily="@font/atb_digital_medium"
+                android:gravity="center_horizontal|top"
+                android:text="@string/certificate_manage_renew"
+                android:textColor="@color/blue_text"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <Space
+                android:id="@+id/btn_Log_out"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_weight="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/img_corner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="67dp"
+            android:background="@drawable/corner_card"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:fontFamily="@font/atb_digital_medium"
+
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/img_corner" />
+
+        <LinearLayout
+            android:id="@+id/ln_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="127dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/atb_digital_medium"
+                android:text="@string/certificate_bc_cert_authority"
+                android:textColor="@color/white"
+                android:textSize="12dp"
+
+                />
+
+            <TextView
+                android:id="@+id/selectCA"
+                android:layout_width="350dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/corner_select"
+                android:backgroundTint="@color/white"
+                android:fontFamily="@font/atb_digital_medium"
+                android:gravity="center_vertical"
+                android:padding="2dp"
+                android:paddingStart="20dp"
+                android:text="@string/easyca_test"
+                android:textColor="@color/blue_text"
+                android:textSize="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ln"
+                app:drawableEndCompat="@drawable/baseline_keyboard_arrow_down_24" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:fontFamily="@font/atb_digital_medium"
+                android:text="@string/prompt_cert_sign_profile"
+                android:textColor="@color/white"
+                android:textSize="12dp"
+
+                />
+
+            <TextView
+                android:id="@+id/selectCP"
+                android:layout_width="350dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/corner_select"
+                android:backgroundTint="@color/white"
+                android:fontFamily="@font/atb_digital_medium"
+                android:gravity="center_vertical"
+                android:padding="2dp"
+                android:paddingStart="20dp"
+                android:text="@string/third_years_corpo_tmrsa"
+                android:textColor="@color/blue_text"
+                android:textSize="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ln"
+                app:drawableEndCompat="@drawable/baseline_keyboard_arrow_down_24" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:fontFamily="@font/atb_digital_medium"
+                android:text="@string/signing_counter"
+                android:textColor="@color/white"
+                android:textSize="12dp"
+
+                />
+
+            <TextView
+                android:id="@+id/selectSC"
+                android:layout_width="350dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/corner_select"
+                android:backgroundTint="@color/white"
+                android:fontFamily="@font/atb_digital_medium"
+                android:gravity="center_vertical"
+                android:padding="2dp"
+                android:paddingStart="20dp"
+                android:text="@string/unlimited"
+                android:textColor="@color/blue_text"
+                android:textSize="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ln"
+                app:drawableEndCompat="@drawable/baseline_keyboard_arrow_down_24" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/btnContinue"
+            android:layout_width="257dp"
+            android:layout_height="40dp"
+            android:background="@drawable/square"
+            android:fontFamily="@font/atb_digital_medium"
+            android:gravity="center"
+            android:layout_marginBottom="77dp"
+            android:textColor="@color/white"
+            android:textSize="12dp"
+            android:text="@string/button_continue"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

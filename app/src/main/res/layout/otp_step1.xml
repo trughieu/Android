@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.OTPSynchronize.OTPStep1">
+
+    <ImageView
+        android:id="@+id/imageView13"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/bg_1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/rectangle_home_page"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/btn_Cancel"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:background="@drawable/corner_inbox_detail"
+            android:fontFamily="@font/atb_digital_medium"
+            android:gravity="center_horizontal|center"
+            android:text="@string/button_cancel"
+            android:textColor="@color/blue_text"
+            android:textSize="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:fontFamily="@font/atb_digital_medium"
+            android:gravity="center_horizontal|top"
+            android:text="@string/prompt_request_info_question"
+            android:textColor="@color/blue_text"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/btn_Detail"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:background="@drawable/corner_inbox_detail"
+            android:fontFamily="@font/atb_digital_medium"
+            android:gravity="center_horizontal|center"
+            android:text="@string/certificate_info"
+            android:textColor="@color/blue_text"
+            android:textSize="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/pin6_dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:maxLength="6"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/pin6_dialog_hand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:maxLength="6"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="67dp"
+        android:background="@drawable/corner_card"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="116dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/logo_blue" />
+
+        <TextView
+            android:id="@+id/submit_from"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/atb_digital_medium"
+            android:gravity="center"
+            android:text="@string/prompt_request_info_submitted_from"
+            android:textColor="@color/white"
+            android:textSize="17dp" />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:fontFamily="@font/atb_digital_medium"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:text="@string/prompt_request_info_submitted_from"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/inter_light"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="12dp"
+            android:text="@string/prompt_request_info_submitted_from" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/atb_digital_regular"
+            android:layout_marginTop="20dp"
+            android:text="@string/prompt_sign_at"
+            android:textColor="@color/white"
+            android:textSize="17dp" />
+        <TextView
+            android:id="@+id/tv_perform"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/atb_digital_medium"
+            android:text="@string/prompt_sign_at"
+            android:textColor="@color/white"
+            android:textSize="17dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/atb_digital_medium"
+            android:text="@string/prompt_fill_otp"
+            android:textColor="@color/white"
+            android:layout_marginTop="40dp"
+            android:textSize="12dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="43dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/enter_active">
+
+            <EditText
+                android:id="@+id/txt_pin_view_1"
+                android:layout_width="40dp"
+                android:layout_height="45dp"
+                android:layout_marginEnd="15dp"
+                android:autofillHints="smsOTPCode"
+                android:background="@drawable/corner_pinview"
+                android:gravity="center"
+                android:imeOptions="actionNext"
+                android:importantForAutofill="yes"
+                android:inputType="number"
+                android:maxLength="1"
+                android:textColor="@color/white"
+                android:textSize="13dp"
+                android:textStyle="bold"
+                tools:ignore="Laberfor" />
+
+            <EditText
+                android:id="@+id/txt_pin_view_2"
+                android:layout_width="40dp"
+                android:layout_height="45dp"
+                android:layout_marginEnd="15dp"
+                android:autofillHints="smsOTPCode"
+                android:background="@drawable/corner_pinview"
+                android:gravity="center"
+                android:imeOptions="actionNext"
+                android:importantForAutofill="yes"
+                android:inputType="number"
+                android:maxLength="1"
+                android:textColor="@color/white"
+                android:textSize="13dp"
+                android:textStyle="bold"
+                tools:ignore="Laberfor" />
+
+            <EditText
+                android:id="@+id/txt_pin_view_3"
+                android:layout_width="40dp"
+                android:layout_height="45dp"
+                android:layout_marginEnd="15dp"
+                android:autofillHints="smsOTPCode"
+
+                android:background="@drawable/corner_pinview"
+                android:gravity="center"
+                android:imeOptions="actionNext"
+                android:importantForAutofill="yes"
+                android:inputType="number"
+                android:maxLength="1"
+                android:textColor="@color/white"
+                android:textSize="13dp"
+                android:textStyle="bold"
+                tools:ignore="Laberfor" />
+
+            <EditText
+                android:id="@+id/txt_pin_view_4"
+                android:layout_width="40dp"
+                android:layout_height="45dp"
+                android:layout_marginEnd="15dp"
+                android:autofillHints="smsOTPCode"
+                android:background="@drawable/corner_pinview"
+                android:gravity="center"
+
+                android:imeOptions="actionNext"
+                android:importantForAutofill="yes"
+                android:inputType="number"
+                android:maxLength="1"
+                android:textColor="@color/white"
+                android:textSize="13dp"
+                android:textStyle="bold"
+                tools:ignore="Laberfor" />
+
+            <EditText
+                android:id="@+id/txt_pin_view_5"
+                android:layout_width="40dp"
+                android:layout_height="45dp"
+                android:layout_marginEnd="15dp"
+                android:autofillHints="smsOTPCode"
+                android:background="@drawable/corner_pinview"
+                android:gravity="center"
+                android:imeOptions="actionNext"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:maxLength="1"
+                android:textColor="@color/white"
+                android:textSize="13dp"
+                android:textStyle="bold"
+                tools:ignore="Laberfor" />
+
+            <EditText
+                android:id="@+id/txt_pin_view_6"
+                android:layout_width="40dp"
+                android:layout_height="45dp"
+                android:autofillHints="smsOTPCode"
+                android:background="@drawable/corner_pinview"
+                android:gravity="center"
+                android:imeOptions="actionNext"
+                android:importantForAutofill="yes"
+                android:inputType="number"
+                android:maxLength="1"
+                android:textColor="@color/white"
+                android:textSize="13dp"
+                android:textStyle="bold"
+                tools:ignore="Laberfor" />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/txt_select_id"
+            android:layout_width="350dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="89dp"
+            android:background="@drawable/corner_select"
+            android:backgroundTint="@color/white"
+            android:drawableEnd="@drawable/baseline_keyboard_arrow_down_24"
+            android:fontFamily="@font/atb_digital_medium"
+            android:gravity="center_vertical"
+            android:paddingStart="20dp"
+            android:text="@string/button_request_info_touch_confirm"
+            android:textColor="@color/blue_text"
+            android:textSize="12dp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

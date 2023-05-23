@@ -5,6 +5,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -24,6 +26,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.sic.AppData;
+import com.example.sic.Dev_activity;
 import com.example.sic.R;
 import com.example.sic.SmsBroadcastReceiver;
 import com.google.android.gms.auth.api.phone.SmsRetriever;
@@ -37,7 +40,7 @@ import vn.mobileid.tse.model.client.HttpRequest;
 import vn.mobileid.tse.model.client.activate.ActivateModule;
 import vn.mobileid.tse.model.connector.plugin.Response;
 
-public class Activation extends AppCompatActivity implements View.OnClickListener {
+public class Activation extends Dev_activity implements View.OnClickListener {
     public static final int REQ_USER_CONSENT = 200;
     FrameLayout btnBack;
     TextView btn_Close, btn_resend, btnContinue;
@@ -52,9 +55,9 @@ public class Activation extends AppCompatActivity implements View.OnClickListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_activation);
+        setContentView(R.layout.activation);
 
-        btn_resend = findViewById(R.id.txt_resend_active);
+        btn_resend = findViewById(R.id.resendActivateCode);
         startCountDown();
 
         pin6_dialog_hand = findViewById(R.id.pin6_dialog_hand);
@@ -272,74 +275,108 @@ public class Activation extends AppCompatActivity implements View.OnClickListene
     public void onClick(@NonNull View view) {
         switch (view.getId()) {
             case R.id.btnContinue:
-                Log.d("activaton", "onClick: " + text);
-                try {
-                    ActivateModule.createModule(Activation.this).setResponseSendActivationCode(new HttpRequest.AsyncResponse() {
-                        @Override
-                        public void process(boolean b, Response response) {
-                            if (response.getError() == 0 && response.getKakPrivateEncrypted() == null) {
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Handler handler = new Handler();
-                                        handler.postDelayed(new Runnable() {
+                start();
+                ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+                if (networkInfo != null && networkInfo.isConnected()) {
+                    try {
+                        ActivateModule.createModule(Activation.this).setResponseSendActivationCode(new HttpRequest.AsyncResponse() {
+                            @Override
+                            public void process(boolean b, Response response) {
+                                if (response != null) {
+                                    if (response.getError() == 0 && response.getKakPrivateEncrypted() == null) {
+                                        stop();
+                                        runOnUiThread(new Runnable() {
                                             @Override
                                             public void run() {
-                                                AppData.getInstance().setKakPrivate(true);
-                                                Intent intent= new Intent(Activation.this, Activity_Activate_Create_New_Pin.class);
-                                                startActivity(intent);
-                                                finish();
+                                                Handler handler = new Handler();
+                                                handler.postDelayed(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        AppData.getInstance().setKakPrivate(true);
+                                                        Intent intent = new Intent(Activation.this, CreatePin.class);
+                                                        startActivity(intent);
+                                                        finish();
+                                                    }
+                                                }, 3000);
                                             }
-                                        }, 3000);
-                                    }
-                                });
-                            } else if (response.getError() == 0 && response.getKakPrivateEncrypted() != null) {
-                                AppData.getInstance().setKakPrivate(false);
-                                Intent intent= new Intent(Activation.this, Activity_Activate_Create_New_Pin.class);
-                                startActivity(intent);
-                                finish();
-                            } else {
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Dialog dialog = new Dialog(Activation.this);
-                                        dialog.setContentView(R.layout.dialog_fail_activation);
-                                        btn_resend.setVisibility(View.INVISIBLE);
-                                        btnContinue.setVisibility(View.INVISIBLE);
-                                        btn_Close = dialog.findViewById(R.id.btn_Close);
-                                        btn_Close.setOnClickListener(view1 -> {
-                                            pinValue.setText("");
-                                            btn_resend.setVisibility(View.VISIBLE);
-                                            btnContinue.setVisibility(View.VISIBLE);
-                                            pin6_dialog_hand.setText("");
-                                            otpEt[0].setText("");
-                                            otpEt[1].setText("");
-                                            otpEt[2].setText("");
-                                            otpEt[3].setText("");
-                                            otpEt[4].setText("");
-                                            otpEt[5].setText("");
-                                            text = "";
-                                            dialog.dismiss();
                                         });
-                                        dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
-                                        dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
-                                        dialog.show();
-                                        dialog.setCanceledOnTouchOutside(false);
+                                    } else if (response.getError() == 0 && response.getKakPrivateEncrypted() != null) {
+                                        stop();
+                                        AppData.getInstance().setKakPrivate(false);
+                                        Intent intent = new Intent(Activation.this, CreatePin.class);
+                                        startActivity(intent);
+                                        finish();
+                                    } else if (response.getError() == 3204) {
+                                        stop();
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                Dialog dialog = new Dialog(Activation.this);
+                                                dialog.setContentView(R.layout.dialog_fail_activation);
+                                                btn_resend.setVisibility(View.INVISIBLE);
+                                                btnContinue.setVisibility(View.INVISIBLE);
+                                                btn_Close = dialog.findViewById(R.id.btn_Close);
+                                                dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
+                                                dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+                                                dialog.setCanceledOnTouchOutside(false);
+                                                TextView desc = dialog.findViewById(R.id.description);
+                                                desc.setText(view.getContext().getResources().getString(R.string.wrong_active).replace("[text]", "" + response.getRemainingCounter()));
+
+                                                btn_Close.setOnClickListener(view1 -> {
+                                                    pinValue.getText().clear();
+                                                    btn_resend.setVisibility(View.VISIBLE);
+                                                    btnContinue.setVisibility(View.VISIBLE);
+                                                    pin6_dialog_hand.getText().clear();
+                                                    for (EditText editText : otpEt) {
+                                                        editText.getText().clear();
+                                                    }
+                                                    text = "";
+                                                    dialog.dismiss();
+                                                });
+                                                dialog.show();
+                                            }
+                                        });
+                                    }else if (response.getError() == 3205) {
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                stop();
+                                                Dialog dialog = new Dialog(view.getContext());
+                                                dialog.setContentView(R.layout.dialog_fail_activate_block);
+                                                dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
+                                                btn_Close = dialog.findViewById(R.id.btn_Close);
+                                                btn_Close.setOnClickListener(v -> {
+                                                    dialog.dismiss();
+                                                });
+                                                dialog.show();
+                                            }
+                                        });
                                     }
-                                });
+                                }
                             }
-                        }
-                    }).sendActivationCode(text);
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
+                        }).sendActivationCode(text);
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                } else {
+                    stop();
+                    Dialog dialog = new Dialog(view.getContext());
+                    dialog.setContentView(R.layout.dialog_fail_not_internet);
+                    dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
+                    btn_Close = dialog.findViewById(R.id.btn_Close);
+                    btn_Close.setOnClickListener(v -> {
+                        dialog.dismiss();
+                    });
+                    dialog.show();
                 }
                 break;
             case R.id.btnBack:
-                Intent intent= new Intent(Activation.this, MainActivity.class);
+                Intent intent = new Intent(Activation.this, MainActivity.class);
                 startActivity(intent);
                 finish();
                 break;
-            case R.id.txt_resend_active:
+            case R.id.resendActivateCode:
                 btn_resend.setEnabled(false);
                 btn_resend.setBackgroundResource(R.drawable.square_no_border);
                 smsPrepare();
@@ -358,6 +395,21 @@ public class Activation extends AppCompatActivity implements View.OnClickListene
                     ActivateModule.createModule(Activation.this).setResponseResendActivationCode(new HttpRequest.AsyncResponse() {
                         @Override
                         public void process(boolean b, Response response) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Dialog dialog = new Dialog(view.getContext());
+                                    dialog.setContentView(R.layout.dialog_success_active_sent);
+                                    dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
+                                    dialog.show();
+                                    new Handler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            dialog.dismiss();
+                                        }
+                                    }, 1000);
+                                }
+                            });
 
                         }
                     }).resendActivationCode();

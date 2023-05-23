@@ -49,7 +49,7 @@
     <string name="failed">FAILED!</string>
     <string name="success">SUCCESS!</string>
     <string name="result_activation_code_sent">Your activation code has been sent</string>
-    <string name="wrong_active">Wrong Activation Code. You have remaining 4 times to attempt.</string>
+    <string name="wrong_active">Wrong Activation Code. You have remaining [text] times to attempt.</string>
     <string name="close">Close</string>
     <string name="prompt_choose_auth_method">Authentication Method</string>
     <string name="button_identification_chipless">Non-chip Identification Card</string>
@@ -71,9 +71,11 @@
     <string name="button_eid_card">E-ID Card</string>
     <string name="select_the">Select the type of document you wish to capture and scan</string>
     <string name="date_29_03">29/03/2023</string>
-    <string name="login_information">Login information is invalid. You have remaining 4 times to attempt.</string>
-
-
+    <string name="login_information">Login information is invalid. You have remaining [text] times to attempt.</string>
+    <string name="prompt_account_is_block">Account is blocked</string>
+    <string name="prompt_account_not_exist">Account is not existed</string>
+    <string name="prompt_not_internet">Internet may not be available</string>
+    <string name="prompt_activate_block">Activation code is blocked</string>
     <string name="prompt_capture_id_card">Capture Identity Card</string>
     <string name="prompt_capture_id_card_detail">Turn the back side of your E-ID Card and scan the MRZ Code at the bottom</string>
     <string name="button_epassport">E-Passport</string>
@@ -199,6 +201,7 @@
     <string name="ri_rp_name">RP</string>
     <string name="ri_computer_name">Computer Name</string>
     <string name="ri_mac">Mac Address</string>
+    <string name="prompt_fill_otp" translatable="false">ENTER OTP Code sent to your phone</string>
 
 
     <string name="windows_10" translatable="false">Windows 10</string>
@@ -501,13 +504,22 @@
     <string name="hint_new_passphrase">New Passphrase</string>
     <string name="hint_confirm_new_passphrase">Confirm Passphrase</string>
     <string name="passphrase_" translatable="false">Passphrase must contain the followings:  \n\u2022 At least 8 characters long.  \n\u2022 At least 01 uppercase character, 01 lowercase\n&#160;&#160; character, 01 special character, 01 number\n&#160;&#160;&#160;character.</string>
-    <string name="passphrase_is" translatable="false">Passphrase is invalid. You have remaining 4 times to attempt.</string>
+    <string name="password_" translatable="false">Password must contain the followings:  \n\u2022 At least 8 characters long.  \n\u2022 At least 01 uppercase character, 01 lowercase\n&#160;&#160; character, 01 special character, 01 number\n&#160;&#160;&#160;character.</string>
+
+    <string name="passphrase_is" translatable="false">Passphrase is invalid. You have remaining [text] times to attempt.</string>
+    <string name="password_is" translatable="false">Password is invalid. You have remaining [text] times to attempt.</string>
+
     <string name="error_new_passphrase_and_confirm_pin_not_match">New passphrase and Confirm passphrase are not matched</string>
     <string name="result_passphrase_has_been_change">Your Passphrase has been changed already</string>
+    <string name="error_new_passphrase_match_old_pin">New Passphrase must be different the old Passphrase</string>
+    <string name="result_password_has_been_change">Your Password has been changed already</string>
+    <string name="error_new_password_and_confirm_pin_not_match">New Password and Confirm password are not matched</string>
+    <string name="error_new_password_match_old_pin">New Password must be different the old Password</string>
+
     <string name="enter_authorization" translatable="false">ENTER Authorization Code sent to your phone</string>
     <string name="enter_code_current" translatable="false">ENTER Authorization Code (Current Email)</string>
     <string name="enter_code_new" translatable="false">ENTER Authorization Code (New Email)</string>
-    <string name="authorization_code_invalid" translatable="false">Authorization code is invalid. You have remaining 4 times to attempt.</string>
+    <string name="authorization_code_invalid" translatable="false">Authorization code is invalid. You have remaining [text] times to attempt.</string>
     <string name="hint_new_email">New Email address</string>
     <string name="result_email_has_been_change">Your Email has been changed already</string>
     <string name="prompt_change_scal_and_multisign">Change Scal  &amp; Multisign</string>
@@ -556,6 +568,9 @@
     <string name="forgot_pass" translatable="false">Forgot password?</string>
     <string name="hint_username">Username</string>
     <string name="hint_password">Password</string>
+    <string name="hint_new_password">New Password</string>
+    <string name="hint_confirm_password">Confirm Password</string>
+
     <string name="prompt_terms_of_service">Terms of\nService</string>
     <string name="scan_face" translatable="false">Scan face</string>
     <string name="align_qr_code" translatable="false">Align QR Code within Frame to Scan</string>

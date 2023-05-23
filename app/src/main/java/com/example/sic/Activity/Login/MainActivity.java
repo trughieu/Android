@@ -2,6 +2,7 @@ package com.example.sic.Activity.Login;
 
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,6 +14,7 @@ import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -78,7 +80,7 @@ public class MainActivity extends Dev_activity {
             Dialog_SetRecoveryCode();
         }
 
-        txtPassword.setTransformationMethod(new AsteriskPasswordTransformationMethod());
+
 
 
         txtRegister.setOnClickListener(v -> {
@@ -238,7 +240,44 @@ public class MainActivity extends Dev_activity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(MainActivity.this, response.getErrorDescription(), Toast.LENGTH_SHORT).show();
+                        Dialog dialog = new Dialog(MainActivity.this);
+                        dialog.setContentView(R.layout.dialog_fail_login_invalid);
+                        dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
+                        TextView desc = dialog.findViewById(R.id.description);
+                        desc.setText(MainActivity.this.getResources().getString(R.string.login_information).replace("[text]", "" + response.getRemainingCounter()));
+                        TextView btnClose = dialog.findViewById(R.id.btn_Close);
+                        btnClose.setOnClickListener(v -> {
+                            dialog.dismiss();
+                        });
+                        dialog.show();
+                    }
+                });
+            } else if (response.getError() == 3003) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Dialog dialog = new Dialog(MainActivity.this);
+                        dialog.setContentView(R.layout.dialog_fail_account_notexist);
+                        dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
+                        TextView btnClose = dialog.findViewById(R.id.btn_Close);
+                        btnClose.setOnClickListener(v -> {
+                            dialog.dismiss();
+                        });
+                        dialog.show();
+                    }
+                });
+            } else if (response.getError() == 3002) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Dialog dialog = new Dialog(MainActivity.this);
+                        dialog.setContentView(R.layout.dialog_fail_account_block);
+                        dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
+                        TextView btnClose = dialog.findViewById(R.id.btn_Close);
+                        btnClose.setOnClickListener(v -> {
+                            dialog.dismiss();
+                        });
+                        dialog.show();
                     }
                 });
 
@@ -248,8 +287,10 @@ public class MainActivity extends Dev_activity {
         btn_Continue.setOnClickListener(view -> {
             username = txtUsername.getText().toString();
             password = txtPassword.getText().toString();
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
             login();
-//            Intent intent = new Intent(this, Activity_Create_Recovery_Code.class);
+//            Intent intent = new Intent(this, CreateRC.class);
 //            startActivity(intent);
         });
     }
@@ -329,7 +370,7 @@ public class MainActivity extends Dev_activity {
             }, 2000);
         });
         btn_Yes.setOnClickListener(view -> {
-            Intent i = new Intent(MainActivity.this, Activity_Create_Recovery_Code.class);
+            Intent i = new Intent(MainActivity.this, CreateRC.class);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);

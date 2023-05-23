@@ -27,9 +27,10 @@ import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 
 import com.example.sic.Activity.Home.Inbox.Inbox;
-import com.example.sic.Activity.Home.Inbox.Inbox_detail;
-import com.example.sic.Activity.Login.Activity_Login_Touch_Id;
-import com.example.sic.Activity.Setting_Help.Activity_Setting_Help;
+import com.example.sic.Activity.Home.Inbox.InboxConfirm;
+import com.example.sic.Activity.Home.Inbox.QR.ScanQR;
+import com.example.sic.Activity.Login.LoginID;
+import com.example.sic.Activity.Setting_Help.SettingHelp;
 import com.example.sic.DefaultActivity;
 import com.example.sic.R;
 
@@ -163,7 +164,7 @@ public class HomePage extends DefaultActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_page);
+        setContentView(R.layout.home_page);
         mnu_connect = findViewById(R.id.menu_connect);
         mnu_scan_qr = findViewById(R.id.menu_scanqr);
         mnu_inbox = findViewById(R.id.menu_inbox);
@@ -177,6 +178,7 @@ public class HomePage extends DefaultActivity implements View.OnClickListener {
         mnu_setting_help.setOnClickListener(this);
         mnu_inbox.setOnClickListener(this);
         mnu_scan_qr.setOnClickListener(this);
+        requestList(HomePage.this);
 
 
         btn_Log_out = findViewById(R.id.btn_Log_out);
@@ -192,7 +194,7 @@ public class HomePage extends DefaultActivity implements View.OnClickListener {
                     List<Requests> requests = response.getRequests();
                     if (response.getRequests() != null && requests != null) {
                         for (Requests request : requests) {
-                            Intent intent = new Intent(HomePage.this, Inbox_detail.class);
+                            Intent intent = new Intent(HomePage.this, InboxConfirm.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             
@@ -342,16 +344,7 @@ public class HomePage extends DefaultActivity implements View.OnClickListener {
         Intent intent;
         if (view.getId() == R.id.menu_connect) {
             start();
-            module.setResponseGetRequestList(new HttpRequest.AsyncResponse() {
-                        @Override
-                        public void process(boolean b, Response response) {
-                            if (response == null) {
-                                stop();
-                            } else {
-                                stop();
-                            }
-                        }
-                    }).requestList();
+            requestList(view.getContext());
             requestInfoModule.setResponseGetTransactionsList(new HttpRequest.AsyncResponse() {
                 @Override
                 public void process(boolean b, Response response) {
@@ -362,7 +355,7 @@ public class HomePage extends DefaultActivity implements View.OnClickListener {
                         List<Requests> requests = response.getRequests();
                         if (response.getRequests() != null && requests != null) {
                             for (Requests request : requests) {
-                                Intent intent = new Intent(HomePage.this, Inbox_detail.class);
+                                Intent intent = new Intent(HomePage.this, InboxConfirm.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 intent.putExtra("transactionId", request.transactionID);
@@ -383,7 +376,7 @@ public class HomePage extends DefaultActivity implements View.OnClickListener {
             txt_qr.setTextAppearance(R.style.active);
             txt_inbox.setTextAppearance(R.style.inactive);
             txt_setting_help.setTextAppearance(R.style.inactive);
-            intent = new Intent(HomePage.this, Activity_Scan_QR.class);
+            intent = new Intent(HomePage.this, ScanQR.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             
@@ -406,10 +399,9 @@ public class HomePage extends DefaultActivity implements View.OnClickListener {
             txt_qr.setTextAppearance(R.style.inactive);
             txt_inbox.setTextAppearance(R.style.inactive);
             txt_setting_help.setTextAppearance(R.style.active);
-            intent = new Intent(HomePage.this, Activity_Setting_Help.class);
+            intent = new Intent(HomePage.this, SettingHelp.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            
             startActivity(intent);
             finish();
         }
@@ -419,7 +411,10 @@ public class HomePage extends DefaultActivity implements View.OnClickListener {
     private void Log_out() {
         Dialog dialog = new Dialog(HomePage.this);
         dialog.setContentView(R.layout.dialog_notification_exit_session);
-
+        dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
+        dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        dialog.show();
+        dialog.setCanceledOnTouchOutside(false);
         btn_Close = dialog.findViewById(R.id.btn_Close);
         btn_Yes = dialog.findViewById(R.id.btn_Yes);
         btn_Close.setOnClickListener(view1 -> {
@@ -431,7 +426,8 @@ public class HomePage extends DefaultActivity implements View.OnClickListener {
                 @Override
                 public void process(boolean b, Response response) {
                     if (response.getError() == 0) {
-                        Intent intent = new Intent(HomePage.this, Activity_Login_Touch_Id.class);
+                        dialog.dismiss();
+                        Intent intent = new Intent(HomePage.this, LoginID.class);
                         startActivity(intent);
                         finish();
                     }
@@ -439,10 +435,7 @@ public class HomePage extends DefaultActivity implements View.OnClickListener {
             }).logout();
         });
 
-        dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
-        dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        dialog.show();
-        dialog.setCanceledOnTouchOutside(false);
+
     }
 
     @Override

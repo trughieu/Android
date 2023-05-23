@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.Setting_Help.Setting_Detail.Change_Pin.ChangePinStep1">
+
+    <ImageView
+        android:id="@+id/imageView14"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/bg_1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/rectangle_inbox"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <FrameLayout
+        android:id="@+id/btnBack"
+        android:layout_width="50dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/arrow" />
+    </FrameLayout>
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginStart="27dp"
+    android:layout_marginTop="25dp"
+    android:src="@drawable/arrow"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/txtTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="89dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="105dp"
+        android:fontFamily="@font/atb_digital_medium"
+        android:gravity="center_horizontal|top"
+        android:text="@string/prompt_change_pin_code"
+        android:textColor="@color/blue_text"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/btn_Log_out"
+        android:layout_width="72dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="19.3dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/corner_logout"
+        android:fontFamily="@font/atb_digital_medium"
+        android:gravity="center_horizontal|center"
+        android:padding="2dp"
+        android:text="@string/button_logout"
+        android:textColor="@color/white"
+        android:textSize="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/img_corner"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/corner_card"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/txtTitle"
+        app:layout_constraintStart_toStartOf="@+id/txtTitle"
+        app:layout_constraintTop_toBottomOf="@+id/txtTitle" />
+
+    <EditText
+        android:id="@+id/pin6_dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="55dp"
+        android:fontFamily="@font/atb_digital_medium"
+        android:text="@string/prompt_description_confirm_to_change_pin"
+        android:textColor="@color/white"
+        android:textSize="13dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/img_corner" />
+
+    <LinearLayout
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="126dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/img_corner">
+
+        <EditText
+            android:id="@+id/txt_pin_view_1"
+            android:layout_width="40dp"
+            android:layout_height="45dp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/ic_edit_text_pin_disable"
+            android:clickable="true"
+            android:focusable="false"
+            android:fontFamily="@font/atb_digital_medium"
+            android:gravity="center"
+            android:imeOptions="actionNext"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:maxLength="1"
+            android:textColor="@color/white"
+            android:textSize="29dp"
+            android:textStyle="bold"
+            tools:ignore="Laberfor" />
+
+        <EditText
+            android:id="@+id/txt_pin_view_2"
+            android:layout_width="40dp"
+            android:layout_height="45dp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/ic_edit_text_pin_disable"
+            android:clickable="true"
+            android:focusable="false"
+            android:fontFamily="@font/atb_digital_medium"
+            android:gravity="center"
+            android:imeOptions="actionNext"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:maxLength="1"
+            android:textColor="@color/white"
+            android:textSize="29dp"
+
+            android:textStyle="bold"
+            tools:ignore="Laberfor" />
+
+        <EditText
+            android:id="@+id/txt_pin_view_3"
+            android:layout_width="40dp"
+            android:layout_height="45dp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/ic_edit_text_pin_disable"
+            android:clickable="true"
+            android:focusable="false"
+            android:fontFamily="@font/atb_digital_medium"
+            android:gravity="center"
+
+            android:imeOptions="actionNext"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:maxLength="1"
+            android:textColor="@color/white"
+            android:textSize="29dp"
+
+            android:textStyle="bold"
+            tools:ignore="Laberfor" />
+
+        <EditText
+            android:id="@+id/txt_pin_view_4"
+            android:layout_width="40dp"
+            android:layout_height="45dp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/ic_edit_text_pin_disable"
+            android:clickable="true"
+            android:focusable="false"
+            android:fontFamily="@font/atb_digital_medium"
+            android:gravity="center"
+
+            android:imeOptions="actionNext"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:maxLength="1"
+
+            android:textColor="@color/white"
+            android:textSize="29dp"
+
+            android:textStyle="bold"
+            tools:ignore="Laberfor" />
+
+        <EditText
+            android:id="@+id/txt_pin_view_5"
+            android:layout_width="40dp"
+            android:layout_height="45dp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/ic_edit_text_pin_disable"
+            android:clickable="true"
+            android:focusable="false"
+            android:fontFamily="@font/atb_digital_medium"
+            android:gravity="center"
+            android:imeOptions="actionNext"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:maxLength="1"
+
+            android:textColor="@color/white"
+            android:textSize="29dp"
+
+            android:textStyle="bold"
+            tools:ignore="Laberfor" />
+
+        <EditText
+            android:id="@+id/txt_pin_view_6"
+            android:layout_width="40dp"
+            android:layout_height="45dp"
+            android:background="@drawable/ic_edit_text_pin_disable"
+            android:clickable="true"
+            android:focusable="false"
+            android:fontFamily="@font/atb_digital_medium"
+            android:gravity="center"
+            android:imeOptions="actionNext"
+            android:importantForAutofill="no"
+            android:inputType="number"
+
+            android:maxLength="1"
+            android:textColor="@color/white"
+            android:textSize="29dp"
+
+            android:textStyle="bold"
+            tools:ignore="Laberfor" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="366dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn1"
+                android:layout_width="54.5dp"
+                android:layout_height="54.5dp"
+                android:background="@drawable/circle_setting_unlock_with_pin"
+                android:fontFamily="@font/atb_digital_medium"
+                android:text="1"
+                android:textColor="@color/white"
+                android:textSize="29dp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn2"
+                android:layout_width="54.5dp"
+                android:layout_height="54.5dp"
+                android:layout_marginStart="27.7dp"
+                android:background="@drawable/circle_setting_unlock_with_pin"
+                android:fontFamily="@font/atb_digital_medium"
+                android:text="2"
+                android:textColor="@color/white"
+                android:textSize="29dp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn3"
+                android:layout_width="54.5dp"
+                android:layout_height="54.5dp"
+                android:layout_marginStart="27.7dp"
+                android:background="@drawable/circle_setting_unlock_with_pin"
+                android:fontFamily="@font/atb_digital_medium"
+                android:text="3"
+                android:textColor="@color/white"
+                android:textSize="29dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="31.27dp"
+            android:orientation="horizontal"
+            android:textColor="@drawable/text_change_press">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn4"
+                android:layout_width="54.5dp"
+                android:layout_height="54.5dp"
+                android:background="@drawable/circle_setting_unlock_with_pin"
+                android:fontFamily="@font/atb_digital_medium"
+                android:text="4"
+                android:textColor="@color/white"
+                android:textSize="29dp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn5"
+                android:layout_width="54.5dp"
+                android:layout_height="54.5dp"
+                android:layout_marginStart="27.7dp"
+                android:background="@drawable/circle_setting_unlock_with_pin"
+                android:fontFamily="@font/atb_digital_medium"
+                android:text="5"
+                android:textColor="@color/white"
+                android:textSize="29dp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn6"
+                android:layout_width="54.5dp"
+                android:layout_height="54.5dp"
+
+                android:layout_marginStart="27.7dp"
+                android:background="@drawable/circle_setting_unlock_with_pin"
+                android:fontFamily="@font/atb_digital_medium"
+                android:text="6"
+                android:textColor="@color/white"
+                android:textSize="29dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="31.27dp"
+            android:orientation="horizontal"
+            android:textColor="@drawable/text_change_press">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn7"
+                android:layout_width="54.5dp"
+                android:layout_height="54.5dp"
+                android:background="@drawable/circle_setting_unlock_with_pin"
+                android:fontFamily="@font/atb_digital_medium"
+                android:text="7"
+                android:textColor="@color/white"
+                android:textSize="29dp"
+
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn8"
+                android:layout_width="54.5dp"
+                android:layout_height="54.5dp"
+                android:layout_marginStart="27.7dp"
+                android:background="@drawable/circle_setting_unlock_with_pin"
+                android:fontFamily="@font/atb_digital_medium"
+                android:text="8"
+                android:textColor="@color/white"
+                android:textSize="29dp"
+
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn9"
+                android:layout_width="54.5dp"
+                android:layout_height="54.5dp"
+                android:layout_marginStart="27.7dp"
+                android:background="@drawable/circle_setting_unlock_with_pin"
+                android:fontFamily="@font/atb_digital_medium"
+                android:text="9"
+                android:textColor="@color/white"
+                android:textSize="29dp"
+
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="31.27dp"
+            android:orientation="horizontal"
+            android:textColor="@drawable/text_change_press">
+
+            <Space
+                android:layout_width="54.5dp"
+                android:layout_height="54.5dp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn0"
+                android:layout_width="54.5dp"
+                android:layout_height="54.5dp"
+                android:layout_marginStart="27.7dp"
+                android:background="@drawable/circle_setting_unlock_with_pin"
+                android:fontFamily="@font/atb_digital_medium"
+                android:text="0"
+                android:textColor="@color/white"
+                android:textSize="29dp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/Key_delete"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="38dp"
+                android:background="@drawable/outline_backspace_24"
+                android:fontFamily="@font/atb_digital_medium"
+                android:gravity="center_horizontal"
+                android:textColor="@drawable/text_change_press"
+                android:textSize="29dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

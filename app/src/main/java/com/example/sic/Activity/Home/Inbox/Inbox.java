@@ -30,7 +30,7 @@ public class Inbox extends DefaultActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_inbox);
+        setContentView(R.layout.inbox);
 
         btnBack = findViewById(R.id.btnBack);
         tab1 = findViewById(R.id.tab1);

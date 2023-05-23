@@ -14,7 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.sic.Activity.Home.Inbox.Inbox_detail;
+import com.example.sic.Activity.Home.Inbox.InboxConfirm;
 import com.example.sic.R;
 import com.example.sic.model.Message;
 
@@ -50,7 +50,7 @@ public class Adapter_item extends RecyclerView.Adapter<Adapter_item.viewHolder> 
         holder.tv_date.setText(message.getCreatedDt());
 
         holder.itemView.setOnClickListener(view -> {
-            Intent intent = new Intent(context, Inbox_detail.class);
+            Intent intent = new Intent(context, InboxConfirm.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             

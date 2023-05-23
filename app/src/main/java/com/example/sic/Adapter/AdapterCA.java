@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.sic.Activity.Setting_Help.Setting_Detail.Manage_Certificate.Activity_Manage_Certificate_Renew;
+import com.example.sic.Activity.Setting_Help.Setting_Detail.ManageCertificate.Renew.RenewStep1;
 import com.example.sic.R;
 import com.example.sic.model.CertificateCA;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -21,21 +21,21 @@ public class AdapterCA extends RecyclerView.Adapter<AdapterCA.ViewHolder> {
     private List<CertificateCA> certificateCa;
     private TextView txt_select_id;
     private BottomSheetDialog bottomSheetDialog;
-    Activity_Manage_Certificate_Renew activity_manage_certificate_renew;
+    RenewStep1 activity;
 
 
-    public AdapterCA(List<CertificateCA> certificateCa, TextView txt_select_id, BottomSheetDialog bottomSheetDialog, Activity_Manage_Certificate_Renew activity_manage_certificate_renew) {
+    public AdapterCA(List<CertificateCA> certificateCa, TextView txt_select_id, BottomSheetDialog bottomSheetDialog, RenewStep1 _manage_certificate_renew) {
         this.certificateCa = certificateCa;
         this.txt_select_id = txt_select_id;
         this.bottomSheetDialog = bottomSheetDialog;
-        this.activity_manage_certificate_renew = activity_manage_certificate_renew;
+        this.activity = _manage_certificate_renew;
     }
 
 
     @NonNull
     @Override
     public AdapterCA.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(activity_manage_certificate_renew).inflate(R.layout.bottom_sheet_ca, parent, false);
+        View view = LayoutInflater.from(activity).inflate(R.layout.bottom_sheet_ca, parent, false);
         return new AdapterCA.ViewHolder(view);
     }
 
@@ -59,8 +59,8 @@ public class AdapterCA extends RecyclerView.Adapter<AdapterCA.ViewHolder> {
             public void onClick(View v) {
                 String selectedData = certificateCA.getName();
                 txt_select_id.setText(selectedData);
-                if (!selectedData.isEmpty() && activity_manage_certificate_renew instanceof Activity_Manage_Certificate_Renew) {
-                    (((Activity_Manage_Certificate_Renew) activity_manage_certificate_renew)).passSelectedCAToModule(selectedData);
+                if (!selectedData.isEmpty() && activity instanceof RenewStep1) {
+                    (((RenewStep1) activity)).passSelectedCAToModule(selectedData);
                 }
                 bottomSheetDialog.dismiss();
 

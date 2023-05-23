@@ -21,6 +21,9 @@
     <string name="order_info_button_payment">Thanh toán</string>
     <string name="hint_username">Tên đăng nhập</string>
     <string name="hint_password">Mật khẩu</string>
+    <string name="hint_new_password">Mật khẩu mới</string>
+    <string name="hint_confirm_password">Xác nhạn mật khẩu</string>
+
     <string name="prompt_terms_of_service">Điều khoản\ndịch vụ</string>
     <string name="prompt_user_awaiting">Đang chờ yêu cầu xác thực</string>
     <string name="prompt_privacy_policy">Chính sách\nbảo mật</string>
@@ -153,6 +156,10 @@
     <string name="hint_new_passphrase">Passphrase Mới</string>
     <string name="hint_confirm_new_passphrase">Xác Nhận Passphrase</string>
     <string name="result_passphrase_has_been_change">Passphrase của bạn đã được thay đổi</string>
+    <string name="error_new_passphrase_match_old_pin">Passphrase mới phải khác với Passphrase cũ</string>
+    <string name="result_password_has_been_change">Mật khẩu của bạn đã được thay đổi</string>
+    <string name="error_new_password_match_old_pin">Mật khẩu mới phải khác với Mật khẩu cũ</string>
+
     <string name="prompt_change_scal_and_multisign">Thay đổi Scal và ký bó</string>
     <string name="i_agree_that">I agree that my personal data which I have presented is used for generating my remote signing account and certificates. I agree that my remote signing account and certificates are used to identify me in e-services and in electronic signatures.  I am aware that by entering my pincode/tapping my fingerytip either for authentication of for creating electronic signatures.  - I verify that I have initiated a session, agree with it and that I am responsible for its conesequences.  - I verify that I have made sure that the verification code sent to me, is correct.  - I allow my name and personal code to be sent to the e-service provider.  I am also aware that if I have lost my device or my pincodes have become known to third parties, I am obliged to immediately revoke my remote signing certificates.   Information on deleting remote signing account or revocation of the certificates is available at https://rssp.mobile-id.vn  I am aware that use of the remote signing application is described in the remote signing end-user license agreement.  Full version of the terms and conditions on the use of the remote signing certificates is available at https://rssp.mobile-id.vn/term  Full version of the end-user license agreement is available at https://rssp.mobile-id.vn/faq  I am aware that by choosing<b> \'I agree\' </b> I confirm that i am familiar and agree with the terms and conditions on the use of remote signing certificates and with the remote signing end-user license agreement.</string>
     <string name="prompt_consent_to_process">Đồng Ý Xử Lý Dữ Liệu Cá Nhân Qua Xác Nhận Nhận Dạng Sinh Trắc Học Tự Động</string>
@@ -223,7 +230,12 @@
     <string name="prompt_capture_id_card_detail">Lật Mặt Sau Của Thẻ Căn Cước Công Dân Và Quét Mã Mrz Ở Phía Dưới Thẻ</string>
     <string name="select_the">Select the type of document you wish to capture and scan</string>
     <string name="date_29_03">29/03/2023</string>
-    <string name="login_information">Login information is invalid. You have remaining 4 times to attempt.</string>
+    <string name="login_information">Đăng nhập không hợp lệ. Bạn còn có [text] lần thử lại.</string>
+    <string name="prompt_account_is_block">Tài khoản bị khóa</string>
+    <string name="prompt_account_not_exist">Tài khoản chưa tồn tại</string>
+    <string name="prompt_not_internet">Không có kết nối internet</string>
+    <string name="prompt_activate_block">Mã kích hoạt bị khóa</string>
+
     <string name="prompt_capture_id_card">Quét Thẻ Căn Cước Công Dân</string>
     <string name="frame_your">Frame Your Face</string>
     <string name="rejected">Từ chối</string>
@@ -240,7 +252,7 @@
     <string name="prompt_info_step2">Chụp Ảnh Các Mặt Của Thẻ Định Danh</string>
     <string name="button_identification_chip">Giấy Tờ Định Danh Có Chip</string>
     <string name="button_identification_chipless">Giấy Tờ Định Danh Không Chip</string>
-    <string name="wrong_active">Wrong Activation Code. You have remaining 4 times to attempt.</string>
+    <string name="wrong_active">Wrong Activation Code. You have remaining [text] times to attempt.</string>
     <string name="close">Đóng</string>
     <string name="prompt_choose_auth_method">Phương Thức Xác Thực</string>
     <string name="wrong_pin_c">Mã PIN sai</string>
@@ -251,6 +263,8 @@
     <string name="result_email_has_been_change">Email Của Bạn Đã Được Thay Đổi</string>
     <string name="hint_new_email">Địa Chỉ Email Mới</string>
     <string name="error_new_passphrase_and_confirm_pin_not_match">Passphrase Mới Và Xác Nhận Passphrase Mới Không Giống Nhau</string>
+    <string name="error_new_password_and_confirm_pin_not_match">Password Mới Và Xác Nhận Password Mới Không Giống Nhau</string>
+
     <string name="Result_Scal_And_Multisign_Has_Been_Change">Scal Và Ký Bó Đã Được Thay Đổi</string>
     <string name="button_manage_order">Quản Lý Đơn Hàng</string>
     <string name="prompt_manage_sim">Quản Lý Sim</string>

@@ -75,7 +75,7 @@ public class register_info_otp extends Dev_activity implements View.OnClickListe
         txtTitle = findViewById(R.id.txtTitle);
         txtTitle.setText(AppData.getInstance().getAppTitle());
         pin6_dialog_hand = findViewById(R.id.pin6_dialog_hand);
-        tv_resend = findViewById(R.id.txt_resend_active);
+        tv_resend = findViewById(R.id.resendActivateCode);
         tv_resend.setEnabled(false);
         pref = getSharedPreferences("selectChip", MODE_PRIVATE);
         checkChip = pref.getBoolean("checkChip", false);
@@ -249,7 +249,7 @@ public class register_info_otp extends Dev_activity implements View.OnClickListe
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             finish();
-        } else if (view.getId()==R.id.txt_resend_active) {
+        } else if (view.getId()==R.id.resendActivateCode) {
             tv_resend.setEnabled(false);
             tv_resend.setBackgroundResource(R.drawable.square_no_border);
             smsPrepare();
@@ -258,12 +258,9 @@ public class register_info_otp extends Dev_activity implements View.OnClickListe
             startCountDown();
             pinValue.setText("");
             pin6_dialog_hand.setText("");
-            otpEt[0].setText("");
-            otpEt[1].setText("");
-            otpEt[2].setText("");
-            otpEt[3].setText("");
-            otpEt[4].setText("");
-            otpEt[5].setText("");
+            for (EditText editText: otpEt) {
+                editText.getText().clear();
+            }
             module.registrationsReSendOTP();
         }
     }
