@@ -43,12 +43,12 @@
             app:layout_constraintTop_toBottomOf="@+id/a" />
 
         <TextView
-            android:id="@+id/textView4"
-            android:layout_width="260dp"
+            android:id="@+id/description"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/atb_digital_regular"
-            android:gravity="center_horizontal|center_vertical"
+            android:gravity="center"
             android:text="@string/error_message_pin_wrong"
             android:textColor="@color/white"
             android:textSize="14dp"

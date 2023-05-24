@@ -178,7 +178,11 @@ public class HomePage extends DefaultActivity implements View.OnClickListener {
         mnu_setting_help.setOnClickListener(this);
         mnu_inbox.setOnClickListener(this);
         mnu_scan_qr.setOnClickListener(this);
-        requestList(HomePage.this);
+        if (!first) {
+            requestList(HomePage.this);
+            setFirst(true);
+        }
+//        requestList(HomePage.this);
 
 
         btn_Log_out = findViewById(R.id.btn_Log_out);
@@ -320,8 +324,8 @@ public class HomePage extends DefaultActivity implements View.OnClickListener {
                 super.onAuthenticationSucceeded(result);
                 Toast.makeText(getApplicationContext(),
                         "Authentication succeeded!", Toast.LENGTH_SHORT).show();
-
-
+                setBiometricAuthenticated(true);
+                requestList(HomePage.this);
             }
 
             @Override
@@ -442,4 +446,5 @@ public class HomePage extends DefaultActivity implements View.OnClickListener {
     public void onBackPressed() {
         moveTaskToBack(true);
     }
+
 }

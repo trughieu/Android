@@ -42,14 +42,7 @@
             android:layout_gravity="center"
             android:src="@drawable/arrow" />
     </FrameLayout>
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:layout_marginStart="27dp"
-    android:layout_marginTop="25dp"
-    android:src="@drawable/arrow"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
+
 
 
     <TextView
@@ -120,7 +113,7 @@
         app:layout_constraintTop_toTopOf="@id/img_corner" />
 
     <LinearLayout
-
+        android:id="@+id/layoutPin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="126dp"
@@ -253,14 +246,27 @@
             tools:ignore="Laberfor" />
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/layoutPin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp"
+        android:textSize="14dp"
+        android:visibility="invisible"
+        android:textColor="@color/red"
+        android:fontFamily="@font/atb_digital_regular"
+        android:layout_height="wrap_content" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="366dp"
         android:orientation="vertical"
+        android:layout_marginTop="100dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/layoutPin">
 
         <LinearLayout
             android:layout_width="wrap_content"

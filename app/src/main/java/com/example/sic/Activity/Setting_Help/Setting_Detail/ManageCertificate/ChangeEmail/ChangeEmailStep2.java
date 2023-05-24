@@ -19,8 +19,6 @@ import com.example.sic.Activity.Setting_Help.Setting_Detail.ManageCertificate.Ma
 import com.example.sic.DefaultActivity;
 import com.example.sic.R;
 
-import org.w3c.dom.Text;
-
 import vn.mobileid.tse.model.client.HttpRequest;
 import vn.mobileid.tse.model.client.managecertificate.CertificateProfilesModule;
 import vn.mobileid.tse.model.connector.plugin.Response;
@@ -257,7 +255,7 @@ public class ChangeEmailStep2 extends DefaultActivity implements View.OnClickLis
                                     dialog1.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
 
                                     TextView desc=dialog1.findViewById(R.id.description);
-                                    desc.setText(view.getContext().getResources().getString(R.string.passphrase_is).replace("[text]", "" + response.getRemainingCounter()));
+                                    desc.setText(view.getContext().getResources().getString(R.string.error_authorization_code_is_invalid).replace("[text]", "" + response.getRemainingCounter()));
 
                                     btnClose = dialog1.findViewById(R.id.btn_Close);
                                     btnClose.setOnClickListener(view1 -> {
@@ -280,34 +278,6 @@ public class ChangeEmailStep2 extends DefaultActivity implements View.OnClickLis
 
                     }
                 }).changeEmailResponse(pinValue.getText().toString(), pinValue_new.getText().toString());
-
-//                if (!pinValue.getText().toString().equals(otp)) {
-//                    Dialog dialog = new Dialog(ChangeEmailStep2.this);
-//                    dialog.setContentView(R.layout.dialog_fail_forgot_passpharse);
-//                    dialog.show();
-//                    dialog.setCanceledOnTouchOutside(false);
-//                    dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
-//                    dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
-//
-//                    btnClose = dialog.findViewById(R.id.btn_Close);
-//                    btnClose.setOnClickListener(view1 -> {
-//                        dialog.dismiss();
-//                    });
-//                    txt_pin_view1.setText("");
-//                    txt_pin_view2.setText("");
-//                    txt_pin_view3.setText("");
-//                    txt_pin_view4.setText("");
-//                    txt_pin_view5.setText("");
-//                    txt_pin_view6.setText("");
-//                    pinValue.setText("");
-//
-//
-//                } else if (!pinValue_new.getText().toString().equals(otp_new)) {
-//
-//
-//                } else {
-//
-//                }
                 break;
             case R.id.btnBack:
                 Intent intent = new Intent(ChangeEmailStep2.this, Manage_Certificate.class);
@@ -346,7 +316,7 @@ public class ChangeEmailStep2 extends DefaultActivity implements View.OnClickLis
 
     private void pinerror_new() {
         Dialog dialog = new Dialog(ChangeEmailStep2.this);
-        dialog.setContentView(R.layout.dialog_success_phrase_change_mail);
+        dialog.setContentView(R.layout.dialog_success_change_mail);
         dialog.show();
         dialog.setCanceledOnTouchOutside(false);
         dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);

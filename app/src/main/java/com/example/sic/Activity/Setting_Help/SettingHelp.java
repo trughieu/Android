@@ -218,9 +218,10 @@ public class SettingHelp extends DefaultActivity implements View.OnClickListener
                 super.onAuthenticationSucceeded(result);
                 Toast.makeText(getApplicationContext(),
                         "Authentication succeeded!", Toast.LENGTH_SHORT).show();
-
-
+                start();
                 Intent intent = new Intent(SettingHelp.this, SettingDetail.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();
             }
@@ -349,6 +350,8 @@ public class SettingHelp extends DefaultActivity implements View.OnClickListener
             finish();
         } else if (view.getId() == R.id.btnBack) {
             intent = new Intent(SettingHelp.this, HomePage.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             finish();
         }

@@ -49,7 +49,7 @@
             android:layout_marginTop="10dp"
             android:fontFamily="@font/atb_digital_regular"
             android:gravity="center_horizontal|center_vertical"
-            android:text="@string/authorization_code_invalid"
+            android:text="@string/error_authorization_code_is_invalid"
             android:textColor="@color/white"
             android:textSize="14dp"
             app:layout_constraintEnd_toEndOf="parent"

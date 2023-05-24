@@ -17,88 +17,7 @@ import com.example.sic.R;
 
 public class CreatePin extends AppCompatActivity {
     FrameLayout btnBack;
-    TextView enter;
-    EditText txt_pin_view1, txt_pin_view2, txt_pin_view3, txt_pin_view4, txt_pin_view5, txt_pin_view6, pinValue;
-
-//    private final TextWatcher textWatcher = new TextWatcher() {
-//        @Override
-//        public void beforeTextChanged(CharSequence charSequence, int start, int i1, int i2) {
-//        }
-//
-//        @Override
-//        public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-//            switch (pinValue.length()) {
-//                case 0:
-//                    txt_pin_view1.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-//                    txt_pin_view2.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-//                    txt_pin_view3.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-//                    txt_pin_view4.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-//                    txt_pin_view5.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-//                    txt_pin_view6.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-//                    break;
-//                case 1:
-//                    txt_pin_view1.setBackgroundResource(R.drawable.ic_edit_text_pin_enable);
-//                    txt_pin_view2.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-//                    txt_pin_view3.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-//                    txt_pin_view4.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-//                    txt_pin_view5.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-//                    txt_pin_view6.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-//                    break;
-//                case 2:
-//                    txt_pin_view2.setBackgroundResource(R.drawable.ic_edit_text_pin_enable);
-//                    txt_pin_view3.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-//                    txt_pin_view4.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-//                    txt_pin_view5.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-//                    txt_pin_view6.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-//                    break;
-//                case 3:
-//                    txt_pin_view3.setBackgroundResource(R.drawable.ic_edit_text_pin_enable);
-//                    txt_pin_view4.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-//                    txt_pin_view5.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-//                    txt_pin_view6.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-//                    break;
-//                case 4:
-//                    txt_pin_view4.setBackgroundResource(R.drawable.ic_edit_text_pin_enable);
-//                    txt_pin_view5.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-//                    txt_pin_view6.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-//                    break;
-//                case 5:
-//                    txt_pin_view5.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-//                    txt_pin_view6.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-//                    break;
-//                case 6:
-//                    txt_pin_view6.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-//                    break;
-//            }
-//        }
-//
-//        @Override
-//        public void afterTextChanged(Editable editable) {
-//            switch (pinValue.getText().toString().length()) {
-//                case 1:
-//                    txt_pin_view1.setBackgroundResource(R.drawable.ic_edit_text_pin_enable);
-//                    break;
-//                case 2:
-//                    txt_pin_view2.setBackgroundResource(R.drawable.ic_edit_text_pin_enable);
-//                    break;
-//                case 3:
-//                    txt_pin_view3.setBackgroundResource(R.drawable.ic_edit_text_pin_enable);
-//                    break;
-//                case 4:
-//                    txt_pin_view4.setBackgroundResource(R.drawable.ic_edit_text_pin_enable);
-//                    break;
-//                case 5:
-//                    txt_pin_view5.setBackgroundResource(R.drawable.ic_edit_text_pin_enable);
-//                    break;
-//                case 6:
-//                    txt_pin_view6.setBackgroundResource(R.drawable.ic_edit_text_pin_enable);
-//                    Intent intent = new Intent(CreatePin.this, ConfirmPin.class);
-//                    intent.putExtra("otp", pinValue.getText().toString());
-//                    startActivity(intent);
-//                    finish();
-//            }
-//        }
-//    };
+    EditText pinValue;
 
     AppCompatButton bt1, bt2, bt3, bt4, bt5, bt6, bt7, bt8, bt9, bt0, Key_delete;
     String text;
@@ -116,13 +35,15 @@ public class CreatePin extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_pin);
-        txt_pin_view1 = findViewById(R.id.txt_pin_view_1);
-        txt_pin_view2 = findViewById(R.id.txt_pin_view_2);
-        txt_pin_view3 = findViewById(R.id.txt_pin_view_3);
-        txt_pin_view4 = findViewById(R.id.txt_pin_view_4);
-        txt_pin_view5 = findViewById(R.id.txt_pin_view_5);
-        txt_pin_view6 = findViewById(R.id.txt_pin_view_6);
+
         btnBack = findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(v -> {
+            Intent intent=new Intent(v.getContext(), MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+        });
 
 
         otpEt[0] = findViewById(R.id.txt_pin_view_1);
@@ -131,8 +52,6 @@ public class CreatePin extends AppCompatActivity {
         otpEt[3] = findViewById(R.id.txt_pin_view_4);
         otpEt[4] = findViewById(R.id.txt_pin_view_5);
         otpEt[5] = findViewById(R.id.txt_pin_view_6);
-
-
 
         bt1 = findViewById(R.id.btn1);
         bt2 = findViewById(R.id.btn2);

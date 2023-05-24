@@ -4,6 +4,7 @@ package com.example.sic;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.drawable.AnimationDrawable;
@@ -63,6 +64,14 @@ public class DefaultActivity extends AppCompatActivity {
     ActivateModule module;
     status currentStatus;
     private boolean isFirstLaunch = false;
+    private static final String PREF_NAME = "MyPrefs";
+    private static final String PREF_KEY_BIOMETRIC_AUTH = "biometricAuth";
+    private static final String PREF_KEY_SECURITY = "security";
+    protected boolean isBiometricAuthenticated;
+    private SharedPreferences sharedPreferences;
+    private boolean security;
+    protected boolean first;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -75,6 +84,11 @@ public class DefaultActivity extends AppCompatActivity {
         AWSRequest.lang = SettingData.getLanguage(this);
         language = AWSRequest.lang;
         module = ActivateModule.createModule(this);
+        sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+        // Đọc giá trị của biometricAuth từ SharedPreferences
+        isBiometricAuthenticated = sharedPreferences.getBoolean(PREF_KEY_BIOMETRIC_AUTH, false);
+        security = sharedPreferences.getBoolean(PREF_KEY_SECURITY, false);
+        first = sharedPreferences.getBoolean(PREF_FIRST_RUN, false);
     }
 
     public void setApplicationLocale() {
@@ -110,6 +124,7 @@ public class DefaultActivity extends AppCompatActivity {
         }
     }
 
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -117,6 +132,8 @@ public class DefaultActivity extends AppCompatActivity {
             isFirstLaunch = true;
         }
     }
+
+
 
     public status getStatusApply() {
         if (!ActivationData.getUsername(getApplicationContext()).equals("null")) {
@@ -126,90 +143,188 @@ public class DefaultActivity extends AppCompatActivity {
                 return status.RE_LOGIN;
             }
         } else {
-            Log.d("equal", "getStatusApply: " + ActivationData.getUsername(getApplicationContext()));
             return status.ACTIVATE_LOGIN;
         }
     }
 
     protected void requestList(Context context) {
-        currentStatus = getStatusApply();
-        start();
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(ConnectivityManager.class);
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        if (networkInfo != null && networkInfo.isAvailable()) {
-            module.setResponseGetRequestList(new HttpRequest.AsyncResponse() {
-                @Override
-                public void process(boolean b, Response response) {
-                    if (response != null) {
-                        if (response.getError() == 3208 || response.getError() == 3209 || response.getError() == 3210) {//
+        if (security) {
+            currentStatus = getStatusApply();
+            start();
+            ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(ConnectivityManager.class);
+            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+            if (networkInfo != null && networkInfo.isAvailable()) {
+                module.setResponseGetRequestList(new HttpRequest.AsyncResponse() {
+                    @Override
+                    public void process(boolean b, Response response) {
+                        if (response != null) {
+                            if (response.getError() == 3208 || response.getError() == 3209 || response.getError() == 3210) {
+                                if (isBiometricAuthenticated) {
+                                    stop();
+                                    module.setResponseReLogin(new HttpRequest.AsyncResponse() {
+                                        @Override
+                                        public void process(boolean b, Response response) {
+                                            if (response == null) {
+                                                if (currentStatus == status.RE_LOGIN) {
+                                                    stop();
+                                                    Intent intent = new Intent(getApplicationContext(), LoginID.class);
+                                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                    startActivity(intent);
+                                                } else if (currentStatus == status.ACTIVATE_LOGIN) {
+                                                    stop();
+                                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class); // chua dang nhap
+                                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                    Log.d("da chay", "da chay ");
+                                                    startActivity(intent);
+                                                    finish();
+                                                }
+                                            } else if (response.getError() == 0) {
+                                                stop();
+                                            } else if (response.getError() == 3208 || response.getError() == 3209 || response.getError() == 3210) {
+                                                Intent intent = new Intent(getApplicationContext(), LoginID.class);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                startActivity(intent);
+                                            }
+                                        }
+                                    }).reLogin();
+                                }
+
+
+                            } else if (response.getError() == 0) {
+                                stop();
+                            }
+                        } else {
                             stop();
-                            module.setResponseReLogin(new HttpRequest.AsyncResponse() {
-                                @Override
-                                public void process(boolean b, Response response) {
-                                    if (response == null) {
-                                        if (currentStatus == status.RE_LOGIN) {
+                            Intent intent = new Intent(getApplicationContext(), MainActivity.class); // chua dang nhap
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            Log.d("abcdesds", "pdoiadoiadoaodadad ");
+                            startActivity(intent);
+                        }
+                    }
+                }).requestList();
+            } else {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Dialog dialog = new Dialog(context);
+                        dialog.setContentView(R.layout.dialog_fail_not_internet);
+                        dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
+                        TextView btnClose = dialog.findViewById(R.id.btn_Close);
+                        btnClose.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                            }
+                        });
+                        dialog.show();
+                    }
+                });
+            }
+        } else {
+            currentStatus = getStatusApply();
+            start();
+            ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(ConnectivityManager.class);
+            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+            if (networkInfo != null && networkInfo.isAvailable()) {
+                module.setResponseGetRequestList(new HttpRequest.AsyncResponse() {
+                    @Override
+                    public void process(boolean b, Response response) {
+                        if (response != null) {
+                            if (response.getError() == 3208 || response.getError() == 3209 || response.getError() == 3210) {
+
+                                stop();
+                                module.setResponseReLogin(new HttpRequest.AsyncResponse() {
+                                    @Override
+                                    public void process(boolean b, Response response) {
+                                        if (response == null) {
+                                            if (currentStatus == status.RE_LOGIN) {
+                                                stop();
+                                                Intent intent = new Intent(getApplicationContext(), LoginID.class);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                startActivity(intent);
+                                            } else if (currentStatus == status.ACTIVATE_LOGIN) {
+                                                stop();
+                                                Intent intent = new Intent(getApplicationContext(), MainActivity.class); // chua dang nhap
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                Log.d("da chay", "da chay ");
+                                                startActivity(intent);
+                                                finish();
+                                            }
+                                        } else if (response.getError() == 0) {
                                             stop();
+                                        } else if (response.getError() == 3208 || response.getError() == 3209 || response.getError() == 3210) {
                                             Intent intent = new Intent(getApplicationContext(), LoginID.class);
                                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                             startActivity(intent);
-                                        } else if (currentStatus == status.ACTIVATE_LOGIN) {
-                                            stop();
-                                            Intent intent = new Intent(getApplicationContext(), MainActivity.class); // chua dang nhap
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                            Log.d("da chay", "da chay ");
-                                            startActivity(intent);
-                                            finish();
                                         }
-                                    } else if (response.getError() == 0) {
-                                        stop();
-                                    } else if (response.getError() == 3208 || response.getError() == 3209 || response.getError() == 3210) {
-                                        Intent intent = new Intent(getApplicationContext(), LoginID.class);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                        startActivity(intent);
                                     }
-                                }
-                            }).reLogin();
+                                }).reLogin();
 
-                        } else if (response.getError() == 0) {
+
+                            } else if (response.getError() == 0) {
+                                stop();
+                            }
+                        } else {
                             stop();
+                            Intent intent = new Intent(getApplicationContext(), MainActivity.class); // chua dang nhap
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
                         }
-                    } else {
-                        stop();
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class); // chua dang nhap
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        Log.d("abcdesds", "pdoiadoiadoaodadad ");
-                        startActivity(intent);
                     }
-                }
-            }).requestList();
-        } else {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Dialog dialog = new Dialog(context);
-                    dialog.setContentView(R.layout.dialog_fail_not_internet);
-                    dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
-                    TextView btnClose = dialog.findViewById(R.id.btn_Close);
-                    btnClose.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            dialog.dismiss();
-                        }
-                    });
-                    dialog.show();
-                }
-            });
+                }).requestList();
+            } else {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Dialog dialog = new Dialog(context);
+                        dialog.setContentView(R.layout.dialog_fail_not_internet);
+                        dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
+                        TextView btnClose = dialog.findViewById(R.id.btn_Close);
+                        btnClose.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                            }
+                        });
+                        dialog.show();
+                    }
+                });
+            }
         }
-
     }
 
+    public void setBiometricAuthenticated(boolean authenticated) {
+        isBiometricAuthenticated = authenticated;
+    }
+
+    public void setSecurity(boolean authenticated) {
+        security = authenticated;
+    }
+    public void setFirst(boolean authenticated) {
+        first = authenticated;
+    }
     public enum status {
         ACTIVATE_LOGIN,
         RE_LOGIN,
         ON_ACTIVATE
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Lưu giá trị biometricAuth vào SharedPreferences khi Activity bị hủy
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(PREF_KEY_BIOMETRIC_AUTH, isBiometricAuthenticated);
+        editor.putBoolean(PREF_KEY_SECURITY, security);
+        editor.putBoolean(PREF_FIRST_RUN, first);
+        editor.apply();
     }
 }

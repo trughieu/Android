@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -21,14 +22,18 @@ import com.example.sic.Activity.Setting_Help.Setting_Detail.SettingDetail;
 import com.example.sic.DefaultActivity;
 import com.example.sic.R;
 
+import java.util.Locale;
+
 public class ChangePinStep1 extends DefaultActivity {
     FrameLayout btnBack;
     EditText txt_pin_view1, txt_pin_view2, txt_pin_view3, txt_pin_view4, txt_pin_view5, txt_pin_view6, pinValue;
 
     AppCompatButton bt1, bt2, bt3, bt4, bt5, bt6, bt7, bt8, bt9, bt0, Key_delete;
-    String text;
-    TextView btn_Close;
-    String current_pin;
+    TextView btn_Close, time;
+    String current_pin, text;
+    int count = 5;
+    private CountDownTimer countDownTimer;
+    private long timeLeftinMillis = 30000;
     private final TextWatcher textWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int start, int i1, int i2) {
@@ -101,34 +106,48 @@ public class ChangePinStep1 extends DefaultActivity {
                     break;
                 case 6:
                     txt_pin_view6.setBackgroundResource(R.drawable.ic_edit_text_pin_enable);
-                    if (pinValue.getText().toString().equals(current_pin)) {
-                        Intent intent= new Intent(ChangePinStep1.this, ChangePinStep2.class);
-                        intent.putExtra("otp", pinValue.getText().toString());
-                        Log.d("afb", "afterTextChanged: " + pinValue.getText().toString());
-                       startActivity(intent);
-                finish();
+                    if (count >= 1) {
+                        if (pinValue.getText().toString().equals(current_pin)) {
+                            Intent intent = new Intent(ChangePinStep1.this, ChangePinStep2.class);
+                            intent.putExtra("otp", pinValue.getText().toString());
+                            Log.d("afb", "afterTextChanged: " + pinValue.getText().toString());
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            if (count >= 1) {
+                                Dialog dialog = new Dialog(ChangePinStep1.this);
+                                dialog.setContentView(R.layout.dialog_fail_wrong_pin_time);
+                                dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
+                                dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+                                dialog.show();
+                                dialog.setCanceledOnTouchOutside(false);
+                                TextView desc = dialog.findViewById(R.id.description);
+                                desc.setText(ChangePinStep1.this.getResources().getString(R.string.error_message_pin_wrong).replace("[text]", "" + count));
+                                btn_Close = dialog.findViewById(R.id.btn_Close);
+                                btn_Close.setOnClickListener(view -> {
+                                    count--;
+                                    txt_pin_view1.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+                                    txt_pin_view2.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+                                    txt_pin_view3.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+                                    txt_pin_view4.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+                                    txt_pin_view5.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+                                    txt_pin_view6.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+                                    pinValue.setText(text);
+                                    dialog.dismiss();
+                                });
+                            }
+                        }
                     } else {
-                        Dialog dialog = new Dialog(ChangePinStep1.this);
-                        dialog.setContentView(R.layout.dialog_fail_wrong_pin_time);
-                        dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
-                        dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
-
-                        dialog.show();
-                        dialog.setCanceledOnTouchOutside(false);
-                        btn_Close = dialog.findViewById(R.id.btn_Close);
-                        btn_Close.setOnClickListener(view -> {
-                            txt_pin_view1.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-                            txt_pin_view2.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-                            txt_pin_view3.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-                            txt_pin_view4.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-                            txt_pin_view5.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-                            txt_pin_view6.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
-//                            text = text.substring(0, text.length() - 1);
-                            pinValue.setText(text);
-                            Log.d("text", "afterTextChanged: " + text);
-                            dialog.dismiss();
-                        });
+                        txt_pin_view1.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+                        txt_pin_view2.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+                        txt_pin_view3.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+                        txt_pin_view4.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+                        txt_pin_view5.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+                        txt_pin_view6.setBackgroundResource(R.drawable.ic_edit_text_pin_disable);
+                        pinValue.setText(text);
+                        startCountDown();
                     }
+
             }
         }
     };
@@ -143,6 +162,36 @@ public class ChangePinStep1 extends DefaultActivity {
         }
     };
 
+    private void updateCountDownText() {
+        int seconds = (int) ((timeLeftinMillis / 1000));
+        // định dạng kiểu time
+        String timeFormatted = String.format(Locale.getDefault(), "%02d", seconds);
+        time.setText(ChangePinStep1.this.getResources().getString(R.string.result_temp_lock)
+                .replace("[text]", "" + timeFormatted) + " " +
+                ChangePinStep1.this.getResources().getString(R.string.result_temp_unit));
+    }
+
+    private void startCountDown() {
+        time.setVisibility(View.VISIBLE);
+        countDownTimer = new CountDownTimer(timeLeftinMillis, 1000) {
+            @Override
+            public void onTick(long m) {
+                timeLeftinMillis = m;
+                //update
+                updateCountDownText();
+            }
+
+            @Override
+            public void onFinish() {
+                //time up
+                timeLeftinMillis = 0;
+                time.setVisibility(View.GONE);
+                count = 5;
+            }
+        }.start();
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -154,6 +203,7 @@ public class ChangePinStep1 extends DefaultActivity {
         txt_pin_view4 = findViewById(R.id.txt_pin_view_4);
         txt_pin_view5 = findViewById(R.id.txt_pin_view_5);
         txt_pin_view6 = findViewById(R.id.txt_pin_view_6);
+        time = findViewById(R.id.time);
         btnBack = findViewById(R.id.btnBack);
 
         bt1 = findViewById(R.id.btn1);
@@ -197,9 +247,11 @@ public class ChangePinStep1 extends DefaultActivity {
         });
 
         btnBack.setOnClickListener(view -> {
-            Intent intent= new Intent(ChangePinStep1.this, SettingDetail.class);
-           startActivity(intent);
-                finish();
+            Intent intent = new Intent(ChangePinStep1.this, SettingDetail.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
         });
 
 

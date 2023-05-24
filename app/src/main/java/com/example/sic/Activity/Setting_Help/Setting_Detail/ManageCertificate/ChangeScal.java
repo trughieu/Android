@@ -473,7 +473,7 @@ public class ChangeScal extends DefaultActivity implements View.OnClickListener 
 
     private void dialog_success_pin() {
         Dialog dialog = new Dialog(ChangeScal.this);
-        dialog.setContentView(R.layout.dialog_success);
+        dialog.setContentView(R.layout.dialog_success_scal_mutisign_has_change);
         dialog.show();
         dialog.setCanceledOnTouchOutside(false);
         dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);

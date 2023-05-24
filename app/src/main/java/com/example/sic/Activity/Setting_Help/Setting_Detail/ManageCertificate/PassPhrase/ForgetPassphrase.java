@@ -333,7 +333,7 @@ public class ForgetPassphrase extends DefaultActivity implements View.OnClickLis
                                         dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
                                         TextView btnClose = dialog.findViewById(R.id.btn_Close);
                                         TextView desc = dialog.findViewById(R.id.description);
-                                        desc.setText(view.getContext().getResources().getString(R.string.authorization_code_invalid)
+                                        desc.setText(view.getContext().getResources().getString(R.string.error_authorization_code_is_invalid)
                                                 .replace("[text]", "" + response.getRemainingCounter()));
                                         btnClose.setOnClickListener(v -> {
                                             dialog.dismiss();

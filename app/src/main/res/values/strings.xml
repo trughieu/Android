@@ -323,7 +323,10 @@
     <string name="select_language">Language</string>
     <string name="mobile_id_m" translatable="false"><b>Mobile-ID MPKI\nVersion 2.4.20.0.10 build 10, 22/12/2022</b>\nSupport ID\n#LQ7N-KH9Q</string>
     <string name="mobile_id_mpki" translatable="false">Mobile-ID MPKI is your personal online security key. You can use it to verify logins and online transactions</string>
-    <string name="error_message_pin_wrong">WRONG PIN CODE, YOU HAVE REMAINING [text] TIMES TO ATTEMPT</string>
+    <string name="error_message_pin_wrong">Wrong pin code.\nYou have remaining [text] times to attempt</string>
+    <string name="result_temp_lock">Please try again after [text]</string>
+    <string name="result_temp_unit">s</string>
+
     <string name="button_user_connect_service">Connect</string>
     <string name="Scan_QR" translatable="false">Scan QR</string>
     <string name="button_user_settings">Settings and Help</string>
@@ -519,7 +522,7 @@
     <string name="enter_authorization" translatable="false">ENTER Authorization Code sent to your phone</string>
     <string name="enter_code_current" translatable="false">ENTER Authorization Code (Current Email)</string>
     <string name="enter_code_new" translatable="false">ENTER Authorization Code (New Email)</string>
-    <string name="authorization_code_invalid" translatable="false">Authorization code is invalid. You have remaining [text] times to attempt.</string>
+    <string name="error_authorization_code_is_invalid">Authorization code is invalid. You have remaining [text] times to attempt.</string>
     <string name="hint_new_email">New Email address</string>
     <string name="result_email_has_been_change">Your Email has been changed already</string>
     <string name="prompt_change_scal_and_multisign">Change Scal  &amp; Multisign</string>

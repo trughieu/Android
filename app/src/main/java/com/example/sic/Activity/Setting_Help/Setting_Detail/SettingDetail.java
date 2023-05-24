@@ -436,9 +436,9 @@ public class  SettingDetail extends DefaultActivity implements View.OnClickListe
                 checkBox2.setChecked(false);
                 checkBox3.setChecked(true);
                 checkBox4.setChecked(false);
-
                 SettingDetail.this.recreate();
-
+                setBiometricAuthenticated(false);
+                setSecurity(true);
             }
 
             @Override

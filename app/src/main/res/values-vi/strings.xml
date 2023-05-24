@@ -182,7 +182,9 @@
     <string name="button_user_settings">Cấu Hình Và\nTrợ Giúp</string>
     <string name="button_user_inbox">Hộp Thư</string>
     <string name="button_user_connect_service">Kết Nối</string>
-    <string name="error_message_pin_wrong">Sai Mã Pin. Bạn Còn [Text] Lần Thử Lại</string>
+    <string name="error_message_pin_wrong">Sai mã PIN.\nBạn còn [text] lần thử lại</string>
+    <string name="result_temp_lock">Vui lòng thử lại sau [text] </string>
+    <string name="result_temp_unit"> giây</string>
     <string name="certificate_cdp_uri">Uri</string>
     <string name="certificate_caia_access_method">Truy Cập Phương Pháp</string>
     <string name="certificate_critical">Quan Trọng</string>
@@ -261,6 +263,7 @@
     <string name="result_activation_code_sent">Mã Kích Hoạt Của Bạn Đã Được Gửi</string>
     <string name="prompt_upload_3d_facescan">Đang Tải Lên Hình Ảnh Khuôn Mặt 3d Mã Hoá</string>
     <string name="result_email_has_been_change">Email Của Bạn Đã Được Thay Đổi</string>
+    <string name="error_authorization_code_is_invalid">Mã xác thực không hợp lệ. Bạn còn có [text] lần để thử lại.</string>
     <string name="hint_new_email">Địa Chỉ Email Mới</string>
     <string name="error_new_passphrase_and_confirm_pin_not_match">Passphrase Mới Và Xác Nhận Passphrase Mới Không Giống Nhau</string>
     <string name="error_new_password_and_confirm_pin_not_match">Password Mới Và Xác Nhận Password Mới Không Giống Nhau</string>

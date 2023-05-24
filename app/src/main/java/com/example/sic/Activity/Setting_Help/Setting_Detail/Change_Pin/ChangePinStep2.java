@@ -209,6 +209,8 @@ public class ChangePinStep2 extends DefaultActivity {
 
         btnBack.setOnClickListener(view -> {
             Intent intent = new Intent(ChangePinStep2.this, ChangePinStep1.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
         });

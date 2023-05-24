@@ -282,6 +282,12 @@ public class RC12DigitNumber extends AppCompatActivity {
            startActivity(intent);
                 finish();
         });
+        btnBack.setOnClickListener(view -> {
+            Intent intent = new Intent(view.getContext(), ConfirmPin.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        });
     }
 
     private void Dialog() {

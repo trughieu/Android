@@ -206,6 +206,14 @@ public class ConfirmPin extends AppCompatActivity {
                 }
             }
         });
+
+        btnBack.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), CreatePin.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+        });
     }
 
     private void Dialog_fail() {
