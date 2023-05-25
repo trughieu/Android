@@ -101,7 +101,6 @@ public class RenewStep2 extends DefaultActivity implements View.OnClickListener 
                     try {
                         X509Certificate x509Certificate = CertificateUtils.getCertFormBase64(response_info.getCert().getCertificates().get(0));
                         CertificateUtils SubjectDN = CertificateUtils.getCertificateInfoFormString(x509Certificate.getSubjectDN().toString());
-
                         String uid_SN = SubjectDN.getMap().get("UID");
                         String CN_SN = SubjectDN.getMap().get("CN");
                         String SP_SN = SubjectDN.getMap().get("ST");
@@ -141,7 +140,6 @@ public class RenewStep2 extends DefaultActivity implements View.OnClickListener 
                 intent = new Intent(RenewStep2.this, RenewStep1.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
                 startActivity(intent);
                 finish();
                 break;

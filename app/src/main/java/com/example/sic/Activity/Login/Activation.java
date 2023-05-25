@@ -41,7 +41,6 @@ import vn.mobileid.tse.model.client.activate.ActivateModule;
 import vn.mobileid.tse.model.connector.plugin.Response;
 
 public class Activation extends Dev_activity implements View.OnClickListener {
-    public static final int REQ_USER_CONSENT = 200;
     FrameLayout btnBack;
     TextView btn_Close, btn_resend, btnContinue;
     String text;

@@ -129,7 +129,7 @@ public class LoginID extends Dev_activity implements View.OnClickListener {
                 }
                 break;
             case R.id.btnLogin:
-                module.setResponseReLogin(new HttpRequest.AsyncResponse() {
+                module.setResponseReLoginWithPassword(new HttpRequest.AsyncResponse() {
                     @Override
                     public void process(boolean b, Response response) {
                         if (response.getError() == 0) {

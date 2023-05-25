@@ -65,7 +65,7 @@
             android:id="@+id/layout_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="100dp"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -82,31 +82,41 @@
                 android:textStyle="bold" />
 
             <LinearLayout
+                android:id="@+id/provinceContainer"
                 android:layout_width="350dp"
                 android:layout_marginTop="5dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <Spinner
-                    android:id="@+id/spinnerProvince"
-                    android:layout_width="match_parent"
+                <EditText
+                    android:id="@+id/description"
+                    android:layout_width="0dp"
+                    android:layout_weight="6"
                     android:layout_height="wrap_content"
-                    android:spinnerMode="dropdown"
-                    style="@style/SpinnerTheme"
-                    />
-<!--                <TextView-->
-<!--                    android:id="@+id/province"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:background="@color/transparent"-->
-<!--                    android:fontFamily="@font/atb_digital_regular"-->
-<!--                    android:hint="@string/select_province"-->
-<!--                    android:paddingTop="10dp"-->
-<!--                    android:paddingBottom="10dp"-->
-<!--                    android:textColor="@color/blue_text"-->
-<!--                    android:textColorHint="@color/gray"-->
-<!--                    android:textSize="12dp"-->
-<!--                    app:drawableEndCompat="@drawable/baseline_keyboard_arrow_down_24" />-->
+                    android:background="@color/transparent"
+                    android:fontFamily="@font/atb_digital_regular"
+                    android:hint="@string/select_province"
+                    android:inputType="text"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:textColor="@color/blue_text"
+                    android:textColorHint="@color/gray"
+                    android:textSize="12dp" />
+
+                <ImageView
+                    android:id="@+id/spinnerProvince"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:src="@drawable/baseline_keyboard_arrow_down_24" />
+                <!--                <Spinner-->
+                <!--                    android:id="@+id/spinnerProvince"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:spinnerMode="dropdown"-->
+                <!--                    style="@style/SpinnerTheme"-->
+                <!--                    />-->
 
             </LinearLayout>
 
@@ -132,27 +142,28 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <Spinner
+                <EditText
+                    android:id="@+id/desDistrict"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6"
+                    android:background="@color/transparent"
+                    android:fontFamily="@font/atb_digital_regular"
+                    android:hint="@string/select_distict"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:textColor="@color/blue_text"
+                    android:textColorHint="@color/gray"
+                    android:textSize="12dp" />
+
+                <ImageView
 
                     android:id="@+id/spinnerDistrict"
-                    android:layout_width="match_parent"
+                    style="@style/SpinnerTheme"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:spinnerMode="dropdown"
-                    style="@style/SpinnerTheme"
-                    />
-                <!--                <TextView-->
-                <!--                    android:id="@+id/district"-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:background="@color/transparent"-->
-                <!--                    android:fontFamily="@font/atb_digital_regular"-->
-                <!--                    android:hint="@string/select_distict"-->
-                <!--                    android:textColor="@color/blue_text"-->
-                <!--                    android:paddingTop="10dp"-->
-                <!--                    android:paddingBottom="10dp"-->
-                <!--                    android:textColorHint="@color/gray"-->
-                <!--                    android:textSize="12dp"-->
-                <!--                    app:drawableEndCompat="@drawable/baseline_keyboard_arrow_down_24" />-->
+                    android:layout_weight="1" />
 
             </LinearLayout>
 

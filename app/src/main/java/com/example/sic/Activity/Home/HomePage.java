@@ -122,6 +122,8 @@ public class HomePage extends DefaultActivity implements View.OnClickListener {
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
+                                setBiometricAuthenticated(true);
+                                requestList(HomePage.this);
                                 dialog.dismiss();
                                 dialog1.dismiss();
                             }
@@ -178,11 +180,11 @@ public class HomePage extends DefaultActivity implements View.OnClickListener {
         mnu_setting_help.setOnClickListener(this);
         mnu_inbox.setOnClickListener(this);
         mnu_scan_qr.setOnClickListener(this);
-        if (!first) {
-            requestList(HomePage.this);
-            setFirst(true);
-        }
-//        requestList(HomePage.this);
+//        if (!first) {
+//            requestList(HomePage.this);
+//            setFirst(true);
+//        }
+        requestList(HomePage.this);
 
 
         btn_Log_out = findViewById(R.id.btn_Log_out);
@@ -201,7 +203,6 @@ public class HomePage extends DefaultActivity implements View.OnClickListener {
                             Intent intent = new Intent(HomePage.this, InboxConfirm.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            
                             intent.putExtra("transactionId", request.transactionID);
                             startActivity(intent);
                             finish();

@@ -50,7 +50,6 @@ public class registerChip_2 extends AppCompatActivity {
                     intent.putExtra("mrz", mrzObject);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    
                     startActivity(intent);
                 }
 

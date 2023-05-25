@@ -123,7 +123,6 @@ public class  SettingDetail extends DefaultActivity implements View.OnClickListe
                     text = text.substring(5, 6);
                     txt_pin_view6.setText(text);
                     if (pinValue.getText().toString().equals(digit)) {
-
                         Dialog dialog1 = new Dialog(SettingDetail.this);
                         dialog1.setContentView(R.layout.dialog_success);
                         editor = getSharedPreferences("AppSecurity", MODE_PRIVATE).edit();
@@ -138,6 +137,8 @@ public class  SettingDetail extends DefaultActivity implements View.OnClickListe
                         checkBox3.setChecked(false);
                         checkBox4.setChecked(false);
                         dialog.dismiss();
+                        setBiometricAuthenticated(false);
+                        setSecurity(true);
                         dialog1.getWindow().setBackgroundDrawableResource(R.color.transparent);
                         dialog1.show();
                         SettingDetail.this.recreate();
@@ -251,7 +252,8 @@ public class  SettingDetail extends DefaultActivity implements View.OnClickListe
         } else if (checked4 == true) {
             checkBox4.setEnabled(false);
             check4.setEnabled(false);
-
+        } else {
+            checkBox1.setChecked(true);
         }
 
     }
@@ -273,7 +275,7 @@ public class  SettingDetail extends DefaultActivity implements View.OnClickListe
                 checkBox2.setChecked(false);
                 checkBox3.setChecked(false);
                 checkBox4.setChecked(false);
-
+                setSecurity(false);
                 this.recreate();
                 break;
             case R.id.check2:

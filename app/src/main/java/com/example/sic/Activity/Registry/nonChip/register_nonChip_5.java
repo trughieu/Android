@@ -1,5 +1,6 @@
 package com.example.sic.Activity.Registry.nonChip;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -12,14 +13,16 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -29,17 +32,20 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.example.sic.Activity.Login.MainActivity;
 import com.example.sic.AppData;
 import com.example.sic.Dev_activity;
 import com.example.sic.R;
+import com.example.sic.model.ProvinceItem;
 import com.github.gcacace.signaturepad.views.SignaturePad;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.io.ByteArrayOutputStream;
+import java.text.Normalizer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -47,11 +53,10 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import vn.mobileid.tse.model.client.HttpRequest;
 import vn.mobileid.tse.model.client.register.RegisterModule;
-import vn.mobileid.tse.model.connector.plugin.Response;
 import vn.mobileid.tse.model.database.dvhcvn.Dvhcvn;
 import vn.mobileid.tse.model.plugin.dvhcvn.District;
 import vn.mobileid.tse.model.plugin.dvhcvn.Province;
@@ -59,9 +64,10 @@ import vn.mobileid.tse.model.plugin.dvhcvn.Ward;
 
 public class register_nonChip_5 extends Dev_activity {
     private final String[] arrayAddress = {"", "", "", "", "", ""};
-    Spinner spinnerProvince, spinnerDistrict, spinnerWard;
+    Spinner spinnerWard;
+    ImageView spinnerProvince, spinnerDistrict;
 
-    List<String> provinceString = new ArrayList<>();
+    List<ProvinceItem> provinceString = new ArrayList<>();
     List<String> districtString = new ArrayList<>();
     List<String> wardString = new ArrayList<>();
     TextView placeOrigin, placeResidence, district, province, ward,
@@ -76,13 +82,13 @@ public class register_nonChip_5 extends Dev_activity {
     List<District> districtList;
     List<Province> provinceList;
     List<Ward> wardList;
-    ArrayAdapter<String> adapter;
+    ArrayAdapter<ProvinceItem> adapter;
     SharedPreferences pref, typeDocument;
     FrameLayout close, btnBack;
     LinearLayout sign;
     RegisterModule module;
     private Calendar calendar;
-
+    List<ProvinceItem> filteredList;
 
     public static String convertToBase64PNG(Bitmap bitmap) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -135,7 +141,7 @@ public class register_nonChip_5 extends Dev_activity {
         btnContinue = findViewById(R.id.btnContinue);
         btnBack = findViewById(R.id.btnBack);
         calendar = Calendar.getInstance();
-        module = RegisterModule.createModule(this);
+//        module = RegisterModule.createModule(this);
         btnBack.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), register_nonChip_4.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -213,7 +219,7 @@ public class register_nonChip_5 extends Dev_activity {
 //            Bitmap resizedBitmap = Bitmap.createScaledBitmap(faceBitmap, desiredSize, desiredSize, false);
 //            Bitmap circularBitmap = getCircularBitmap(resizedBitmap);
             avt.setImageBitmap(faceBitmap);
-            module.setImagePortrait(convertToBase64(faceBitmap));
+//            module.setImagePortrait(convertToBase64(faceBitmap));
         }
 //        pref = getSharedPreferences("username", MODE_PRIVATE);
 //        String s = pref.getString("user", null);
@@ -222,26 +228,26 @@ public class register_nonChip_5 extends Dev_activity {
 //            module.setUsername(s);
 //        }
         typeDocument = getSharedPreferences("documentType", MODE_PRIVATE);
-        module.setDocumentType(AppData.getInstance().getDocumentType());
+//        module.setDocumentType(AppData.getInstance().getDocumentType());
         UserName.setText(AppData.getInstance().getPhone());
-        module.setResponseOwnersCheckExist(new HttpRequest.AsyncResponse() {
-            @Override
-            public void process(boolean b, Response response) {
-                if (response.getError() == 0 && response.getExist()) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            ShowDialog();
-                        }
-                    });
-                }
-            }
-        });
-        module.ownersCheckExist(null, AppData.getInstance().getPhone(), null,
-                null);
+//        module.setResponseOwnersCheckExist(new HttpRequest.AsyncResponse() {
+//            @Override
+//            public void process(boolean b, Response response) {
+//                if (response.getError() == 0 && response.getExist()) {
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            ShowDialog();
+//                        }
+//                    });
+//                }
+//            }
+//        });
+//        module.ownersCheckExist(null, AppData.getInstance().getPhone(), null,
+//                null);
 
-        module.setUsername(AppData.getInstance().getPhone());
-        module.setNationality("VIETNAM");
+//        module.setUsername(AppData.getInstance().getPhone());
+//        module.setNationality("VIETNAM");
 
         SharedPreferences sharedPreferences = getSharedPreferences("IMG", MODE_PRIVATE);
 //        module.setImageBack(sharedPreferences.getString("backside", null));
@@ -260,7 +266,7 @@ public class register_nonChip_5 extends Dev_activity {
                     @Override
                     public void onClick(View v) {
                         UserName.setText(user.getText().toString());
-                        module.setUsername(UserName.getText().toString());
+//                        module.setUsername(UserName.getText().toString());
                         bottomSheetDialog.dismiss();
                     }
                 });
@@ -288,7 +294,7 @@ public class register_nonChip_5 extends Dev_activity {
                         if (!fullname.getText().toString().isEmpty()) {
                             fullName.setText(fullname.getText().toString());
                             bottomSheetDialog.dismiss();
-                            module.setName(fullname.getText().toString());
+//                            module.setName(fullname.getText().toString());
                         } else {
                             fullname.setError("");
                         }
@@ -347,13 +353,13 @@ public class register_nonChip_5 extends Dev_activity {
                 save.setOnClickListener(v1 -> {
                     if (selectionGender == 1) {
                         genDer.setText(male.getText().toString());
-                        module.setGender("MALE");
+//                        module.setGender("MALE");
                     } else if (selectionGender == 2) {
                         genDer.setText(female.getText().toString());
-                        module.setGender("FEMALE");
+//                        module.setGender("FEMALE");
                     } else if (selectionGender == 3) {
                         genDer.setText(other.getText().toString());
-                        module.setGender("OTHER");
+//                        module.setGender("OTHER");
                     }
                     bottomSheetDialog.dismiss();
                 });
@@ -373,7 +379,7 @@ public class register_nonChip_5 extends Dev_activity {
                 save.setOnClickListener(v1 -> {
                     if (!document.getText().toString().isEmpty()) {
                         documentNumber.setText(document.getText().toString());
-                        module.setDocumentnum(document.getText().toString());
+//                        module.setDocumentnum(document.getText().toString());
                         bottomSheetDialog.dismiss();
                     } else {
                         document.setError("");
@@ -393,7 +399,7 @@ public class register_nonChip_5 extends Dev_activity {
                 save.setOnClickListener(v1 -> {
                     if (!ethinicText.getText().toString().isEmpty()) {
                         ethinic.setText(ethinicText.getText().toString());
-                        module.setEthnic(ethinicText.getText().toString());
+//                        module.setEthnic(ethinicText.getText().toString());
                         bottomSheetDialog.dismiss();
                     } else {
                         ethinicText.setError("");
@@ -413,7 +419,7 @@ public class register_nonChip_5 extends Dev_activity {
                 save.setOnClickListener(v1 -> {
                     if (!religionText.getText().toString().isEmpty()) {
                         relogion.setText(religionText.getText().toString());
-                        module.setReligion(religionText.getText().toString());
+//                        module.setReligion(religionText.getText().toString());
                         bottomSheetDialog.dismiss();
                     } else {
                         religionText.setError("");
@@ -456,7 +462,7 @@ public class register_nonChip_5 extends Dev_activity {
                             districtString.clear();
                             provinceString.clear();
                             wardString.clear();
-                            module.setPlaceoforigin(s);
+//                            module.setPlaceoforigin(s);
                             bottomSheetDialog.dismiss();
                         } else if ((arrayAddress[0].equals("") && arrayAddress[1].equals("") && arrayAddress[2].equals(""))) {
                             province.setError("Please select your province");
@@ -471,39 +477,38 @@ public class register_nonChip_5 extends Dev_activity {
                     }
                 });
 
-
-                spinnerProvince.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View view, MotionEvent motionEvent) {
-
-                        if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                            provinceList = Dvhcvn.getProvince(view.getContext());
-                            Collections.sort(provinceList);
-                            provinceString.clear();
-                            for (Province province : provinceList) {
-                                provinceString.add(province.getName());
-                            }
-                            adapter = new ArrayAdapter<>(view.getContext(), R.layout.spinner_layout, provinceString);
-                            adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-                            spinnerProvince.setAdapter(adapter);
-                            spinnerProvince.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                                @Override
-                                public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                                    arrayAddress[0] = adapterView.getSelectedItem().toString();
-                                    arrayAddress[3] = provinceList.get(position).getId();
-                                    Log.d("positon", "onItemSelected: " + provinceList.get(position).getId());
-                                }
-
-                                @Override
-                                public void onNothingSelected(AdapterView<?> adapterView) {
-                                }
-                            });
-                        }
-
-                        return false;
-                    }
-
-                });
+//                spinnerProvince.setOnTouchListener(new View.OnTouchListener() {
+//                    @Override
+//                    public boolean onTouch(View view, MotionEvent motionEvent) {
+//
+//                        if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+//                            provinceList = Dvhcvn.getProvince(view.getContext());
+//                            Collections.sort(provinceList);
+//                            provinceString.clear();
+//                            for (ProvinceItem province : provinceList) {
+//                                provinceString.add(province.getName());
+//                            }
+//                            adapter = new ArrayAdapter<>(view.getContext(), R.layout.spinner_layout, provinceString);
+//                            adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+//                            spinnerProvince.setAdapter(adapter);
+//                            spinnerProvince.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//                                @Override
+//                                public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+//                                    arrayAddress[0] = adapterView.getSelectedItem().toString();
+//                                    arrayAddress[3] = provinceList.get(position).getId();
+//                                    Log.d("positon", "onItemSelected: " + provinceList.get(position).getId());
+//                                }
+//
+//                                @Override
+//                                public void onNothingSelected(AdapterView<?> adapterView) {
+//                                }
+//                            });
+//                        }
+//
+//                        return false;
+//                    }
+//
+//                });
 
                 spinnerDistrict.setOnTouchListener(new View.OnTouchListener() {
                     @Override
@@ -516,20 +521,20 @@ public class register_nonChip_5 extends Dev_activity {
 
                         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(view.getContext(), R.layout.spinner_layout, districtString);
                         arrayAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-                        spinnerDistrict.setSelection(arrayAdapter.getPosition("District"));
-                        spinnerDistrict.setAdapter(arrayAdapter);
-                        spinnerDistrict.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            @Override
-                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                                arrayAddress[1] = adapterView.getSelectedItem().toString();
-                                arrayAddress[4] = districtList.get(i).getId();
-                            }
-
-                            @Override
-                            public void onNothingSelected(AdapterView<?> adapterView) {
-
-                            }
-                        });
+//                        spinnerDistrict.setSelection(arrayAdapter.getPosition("District"));
+//                        spinnerDistrict.setAdapter(arrayAdapter);
+//                        spinnerDistrict.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//                            @Override
+//                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                                arrayAddress[1] = adapterView.getSelectedItem().toString();
+//                                arrayAddress[4] = districtList.get(i).getId();
+//                            }
+//
+//                            @Override
+//                            public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//                            }
+//                        });
                         return false;
                     }
                 });
@@ -569,12 +574,14 @@ public class register_nonChip_5 extends Dev_activity {
             }
         });
         placeResidence.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ClickableViewAccessibility")
             @Override
             public void onClick(View view) {
                 BottomSheetDialog dialog = new BottomSheetDialog(view.getContext(), R.style.BottomSheetDialogTheme);
                 dialog.setContentView(R.layout.bottom_layout_set_place);
                 dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
                 dialog.show();
+                boolean isPopupOpen = false;
 
                 spinnerProvince = dialog.findViewById(R.id.spinnerProvince);
                 spinnerDistrict = dialog.findViewById(R.id.spinnerDistrict);
@@ -582,7 +589,10 @@ public class register_nonChip_5 extends Dev_activity {
                 ward = dialog.findViewById(R.id.ward);
                 district = dialog.findViewById(R.id.district);
                 province = dialog.findViewById(R.id.province);
+                LinearLayout provinceContainer = dialog.findViewById(R.id.provinceContainer);
+
                 TextView confirm = dialog.findViewById(R.id.confirm);
+                EditText desc = dialog.findViewById(R.id.description);
 
                 confirm.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -590,45 +600,198 @@ public class register_nonChip_5 extends Dev_activity {
                         String s = arrayAddress[2] + ", " + arrayAddress[1] + ", " + arrayAddress[0];
                         String abc = arrayAddress[3] + "," + arrayAddress[4];
                         placeResidence.setText(s);
-                        module.setPlaceofresidence(s);
-                        Log.d("dia chi", "onCreate: " + s);
-                        Log.d("id", "onCreate: " + provinceString);
+//                        module.setPlaceofresidence(s);
                         dialog.dismiss();
+                    }
+                });
+
+
+
+                desc.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        View popupView = getLayoutInflater().inflate(R.layout.province, null);
+                        PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                        ListView listViewData = popupView.findViewById(R.id.listViewProvince);
+                        popupWindow.setFocusable(false);
+                        popupWindow.setOutsideTouchable(true);
+                        popupWindow.setTouchable(true);
+                        popupWindow.setHeight(300);
+
+                        int[] location = new int[2];
+                        desc.getLocationOnScreen(location);
+                        int x = location[0];
+                        int y = (int) (location[1] - popupWindow.getHeight() - 0.5 * (desc.getHeight()));
+                        if (event.getAction() == MotionEvent.ACTION_UP) {
+                            provinceList = Dvhcvn.getProvince(view.getContext());
+                            Collections.sort(provinceList);
+                            provinceString.clear();
+                            for (Province province : provinceList) {
+                                String name = province.getName();
+                                String id = province.getId();
+                                provinceString.add(new ProvinceItem(name, id));
+
+                            }
+                            // Tạo một ArrayAdapter mới với danh sách đã lọc
+                            ArrayAdapter<ProvinceItem> adapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_list_item_1, provinceString);
+
+                            // Cập nhật Adapter cho ListView
+                            listViewData.setAdapter(adapter);
+                            popupWindow.showAtLocation(desc, Gravity.NO_GRAVITY, x, y - popupWindow.getHeight());
+                        }
+//                        adapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_list_item_1, provinceString);
+
+                        desc.addTextChangedListener(new TextWatcher() {
+                            @Override
+                            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                            }
+
+                            @Override
+                            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                                filteredList = new ArrayList<>();
+
+                                // Lặp qua danh sách gốc (provinceString) để áp dụng bộ lọc
+                                for (ProvinceItem item : provinceString) {
+                                    // Kiểm tra xem province có chứa chuỗi tìm kiếm (s) không dấu
+                                    if (removeAccent(item.getName().toLowerCase()).contains(removeAccent(s.toString().toLowerCase()))) {
+                                        filteredList.add(item);
+                                    }
+                                }
+
+                                // Tạo một ArrayAdapter mới với danh sách đã lọc
+                                ArrayAdapter<ProvinceItem> adapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_list_item_1, filteredList);
+
+                                // Cập nhật Adapter cho ListView
+                                listViewData.setAdapter(adapter);
+
+                                // Hiển thị PopupWindow nếu có phần tử trong danh sách đã lọc
+                                if (filteredList.size() > 0) {
+                                    popupWindow.showAtLocation(desc, Gravity.NO_GRAVITY, x, y - popupWindow.getHeight());
+                                } else {
+                                    popupWindow.dismiss();
+                                }
+
+                            }
+
+                            @Override
+                            public void afterTextChanged(Editable s) {
+
+                            }
+                        });
+
+                        listViewData.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                ProvinceItem selectedProvince = (ProvinceItem) adapterView.getItemAtPosition(i);
+                                Log.d("TAG", "onItemClick: " + selectedProvince.getName() + " - ID: " + selectedProvince.getId());
+                                Log.d("filteredList", "onItemClick: +"+filteredList);
+                                desc.setText(selectedProvince.getName());
+                                arrayAddress[0] = selectedProvince.getName();
+                                arrayAddress[3] = selectedProvince.getId();
+                                popupWindow.dismiss();
+                            }
+                        });
+
+                        return false;
                     }
                 });
 
 
                 spinnerProvince.setOnTouchListener(new View.OnTouchListener() {
                     @Override
-                    public boolean onTouch(View view, MotionEvent motionEvent) {
+                    public boolean onTouch(View v, MotionEvent event) {
 
-                        if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                        if (event.getAction() == MotionEvent.ACTION_UP) {
                             provinceList = Dvhcvn.getProvince(view.getContext());
                             Collections.sort(provinceList);
                             provinceString.clear();
                             for (Province province : provinceList) {
-                                provinceString.add(province.getName());
+                                provinceString.add(new ProvinceItem(province.getName(),province.getId()));
+
                             }
                         }
-                        adapter = new ArrayAdapter<>(view.getContext(), R.layout.spinner_layout, provinceString);
-                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        spinnerProvince.setAdapter(adapter);
-                        spinnerProvince.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        adapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_list_item_1, provinceString);
+                        spinnerProvince.setOnClickListener(new View.OnClickListener() {
                             @Override
-                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                                arrayAddress[0] = adapterView.getSelectedItem().toString();
-                                arrayAddress[3] = provinceList.get(i).getId();
-                            }
+                            public void onClick(View v) {
+                                // Tạo Dialog
+                                Dialog dialog1 = new Dialog(view.getContext());
+                                dialog1.setContentView(R.layout.province);
 
-                            @Override
-                            public void onNothingSelected(AdapterView<?> adapterView) {
+                                ListView listViewProvince = dialog1.findViewById(R.id.listViewProvince);
 
+                                listViewProvince.setAdapter(adapter);
+                                int[] location = new int[2];
+                                provinceContainer.getLocationOnScreen(location);
+                                int x = location[0];
+                                int y = location[1] + provinceContainer.getHeight();
+                                // Thiết lập vị trí cho dialog1
+                                Window window = dialog1.getWindow();
+                                WindowManager.LayoutParams layoutParams = window.getAttributes();
+                                layoutParams.gravity = Gravity.TOP | Gravity.START;
+                                layoutParams.x = x;
+                                layoutParams.y = y;
+                                window.setAttributes(layoutParams);
+                                listViewProvince.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                        ProvinceItem selectedProvince = (ProvinceItem) adapterView.getItemAtPosition(i);
+                                        Log.d("TAG", "onItemClick: " + selectedProvince.getName() + " - ID: " + selectedProvince.getId());
+                                        Log.d("filteredList", "onItemClick: +"+filteredList);
+                                        desc.setText(selectedProvince.getName());
+                                        arrayAddress[0] = selectedProvince.getName();
+                                        arrayAddress[3] = selectedProvince.getId();
+//                                        popupWindow.dismiss();
+
+                                        // Đóng Dialog
+                                        dialog1.dismiss();
+                                    }
+                                });
+
+                                // Hiển thị Dialog
+                                dialog1.show();
                             }
                         });
                         return false;
                     }
-
                 });
+
+
+//                spinnerProvince.setOnTouchListener(new View.OnTouchListener() {
+//                    @Override
+//                    public boolean onTouch(View view, MotionEvent motionEvent) {
+//
+//                        if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+//                            provinceList = Dvhcvn.getProvince(view.getContext());
+//                            Collections.sort(provinceList);
+//                            provinceString.clear();
+//                            for (ProvinceItem province : provinceList) {
+//                                provinceString.add(province.getName());
+//                            }
+//                        }
+//                        adapter = new ArrayAdapter<>(view.getContext(), R.layout.spinner_layout, provinceString);
+//                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//                        spinnerProvince.setAdapter(adapter);
+//                        spinnerProvince.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//                            @Override
+//                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                                arrayAddress[0] = adapterView.getSelectedItem().toString();
+//                                arrayAddress[3] = provinceList.get(i).getId();
+//                                TextView description = dialog.findViewById(R.id.description);
+//                                description.setText(adapterView.getSelectedItem().toString());
+//
+//                            }
+//
+//                            @Override
+//                            public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//                            }
+//                        });
+//                        return false;
+//                    }
+//
+//                });
 
                 spinnerDistrict.setOnTouchListener(new View.OnTouchListener() {
                     @Override
@@ -641,20 +804,20 @@ public class register_nonChip_5 extends Dev_activity {
 
                         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(view.getContext(), R.layout.spinner_layout, districtString);
                         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        spinnerDistrict.setSelection(arrayAdapter.getPosition("District"));
-                        spinnerDistrict.setAdapter(arrayAdapter);
-                        spinnerDistrict.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            @Override
-                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                                arrayAddress[1] = adapterView.getSelectedItem().toString();
-                                arrayAddress[4] = districtList.get(i).getId();
-                            }
-
-                            @Override
-                            public void onNothingSelected(AdapterView<?> adapterView) {
-
-                            }
-                        });
+//                        spinnerDistrict.setSelection(arrayAdapter.getPosition("District"));
+//                        spinnerDistrict.setAdapter(arrayAdapter);
+//                        spinnerDistrict.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//                            @Override
+//                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                                arrayAddress[1] = adapterView.getSelectedItem().toString();
+//                                arrayAddress[4] = districtList.get(i).getId();
+//                            }
+//
+//                            @Override
+//                            public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//                            }
+//                        });
                         return false;
                     }
                 });
@@ -717,46 +880,47 @@ public class register_nonChip_5 extends Dev_activity {
                         if (!street.getText().toString().isEmpty()) {
                             String s = street.getText().toString() + ", " + arrayAddress[2] + ", " + arrayAddress[1] + ", " + arrayAddress[0];
                             address.setText(s);
-                            module.setAddress(s);
+//                            module.setAddress(s);
                             dialog.dismiss();
                         } else {
                             street.setError("");
                         }
                     }
                 });
-                spinnerProvince.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View view, MotionEvent motionEvent) {
-
-                        if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                            provinceList = Dvhcvn.getProvince(view.getContext());
-                            Collections.sort(provinceList);
-                            provinceString.clear();
-                            for (Province province : provinceList) {
-                                provinceString.add(province.getName());
-                            }
-                        }
-                        adapter = new ArrayAdapter<>(view.getContext(), R.layout.spinner_layout, provinceString);
-                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        spinnerProvince.setAdapter(adapter);
-                        spinnerProvince.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            @Override
-                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                                arrayAddress[0] = adapterView.getSelectedItem().toString();
-                                arrayAddress[3] = provinceList.get(i).getId();
-                            }
-
-                            @Override
-                            public void onNothingSelected(AdapterView<?> adapterView) {
-
-                            }
-                        });
-                        return false;
-                    }
-
-                });
+//                spinnerProvince.setOnTouchListener(new View.OnTouchListener() {
+//                    @Override
+//                    public boolean onTouch(View view, MotionEvent motionEvent) {
+//
+//                        if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+//                            provinceList = Dvhcvn.getProvince(view.getContext());
+//                            Collections.sort(provinceList);
+//                            provinceString.clear();
+//                            for (ProvinceItem province : provinceList) {
+//                                provinceString.add(province.getName());
+//                            }
+//                        }
+//                        adapter = new ArrayAdapter<>(view.getContext(), R.layout.spinner_layout, provinceString);
+//                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//                        spinnerProvince.setAdapter(adapter);
+//                        spinnerProvince.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//                            @Override
+//                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                                arrayAddress[0] = adapterView.getSelectedItem().toString();
+//                                arrayAddress[3] = provinceList.get(i).getId();
+//
+//                            }
+//                            @Override
+//                            public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//                            }
+//                        });
+//                        return false;
+//                    }
+//
+//                });
 
                 spinnerDistrict.setOnTouchListener(new View.OnTouchListener() {
+                    @SuppressLint("ClickableViewAccessibility")
                     @Override
                     public boolean onTouch(View view, MotionEvent motionEvent) {
                         districtList = Dvhcvn.getDistrict(view.getContext(), arrayAddress[3]);
@@ -767,20 +931,20 @@ public class register_nonChip_5 extends Dev_activity {
 
                         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(view.getContext(), R.layout.spinner_layout, districtString);
                         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        spinnerDistrict.setSelection(arrayAdapter.getPosition("District"));
-                        spinnerDistrict.setAdapter(arrayAdapter);
-                        spinnerDistrict.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            @Override
-                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                                arrayAddress[1] = adapterView.getSelectedItem().toString();
-                                arrayAddress[4] = districtList.get(i).getId();
-                            }
-
-                            @Override
-                            public void onNothingSelected(AdapterView<?> adapterView) {
-
-                            }
-                        });
+//                        spinnerDistrict.setSelection(arrayAdapter.getPosition("District"));
+//                        spinnerDistrict.setAdapter(arrayAdapter);
+//                        spinnerDistrict.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//                            @Override
+//                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                                arrayAddress[1] = adapterView.getSelectedItem().toString();
+//                                arrayAddress[4] = districtList.get(i).getId();
+//                            }
+//
+//                            @Override
+//                            public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//                            }
+//                        });
                         return false;
                     }
                 });
@@ -853,45 +1017,45 @@ public class register_nonChip_5 extends Dev_activity {
                     Bitmap signatureBitmap = signature_pad.getSignatureBitmap();
                     String base64Signature = convertToBase64PNG(signatureBitmap);
                     Log.d("avb", "onClick: " + base64Signature);
-                    module.setImagesignature(base64Signature);
+//                    module.setImagesignature(base64Signature);
                     imgSignature.setImageBitmap(signatureBitmap);
                     userSign.setText(v1.getContext().getResources().getString(R.string.registrant) + ": " + fullName.getText().toString());
                     bottomSheetDialog.dismiss();
                 });
             }
         });
-        btnContinue.setOnClickListener(v -> {
-            module.setResponseRegistrationsFinalize(new HttpRequest.AsyncResponse() {
-                @Override
-                public void process(boolean b, Response response) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (response.getError() == 0 || response.getError() == 3249) {
-                                AppData.getInstance().setRegister(true);
-                                Dialog dialog = new Dialog(v.getContext());
-                                dialog.setContentView(R.layout.dialog_success_register);
-                                dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
-                                dialog.show();
-                                Handler handler = new Handler();
-                                handler.postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Intent intent = new Intent(v.getContext(), MainActivity.class);
-                                        startActivity(intent);
-                                    }
-                                }, 2000);
-                            }
-                        }
-                    });
-                }
-            });
-            try {
-                module.registrationsFinalize();
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        });
+//        btnContinue.setOnClickListener(v -> {
+//            module.setResponseRegistrationsFinalize(new HttpRequest.AsyncResponse() {
+//                @Override
+//                public void process(boolean b, Response response) {
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            if (response.getError() == 0 || response.getError() == 3249) {
+//                                AppData.getInstance().setRegister(true);
+//                                Dialog dialog = new Dialog(v.getContext());
+//                                dialog.setContentView(R.layout.dialog_success_register);
+//                                dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
+//                                dialog.show();
+//                                Handler handler = new Handler();
+//                                handler.postDelayed(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        Intent intent = new Intent(v.getContext(), MainActivity.class);
+//                                        startActivity(intent);
+//                                    }
+//                                }, 2000);
+//                            }
+//                        }
+//                    });
+//                }
+//            });
+//            try {
+//                module.registrationsFinalize();
+//            } catch (Exception e) {
+//                throw new RuntimeException(e);
+//            }
+//        });
 
     }
 
@@ -940,5 +1104,11 @@ public class register_nonChip_5 extends Dev_activity {
     @Override
     public void onBackPressed() {
         moveTaskToBack(true);
+    }
+
+    private String removeAccent(String s) {
+        String normalized = Normalizer.normalize(s, Normalizer.Form.NFD);
+        Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+        return pattern.matcher(normalized).replaceAll("").toLowerCase();
     }
 }

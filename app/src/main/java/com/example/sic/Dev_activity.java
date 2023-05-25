@@ -1,5 +1,7 @@
 package com.example.sic;
 
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.drawable.AnimationDrawable;
@@ -16,6 +18,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.biometric.BiometricPrompt;
 
 import com.checkid.icao.CheckId;
+import com.google.android.gms.auth.api.phone.SmsRetriever;
+import com.google.android.gms.auth.api.phone.SmsRetrieverClient;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -35,6 +39,9 @@ public class Dev_activity extends AppCompatActivity {
     AnimationDrawable loading_animation;
     WaitingTaskDialog waitingDialog;
     private final String licenseFile = "checkid.lic";
+    SmsBroadcastReceiver smsBroadcastReceiver;
+    SmsRetrieverClient client;
+    public static final int REQ_USER_CONSENT = 200;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,6 +64,7 @@ public class Dev_activity extends AppCompatActivity {
             e.printStackTrace();
         }
         waitingPrepare();
+        smsPrepare();
     }
 
 
@@ -94,5 +102,24 @@ public class Dev_activity extends AppCompatActivity {
         waitingDialog.setCancelable(false);
         waitingDialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
 
+    }
+    private void smsPrepare() {
+        smsBroadcastReceiver = new SmsBroadcastReceiver();
+        smsBroadcastReceiver.smsBroadcastReceiverListener = new SmsBroadcastReceiver.SmsBroadcastReceiverListener() {
+            @Override
+            public void onSuccess(Intent intent) {
+                startActivityForResult(intent, REQ_USER_CONSENT);
+
+            }
+
+            @Override
+            public void onFailure() {
+
+            }
+        };
+        IntentFilter intentFilter = new IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION);
+        registerReceiver(smsBroadcastReceiver, intentFilter);
+        client = SmsRetriever.getClient(this);
+        client.startSmsUserConsent(null);
     }
 }

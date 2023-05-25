@@ -235,7 +235,7 @@ public class register_info_otp extends Dev_activity implements View.OnClickListe
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(register_info_otp.this, response.getErrorDescription(), Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(register_info_otp.this, response.getErrorDescription(), Toast.LENGTH_SHORT).show();
                             }
                         });
 

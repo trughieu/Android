@@ -34,12 +34,6 @@ import vn.mobileid.tse.model.connector.plugin.Response;
 
 public class RenewStep1 extends DefaultActivity {
     TextView selectCA, selectCP, selectSC, title;
-    TextView mobile_id, mobile_id_1, mobile_id_2, mobile_id_3, mobile_id_4, mobile_id_5,
-            mobile_id_6, mobile_id_7, mobile_id_8, mobile_id_9,
-            one_year, two_year, third_year, unlimited, tenk_signed_profile,
-            ten_signed_profile, five_signed_profiled;
-
-    String s;
 
     FrameLayout btnBack;
     TextView btnContinue;
@@ -181,6 +175,7 @@ public class RenewStep1 extends DefaultActivity {
                 module.setResponseSystemsGetCertificateProfiles(new HttpRequest.AsyncResponse() {
                     @Override
                     public void process(boolean b, Response response) {
+                        stop();
                         for (Profiles profiles : response.getProfiles()) {
                             certificateCP = new CertificateCP();
                             certificateCP.setDescription(profiles.getDescription());

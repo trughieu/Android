@@ -74,7 +74,14 @@
             android:name=".Activity.Registry.nonChip.register_nonChip_5"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustNothing" />
+
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Activity.Registry.nonChip.register_nonChip_4"
             android:exported="false"
@@ -323,11 +330,7 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".Activity.Login.Activation"

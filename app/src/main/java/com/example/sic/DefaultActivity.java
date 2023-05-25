@@ -85,7 +85,6 @@ public class DefaultActivity extends AppCompatActivity {
         language = AWSRequest.lang;
         module = ActivateModule.createModule(this);
         sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
-        // Đọc giá trị của biometricAuth từ SharedPreferences
         isBiometricAuthenticated = sharedPreferences.getBoolean(PREF_KEY_BIOMETRIC_AUTH, false);
         security = sharedPreferences.getBoolean(PREF_KEY_SECURITY, false);
         first = sharedPreferences.getBoolean(PREF_FIRST_RUN, false);
@@ -280,6 +279,7 @@ public class DefaultActivity extends AppCompatActivity {
                         }
                     }
                 }).requestList();
+
             } else {
                 runOnUiThread(new Runnable() {
                     @Override
