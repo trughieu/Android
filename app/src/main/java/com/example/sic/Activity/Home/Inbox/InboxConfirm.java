@@ -192,6 +192,7 @@ public class InboxConfirm extends DefaultActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.inbox_confirm);
         start();
+
         submit_from = findViewById(R.id.submit_from);
         message = findViewById(R.id.message);
         messageCaption = findViewById(R.id.messageCaption);
@@ -238,10 +239,10 @@ public class InboxConfirm extends DefaultActivity implements View.OnClickListene
         tab3.setOnClickListener(this);
 
 
-        SharedPreferences bool = getSharedPreferences("transaction_setting", MODE_PRIVATE);
-        authentication = bool.getBoolean("authentication_method", false);
-        verification = bool.getBoolean("verification_code", false);
-        approve = bool.getBoolean("approve_later", false);
+        SharedPreferences bool = getSharedPreferences("transaction", MODE_PRIVATE);
+        authentication = bool.getBoolean("authMethod", false);
+        verification = bool.getBoolean("verifiedCode", false);
+        approve = bool.getBoolean("approve", false);
         if (authentication && verification && approve) {
             txt_select_id.setText(getResources().getString(R.string.button_request_info_touch_confirm));
         } else if (approve) {
@@ -287,114 +288,6 @@ public class InboxConfirm extends DefaultActivity implements View.OnClickListene
             public void onClick(View view) {
                 Log.d("button da click", "onClick: ");
 
-//                if (currentSelectedNumber == 1) {
-//                    if (tab1.getText().toString().equals(transactionVC)) {
-//                        module.setResponseConfirmTransaction(new HttpRequest.AsyncResponse() {
-//                            @Override
-//                            public void process(boolean b, Response response) {
-//
-//                                if (response.getError() == 0) {
-//                                    runOnUiThread(new Runnable() {
-//                                        @Override
-//                                        public void run() {
-//                                            Dialog dialog1 = new Dialog(InboxConfirm.this);
-//                                            dialog1.setContentView(R.layout.dialog_success);
-//                                            dialog1.getWindow().setBackgroundDrawableResource(R.color.transparent);
-//                                            dialog1.show();
-//                                            dialog1.setCanceledOnTouchOutside(false);
-//                                            Handler handler = new Handler();
-//                                            handler.postDelayed(new Runnable() {
-//                                                @Override
-//                                                public void run() {
-//                                                    Intent intent = new Intent(InboxConfirm.this, InboxDetailSubmit.class);
-//                                                    intent.putExtra("performed", performed);
-//                                                   startActivity(intent);
-//                finish();
-//                                                }
-//                                            }, 2000);
-//
-//                                        }
-//                                    });
-//                                }
-//                            }
-//                        }).confirmTransaction();
-//                    } else {
-//                        wrong.setVisibility(View.VISIBLE);
-//                    }
-//                } else if (currentSelectedNumber == 2) {
-//                    if (tab2.getText().toString().equals(transactionVC)) {
-//                        module.setResponseConfirmTransaction(new HttpRequest.AsyncResponse() {
-//                            @Override
-//                            public void process(boolean b, Response response) {
-//
-//                                if (response.getError() == 0) {
-//                                    runOnUiThread(new Runnable() {
-//                                        @Override
-//                                        public void run() {
-//                                            Dialog dialog1 = new Dialog(InboxConfirm.this);
-//                                            dialog1.setContentView(R.layout.dialog_success);
-//                                            dialog1.getWindow().setBackgroundDrawableResource(R.color.transparent);
-//                                            dialog1.show();
-//                                            dialog1.setCanceledOnTouchOutside(false);
-//                                            Handler handler = new Handler();
-//                                            handler.postDelayed(new Runnable() {
-//                                                @Override
-//                                                public void run() {
-//                                                    Intent intent = new Intent(InboxConfirm.this, InboxDetailSubmit.class);
-//                                                    intent.putExtra("performed", performed);
-//                                                   startActivity(intent);
-//                finish();
-//                                                }
-//                                            }, 2000);
-//
-//                                        }
-//                                    });
-//                                }
-//                            }
-//                        }).confirmTransaction();
-//
-//                    } else {
-//                        wrong.setVisibility(View.VISIBLE);
-//                    }
-//                } else if (currentSelectedNumber == 3) {
-//                    if (tab3.getText().toString().equals(transactionVC)) {
-//                        module.setResponseConfirmTransaction(new HttpRequest.AsyncResponse() {
-//                            @Override
-//                            public void process(boolean b, Response response) {
-//
-//                                if (response.getError() == 0) {
-//                                    runOnUiThread(new Runnable() {
-//                                        @Override
-//                                        public void run() {
-//                                            Dialog dialog1 = new Dialog(InboxConfirm.this);
-//                                            dialog1.setContentView(R.layout.dialog_success);
-//                                            dialog1.getWindow().setBackgroundDrawableResource(R.color.transparent);
-//                                            dialog1.show();
-//                                            dialog1.setCanceledOnTouchOutside(false);
-//                                            Handler handler = new Handler();
-//                                            handler.postDelayed(new Runnable() {
-//                                                @Override
-//                                                public void run() {
-//                                                    Intent intent = new Intent(InboxConfirm.this, InboxDetailSubmit.class);
-//                                                    intent.putExtra("performed", performed);
-//                                                   startActivity(intent);
-//                finish();
-//                                                }
-//                                            }, 2000);
-//
-//                                        }
-//                                    });
-//                                }
-//                            }
-//                        }).confirmTransaction();
-//
-//                    } else {
-//                        wrong.setVisibility(View.VISIBLE);
-//                    }
-//                } else {
-//
-//
-//                }
                 checkConfirmVerificationCode();
             }
         });
@@ -471,6 +364,7 @@ public class InboxConfirm extends DefaultActivity implements View.OnClickListene
                 checkBox2.setChecked(checked2);
                 checkBox3.setChecked(checked3);
                 checkBox4.setChecked(checked4);
+
                 if (!authentication && !approve) {
                     checkBiometric.setVisibility(View.GONE);
                     check_pin.setVisibility(View.GONE);
@@ -608,6 +502,18 @@ public class InboxConfirm extends DefaultActivity implements View.OnClickListene
                                             throw new RuntimeException(e);
                                         }
                                     }
+                                } else if (performed.getType().equals("AUTHENTICATION")) {
+                                    String data = response.getRpName();
+                                    try {
+                                        JSONObject json_data = new JSONObject(data);
+                                        performed.setDevice(json_data.getString("DEVICE"));
+                                        performed.setIpAddress(json_data.getString("IP ADDRESS"));
+                                        performed.setApplication(json_data.getString("APPLICATION"));
+                                        performed.setRP_NAME(json_data.getString("RP NAME"));
+                                    } catch (JSONException e) {
+                                        throw new RuntimeException(e);
+                                    }
+
                                 }
 
 

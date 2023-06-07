@@ -8,6 +8,24 @@ public class ManageCertificate implements Serializable {
     public String ValidTo;
     public String credentialID;
     public boolean kakChange;
+    public String authMode;
+
+    public String getAuthMode() {
+        return authMode;
+    }
+    public String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setAuthMode(String authMode) {
+        this.authMode = authMode;
+    }
 
     public boolean isKakChange() {
         return kakChange;

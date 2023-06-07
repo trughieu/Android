@@ -4,6 +4,8 @@ package com.example.sic.Activity.Login;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -19,19 +21,21 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.widget.AppCompatCheckBox;
 
 import com.example.sic.Activity.Home.HomePage;
 import com.example.sic.Activity.Registry.Register;
+import com.example.sic.Activity.Setting_Help.Setting_Detail.SettingDetail;
 import com.example.sic.AppData;
 import com.example.sic.Dev_activity;
 import com.example.sic.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import vn.mobileid.tse.model.client.HttpRequest;
 import vn.mobileid.tse.model.client.activate.ActivateModule;
 import vn.mobileid.tse.model.config.PermissionManager;
+import vn.mobileid.tse.model.connector.plugin.Response;
 import vn.mobileid.tse.model.database.SettingData;
 
 public class MainActivity extends Dev_activity {
@@ -39,7 +43,7 @@ public class MainActivity extends Dev_activity {
     public String password;
     TextView txtRegister, txtUsername, txtPassword, btn_Yes, btn_No, btn_resend, txt_forgot_password, tv_English, tv_Vietnamese, btn_Continue;
     ImageView show_password, flag;
-    FrameLayout frame_show_password;
+    FrameLayout frame_show_password, btnBack;
     LinearLayout linearLayout, languages, topPanel, framePassword;
     ImageView btn_Close;
     AppCompatCheckBox checkBox1, checkBox2;
@@ -70,30 +74,41 @@ public class MainActivity extends Dev_activity {
         if (AppData.getInstance().isRegister()) {
             txtRegister.setVisibility(View.INVISIBLE);
         }
+
         if (getIntent().getBooleanExtra("recover", false)) {
             topPanel.setVisibility(View.VISIBLE);
             txtRegister.setVisibility(View.INVISIBLE);
         }
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), SettingDetail.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+            }
+        });
         module = ActivateModule.createModule(MainActivity.this);
 
         if (AppData.getInstance().isKakPrivate()) {
             Dialog_SetRecoveryCode();
         }
 
-
+        txtPassword.setTransformationMethod(new AsteriskPasswordTransformationMethod());
 
 
         txtRegister.setOnClickListener(v -> {
-
             Intent intent = new Intent(MainActivity.this, Register.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             finish();
 
         });
         // show password
+
         frame_show_password.setOnClickListener(view -> {
             if (txtPassword.getTransformationMethod().equals(HideReturnsTransformationMethod.getInstance())) {
                 show_password.setImageResource(R.drawable.baseline_visibility_off_24);
@@ -212,86 +227,106 @@ public class MainActivity extends Dev_activity {
         txtUsername.addTextChangedListener(textWatcher);
         txtPassword.addTextChangedListener(textWatcher);
 
-        module.setResponsePreLogin((b, response) -> {
-
-        }).setResponseActiveLogin((b, response) -> {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                }
-            });
-
-            if (response == null) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(MainActivity.this, "Không thể kết nối tới máy chủ", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            } else if (response.getError() == 0) {
-                //prepare activationcode
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Dialog();
-                    }
-                });
-            } else if (response.getError() == 3000) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Dialog dialog = new Dialog(MainActivity.this);
-                        dialog.setContentView(R.layout.dialog_fail_login_invalid);
-                        dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
-                        TextView desc = dialog.findViewById(R.id.description);
-                        desc.setText(MainActivity.this.getResources().getString(R.string.login_information).replace("[text]", "" + response.getRemainingCounter()));
-                        TextView btnClose = dialog.findViewById(R.id.btn_Close);
-                        btnClose.setOnClickListener(v -> {
-                            dialog.dismiss();
-                        });
-                        dialog.show();
-                    }
-                });
-            } else if (response.getError() == 3003) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Dialog dialog = new Dialog(MainActivity.this);
-                        dialog.setContentView(R.layout.dialog_fail_account_notexist);
-                        dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
-                        TextView btnClose = dialog.findViewById(R.id.btn_Close);
-                        btnClose.setOnClickListener(v -> {
-                            dialog.dismiss();
-                        });
-                        dialog.show();
-                    }
-                });
-            } else if (response.getError() == 3002) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Dialog dialog = new Dialog(MainActivity.this);
-                        dialog.setContentView(R.layout.dialog_fail_account_block);
-                        dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
-                        TextView btnClose = dialog.findViewById(R.id.btn_Close);
-                        btnClose.setOnClickListener(v -> {
-                            dialog.dismiss();
-                        });
-                        dialog.show();
-                    }
-                });
-
-            }
-        });
 
         btn_Continue.setOnClickListener(view -> {
+            start();
             username = txtUsername.getText().toString();
             password = txtPassword.getText().toString();
             InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
-            login();
-//            Intent intent = new Intent(this, CreateRC.class);
-//            startActivity(intent);
+            ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+            if (networkInfo != null && networkInfo.isConnected()) {
+                module.setResponsePreLogin(new HttpRequest.AsyncResponse() {
+                    @Override
+                    public void process(boolean b, Response response) {
+
+                        if (response.getError() == 0) {
+                            module.setResponseActiveLogin(new HttpRequest.AsyncResponse() {
+                                @Override
+                                public void process(boolean b, Response response) {
+                                    if (response.getError() == 0) {
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                stop();
+                                                Dialog();
+                                            }
+                                        });
+                                    } else if (response.getError() == 3000) {
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                stop();
+
+                                                Dialog dialog = new Dialog(MainActivity.this);
+                                                dialog.setContentView(R.layout.dialog_fail_login_invalid);
+                                                dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
+                                                TextView desc = dialog.findViewById(R.id.description);
+                                                desc.setText(MainActivity.this.getResources().getString(R.string.login_information).replace("[text]", "" + response.getRemainingCounter()));
+
+                                                if (!isFinishing()) {
+                                                    dialog.show();
+                                                }
+
+                                                TextView btnClose = dialog.findViewById(R.id.btn_Close);
+                                                btnClose.setOnClickListener(v -> {
+                                                    dialog.dismiss();
+                                                });
+                                            }
+                                        });
+                                    } else if (response.getError() == 3003) {
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                stop();
+                                                Dialog dialog = new Dialog(MainActivity.this);
+                                                dialog.setContentView(R.layout.dialog_fail_account_notexist);
+                                                dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
+                                                TextView btnClose = dialog.findViewById(R.id.btn_Close);
+                                                btnClose.setOnClickListener(v -> {
+                                                    dialog.dismiss();
+                                                });
+                                                if (!isFinishing()) {
+                                                    dialog.show();
+                                                }
+                                            }
+                                        });
+                                    } else if (response.getError() == 3002) {
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                stop();
+                                                Dialog dialog = new Dialog(MainActivity.this);
+                                                dialog.setContentView(R.layout.dialog_fail_account_block);
+                                                dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
+                                                TextView btnClose = dialog.findViewById(R.id.btn_Close);
+                                                btnClose.setOnClickListener(v -> {
+                                                    dialog.dismiss();
+                                                });
+                                                if (!isFinishing()) {
+                                                    dialog.show();
+                                                }
+                                            }
+                                        });
+
+                                    }
+                                }
+                            }).activateLogin(password);
+                        }
+                    }
+                }).preLogin(username);
+
+            } else {
+                Dialog dialog = new Dialog(view.getContext());
+                dialog.setContentView(R.layout.dialog_fail_not_internet);
+                dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
+                TextView btnClose = dialog.findViewById(R.id.close);
+                btnClose.setOnClickListener(v -> {
+                    dialog.dismiss();
+                });
+                dialog.show();
+            }
         });
     }
 
@@ -314,7 +349,9 @@ public class MainActivity extends Dev_activity {
         framePassword.setVisibility(View.INVISIBLE);
         dialog1.getWindow().setBackgroundDrawableResource(R.color.transparent);
         dialog1.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        dialog1.show();
+        if (!isFinishing()) {
+            dialog1.show();
+        }
         dialog1.setCanceledOnTouchOutside(false);
 
         Handler handler = new Handler();
@@ -324,10 +361,10 @@ public class MainActivity extends Dev_activity {
                 dialog1.dismiss();
                 Intent intent = new Intent(MainActivity.this, Activation.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
-        }, 2000);
+        }, 1500);
 
     }
 
@@ -344,11 +381,11 @@ public class MainActivity extends Dev_activity {
         topPanel = findViewById(R.id.topPanel);
         framePassword = findViewById(R.id.layout_password);
         flag = findViewById(R.id.flag);
+        btnBack = findViewById(R.id.btnBack);
     }
 
     private void Dialog_SetRecoveryCode() {
         Intent intent = getIntent();
-        String s = intent.getStringExtra("password");
         final Dialog dialog = new Dialog(MainActivity.this);
         dialog.setContentView(R.layout.dialog_notification_recovery);
         dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
@@ -365,7 +402,6 @@ public class MainActivity extends Dev_activity {
                 Intent i = new Intent(MainActivity.this, HomePage.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                i.putExtra("password", s);
                 startActivity(i);
             }, 2000);
         });

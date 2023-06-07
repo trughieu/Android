@@ -2,6 +2,7 @@ package com.example.sic.Activity.Setting_Help.Setting_Detail.ManageCertificate.C
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -9,7 +10,10 @@ import com.example.sic.Activity.Setting_Help.Setting_Detail.ManageCertificate.Ma
 import com.example.sic.DefaultActivity;
 import com.example.sic.R;
 
+import java.security.cert.X509Certificate;
+
 import vn.mobileid.tse.model.connector.plugin.Response;
+import vn.mobileid.tse.model.utils.CertificateUtils;
 
 public class AddCertificateStep2 extends DefaultActivity {
 
@@ -30,11 +34,18 @@ public class AddCertificateStep2 extends DefaultActivity {
         Response response = (Response) getIntent().getSerializableExtra("response");
 
         if (response != null) {
-            uid_detail.setText(response.getSubject().get("UID").get(0));
-            common_detail.setText(response.getSubject().get("CN").get(0));
-            o_detail.setText(response.getSubject().get("O").get(0));
-            state_detail.setText(response.getSubject().get("ST").get(0));
-            country_detail.setText(response.getSubject().get("C").get(0));
+            try {
+                X509Certificate x509Certificate = CertificateUtils.getCertFormBase64(response.getCertificate().getCertificates().get(0));
+                CertificateUtils SubjectDN = CertificateUtils.getCertificateInfoFormString(x509Certificate.getSubjectDN().toString());
+                uid_detail.setText(SubjectDN.getMap().get("UID"));
+                common_detail.setText(SubjectDN.getMap().get("CN"));
+                o_detail.setText(SubjectDN.getMap().get("O"));
+                state_detail.setText(SubjectDN.getMap().get("ST"));
+                country_detail.setText(SubjectDN.getMap().get("C"));
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
         }
 
         btnBack.setOnClickListener(view -> {

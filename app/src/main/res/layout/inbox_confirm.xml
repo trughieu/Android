@@ -82,54 +82,6 @@
 
 
     </LinearLayout>
-    <!--    <TextView-->
-    <!--        android:id="@+id/btn_Cancel"-->
-    <!--        android:layout_width="61.15dp"-->
-    <!--        android:layout_height="30dp"-->
-    <!--        android:layout_marginStart="20dp"-->
-    <!--        android:layout_marginTop="23dp"-->
-    <!--        android:background="@drawable/corner_inbox_detail"-->
-    <!--        android:fontFamily="@font/inter_medium"-->
-    <!--        android:gravity="center_horizontal|center"-->
-    <!--        android:text="@string/button_cancel"-->
-    <!--        android:textColor="@color/blue_text"-->
-    <!--        android:textSize="12dp"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent" />-->
-
-    <!--    <TextView-->
-    <!--        android:id="@+id/btn_Detail"-->
-    <!--        android:layout_width="61.15dp"-->
-    <!--        android:layout_height="30dp"-->
-    <!--        android:layout_marginTop="23dp"-->
-    <!--        android:layout_marginEnd="26.85dp"-->
-    <!--        android:background="@drawable/corner_inbox_detail"-->
-    <!--        android:fontFamily="@font/inter_medium"-->
-    <!--        android:gravity="center_horizontal|center"-->
-    <!--        android:text="@string/certificate_info"-->
-    <!--        android:textColor="@color/blue_text"-->
-    <!--        android:textSize="12dp"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent" />-->
-
-
-    <!--    <TextView-->
-    <!--        android:id="@+id/textView14"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginStart="132dp"-->
-    <!--        android:layout_marginTop="20dp"-->
-    <!--        android:layout_marginEnd="132dp"-->
-    <!--        android:fontFamily="@font/inter_medium"-->
-    <!--        android:gravity="center_horizontal|top"-->
-    <!--        android:text="@string/prompt_request_info_question"-->
-    <!--        android:textColor="@color/blue_text"-->
-    <!--        android:textSize="15dp"-->
-    <!--        android:textStyle="bold"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent" />-->
-
     <LinearLayout
         android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
@@ -235,11 +187,7 @@
             android:textColor="@color/white"
             android:textSize="12dp" />
 
-        <!--        <androidx.viewpager2.widget.ViewPager2-->
-        <!--            android:id="@+id/view_pager_ib_detail"-->
-        <!--            android:layout_width="350dp"-->
-        <!--            android:layout_height="142dp"-->
-        <!--            android:layout_marginTop="61dp" />-->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -415,7 +363,9 @@
         <TextView
             android:id="@+id/btnContinue"
             android:layout_width="257dp"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
             android:layout_marginTop="43.56dp"
             android:background="@drawable/square"
             android:fontFamily="@font/atb_digital_medium"

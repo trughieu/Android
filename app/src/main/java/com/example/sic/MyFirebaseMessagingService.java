@@ -7,6 +7,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.example.sic.Activity.Home.Inbox.InboxConfirm;
+import com.example.sic.infoVCSP.infoVCSP;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -25,11 +26,19 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         super.onMessageReceived(message);
 
         if (message.getData().size() > 0) {
-            Intent intent = new Intent(getBaseContext(), InboxConfirm.class);
-            Log.d("mes", "onMessageReceived: "+message.getData());
-            intent.putExtra("transactionId", message.getData().get("transactionID"));
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
+            if(message.getData().get("type").equals("AUTHENTICATION")){
+                Intent intent= new Intent(getBaseContext(), infoVCSP.class);
+                intent.putExtra("transactionId", message.getData().get("transactionID"));
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }else {
+                Intent intent = new Intent(getBaseContext(), InboxConfirm.class);
+                intent.putExtra("transactionId", message.getData().get("transactionID"));
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+
+
 
         }
     }

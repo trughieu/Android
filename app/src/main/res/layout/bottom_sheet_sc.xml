@@ -37,8 +37,9 @@
             android:layout_marginStart="20dp"
             android:fontFamily="@font/atb_digital_medium"
             android:text="@string/unlimited"
+            android:gravity="center_vertical"
             android:textColor="@color/text_blue"
-            android:textSize="15dp" />
+            android:textSize="12dp" />
 
         <androidx.appcompat.widget.AppCompatCheckBox
             android:id="@+id/checkBox1"

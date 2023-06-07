@@ -88,7 +88,6 @@ public class register_info_otp extends Dev_activity implements View.OnClickListe
         otpEt[3] = findViewById(R.id.txt_pin_view_4);
         otpEt[4] = findViewById(R.id.txt_pin_view_5);
         otpEt[5] = findViewById(R.id.txt_pin_view_6);
-        smsPrepare();
         pinValue = findViewById(R.id.pin6_dialog);
 
         btnContinue = findViewById(R.id.btnContinue);
@@ -294,24 +293,6 @@ public class register_info_otp extends Dev_activity implements View.OnClickListe
         tv_resend.setText("Resend Activation Code " + "(" + timeFormatted + "s)");
     }
 
-    private void smsPrepare() {
-        smsBroadcastReceiver = new SmsBroadcastReceiver();
-        smsBroadcastReceiver.smsBroadcastReceiverListener = new SmsBroadcastReceiver.SmsBroadcastReceiverListener() {
-            @Override
-            public void onSuccess(Intent intent) {
-                startActivityForResult(intent, REQ_USER_CONSENT);
-            }
-
-            @Override
-            public void onFailure() {
-
-            }
-        };
-        IntentFilter intentFilter = new IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION);
-        registerReceiver(smsBroadcastReceiver, intentFilter);
-        client = SmsRetriever.getClient(this);
-        client.startSmsUserConsent(null);
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

@@ -19,9 +19,9 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.sic.Activity.Setting_Help.Setting_Detail.SettingDetail;
 import com.example.sic.Activity.Setting_Help.Setting_Detail.ManageCertificate.Certificates.AddCertificate6digit;
-import com.example.sic.Adapter.Adapter_item_Manage_Certificate;
+import com.example.sic.Activity.Setting_Help.Setting_Detail.SettingDetail;
+import com.example.sic.Adapter.AdapterManageCertificate;
 import com.example.sic.DefaultActivity;
 import com.example.sic.R;
 import com.example.sic.model.ManageCertificate;
@@ -30,7 +30,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.TimeZone;
 
 import vn.mobileid.tse.model.client.HttpRequest;
@@ -40,11 +39,11 @@ import vn.mobileid.tse.model.connector.response.CredentListResponse;
 import vn.mobileid.tse.model.utils.CertificateUtils;
 
 public class Manage_Certificate extends DefaultActivity implements View.OnClickListener {
-     BottomSheetDialog bottomSheetDialog;
+    BottomSheetDialog bottomSheetDialog;
     TextView txt_select_id, tv_add_new_Cer, textView19, valid, initialized,
             generated, revoked, expired, declined, renewed, revised, block, all;
-    String s;
-    Adapter_item_Manage_Certificate adapter_item_Manage_certificate;
+    String s, AuthMode, status;
+    AdapterManageCertificate adapterManageCertificate;
     RecyclerView recyclerView;
     FrameLayout btnBack;
     AppCompatCheckBox checkBox1, checkBox2, checkBox3, checkBox4, checkBox5, checkBox6, checkBox7, checkBox8, checkBox9, checkBox10;
@@ -66,25 +65,13 @@ public class Manage_Certificate extends DefaultActivity implements View.OnClickL
         tv_add_new_Cer.setOnClickListener(this);
         textView19 = findViewById(R.id.textView19);
         recyclerView = findViewById(R.id.rc_manage_certificate);
-        checked1 = true;
-        checked2 = false;
-        checked3 = false;
-        checked4 = true;
-        checked5 = false;
-        checked6 = false;
-        checked7 = true;
-        checked8 = false;
-        checked9 = false;
-        start();
-
+        requestList(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.addItemDecoration(new DividerItemDecoration(this, 0));
         dialog = new Dialog(this);
         dialog.setContentView(R.layout.layout_loading);
         dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
-
         manageCertificateModule = ManageCertificateModule.createModule(this);
-
         manageCertificateModule.setResponseCredentialsList((b, response) -> {
             CredentListResponse credentListResponse = response.getCredentListResponse();
             try {
@@ -96,9 +83,15 @@ public class Manage_Certificate extends DefaultActivity implements View.OnClickL
                                 CertificateUtils issuerDN = CertificateUtils.getCertificateInfoFormString(credentListResponse.certs.get(i).getIssuerDN());
                                 String credentialID = credentListResponse.certs.get(i).getCredentialID();
                                 boolean kak = false;
-                                if(credentListResponse.certs.get(i).kakChanged!=null){
-                                    kak=credentListResponse.certs.get(i).kakChanged;
+                                if (credentListResponse.certs.get(i).kakChanged != null) {
+                                    kak = credentListResponse.certs.get(i).kakChanged;
                                 }
+                                if (credentListResponse.certs.get(i).authMode != null) {
+                                    AuthMode = credentListResponse.certs.get(i).getAuthMode();
+                                    Log.d("authmode", "onCreate: " + AuthMode);
+                                }
+                                status = credentListResponse.certs.get(i).getStatus();
+                                Log.d("status", "onCreate: " + status);
 
                                 String a = credentListResponse.certs.get(i).getValidTo();
                                 SimpleDateFormat inputFormat = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -109,15 +102,13 @@ public class Manage_Certificate extends DefaultActivity implements View.OnClickL
                                 String CNSubject = subjectDN.getMap().get("CN");
                                 String CNIssuer = issuerDN.getMap().get("CN");
                                 manage_certificate = new ManageCertificate();
-//                                manage_certificate.CNSubjectDN = CNSubject;
-//                                manage_certificate.CNIssuerDN = CNIssuer;
-//                                manage_certificate.ValidTo = valid_to;
-//                                manage_certificate.credentialID = credentialID;
                                 manage_certificate.setCNSubjectDN(CNSubject);
                                 manage_certificate.setCNIssuerDN(CNIssuer);
                                 manage_certificate.setValidTo(valid_to);
                                 manage_certificate.setCredentialID(credentialID);
                                 manage_certificate.setKakChange(kak);
+                                manage_certificate.setAuthMode(AuthMode);
+                                manage_certificate.setStatus(status);
                                 manageCertificateArrayList.add(manage_certificate);
                             }
                         }
@@ -125,9 +116,9 @@ public class Manage_Certificate extends DefaultActivity implements View.OnClickL
                 }
                 runOnUiThread(() -> {
                     stop();
-                    adapter_item_Manage_certificate = new Adapter_item_Manage_Certificate(Manage_Certificate.this, manageCertificateArrayList);
-                    recyclerView.setAdapter(adapter_item_Manage_certificate);
-                    adapter_item_Manage_certificate.notifyDataSetChanged();
+                    adapterManageCertificate = new AdapterManageCertificate(Manage_Certificate.this, manageCertificateArrayList);
+                    recyclerView.setAdapter(adapterManageCertificate);
+                    adapterManageCertificate.notifyDataSetChanged();
 
                 });
             } catch (Exception e) {
@@ -216,6 +207,7 @@ public class Manage_Certificate extends DefaultActivity implements View.OnClickL
                 valid.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        start();
                         s = valid.getText().toString();
                         txt_select_id.setText(s);
                         manageCertificateArrayList.clear();
@@ -230,11 +222,20 @@ public class Manage_Certificate extends DefaultActivity implements View.OnClickL
                                                 if (!(credentListResponse.certs.get(i).getSubjectDN() == null || credentListResponse.certs.get(i).getIssuerDN() == null)) {
                                                     CertificateUtils subjectDN = CertificateUtils.getCertificateInfoFormString(credentListResponse.certs.get(i).getSubjectDN());
                                                     CertificateUtils issuerDN = CertificateUtils.getCertificateInfoFormString(credentListResponse.certs.get(i).getIssuerDN());
-                                                    boolean kak=credentListResponse.certs.get(i).kakChanged;
+                                                    boolean kak = false;
+                                                    if (credentListResponse.certs.get(i).kakChanged != null) {
+                                                        kak = credentListResponse.certs.get(i).kakChanged;
+                                                    }
+                                                    if (credentListResponse.certs.get(i).authMode != null) {
+                                                        AuthMode = credentListResponse.certs.get(i).getAuthMode();
+                                                        Log.d("authmode", "onCreate: " + AuthMode);
+                                                    }
                                                     String credentialID = credentListResponse.certs.get(i).getCredentialID();
                                                     String a = credentListResponse.certs.get(i).getValidTo();
                                                     SimpleDateFormat inputFormat = new SimpleDateFormat("yyyyMMddHHmmss");
                                                     inputFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+                                                    status = credentListResponse.certs.get(i).getStatus();
+                                                    Log.d("valid", "process: " + status);
 
                                                     SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MM/yyyy");
                                                     Date date = inputFormat.parse(a);
@@ -248,6 +249,8 @@ public class Manage_Certificate extends DefaultActivity implements View.OnClickL
                                                     manage_certificate.ValidTo = valid_to;
                                                     manage_certificate.credentialID = credentialID;
                                                     manage_certificate.setKakChange(kak);
+                                                    manage_certificate.setAuthMode(AuthMode);
+                                                    manage_certificate.setStatus(status);
                                                     manageCertificateArrayList.add(manage_certificate);
 
 
@@ -258,8 +261,9 @@ public class Manage_Certificate extends DefaultActivity implements View.OnClickL
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            adapter_item_Manage_certificate = new Adapter_item_Manage_Certificate(Manage_Certificate.this, manageCertificateArrayList);
-                                            recyclerView.setAdapter(adapter_item_Manage_certificate);
+                                            stop();
+                                            adapterManageCertificate = new AdapterManageCertificate(Manage_Certificate.this, manageCertificateArrayList);
+                                            recyclerView.setAdapter(adapterManageCertificate);
                                         }
                                     });
                                 } catch (Exception e) {
@@ -307,6 +311,8 @@ public class Manage_Certificate extends DefaultActivity implements View.OnClickL
                 initialized.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        start();
+
                         s = initialized.getText().toString();
                         txt_select_id.setText(s);
 
@@ -325,8 +331,15 @@ public class Manage_Certificate extends DefaultActivity implements View.OnClickL
                                                     CertificateUtils subjectDN = CertificateUtils.getCertificateInfoFormString(credentListResponse.certs.get(i).getSubjectDN());
                                                     CertificateUtils issuerDN = CertificateUtils.getCertificateInfoFormString(credentListResponse.certs.get(i).getIssuerDN());
                                                     String credentialID = credentListResponse.certs.get(i).getCredentialID();
-                                                    boolean kak=credentListResponse.certs.get(i).kakChanged;
-
+                                                    boolean kak = false;
+                                                    if (credentListResponse.certs.get(i).kakChanged != null) {
+                                                        kak = credentListResponse.certs.get(i).kakChanged;
+                                                    };
+                                                    if (credentListResponse.certs.get(i).authMode != null) {
+                                                        AuthMode = credentListResponse.certs.get(i).getAuthMode();
+                                                        Log.d("authmode", "onCreate: " + AuthMode);
+                                                    }
+                                                    status = credentListResponse.certs.get(i).getStatus();
                                                     String a = credentListResponse.certs.get(i).getValidTo();
                                                     SimpleDateFormat inputFormat = new SimpleDateFormat("yyyyMMddHHmmss");
                                                     inputFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
@@ -345,6 +358,8 @@ public class Manage_Certificate extends DefaultActivity implements View.OnClickL
                                                     manage_certificate.ValidTo = valid_to;
                                                     manage_certificate.credentialID = credentialID;
                                                     manage_certificate.setKakChange(kak);
+                                                    manage_certificate.setAuthMode(AuthMode);
+                                                    manage_certificate.setStatus(status);
                                                     manageCertificateArrayList.add(manage_certificate);
 
                                                 }
@@ -352,8 +367,9 @@ public class Manage_Certificate extends DefaultActivity implements View.OnClickL
                                         }
                                     }
                                     runOnUiThread(() -> {
-                                        adapter_item_Manage_certificate = new Adapter_item_Manage_Certificate(Manage_Certificate.this, manageCertificateArrayList);
-                                        recyclerView.setAdapter(adapter_item_Manage_certificate);
+                                        stop();
+                                        adapterManageCertificate = new AdapterManageCertificate(Manage_Certificate.this, manageCertificateArrayList);
+                                        recyclerView.setAdapter(adapterManageCertificate);
                                     });
                                 } catch (Exception e) {
                                     throw new RuntimeException(e);
@@ -402,6 +418,7 @@ public class Manage_Certificate extends DefaultActivity implements View.OnClickL
                 block.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        start();
                         s = block.getText().toString();
                         txt_select_id.setText(s);
                         manageCertificateArrayList.clear();
@@ -419,8 +436,15 @@ public class Manage_Certificate extends DefaultActivity implements View.OnClickL
                                                     CertificateUtils subjectDN = CertificateUtils.getCertificateInfoFormString(credentListResponse.certs.get(i).getSubjectDN());
                                                     CertificateUtils issuerDN = CertificateUtils.getCertificateInfoFormString(credentListResponse.certs.get(i).getIssuerDN());
                                                     String credentialID = credentListResponse.certs.get(i).getCredentialID();
-                                                    boolean kak=credentListResponse.certs.get(i).kakChanged;
-
+                                                    boolean kak = false;
+                                                    if (credentListResponse.certs.get(i).kakChanged != null) {
+                                                        kak = credentListResponse.certs.get(i).kakChanged;
+                                                    }
+                                                    if (credentListResponse.certs.get(i).authMode != null) {
+                                                        AuthMode = credentListResponse.certs.get(i).getAuthMode();
+                                                        Log.d("authmode", "onCreate: " + AuthMode);
+                                                    }
+                                                    status = credentListResponse.certs.get(i).getStatus();
                                                     String a = credentListResponse.certs.get(i).getValidTo();
                                                     SimpleDateFormat inputFormat = new SimpleDateFormat("yyyyMMddHHmmss");
                                                     inputFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
@@ -439,6 +463,8 @@ public class Manage_Certificate extends DefaultActivity implements View.OnClickL
                                                     manage_certificate.ValidTo = valid_to;
                                                     manage_certificate.credentialID = credentialID;
                                                     manage_certificate.setKakChange(kak);
+                                                    manage_certificate.setAuthMode(AuthMode);
+                                                    manage_certificate.setStatus(status);
                                                     manageCertificateArrayList.add(manage_certificate);
 
                                                 }
@@ -448,8 +474,9 @@ public class Manage_Certificate extends DefaultActivity implements View.OnClickL
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            adapter_item_Manage_certificate = new Adapter_item_Manage_Certificate(Manage_Certificate.this, manageCertificateArrayList);
-                                            recyclerView.setAdapter(adapter_item_Manage_certificate);
+                                            stop();
+                                            adapterManageCertificate = new AdapterManageCertificate(Manage_Certificate.this, manageCertificateArrayList);
+                                            recyclerView.setAdapter(adapterManageCertificate);
                                         }
                                     });
                                 } catch (Exception e) {
@@ -497,6 +524,7 @@ public class Manage_Certificate extends DefaultActivity implements View.OnClickL
                 revoked.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        start();
                         s = revoked.getText().toString();
                         txt_select_id.setText(s);
                         manageCertificateArrayList.clear();
@@ -514,8 +542,15 @@ public class Manage_Certificate extends DefaultActivity implements View.OnClickL
                                                     CertificateUtils subjectDN = CertificateUtils.getCertificateInfoFormString(credentListResponse.certs.get(i).getSubjectDN());
                                                     CertificateUtils issuerDN = CertificateUtils.getCertificateInfoFormString(credentListResponse.certs.get(i).getIssuerDN());
                                                     String credentialID = credentListResponse.certs.get(i).getCredentialID();
-                                                    boolean kak=credentListResponse.certs.get(i).kakChanged;
-
+                                                    boolean kak = false;
+                                                    if (credentListResponse.certs.get(i).kakChanged != null) {
+                                                        kak = credentListResponse.certs.get(i).kakChanged;
+                                                    }
+                                                    if (credentListResponse.certs.get(i).authMode != null) {
+                                                        AuthMode = credentListResponse.certs.get(i).getAuthMode();
+                                                        Log.d("authmode", "onCreate: " + AuthMode);
+                                                    }
+                                                    status = credentListResponse.certs.get(i).getStatus();
                                                     String a = credentListResponse.certs.get(i).getValidTo();
                                                     SimpleDateFormat inputFormat = new SimpleDateFormat("yyyyMMddHHmmss");
                                                     inputFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
@@ -534,6 +569,8 @@ public class Manage_Certificate extends DefaultActivity implements View.OnClickL
                                                     manage_certificate.ValidTo = valid_to;
                                                     manage_certificate.credentialID = credentialID;
                                                     manage_certificate.setKakChange(kak);
+                                                    manage_certificate.setAuthMode(AuthMode);
+                                                    manage_certificate.setStatus(status);
                                                     manageCertificateArrayList.add(manage_certificate);
 
                                                 }
@@ -543,8 +580,9 @@ public class Manage_Certificate extends DefaultActivity implements View.OnClickL
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            adapter_item_Manage_certificate = new Adapter_item_Manage_Certificate(Manage_Certificate.this, manageCertificateArrayList);
-                                            recyclerView.setAdapter(adapter_item_Manage_certificate);
+                                            stop();
+                                            adapterManageCertificate = new AdapterManageCertificate(Manage_Certificate.this, manageCertificateArrayList);
+                                            recyclerView.setAdapter(adapterManageCertificate);
                                         }
                                     });
                                 } catch (Exception e) {
@@ -592,6 +630,7 @@ public class Manage_Certificate extends DefaultActivity implements View.OnClickL
                 revised.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        start();
                         s = revised.getText().toString();
                         txt_select_id.setText(s);
                         manageCertificateArrayList.clear();
@@ -609,8 +648,15 @@ public class Manage_Certificate extends DefaultActivity implements View.OnClickL
                                                     CertificateUtils subjectDN = CertificateUtils.getCertificateInfoFormString(credentListResponse.certs.get(i).getSubjectDN());
                                                     CertificateUtils issuerDN = CertificateUtils.getCertificateInfoFormString(credentListResponse.certs.get(i).getIssuerDN());
                                                     String credentialID = credentListResponse.certs.get(i).getCredentialID();
-                                                    boolean kak=credentListResponse.certs.get(i).kakChanged;
-
+                                                    boolean kak = false;
+                                                    if (credentListResponse.certs.get(i).kakChanged != null) {
+                                                        kak = credentListResponse.certs.get(i).kakChanged;
+                                                    }
+                                                    if (credentListResponse.certs.get(i).authMode != null) {
+                                                        AuthMode = credentListResponse.certs.get(i).getAuthMode();
+                                                        Log.d("authmode", "onCreate: " + AuthMode);
+                                                    }
+                                                    status = credentListResponse.certs.get(i).getStatus();
                                                     String a = credentListResponse.certs.get(i).getValidTo();
                                                     SimpleDateFormat inputFormat = new SimpleDateFormat("yyyyMMddHHmmss");
                                                     inputFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
@@ -629,6 +675,8 @@ public class Manage_Certificate extends DefaultActivity implements View.OnClickL
                                                     manage_certificate.ValidTo = valid_to;
                                                     manage_certificate.credentialID = credentialID;
                                                     manage_certificate.setKakChange(kak);
+                                                    manage_certificate.setAuthMode(AuthMode);
+                                                    manage_certificate.setStatus(status);
                                                     manageCertificateArrayList.add(manage_certificate);
 
                                                 }
@@ -638,8 +686,9 @@ public class Manage_Certificate extends DefaultActivity implements View.OnClickL
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            adapter_item_Manage_certificate = new Adapter_item_Manage_Certificate(Manage_Certificate.this, manageCertificateArrayList);
-                                            recyclerView.setAdapter(adapter_item_Manage_certificate);
+                                            stop();
+                                            adapterManageCertificate = new AdapterManageCertificate(Manage_Certificate.this, manageCertificateArrayList);
+                                            recyclerView.setAdapter(adapterManageCertificate);
                                         }
                                     });
                                 } catch (Exception e) {
@@ -688,6 +737,7 @@ public class Manage_Certificate extends DefaultActivity implements View.OnClickL
                 all.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        start();
                         s = all.getText().toString();
                         txt_select_id.setText(s);
                         manageCertificateArrayList.clear();
@@ -703,8 +753,16 @@ public class Manage_Certificate extends DefaultActivity implements View.OnClickL
                                             CertificateUtils subjectDN = CertificateUtils.getCertificateInfoFormString(credentListResponse.certs.get(i).getSubjectDN());
                                             CertificateUtils issuerDN = CertificateUtils.getCertificateInfoFormString(credentListResponse.certs.get(i).getIssuerDN());
                                             String credentialID = credentListResponse.certs.get(i).getCredentialID();
-                                            boolean kak=credentListResponse.certs.get(i).kakChanged;
-
+                                            boolean kak = false;
+                                            if (credentListResponse.certs.get(i).kakChanged!=null) {
+                                                kak = credentListResponse.certs.get(i).kakChanged;
+                                            }
+                                            if (credentListResponse.certs.get(i).authMode != null) {
+                                                AuthMode = credentListResponse.certs.get(i).getAuthMode();
+                                                Log.d("authmode", "onCreate: " + AuthMode);
+                                            }
+                                            status = credentListResponse.certs.get(i).getStatus();
+                                            Log.d("allCertificate", "process: " + status);
                                             String a = credentListResponse.certs.get(i).getValidTo();
                                             SimpleDateFormat inputFormat = new SimpleDateFormat("yyyyMMddHHmmss");
                                             inputFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
@@ -722,13 +780,17 @@ public class Manage_Certificate extends DefaultActivity implements View.OnClickL
                                             manage_certificate.ValidTo = valid_to;
                                             manage_certificate.credentialID = credentialID;
                                             manage_certificate.setKakChange(kak);
+                                            manage_certificate.setAuthMode(AuthMode);
+                                            manage_certificate.setStatus(status);
                                             manageCertificateArrayList.add(manage_certificate);
+                                            Log.d("CNsubject", "process: "+CNsubject);
 
                                         }
                                     }
                                     runOnUiThread(() -> {
-                                        adapter_item_Manage_certificate = new Adapter_item_Manage_Certificate(Manage_Certificate.this, manageCertificateArrayList);
-                                        recyclerView.setAdapter(adapter_item_Manage_certificate);
+                                        stop();
+                                        adapterManageCertificate = new AdapterManageCertificate(Manage_Certificate.this, manageCertificateArrayList);
+                                        recyclerView.setAdapter(adapterManageCertificate);
                                     });
                                 } catch (Exception e) {
                                     throw new RuntimeException(e);
@@ -747,7 +809,8 @@ public class Manage_Certificate extends DefaultActivity implements View.OnClickL
                         checkBox7.setChecked(false);
                         checkBox8.setChecked(false);
                         checkBox9.setChecked(false);
-                        checkBox10.setChecked(true);                        dismissDialog();
+                        checkBox10.setChecked(true);
+                        dismissDialog();
 
 //                        PreferenceManager.getDefaultSharedPreferences(ManageCertificate.this).edit()
 //                                .putBoolean("check_manage_certificate_1", false).apply();
@@ -775,6 +838,7 @@ public class Manage_Certificate extends DefaultActivity implements View.OnClickL
                 declined.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        start();
                         s = declined.getText().toString();
                         txt_select_id.setText(s);
                         manageCertificateArrayList.clear();
@@ -792,8 +856,15 @@ public class Manage_Certificate extends DefaultActivity implements View.OnClickL
                                                     CertificateUtils subjectDN = CertificateUtils.getCertificateInfoFormString(credentListResponse.certs.get(i).getSubjectDN());
                                                     CertificateUtils issuerDN = CertificateUtils.getCertificateInfoFormString(credentListResponse.certs.get(i).getIssuerDN());
                                                     String credentialID = credentListResponse.certs.get(i).getCredentialID();
-                                                    boolean kak=credentListResponse.certs.get(i).kakChanged;
-
+                                                    boolean kak = false;
+                                                    if (credentListResponse.certs.get(i).kakChanged != null) {
+                                                        kak = credentListResponse.certs.get(i).kakChanged;
+                                                    }
+                                                    if (credentListResponse.certs.get(i).authMode != null) {
+                                                        AuthMode = credentListResponse.certs.get(i).getAuthMode();
+                                                        Log.d("authmode", "onCreate: " + AuthMode);
+                                                    }
+                                                    status = credentListResponse.certs.get(i).getStatus();
                                                     String a = credentListResponse.certs.get(i).getValidTo();
                                                     SimpleDateFormat inputFormat = new SimpleDateFormat("yyyyMMddHHmmss");
                                                     inputFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
@@ -812,6 +883,8 @@ public class Manage_Certificate extends DefaultActivity implements View.OnClickL
                                                     manage_certificate.ValidTo = valid_to;
                                                     manage_certificate.credentialID = credentialID;
                                                     manage_certificate.setKakChange(kak);
+                                                    manage_certificate.setAuthMode(AuthMode);
+                                                    manage_certificate.setStatus(status);
                                                     manageCertificateArrayList.add(manage_certificate);
 
                                                 }
@@ -821,8 +894,9 @@ public class Manage_Certificate extends DefaultActivity implements View.OnClickL
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            adapter_item_Manage_certificate = new Adapter_item_Manage_Certificate(Manage_Certificate.this, manageCertificateArrayList);
-                                            recyclerView.setAdapter(adapter_item_Manage_certificate);
+                                            stop();
+                                            adapterManageCertificate = new AdapterManageCertificate(Manage_Certificate.this, manageCertificateArrayList);
+                                            recyclerView.setAdapter(adapterManageCertificate);
                                         }
                                     });
                                 } catch (Exception e) {
@@ -870,6 +944,7 @@ public class Manage_Certificate extends DefaultActivity implements View.OnClickL
                 generated.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        start();
                         s = generated.getText().toString();
                         txt_select_id.setText(s);
                         manageCertificateArrayList.clear();
@@ -886,7 +961,15 @@ public class Manage_Certificate extends DefaultActivity implements View.OnClickL
                                                     CertificateUtils subjectDN = CertificateUtils.getCertificateInfoFormString(credentListResponse.certs.get(i).getSubjectDN());
                                                     CertificateUtils issuerDN = CertificateUtils.getCertificateInfoFormString(credentListResponse.certs.get(i).getIssuerDN());
                                                     String credentialID = credentListResponse.certs.get(i).getCredentialID();
-                                                    boolean kak=credentListResponse.certs.get(i).kakChanged;
+                                                    boolean kak = false;
+                                                    if (credentListResponse.certs.get(i).kakChanged != null) {
+                                                        kak = credentListResponse.certs.get(i).kakChanged;
+                                                    }
+                                                    if (credentListResponse.certs.get(i).authMode != null) {
+                                                        AuthMode = credentListResponse.certs.get(i).getAuthMode();
+                                                        Log.d("authmode", "onCreate: " + AuthMode);
+                                                    }
+                                                    status = credentListResponse.certs.get(i).getStatus();
                                                     String a = credentListResponse.certs.get(i).getValidTo();
                                                     SimpleDateFormat inputFormat = new SimpleDateFormat("yyyyMMddHHmmss");
                                                     inputFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
@@ -903,6 +986,8 @@ public class Manage_Certificate extends DefaultActivity implements View.OnClickL
                                                     manage_certificate.ValidTo = valid_to;
                                                     manage_certificate.credentialID = credentialID;
                                                     manage_certificate.setKakChange(kak);
+                                                    manage_certificate.setAuthMode(AuthMode);
+                                                    manage_certificate.setStatus(status);
                                                     manageCertificateArrayList.add(manage_certificate);
                                                 }
 
@@ -914,8 +999,9 @@ public class Manage_Certificate extends DefaultActivity implements View.OnClickL
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            adapter_item_Manage_certificate = new Adapter_item_Manage_Certificate(Manage_Certificate.this, manageCertificateArrayList);
-                                            recyclerView.setAdapter(adapter_item_Manage_certificate);
+                                            stop();
+                                            adapterManageCertificate = new AdapterManageCertificate(Manage_Certificate.this, manageCertificateArrayList);
+                                            recyclerView.setAdapter(adapterManageCertificate);
                                         }
                                     });
                                 } catch (Exception e) {
@@ -962,6 +1048,7 @@ public class Manage_Certificate extends DefaultActivity implements View.OnClickL
                 expired.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        start();
                         s = expired.getText().toString();
                         txt_select_id.setText(s);
                         manageCertificateArrayList.clear();
@@ -978,7 +1065,15 @@ public class Manage_Certificate extends DefaultActivity implements View.OnClickL
                                                     CertificateUtils subjectDN = CertificateUtils.getCertificateInfoFormString(credentListResponse.certs.get(i).getSubjectDN());
                                                     CertificateUtils issuerDN = CertificateUtils.getCertificateInfoFormString(credentListResponse.certs.get(i).getIssuerDN());
                                                     String credentialID = credentListResponse.certs.get(i).getCredentialID();
-                                                    boolean kak=credentListResponse.certs.get(i).kakChanged;
+                                                    boolean kak = false;
+                                                    if (credentListResponse.certs.get(i).kakChanged != null) {
+                                                        kak = credentListResponse.certs.get(i).kakChanged;
+                                                    }
+                                                    if (credentListResponse.certs.get(i).authMode != null) {
+                                                        AuthMode = credentListResponse.certs.get(i).getAuthMode();
+                                                        Log.d("authmode", "onCreate: " + AuthMode);
+                                                    }
+                                                    status = credentListResponse.certs.get(i).getStatus();
                                                     String a = credentListResponse.certs.get(i).getValidTo();
                                                     SimpleDateFormat inputFormat = new SimpleDateFormat("yyyyMMddHHmmss");
                                                     inputFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
@@ -995,14 +1090,17 @@ public class Manage_Certificate extends DefaultActivity implements View.OnClickL
                                                     manage_certificate.ValidTo = valid_to;
                                                     manage_certificate.credentialID = credentialID;
                                                     manage_certificate.setKakChange(kak);
+                                                    manage_certificate.setAuthMode(AuthMode);
+                                                    manage_certificate.setStatus(status);
                                                     manageCertificateArrayList.add(manage_certificate);
                                                 }
                                             }
                                         }
                                     }
                                     runOnUiThread(() -> {
-                                        adapter_item_Manage_certificate = new Adapter_item_Manage_Certificate(Manage_Certificate.this, manageCertificateArrayList);
-                                        recyclerView.setAdapter(adapter_item_Manage_certificate);
+                                        stop();
+                                        adapterManageCertificate = new AdapterManageCertificate(Manage_Certificate.this, manageCertificateArrayList);
+                                        recyclerView.setAdapter(adapterManageCertificate);
                                     });
                                 } catch (Exception e) {
                                     throw new RuntimeException(e);
@@ -1048,6 +1146,7 @@ public class Manage_Certificate extends DefaultActivity implements View.OnClickL
                 renewed.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        start();
                         s = renewed.getText().toString();
                         txt_select_id.setText(s);
                         manageCertificateArrayList.clear();
@@ -1064,7 +1163,16 @@ public class Manage_Certificate extends DefaultActivity implements View.OnClickL
                                                 CertificateUtils subjectDN = CertificateUtils.getCertificateInfoFormString(credentListResponse.certs.get(i).getSubjectDN());
                                                 CertificateUtils issuerDN = CertificateUtils.getCertificateInfoFormString(credentListResponse.certs.get(i).getIssuerDN());
                                                 String credentialID = credentListResponse.certs.get(i).getCredentialID();
-                                                boolean kak = credentListResponse.certs.get(i).kakChanged;
+                                                boolean kak = false;
+                                                if (credentListResponse.certs.get(i).kakChanged != null) {
+                                                    kak = credentListResponse.certs.get(i).kakChanged;
+                                                }
+                                                if (credentListResponse.certs.get(i).authMode != null) {
+                                                    AuthMode = credentListResponse.certs.get(i).getAuthMode();
+                                                    Log.d("authmode", "onCreate: " + AuthMode);
+                                                }
+                                                status = credentListResponse.certs.get(i).getStatus();
+                                                Log.d("statusrenew", "process: " + status);
                                                 String a = credentListResponse.certs.get(i).getValidTo();
                                                 SimpleDateFormat inputFormat = new SimpleDateFormat("yyyyMMddHHmmss");
                                                 inputFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
@@ -1084,13 +1192,16 @@ public class Manage_Certificate extends DefaultActivity implements View.OnClickL
                                                 manage_certificate.ValidTo = valid_to;
                                                 manage_certificate.credentialID = credentialID;
                                                 manage_certificate.setKakChange(kak);
+                                                manage_certificate.setAuthMode(AuthMode);
+                                                manage_certificate.setStatus(status);
                                                 manageCertificateArrayList.add(manage_certificate);
                                             }
                                         }
                                     }
                                     runOnUiThread(() -> {
-                                        adapter_item_Manage_certificate = new Adapter_item_Manage_Certificate(Manage_Certificate.this, manageCertificateArrayList);
-                                        recyclerView.setAdapter(adapter_item_Manage_certificate);
+                                        stop();
+                                        adapterManageCertificate = new AdapterManageCertificate(Manage_Certificate.this, manageCertificateArrayList);
+                                        recyclerView.setAdapter(adapterManageCertificate);
                                     });
                                 } catch (Exception e) {
                                     throw new RuntimeException(e);

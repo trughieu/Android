@@ -25,7 +25,6 @@ public class ConfirmPin extends AppCompatActivity {
     EditText txt_pin_view1, txt_pin_view2, txt_pin_view3, txt_pin_view4, txt_pin_view5, txt_pin_view6, pinValue;
     String pin1, pin2, pin3, pin4;
     AppCompatButton bt1, bt2, bt3, bt4, bt5, bt6, bt7, bt8, bt9, bt0, Key_delete;
-    Bundle value;
     String text, ditgit_6;
     LinearLayout keyboard;
     private final TextWatcher textWatcher = new TextWatcher() {

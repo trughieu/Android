@@ -3,7 +3,6 @@ package com.example.sic.Activity.Setting_Help.Setting_Detail.ManageCertificate.R
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -48,7 +47,7 @@ public class RenewStep1 extends DefaultActivity {
     ArrayList<CertificateCP> certificateCPs = new ArrayList<>();
 
     CertificateProfilesModule module;
-
+    String credentialID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,12 +59,15 @@ public class RenewStep1 extends DefaultActivity {
         btnBack = findViewById(R.id.btnBack);
         btnContinue = findViewById(R.id.btnContinue);
         title = findViewById(R.id.title);
+        credentialID = getIntent().getStringExtra("id");
+
+        CertificateProfilesModule.createModule(this).credentialsInfo(credentialID);
+
         btnBack.setOnClickListener(view -> {
             Intent intent = new Intent(RenewStep1.this, Manage_Certificate.class);
             startActivity(intent);
             finish();
         });
-        String credentialID = getIntent().getStringExtra("id");
 
         module = CertificateProfilesModule.createModule(this);
 
@@ -89,8 +91,6 @@ public class RenewStep1 extends DefaultActivity {
                      * 	systems/getCertificateProfiles
                      * 	Certificate Profile
                      */
-
-
                 }
             }
         }).getCertificateAuthorities();
@@ -139,15 +139,18 @@ public class RenewStep1 extends DefaultActivity {
 
 
         btnContinue.setOnClickListener(view -> {
-            Log.d("aas", "onCreate: " + certificateCPs.get(0).getName());
+            start();
             module.setResponseCredentialsRenewRequest(new HttpRequest.AsyncResponse() {
                 @Override
                 public void process(boolean b, Response response) {
                     if (response.getError() == 0) {
+                        stop();
                         Intent intent = new Intent(RenewStep1.this, RenewStep2.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        intent.putExtra("id",credentialID);
+                        intent.putExtra("response", response);
+                        intent.putExtra("id", credentialID);
+                        intent.putExtra("certificate", manage_certificate);
                         startActivity(intent);
                         finish();
 

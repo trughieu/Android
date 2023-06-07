@@ -15,7 +15,7 @@ public class RenewDetail extends DefaultActivity {
     TextView uid_detail, common_detail, orga_detail, state_detail, country_detail,
             common_name_detail, orga_unit_detail, orga_detail_,
             local_detail, stat_detail, country_detail_, profile_detail,
-            profile_des_detail, day_365;
+            profile_des_detail, day_365,nameCTS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +26,7 @@ public class RenewDetail extends DefaultActivity {
             finish();
         });
 
+        nameCTS=findViewById(R.id.nameCTS);
         uid_detail = findViewById(R.id.uid_detail);
         common_detail = findViewById(R.id.common_detail);
         orga_detail = findViewById(R.id.orga_detail);
@@ -50,6 +51,7 @@ public class RenewDetail extends DefaultActivity {
              * Subject
              */
             uid_detail.setText(response.getSubject().get("UID").get(0));
+            nameCTS.setText(response.getSubject().get("CN").get(0));
             common_detail.setText(response.getSubject().get("CN").get(0));
             orga_detail.setText(response.getSubject().get("O").get(0));
             state_detail.setText(response.getSubject().get("ST").get(0));

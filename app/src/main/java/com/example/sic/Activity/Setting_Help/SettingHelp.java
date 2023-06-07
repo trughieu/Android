@@ -249,9 +249,9 @@ public class SettingHelp extends DefaultActivity implements View.OnClickListener
                 intent = new Intent(SettingHelp.this, SettingDetail.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                
                 startActivity(intent);
                 finish();
+//                requestList(view.getContext());
             }
             if (check == 1) {
                 Dialog_pin();

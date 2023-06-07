@@ -4,7 +4,6 @@ package com.example.sic.Activity.Login;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -12,7 +11,6 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -23,7 +21,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.sic.AppData;
 import com.example.sic.Dev_activity;
@@ -55,10 +52,9 @@ public class Activation extends Dev_activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activation);
-
+        smsPrepare();
         btn_resend = findViewById(R.id.resendActivateCode);
         startCountDown();
-
         pin6_dialog_hand = findViewById(R.id.pin6_dialog_hand);
         pinValue = findViewById(R.id.pin6_dialog);
 
@@ -69,8 +65,6 @@ public class Activation extends Dev_activity implements View.OnClickListener {
         btn_resend.setOnClickListener(this);
         btnContinue.setEnabled(false);
         btn_resend.setEnabled(true);
-        smsPrepare();
-
         otpEt[0] = findViewById(R.id.txt_pin_view_1);
         otpEt[1] = findViewById(R.id.txt_pin_view_2);
         otpEt[2] = findViewById(R.id.txt_pin_view_3);
@@ -218,25 +212,6 @@ public class Activation extends Dev_activity implements View.OnClickListener {
         }
     }
 
-    private void smsPrepare() {
-        smsBroadcastReceiver = new SmsBroadcastReceiver();
-        smsBroadcastReceiver.smsBroadcastReceiverListener = new SmsBroadcastReceiver.SmsBroadcastReceiverListener() {
-            @Override
-            public void onSuccess(Intent intent) {
-                startActivityForResult(intent, REQ_USER_CONSENT);
-
-            }
-
-            @Override
-            public void onFailure() {
-
-            }
-        };
-        IntentFilter intentFilter = new IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION);
-        registerReceiver(smsBroadcastReceiver, intentFilter);
-        client = SmsRetriever.getClient(this);
-        client.startSmsUserConsent(null);
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -372,6 +347,8 @@ public class Activation extends Dev_activity implements View.OnClickListener {
                 break;
             case R.id.btnBack:
                 Intent intent = new Intent(Activation.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();
                 break;

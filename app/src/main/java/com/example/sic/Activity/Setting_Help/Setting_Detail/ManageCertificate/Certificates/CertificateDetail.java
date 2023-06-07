@@ -28,6 +28,7 @@ import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 
 import com.example.sic.Activity.Setting_Help.Setting_Detail.ManageCertificate.Manage_Certificate;
+import com.example.sic.AppData;
 import com.example.sic.DefaultActivity;
 import com.example.sic.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -45,7 +46,6 @@ import vn.mobileid.tse.model.utils.CertificateUtils;
 public class CertificateDetail extends DefaultActivity {
 
 
-    static int success = 0;
     LinearLayout more_detail;
     FrameLayout btnBack;
     String credentialID;
@@ -169,18 +169,21 @@ public class CertificateDetail extends DefaultActivity {
         }
 
         btnBack.setOnClickListener(view -> {
-            Intent intent= new Intent(CertificateDetail.this
+            Intent intent = new Intent(CertificateDetail.this
                     , Manage_Certificate.class);
-           startActivity(intent);
-                finish();
+            AppData.getInstance().setSync(false);
+            startActivity(intent);
+            finish();
         });
 
-        if (success == 1) {
+
+        if (AppData.getInstance().isSync()) {
             successful.setVisibility(View.VISIBLE);
             more_detail.setVisibility(View.INVISIBLE);
             txt_CTS.setText(R.string.prompt_certificate_profile_sync);
         }
-        if (kakChanged == false) {
+
+        if (!kakChanged) {
             txt_select_id.setVisibility(View.VISIBLE);
             txt_CTS.setText(R.string.prompt_certificate_profile_sync);
         }
@@ -230,7 +233,6 @@ public class CertificateDetail extends DefaultActivity {
                         txt_select_id.setText(s);
                         Biometric();
                         biometricPrompt.authenticate(promptInfo);
-
                         bottomSheetDialog.dismiss();
                     }
                 });
@@ -367,7 +369,8 @@ public class CertificateDetail extends DefaultActivity {
 
                     }
                 }).syncCertificate();
-                success = 1;
+
+                AppData.getInstance().setSync(true);
                 dialog_success_bio();
             }
 
@@ -419,18 +422,22 @@ public class CertificateDetail extends DefaultActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                success = 1;
+                AppData.getInstance().setSync(true);
                 module.setResponseSyncCertificate(new HttpRequest.AsyncResponse() {
                     @Override
                     public void process(boolean b, Response response) {
+                        if (response.getError() == 0) {
+                            dialog.dismiss();
+                            Intent intent = new Intent(CertificateDetail.this, CertificateDetail.class);
+                            intent.putExtra("id", credentialID);
+                            startActivity(intent);
+                            finish();
+                        }
 
                     }
                 }).syncCertificate();
 
-                Intent intent= new Intent(CertificateDetail.this, CertificateDetail.class);
-                intent.putExtra("id",credentialID);
-               startActivity(intent);
-                finish();
+
             }
         }, 3000);
     }

@@ -12,6 +12,15 @@ public class AppData {
     private String email;
     private String JWT;
     private boolean KakPrivate;
+    private boolean sync;
+
+    public boolean isSync() {
+        return sync;
+    }
+
+    public void setSync(boolean sync) {
+        this.sync = sync;
+    }
 
     public boolean isKakPrivate() {
         return KakPrivate;

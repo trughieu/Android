@@ -180,37 +180,35 @@ public class HomePage extends DefaultActivity implements View.OnClickListener {
         mnu_setting_help.setOnClickListener(this);
         mnu_inbox.setOnClickListener(this);
         mnu_scan_qr.setOnClickListener(this);
-//        if (!first) {
-//            requestList(HomePage.this);
-//            setFirst(true);
-//        }
+
         requestList(HomePage.this);
 
 
         btn_Log_out = findViewById(R.id.btn_Log_out);
         module = ActivateModule.createModule(HomePage.this);
         requestInfoModule = RequestInfoModule.createModule(HomePage.this);
-        requestInfoModule.setResponseGetTransactionsList(new HttpRequest.AsyncResponse() {
-            @Override
-            public void process(boolean b, Response response) {
-                if (response == null) {
-                    stop();
-                } else if (response.getError() == 0) {
-                    stop();
-                    List<Requests> requests = response.getRequests();
-                    if (response.getRequests() != null && requests != null) {
-                        for (Requests request : requests) {
-                            Intent intent = new Intent(HomePage.this, InboxConfirm.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            intent.putExtra("transactionId", request.transactionID);
-                            startActivity(intent);
-                            finish();
-                        }
-                    }
-                }
-            }
-        }).transactionsList();
+
+//        requestInfoModule.setResponseGetTransactionsList(new HttpRequest.AsyncResponse() {
+//            @Override
+//            public void process(boolean b, Response response) {
+//                if (response == null) {
+//                    stop();
+//                } else if (response.getError() == 0) {
+//                    stop();
+//                    List<Requests> requests = response.getRequests();
+//                    if (response.getRequests() != null && requests != null) {
+//                        for (Requests request : requests) {
+//                            Intent intent = new Intent(HomePage.this, InboxConfirm.class);
+//                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                            intent.putExtra("transactionId", request.transactionID);
+//                            startActivity(intent);
+//                            finish();
+//                        }
+//                    }
+//                }
+//            }
+//        }).transactionsList();
 
         if (LoginData.getFullName(HomePage.this) != null) {
             user_name.setText(LoginData.getFullName(HomePage.this));
@@ -348,33 +346,13 @@ public class HomePage extends DefaultActivity implements View.OnClickListener {
     public void onClick(View view) {
         Intent intent;
         if (view.getId() == R.id.menu_connect) {
-            start();
             requestList(view.getContext());
-            requestInfoModule.setResponseGetTransactionsList(new HttpRequest.AsyncResponse() {
-                @Override
-                public void process(boolean b, Response response) {
-                    if (response == null) {
-                        stop();
-                    } else if (response.getError() == 0) {
-                        stop();
-                        List<Requests> requests = response.getRequests();
-                        if (response.getRequests() != null && requests != null) {
-                            for (Requests request : requests) {
-                                Intent intent = new Intent(HomePage.this, InboxConfirm.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                intent.putExtra("transactionId", request.transactionID);
-                                startActivity(intent);
-                            }
-                        }
-                    }
-                }
-            }).transactionsList();
             txt_connect.setTextColor(Color.parseColor("#004B7D"));
             txt_connect.setTextAppearance(R.style.active);
             txt_qr.setTextAppearance(R.style.inactive);
             txt_inbox.setTextAppearance(R.style.inactive);
             txt_setting_help.setTextAppearance(R.style.inactive);
+
         } else if (view.getId() == R.id.menu_scanqr) {
             txt_qr.setTextColor(Color.parseColor("#004B7D"));
             txt_connect.setTextAppearance(R.style.inactive);

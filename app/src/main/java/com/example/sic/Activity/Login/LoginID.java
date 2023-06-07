@@ -129,16 +129,19 @@ public class LoginID extends Dev_activity implements View.OnClickListener {
                 }
                 break;
             case R.id.btnLogin:
+                start();
                 module.setResponseReLoginWithPassword(new HttpRequest.AsyncResponse() {
                     @Override
                     public void process(boolean b, Response response) {
                         if (response.getError() == 0) {
+                            stop();
                             Intent intent = new Intent(LoginID.this, HomePage.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
                             finish();
                         } else if (response.getError() == 3000) {
+                            stop();
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
@@ -156,6 +159,7 @@ public class LoginID extends Dev_activity implements View.OnClickListener {
                             });
 
                         } else if (response.getError() == 3212) {
+                            stop();
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);

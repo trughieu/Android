@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,9 +42,10 @@ public class AddCertificateStep1 extends DefaultActivity implements View.OnClick
     EditText txt_pin_view1, txt_pin_view2, txt_pin_view3, txt_pin_view4, txt_pin_view5, txt_pin_view6, pinValue;
     String text;
     String otp, digit_6;
-    TextView txt_select_id, conf_E_iden, conf_bio, conf_Pin, btnCancel, btn_Close, btn_Cancel, btn_Detail, uid_detail, common_detail, o_detail, state_detail, country_detail, test;
+    TextView notRequest,txt_select_id, conf_E_iden, conf_bio, conf_Pin, btnCancel, btn_Close, btn_Cancel, btn_Detail, uid_detail, common_detail, o_detail, state_detail, country_detail, test;
     Dialog dialog;
     CertificateConfirmModule module;
+    LinearLayout layoutSuccess;
     private final TextWatcher textWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int start, int i1, int i2) {
@@ -117,9 +119,10 @@ public class AddCertificateStep1 extends DefaultActivity implements View.OnClick
                 case 6:
                     txt_pin_view6.setBackgroundResource(R.drawable.ic_pinview_enable);
                     if (pinValue.getText().toString().equals(otp)) {
+                        start();
                         Dialog dialog1 = new Dialog(AddCertificateStep1.this);
                         dialog1.setContentView(R.layout.dialog_success);
-//                        dialog1.setCanceledOnTouchOutside(false);
+                        dialog1.setCanceledOnTouchOutside(false);
                         dialog1.getWindow().setBackgroundDrawableResource(R.color.transparent);
                         dialog1.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
                         Handler handler = new Handler();
@@ -136,14 +139,12 @@ public class AddCertificateStep1 extends DefaultActivity implements View.OnClick
                                             handler.postDelayed(new Runnable() {
                                                 @Override
                                                 public void run() {
+                                                    stop();
                                                     dialog1.dismiss();
-                                                    Intent intent = new Intent(AddCertificateStep1.this,
-                                                            AddCertificateStep2.class);
-                                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                                    intent.putExtra("response", response);
-                                                    startActivity(intent);
-                                                    finish();
+                                                    layoutSuccess.setVisibility(View.VISIBLE);
+                                                    txt_select_id.setVisibility(View.GONE);
+                                                    notRequest.setVisibility(View.GONE);
+                                                    btnCancel.setVisibility(View.GONE);
                                                 }
                                             }, 3000);
                                         }
@@ -202,7 +203,8 @@ public class AddCertificateStep1 extends DefaultActivity implements View.OnClick
         setContentView(R.layout.add_certificate_step1);
         txt_select_id = findViewById(R.id.txt_select_id);
         btnBack = findViewById(R.id.btnBack);
-        btnCancel = findViewById(R.id.btnCancel);
+        btnCancel = findViewById(R.id.btn_Cancel);
+        notRequest=findViewById(R.id.notYourRequest);
         txt_select_id = findViewById(R.id.txt_select_id);
         uid_detail = findViewById(R.id.uid_detail);
         common_detail = findViewById(R.id.common_detail);
@@ -210,7 +212,8 @@ public class AddCertificateStep1 extends DefaultActivity implements View.OnClick
         state_detail = findViewById(R.id.state_detail);
         country_detail = findViewById(R.id.country_detail);
         btn_Detail = findViewById(R.id.btnDetail);
-        test = findViewById(R.id.tv_not_your_re);
+        test = findViewById(R.id.notYourRequest);
+        layoutSuccess=findViewById(R.id.layoutSuccess);
         module = CertificateConfirmModule.createModule(this);
         btnBack.setOnClickListener(this);
         btnCancel.setOnClickListener(this);

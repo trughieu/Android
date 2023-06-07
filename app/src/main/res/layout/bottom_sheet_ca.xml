@@ -37,6 +37,7 @@
             android:layout_marginStart="20dp"
             android:fontFamily="@font/atb_digital_medium"
             android:text="@string/easyca_test"
+            android:gravity="center_vertical"
             android:textColor="@color/text_blue"
             android:textSize="15dp" />
 

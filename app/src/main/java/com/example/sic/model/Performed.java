@@ -15,6 +15,52 @@ public class Performed implements Serializable {
     String MAC;
     String COMPUTER_NAME;
     String type;
+    // Truy xuat info VCSP
+    String IpAddress;
+    String RP_NAME;
+    String Application;
+    String device;
+    String confirmationPolicy;
+
+    public String getConfirmationPolicy() {
+        return confirmationPolicy;
+    }
+
+    public void setConfirmationPolicy(String confirmationPolicy) {
+        this.confirmationPolicy = confirmationPolicy;
+    }
+
+    public String getIpAddress() {
+        return IpAddress;
+    }
+
+    public void setIpAddress(String ipAddress) {
+        IpAddress = ipAddress;
+    }
+
+    public String getRP_NAME() {
+        return RP_NAME;
+    }
+
+    public void setRP_NAME(String RP_NAME) {
+        this.RP_NAME = RP_NAME;
+    }
+
+    public String getApplication() {
+        return Application;
+    }
+
+    public void setApplication(String application) {
+        Application = application;
+    }
+
+    public String getDevice() {
+        return device;
+    }
+
+    public void setDevice(String device) {
+        this.device = device;
+    }
 
     public String getType() {
         return type;

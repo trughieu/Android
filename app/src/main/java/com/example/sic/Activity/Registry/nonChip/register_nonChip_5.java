@@ -13,6 +13,7 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -22,7 +23,6 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -37,10 +37,17 @@ import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.collection.ArraySet;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.sic.Activity.Login.MainActivity;
+import com.example.sic.Adapter.AdapterProvince;
 import com.example.sic.AppData;
 import com.example.sic.Dev_activity;
 import com.example.sic.R;
+import com.example.sic.model.DistrictItem;
 import com.example.sic.model.ProvinceItem;
+import com.example.sic.model.WardItem;
 import com.github.gcacace.signaturepad.views.SignaturePad;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -56,21 +63,26 @@ import java.util.Locale;
 import java.util.regex.Pattern;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import vn.mobileid.tse.model.client.HttpRequest;
 import vn.mobileid.tse.model.client.register.RegisterModule;
+import vn.mobileid.tse.model.connector.plugin.Response;
 import vn.mobileid.tse.model.database.dvhcvn.Dvhcvn;
 import vn.mobileid.tse.model.plugin.dvhcvn.District;
 import vn.mobileid.tse.model.plugin.dvhcvn.Province;
 import vn.mobileid.tse.model.plugin.dvhcvn.Ward;
 
 public class register_nonChip_5 extends Dev_activity {
-    private final String[] arrayAddress = {"", "", "", "", "", ""};
+    ArrayList<ProvinceItem> provinceString = new ArrayList<>();
+    RecyclerView recyclerViewProvince;
+
+
     Spinner spinnerWard;
     ImageView spinnerProvince, spinnerDistrict;
-
-    List<ProvinceItem> provinceString = new ArrayList<>();
-    List<String> districtString = new ArrayList<>();
-    List<String> wardString = new ArrayList<>();
-    TextView placeOrigin, placeResidence, district, province, ward,
+    ArrayList<DistrictItem> districtString = new ArrayList<>();
+    List<WardItem> wardString = new ArrayList<>();
+    ArrayAdapter<DistrictItem> districtItemArrayAdapter;
+    ArrayAdapter<WardItem> wardItemArrayAdapter;
+    TextView placeOrigin, placeResidence, desDistrict, desProvince, desWard,
             UserName, save, fullName, dateBirth, genDer, documentNumber,
             nationality, ethinic, relogion, address, male, female, other, userSign, daySign, btnContinue;
     int selectionGender = 0;
@@ -83,12 +95,18 @@ public class register_nonChip_5 extends Dev_activity {
     List<Province> provinceList;
     List<Ward> wardList;
     ArrayAdapter<ProvinceItem> adapter;
+    AdapterProvince adapterProvince;
+    ArraySet<ProvinceItem> filteredList;
     SharedPreferences pref, typeDocument;
     FrameLayout close, btnBack;
     LinearLayout sign;
     RegisterModule module;
     private Calendar calendar;
-    List<ProvinceItem> filteredList;
+    BottomSheetDialog dialog;
+    private String[] arrayAddressResident = {"", "", "", "", "", ""};
+    private String[] arrayAddressOrigin = {"", "", "", "", "", ""};
+    private String[] arrayAddressAddress = {"", "", "", "", "", "", ""};
+    private String[] arrayAddressCatche = {"", "", "", "", "", ""};
 
     public static String convertToBase64PNG(Bitmap bitmap) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -141,7 +159,7 @@ public class register_nonChip_5 extends Dev_activity {
         btnContinue = findViewById(R.id.btnContinue);
         btnBack = findViewById(R.id.btnBack);
         calendar = Calendar.getInstance();
-//        module = RegisterModule.createModule(this);
+        module = RegisterModule.createModule(this);
         btnBack.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), register_nonChip_4.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -152,7 +170,7 @@ public class register_nonChip_5 extends Dev_activity {
         TextWatcher textWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                if (TextUtils.isEmpty(UserName.getText().toString()) || TextUtils.isEmpty(placeOrigin.getText().toString()) || TextUtils.isEmpty(placeResidence.getText().toString())
+                if (TextUtils.isEmpty(UserName.getText().toString()) || TextUtils.isEmpty(placeResidence.getText().toString())
                         || TextUtils.isEmpty(fullName.getText().toString()) || TextUtils.isEmpty(dateBirth.getText().toString()) || TextUtils.isEmpty(genDer.getText().toString())
                         || TextUtils.isEmpty(documentNumber.getText().toString()) ||
                         TextUtils.isEmpty(userSign.getText().toString()) || TextUtils.isEmpty(daySign.getText().toString())) {
@@ -166,11 +184,9 @@ public class register_nonChip_5 extends Dev_activity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (TextUtils.isEmpty(UserName.getText().toString()) || TextUtils.isEmpty(placeOrigin.getText().toString()) || TextUtils.isEmpty(placeResidence.getText().toString())
+                if (TextUtils.isEmpty(UserName.getText().toString()) || TextUtils.isEmpty(placeResidence.getText().toString())
                         || TextUtils.isEmpty(fullName.getText().toString()) || TextUtils.isEmpty(dateBirth.getText().toString()) || TextUtils.isEmpty(genDer.getText().toString())
-                        || TextUtils.isEmpty(documentNumber.getText().toString()) || TextUtils.isEmpty(nationality.getText().toString()) ||
-                        TextUtils.isEmpty(ethinic.getText().toString()) || TextUtils.isEmpty(relogion.getText().toString()) ||
-                        TextUtils.isEmpty(address.getText().toString()) || TextUtils.isEmpty(userSign.getText().toString()) || TextUtils.isEmpty(daySign.getText().toString())) {
+                        || TextUtils.isEmpty(documentNumber.getText().toString()) || TextUtils.isEmpty(userSign.getText().toString()) || TextUtils.isEmpty(daySign.getText().toString())) {
                     btnContinue.setAlpha(0.5f);
                     btnContinue.setEnabled(false);
                 } else {
@@ -215,43 +231,44 @@ public class register_nonChip_5 extends Dev_activity {
         byte[] byteArray = getIntent().getByteArrayExtra("faceByteArray");
         if (byteArray != null) {
             Bitmap faceBitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-//            int desiredSize = 300; // Kích thước mong muốn
-//            Bitmap resizedBitmap = Bitmap.createScaledBitmap(faceBitmap, desiredSize, desiredSize, false);
-//            Bitmap circularBitmap = getCircularBitmap(resizedBitmap);
-            avt.setImageBitmap(faceBitmap);
-//            module.setImagePortrait(convertToBase64(faceBitmap));
-        }
-//        pref = getSharedPreferences("username", MODE_PRIVATE);
-//        String s = pref.getString("user", null);
-//        if (s != null) {
-//            UserName.setText(s);
-//            module.setUsername(s);
-//        }
-        typeDocument = getSharedPreferences("documentType", MODE_PRIVATE);
-//        module.setDocumentType(AppData.getInstance().getDocumentType());
-        UserName.setText(AppData.getInstance().getPhone());
-//        module.setResponseOwnersCheckExist(new HttpRequest.AsyncResponse() {
-//            @Override
-//            public void process(boolean b, Response response) {
-//                if (response.getError() == 0 && response.getExist()) {
-//                    runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            ShowDialog();
-//                        }
-//                    });
-//                }
-//            }
-//        });
-//        module.ownersCheckExist(null, AppData.getInstance().getPhone(), null,
-//                null);
+//            Bitmap faceBitmap = BitmapFactory.decodeResource(this.getResources(), (R.drawable.max));
 
-//        module.setUsername(AppData.getInstance().getPhone());
-//        module.setNationality("VIETNAM");
+
+            avt.setImageBitmap(faceBitmap);
+            module.setImagePortrait(convertToBase64(faceBitmap));
+        }
+        pref = getSharedPreferences("username", MODE_PRIVATE);
+        String s = pref.getString("user", null);
+        if (s != null) {
+            UserName.setText(s);
+            module.setUsername(s);
+        }
+        typeDocument = getSharedPreferences("documentType", MODE_PRIVATE);
+        module.setDocumentType(AppData.getInstance().getDocumentType());
+        UserName.setText(AppData.getInstance().getPhone());
+        module.setResponseOwnersCheckExist(new HttpRequest.AsyncResponse() {
+            @Override
+            public void process(boolean b, Response response) {
+                if (response.getError() == 0 && response.getExist()) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ShowDialog();
+                        }
+                    });
+                }
+            }
+        });
+        module.ownersCheckExist(null, AppData.getInstance().getPhone(), null,
+                null);
+//
+        module.setUsername(AppData.getInstance().getPhone());
+        module.setNationality("VIETNAM");
 
         SharedPreferences sharedPreferences = getSharedPreferences("IMG", MODE_PRIVATE);
-//        module.setImageBack(sharedPreferences.getString("backside", null));
-//        module.setImageFront(sharedPreferences.getString("frontside", null));
+
+        module.setImageBack(sharedPreferences.getString("backside", null));
+        module.setImageFront(sharedPreferences.getString("frontside", null));
         UserName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -266,7 +283,7 @@ public class register_nonChip_5 extends Dev_activity {
                     @Override
                     public void onClick(View v) {
                         UserName.setText(user.getText().toString());
-//                        module.setUsername(UserName.getText().toString());
+                        module.setUsername(UserName.getText().toString());
                         bottomSheetDialog.dismiss();
                     }
                 });
@@ -294,7 +311,7 @@ public class register_nonChip_5 extends Dev_activity {
                         if (!fullname.getText().toString().isEmpty()) {
                             fullName.setText(fullname.getText().toString());
                             bottomSheetDialog.dismiss();
-//                            module.setName(fullname.getText().toString());
+                            module.setName(fullname.getText().toString());
                         } else {
                             fullname.setError("");
                         }
@@ -353,13 +370,13 @@ public class register_nonChip_5 extends Dev_activity {
                 save.setOnClickListener(v1 -> {
                     if (selectionGender == 1) {
                         genDer.setText(male.getText().toString());
-//                        module.setGender("MALE");
+                        module.setGender("MALE");
                     } else if (selectionGender == 2) {
                         genDer.setText(female.getText().toString());
-//                        module.setGender("FEMALE");
+                        module.setGender("FEMALE");
                     } else if (selectionGender == 3) {
                         genDer.setText(other.getText().toString());
-//                        module.setGender("OTHER");
+                        module.setGender("OTHER");
                     }
                     bottomSheetDialog.dismiss();
                 });
@@ -379,7 +396,7 @@ public class register_nonChip_5 extends Dev_activity {
                 save.setOnClickListener(v1 -> {
                     if (!document.getText().toString().isEmpty()) {
                         documentNumber.setText(document.getText().toString());
-//                        module.setDocumentnum(document.getText().toString());
+                        module.setDocumentnum(document.getText().toString());
                         bottomSheetDialog.dismiss();
                     } else {
                         document.setError("");
@@ -399,7 +416,7 @@ public class register_nonChip_5 extends Dev_activity {
                 save.setOnClickListener(v1 -> {
                     if (!ethinicText.getText().toString().isEmpty()) {
                         ethinic.setText(ethinicText.getText().toString());
-//                        module.setEthnic(ethinicText.getText().toString());
+                        module.setEthnic(ethinicText.getText().toString());
                         bottomSheetDialog.dismiss();
                     } else {
                         ethinicText.setError("");
@@ -419,7 +436,7 @@ public class register_nonChip_5 extends Dev_activity {
                 save.setOnClickListener(v1 -> {
                     if (!religionText.getText().toString().isEmpty()) {
                         relogion.setText(religionText.getText().toString());
-//                        module.setReligion(religionText.getText().toString());
+                        module.setReligion(religionText.getText().toString());
                         bottomSheetDialog.dismiss();
                     } else {
                         religionText.setError("");
@@ -435,548 +452,25 @@ public class register_nonChip_5 extends Dev_activity {
                 showDatePickerDialog(v.getContext());
             }
         });
-        placeOrigin.setOnClickListener(new View.OnClickListener() {
+
+
+        placeResidence.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(view.getContext(), R.style.BottomSheetDialogTheme);
-                bottomSheetDialog.setContentView(R.layout.bottom_layout_set_place);
-                bottomSheetDialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
-                bottomSheetDialog.show();
-                spinnerProvince = bottomSheetDialog.findViewById(R.id.spinnerProvince);
-                spinnerDistrict = bottomSheetDialog.findViewById(R.id.spinnerDistrict);
-                spinnerWard = bottomSheetDialog.findViewById(R.id.spinnerWard);
-                ward = bottomSheetDialog.findViewById(R.id.ward);
-                district = bottomSheetDialog.findViewById(R.id.district);
-                province = bottomSheetDialog.findViewById(R.id.province);
-                TextView confirm = bottomSheetDialog.findViewById(R.id.confirm);
-
-                confirm.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (!(arrayAddress[0].equals("") || arrayAddress[1].equals("") || arrayAddress[2].equals(""))) {
-                            String s = arrayAddress[2] + ", " + arrayAddress[1] + ", " + arrayAddress[0];
-                            placeOrigin.setText(s);
-                            Log.d("dia chi", "onCreate: " + s);
-                            Log.d("id", "onCreate: " + provinceString);
-                            Log.d("sss", "onClick: " + provinceList);
-                            districtString.clear();
-                            provinceString.clear();
-                            wardString.clear();
-//                            module.setPlaceoforigin(s);
-                            bottomSheetDialog.dismiss();
-                        } else if ((arrayAddress[0].equals("") && arrayAddress[1].equals("") && arrayAddress[2].equals(""))) {
-                            province.setError("Please select your province");
-                            district.setError("Please select your district");
-                            ward.setError("Please select your ward");
-                        } else if (arrayAddress[1].equals("") && arrayAddress[2].equals("")) {
-                            district.setError("Please select your province");
-                            ward.setError("Please select your ward");
-                        } else if (arrayAddress[2].isEmpty()) {
-                            ward.setError("Please select your ward");
-                        }
-                    }
-                });
-
-//                spinnerProvince.setOnTouchListener(new View.OnTouchListener() {
-//                    @Override
-//                    public boolean onTouch(View view, MotionEvent motionEvent) {
-//
-//                        if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-//                            provinceList = Dvhcvn.getProvince(view.getContext());
-//                            Collections.sort(provinceList);
-//                            provinceString.clear();
-//                            for (ProvinceItem province : provinceList) {
-//                                provinceString.add(province.getName());
-//                            }
-//                            adapter = new ArrayAdapter<>(view.getContext(), R.layout.spinner_layout, provinceString);
-//                            adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-//                            spinnerProvince.setAdapter(adapter);
-//                            spinnerProvince.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//                                @Override
-//                                public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-//                                    arrayAddress[0] = adapterView.getSelectedItem().toString();
-//                                    arrayAddress[3] = provinceList.get(position).getId();
-//                                    Log.d("positon", "onItemSelected: " + provinceList.get(position).getId());
-//                                }
-//
-//                                @Override
-//                                public void onNothingSelected(AdapterView<?> adapterView) {
-//                                }
-//                            });
-//                        }
-//
-//                        return false;
-//                    }
-//
-//                });
-
-                spinnerDistrict.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View view, MotionEvent motionEvent) {
-                        districtList = Dvhcvn.getDistrict(view.getContext(), arrayAddress[3]);
-                        districtString.clear();
-                        for (District district : districtList) {
-                            districtString.add(district.getName());
-                        }
-
-                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(view.getContext(), R.layout.spinner_layout, districtString);
-                        arrayAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-//                        spinnerDistrict.setSelection(arrayAdapter.getPosition("District"));
-//                        spinnerDistrict.setAdapter(arrayAdapter);
-//                        spinnerDistrict.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//                            @Override
-//                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                                arrayAddress[1] = adapterView.getSelectedItem().toString();
-//                                arrayAddress[4] = districtList.get(i).getId();
-//                            }
-//
-//                            @Override
-//                            public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//                            }
-//                        });
-                        return false;
-                    }
-                });
-
-                spinnerWard.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View view, MotionEvent motionEvent) {
-
-                        wardList = Dvhcvn.getWard(view.getContext(), arrayAddress[4]);
-                        wardString.clear();
-                        for (Ward ward : wardList) {
-                            wardString.add(ward.getName());
-                        }
-
-                        ArrayAdapter<String> wardAdapter = new ArrayAdapter<>(view.getContext(), R.layout.spinner_layout, wardString);
-                        wardAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-                        spinnerWard.setAdapter(wardAdapter);
-                        spinnerWard.setSelection(wardAdapter.getPosition("Ward"));
-                        spinnerWard.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            @Override
-                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                                arrayAddress[2] = adapterView.getSelectedItem().toString();
-
-                            }
-
-                            @Override
-                            public void onNothingSelected(AdapterView<?> adapterView) {
-
-                            }
-                        });
-                        return false;
-
-
-                    }
-                });
-
+                dialogResidence();
             }
         });
-        placeResidence.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("ClickableViewAccessibility")
+
+        placeOrigin.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                BottomSheetDialog dialog = new BottomSheetDialog(view.getContext(), R.style.BottomSheetDialogTheme);
-                dialog.setContentView(R.layout.bottom_layout_set_place);
-                dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
-                dialog.show();
-                boolean isPopupOpen = false;
-
-                spinnerProvince = dialog.findViewById(R.id.spinnerProvince);
-                spinnerDistrict = dialog.findViewById(R.id.spinnerDistrict);
-                spinnerWard = dialog.findViewById(R.id.spinnerWard);
-                ward = dialog.findViewById(R.id.ward);
-                district = dialog.findViewById(R.id.district);
-                province = dialog.findViewById(R.id.province);
-                LinearLayout provinceContainer = dialog.findViewById(R.id.provinceContainer);
-
-                TextView confirm = dialog.findViewById(R.id.confirm);
-                EditText desc = dialog.findViewById(R.id.description);
-
-                confirm.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        String s = arrayAddress[2] + ", " + arrayAddress[1] + ", " + arrayAddress[0];
-                        String abc = arrayAddress[3] + "," + arrayAddress[4];
-                        placeResidence.setText(s);
-//                        module.setPlaceofresidence(s);
-                        dialog.dismiss();
-                    }
-                });
-
-
-
-                desc.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        View popupView = getLayoutInflater().inflate(R.layout.province, null);
-                        PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                        ListView listViewData = popupView.findViewById(R.id.listViewProvince);
-                        popupWindow.setFocusable(false);
-                        popupWindow.setOutsideTouchable(true);
-                        popupWindow.setTouchable(true);
-                        popupWindow.setHeight(300);
-
-                        int[] location = new int[2];
-                        desc.getLocationOnScreen(location);
-                        int x = location[0];
-                        int y = (int) (location[1] - popupWindow.getHeight() - 0.5 * (desc.getHeight()));
-                        if (event.getAction() == MotionEvent.ACTION_UP) {
-                            provinceList = Dvhcvn.getProvince(view.getContext());
-                            Collections.sort(provinceList);
-                            provinceString.clear();
-                            for (Province province : provinceList) {
-                                String name = province.getName();
-                                String id = province.getId();
-                                provinceString.add(new ProvinceItem(name, id));
-
-                            }
-                            // Tạo một ArrayAdapter mới với danh sách đã lọc
-                            ArrayAdapter<ProvinceItem> adapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_list_item_1, provinceString);
-
-                            // Cập nhật Adapter cho ListView
-                            listViewData.setAdapter(adapter);
-                            popupWindow.showAtLocation(desc, Gravity.NO_GRAVITY, x, y - popupWindow.getHeight());
-                        }
-//                        adapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_list_item_1, provinceString);
-
-                        desc.addTextChangedListener(new TextWatcher() {
-                            @Override
-                            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                            }
-
-                            @Override
-                            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                                filteredList = new ArrayList<>();
-
-                                // Lặp qua danh sách gốc (provinceString) để áp dụng bộ lọc
-                                for (ProvinceItem item : provinceString) {
-                                    // Kiểm tra xem province có chứa chuỗi tìm kiếm (s) không dấu
-                                    if (removeAccent(item.getName().toLowerCase()).contains(removeAccent(s.toString().toLowerCase()))) {
-                                        filteredList.add(item);
-                                    }
-                                }
-
-                                // Tạo một ArrayAdapter mới với danh sách đã lọc
-                                ArrayAdapter<ProvinceItem> adapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_list_item_1, filteredList);
-
-                                // Cập nhật Adapter cho ListView
-                                listViewData.setAdapter(adapter);
-
-                                // Hiển thị PopupWindow nếu có phần tử trong danh sách đã lọc
-                                if (filteredList.size() > 0) {
-                                    popupWindow.showAtLocation(desc, Gravity.NO_GRAVITY, x, y - popupWindow.getHeight());
-                                } else {
-                                    popupWindow.dismiss();
-                                }
-
-                            }
-
-                            @Override
-                            public void afterTextChanged(Editable s) {
-
-                            }
-                        });
-
-                        listViewData.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                ProvinceItem selectedProvince = (ProvinceItem) adapterView.getItemAtPosition(i);
-                                Log.d("TAG", "onItemClick: " + selectedProvince.getName() + " - ID: " + selectedProvince.getId());
-                                Log.d("filteredList", "onItemClick: +"+filteredList);
-                                desc.setText(selectedProvince.getName());
-                                arrayAddress[0] = selectedProvince.getName();
-                                arrayAddress[3] = selectedProvince.getId();
-                                popupWindow.dismiss();
-                            }
-                        });
-
-                        return false;
-                    }
-                });
-
-
-                spinnerProvince.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-
-                        if (event.getAction() == MotionEvent.ACTION_UP) {
-                            provinceList = Dvhcvn.getProvince(view.getContext());
-                            Collections.sort(provinceList);
-                            provinceString.clear();
-                            for (Province province : provinceList) {
-                                provinceString.add(new ProvinceItem(province.getName(),province.getId()));
-
-                            }
-                        }
-                        adapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_list_item_1, provinceString);
-                        spinnerProvince.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                // Tạo Dialog
-                                Dialog dialog1 = new Dialog(view.getContext());
-                                dialog1.setContentView(R.layout.province);
-
-                                ListView listViewProvince = dialog1.findViewById(R.id.listViewProvince);
-
-                                listViewProvince.setAdapter(adapter);
-                                int[] location = new int[2];
-                                provinceContainer.getLocationOnScreen(location);
-                                int x = location[0];
-                                int y = location[1] + provinceContainer.getHeight();
-                                // Thiết lập vị trí cho dialog1
-                                Window window = dialog1.getWindow();
-                                WindowManager.LayoutParams layoutParams = window.getAttributes();
-                                layoutParams.gravity = Gravity.TOP | Gravity.START;
-                                layoutParams.x = x;
-                                layoutParams.y = y;
-                                window.setAttributes(layoutParams);
-                                listViewProvince.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                    @Override
-                                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                        ProvinceItem selectedProvince = (ProvinceItem) adapterView.getItemAtPosition(i);
-                                        Log.d("TAG", "onItemClick: " + selectedProvince.getName() + " - ID: " + selectedProvince.getId());
-                                        Log.d("filteredList", "onItemClick: +"+filteredList);
-                                        desc.setText(selectedProvince.getName());
-                                        arrayAddress[0] = selectedProvince.getName();
-                                        arrayAddress[3] = selectedProvince.getId();
-//                                        popupWindow.dismiss();
-
-                                        // Đóng Dialog
-                                        dialog1.dismiss();
-                                    }
-                                });
-
-                                // Hiển thị Dialog
-                                dialog1.show();
-                            }
-                        });
-                        return false;
-                    }
-                });
-
-
-//                spinnerProvince.setOnTouchListener(new View.OnTouchListener() {
-//                    @Override
-//                    public boolean onTouch(View view, MotionEvent motionEvent) {
-//
-//                        if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-//                            provinceList = Dvhcvn.getProvince(view.getContext());
-//                            Collections.sort(provinceList);
-//                            provinceString.clear();
-//                            for (ProvinceItem province : provinceList) {
-//                                provinceString.add(province.getName());
-//                            }
-//                        }
-//                        adapter = new ArrayAdapter<>(view.getContext(), R.layout.spinner_layout, provinceString);
-//                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//                        spinnerProvince.setAdapter(adapter);
-//                        spinnerProvince.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//                            @Override
-//                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                                arrayAddress[0] = adapterView.getSelectedItem().toString();
-//                                arrayAddress[3] = provinceList.get(i).getId();
-//                                TextView description = dialog.findViewById(R.id.description);
-//                                description.setText(adapterView.getSelectedItem().toString());
-//
-//                            }
-//
-//                            @Override
-//                            public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//                            }
-//                        });
-//                        return false;
-//                    }
-//
-//                });
-
-                spinnerDistrict.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View view, MotionEvent motionEvent) {
-                        districtList = Dvhcvn.getDistrict(view.getContext(), arrayAddress[3]);
-                        districtString.clear();
-                        for (District district : districtList) {
-                            districtString.add(district.getName());
-                        }
-
-                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(view.getContext(), R.layout.spinner_layout, districtString);
-                        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//                        spinnerDistrict.setSelection(arrayAdapter.getPosition("District"));
-//                        spinnerDistrict.setAdapter(arrayAdapter);
-//                        spinnerDistrict.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//                            @Override
-//                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                                arrayAddress[1] = adapterView.getSelectedItem().toString();
-//                                arrayAddress[4] = districtList.get(i).getId();
-//                            }
-//
-//                            @Override
-//                            public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//                            }
-//                        });
-                        return false;
-                    }
-                });
-
-                spinnerWard.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View view, MotionEvent motionEvent) {
-
-                        wardList = Dvhcvn.getWard(view.getContext(), arrayAddress[4]);
-                        wardString.clear();
-                        for (Ward ward : wardList) {
-                            wardString.add(ward.getName());
-                        }
-
-                        ArrayAdapter<String> wardAdapter = new ArrayAdapter<>(view.getContext(), R.layout.spinner_layout, wardString);
-                        wardAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        spinnerWard.setAdapter(wardAdapter);
-                        spinnerWard.setSelection(wardAdapter.getPosition("Ward"));
-                        spinnerWard.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            @Override
-                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                                arrayAddress[2] = adapterView.getSelectedItem().toString();
-
-                            }
-
-                            @Override
-                            public void onNothingSelected(AdapterView<?> adapterView) {
-
-                            }
-                        });
-                        return false;
-
-
-                    }
-                });
-
-
+            public void onClick(View v) {
+                dialogOrigin();
             }
         });
         address.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BottomSheetDialog dialog = new BottomSheetDialog(view.getContext(), R.style.BottomSheetDialogTheme);
-                dialog.setContentView(R.layout.bottom_layout_set_address);
-                dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
-                dialog.show();
-
-                spinnerProvince = dialog.findViewById(R.id.spinnerProvince);
-                spinnerDistrict = dialog.findViewById(R.id.spinnerDistrict);
-                spinnerWard = dialog.findViewById(R.id.spinnerWard);
-                ward = dialog.findViewById(R.id.ward);
-                district = dialog.findViewById(R.id.district);
-                province = dialog.findViewById(R.id.province);
-                TextView confirm = dialog.findViewById(R.id.confirm);
-                EditText street = dialog.findViewById(R.id.street);
-
-                confirm.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (!street.getText().toString().isEmpty()) {
-                            String s = street.getText().toString() + ", " + arrayAddress[2] + ", " + arrayAddress[1] + ", " + arrayAddress[0];
-                            address.setText(s);
-//                            module.setAddress(s);
-                            dialog.dismiss();
-                        } else {
-                            street.setError("");
-                        }
-                    }
-                });
-//                spinnerProvince.setOnTouchListener(new View.OnTouchListener() {
-//                    @Override
-//                    public boolean onTouch(View view, MotionEvent motionEvent) {
-//
-//                        if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-//                            provinceList = Dvhcvn.getProvince(view.getContext());
-//                            Collections.sort(provinceList);
-//                            provinceString.clear();
-//                            for (ProvinceItem province : provinceList) {
-//                                provinceString.add(province.getName());
-//                            }
-//                        }
-//                        adapter = new ArrayAdapter<>(view.getContext(), R.layout.spinner_layout, provinceString);
-//                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//                        spinnerProvince.setAdapter(adapter);
-//                        spinnerProvince.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//                            @Override
-//                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                                arrayAddress[0] = adapterView.getSelectedItem().toString();
-//                                arrayAddress[3] = provinceList.get(i).getId();
-//
-//                            }
-//                            @Override
-//                            public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//                            }
-//                        });
-//                        return false;
-//                    }
-//
-//                });
-
-                spinnerDistrict.setOnTouchListener(new View.OnTouchListener() {
-                    @SuppressLint("ClickableViewAccessibility")
-                    @Override
-                    public boolean onTouch(View view, MotionEvent motionEvent) {
-                        districtList = Dvhcvn.getDistrict(view.getContext(), arrayAddress[3]);
-                        districtString.clear();
-                        for (District district : districtList) {
-                            districtString.add(district.getName());
-                        }
-
-                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(view.getContext(), R.layout.spinner_layout, districtString);
-                        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//                        spinnerDistrict.setSelection(arrayAdapter.getPosition("District"));
-//                        spinnerDistrict.setAdapter(arrayAdapter);
-//                        spinnerDistrict.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//                            @Override
-//                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                                arrayAddress[1] = adapterView.getSelectedItem().toString();
-//                                arrayAddress[4] = districtList.get(i).getId();
-//                            }
-//
-//                            @Override
-//                            public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//                            }
-//                        });
-                        return false;
-                    }
-                });
-
-                spinnerWard.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View view, MotionEvent motionEvent) {
-
-                        wardList = Dvhcvn.getWard(view.getContext(), arrayAddress[4]);
-                        wardString.clear();
-                        for (Ward ward : wardList) {
-                            wardString.add(ward.getName());
-                        }
-
-                        ArrayAdapter<String> wardAdapter = new ArrayAdapter<>(view.getContext(), R.layout.spinner_layout, wardString);
-                        wardAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        spinnerWard.setAdapter(wardAdapter);
-                        spinnerWard.setSelection(wardAdapter.getPosition("Ward"));
-                        spinnerWard.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            @Override
-                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                                arrayAddress[2] = adapterView.getSelectedItem().toString();
-                            }
-
-                            @Override
-                            public void onNothingSelected(AdapterView<?> adapterView) {
-
-                            }
-                        });
-                        return false;
-                    }
-                });
+                dialogAddress();
             }
         });
 
@@ -1017,45 +511,45 @@ public class register_nonChip_5 extends Dev_activity {
                     Bitmap signatureBitmap = signature_pad.getSignatureBitmap();
                     String base64Signature = convertToBase64PNG(signatureBitmap);
                     Log.d("avb", "onClick: " + base64Signature);
-//                    module.setImagesignature(base64Signature);
+                    module.setImagesignature(base64Signature);
                     imgSignature.setImageBitmap(signatureBitmap);
                     userSign.setText(v1.getContext().getResources().getString(R.string.registrant) + ": " + fullName.getText().toString());
                     bottomSheetDialog.dismiss();
                 });
             }
         });
-//        btnContinue.setOnClickListener(v -> {
-//            module.setResponseRegistrationsFinalize(new HttpRequest.AsyncResponse() {
-//                @Override
-//                public void process(boolean b, Response response) {
-//                    runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            if (response.getError() == 0 || response.getError() == 3249) {
-//                                AppData.getInstance().setRegister(true);
-//                                Dialog dialog = new Dialog(v.getContext());
-//                                dialog.setContentView(R.layout.dialog_success_register);
-//                                dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
-//                                dialog.show();
-//                                Handler handler = new Handler();
-//                                handler.postDelayed(new Runnable() {
-//                                    @Override
-//                                    public void run() {
-//                                        Intent intent = new Intent(v.getContext(), MainActivity.class);
-//                                        startActivity(intent);
-//                                    }
-//                                }, 2000);
-//                            }
-//                        }
-//                    });
-//                }
-//            });
-//            try {
-//                module.registrationsFinalize();
-//            } catch (Exception e) {
-//                throw new RuntimeException(e);
-//            }
-//        });
+        btnContinue.setOnClickListener(v -> {
+            module.setResponseRegistrationsFinalize(new HttpRequest.AsyncResponse() {
+                @Override
+                public void process(boolean b, Response response) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (response.getError() == 0 || response.getError() == 3249) {
+                                AppData.getInstance().setRegister(true);
+                                Dialog dialog = new Dialog(v.getContext());
+                                dialog.setContentView(R.layout.dialog_success_register);
+                                dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
+                                dialog.show();
+                                Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Intent intent = new Intent(v.getContext(), MainActivity.class);
+                                        startActivity(intent);
+                                    }
+                                }, 2000);
+                            }
+                        }
+                    });
+                }
+            });
+            try {
+                module.registrationsFinalize();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
 
     }
 
@@ -1109,6 +603,1251 @@ public class register_nonChip_5 extends Dev_activity {
     private String removeAccent(String s) {
         String normalized = Normalizer.normalize(s, Normalizer.Form.NFD);
         Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
-        return pattern.matcher(normalized).replaceAll("").toLowerCase();
+        String withoutAccents = pattern.matcher(normalized).replaceAll("");
+        return withoutAccents.toLowerCase();
     }
+
+    private void dialogAddress() {
+
+        dialog = new BottomSheetDialog(register_nonChip_5.this, R.style.BottomSheetDialogTheme);
+        dialog.setContentView(R.layout.bottom_layout_set_address);
+        dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
+        dialog.show();
+
+        desWard = dialog.findViewById(R.id.desWard);
+        desDistrict = dialog.findViewById(R.id.desDistrict);
+        desProvince = dialog.findViewById(R.id.desProvince);
+        close = dialog.findViewById(R.id.close);
+        close.setOnClickListener(v -> {
+            dialog.dismiss();
+        });
+
+        TextView confirm = dialog.findViewById(R.id.confirm);
+        TextView street = dialog.findViewById(R.id.street);
+        TextView title = dialog.findViewById(R.id.title);
+        street.setText(arrayAddressAddress[3]);
+
+        desProvince.setText(arrayAddressAddress[0]);
+        desDistrict.setText(arrayAddressAddress[1]);
+        desWard.setText(arrayAddressAddress[2]);
+
+        if (desProvince.getText().toString().isEmpty()) {
+            desDistrict.setEnabled(false);
+        }
+        if (desDistrict.getText().toString().isEmpty()) {
+            desWard.setEnabled(false);
+        }
+
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!TextUtils.isEmpty(desWard.getText().toString())) {
+                    if (!street.getText().toString().isEmpty()) {
+                        String s = street.getText().toString() + ", " + arrayAddressAddress[2] + ", " + arrayAddressAddress[1] + ", " + arrayAddressAddress[0];
+                        address.setText(s);
+                        module.setAddress(s);
+                        dialog.dismiss();
+                    } else {
+                        street.setError("");
+                    }
+                }
+            }
+        });
+
+        street.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                BottomSheetDialog dialogStreet = new BottomSheetDialog(v.getContext(), R.style.BottomSheetDialogTheme);
+                dialogStreet.setContentView(R.layout.layout_set_address);
+                dialogStreet.getWindow().setBackgroundDrawableResource(R.color.transparent);
+                dialogStreet.show();
+                TextView save = dialogStreet.findViewById(R.id.confirm);
+                EditText street = dialogStreet.findViewById(R.id.street);
+                street.setText(arrayAddressAddress[3]);
+                save.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        arrayAddressAddress[3] = street.getText().toString();
+                        dialogStreet.dismiss();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                dialogAddress();
+                            }
+                        }, 200);
+                    }
+                });
+            }
+        });
+        desProvince.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public void onClick(View v) {
+                BottomSheetDialog dialogProvince = new BottomSheetDialog(v.getContext(), R.style.BottomSheetDialogTheme);
+                dialogProvince.setContentView(R.layout.layout_set_province);
+                dialogProvince.getWindow().setBackgroundDrawableResource(R.color.transparent);
+                dialogProvince.show();
+                TextView save = dialogProvince.findViewById(R.id.confirm);
+                TextView titleProvince = dialogProvince.findViewById(R.id.title);
+                titleProvince.setText(title.getText().toString());
+                EditText province = dialogProvince.findViewById(R.id.province);
+                View viewProvince = dialogProvince.findViewById(R.id.viewProvince);
+                close = dialogProvince.findViewById(R.id.close);
+
+                province.setText(arrayAddressAddress[0]);
+
+                View popupView = getLayoutInflater().inflate(R.layout.province, null);
+                PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                popupWindow.setFocusable(false);
+                popupWindow.setOutsideTouchable(true);
+                popupWindow.setTouchable(true);
+                popupWindow.setHeight(250);
+                popupWindow.setWidth(850);
+                ListView listViewData = popupView.findViewById(R.id.listViewProvince);
+
+                int[] location = new int[2];
+                viewProvince.getLocationOnScreen(location);
+                int x = location[0];
+                int y = (int) ((location[1]) - popupWindow.getHeight() - 0.5 * viewProvince.getHeight() - 0.5 * viewProvince.getHeight());
+
+                province.setOnTouchListener(new View.OnTouchListener() {
+
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        if (event.getAction() == MotionEvent.ACTION_UP) {
+                            provinceList = Dvhcvn.getProvince(register_nonChip_5.this);
+                            Collections.sort(provinceList);
+                            provinceString.clear();
+                            for (Province province : provinceList) {
+                                provinceString.add(new ProvinceItem(province.getName(), province.getId()));
+                            }
+                            adapter = new ArrayAdapter<>(register_nonChip_5.this, R.layout.spinner_layout, provinceString);
+                            listViewData.setAdapter(adapter);
+                            popupWindow.showAsDropDown(viewProvince);
+                        }
+                        return false;
+                    }
+                });
+
+                province.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        List<ProvinceItem> filteredList = new ArrayList<>();
+                        for (ProvinceItem item : provinceString) {
+                            if (removeAccent(item.getName().toLowerCase()).contains(removeAccent(s.toString().toLowerCase()))) {
+                                filteredList.add(item);
+                            }
+                        }
+
+                        ArrayAdapter<ProvinceItem> adapter = new ArrayAdapter<>(register_nonChip_5.this, R.layout.spinner_layout, filteredList);
+                        listViewData.setAdapter(adapter);
+                        if (filteredList.size() > 0 && !popupWindow.isShowing()) {
+                            popupWindow.showAsDropDown(viewProvince, Gravity.NO_GRAVITY, x, y - popupView.getHeight());
+                        }
+
+                        if (filteredList.size() == 0 && popupWindow.isShowing()) {
+                            popupWindow.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        if (TextUtils.isEmpty(province.getText().toString())) {
+                            desDistrict.setEnabled(false);
+                        } else {
+                            desDistrict.setEnabled(true);
+                        }
+                    }
+                });
+
+                listViewData.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        ProvinceItem selectedProvince = (ProvinceItem) adapterView.getItemAtPosition(i);
+                        province.setText(selectedProvince.getName());
+                        arrayAddressAddress[0] = selectedProvince.getName();
+                        arrayAddressAddress[1] = "";
+                        arrayAddressAddress[2] = "";
+                        arrayAddressAddress[4] = selectedProvince.getId();
+                        popupWindow.dismiss();
+                    }
+                });
+
+
+                dialog.dismiss();
+                save.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        arrayAddressAddress[0] = province.getText().toString();
+                        dialogProvince.dismiss();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                dialogAddress();
+                            }
+                        }, 300);
+                    }
+                });
+                close.setOnClickListener(v1 -> {
+                    dialogProvince.dismiss();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            dialogAddress();
+                        }
+                    }, 300);
+                });
+            }
+        });
+
+        desDistrict.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                BottomSheetDialog dialogDistrict = new BottomSheetDialog(v.getContext(), R.style.BottomSheetDialogTheme);
+                dialogDistrict.setContentView(R.layout.layout_set_district);
+                dialogDistrict.getWindow().setBackgroundDrawableResource(R.color.transparent);
+                dialogDistrict.show();
+                TextView save = dialogDistrict.findViewById(R.id.confirm);
+                EditText district = dialogDistrict.findViewById(R.id.district);
+                View view = dialogDistrict.findViewById(R.id.view);
+                close = dialogDistrict.findViewById(R.id.close);
+                district.setText(arrayAddressAddress[1]);
+                View popupView1 = getLayoutInflater().inflate(R.layout.district, null);
+                PopupWindow popupWindow1 = new PopupWindow(popupView1, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                ListView listViewDataDistrict = popupView1.findViewById(R.id.listviewDistrict);
+                popupWindow1.setFocusable(false);
+                popupWindow1.setOutsideTouchable(true);
+                popupWindow1.setTouchable(true);
+                popupWindow1.setHeight(250);
+                popupWindow1.setWidth(850);
+
+                district.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        if (event.getAction() == MotionEvent.ACTION_UP) {
+                            district.getText().clear();
+                            districtList = Dvhcvn.getDistrict(register_nonChip_5.this, arrayAddressAddress[4]);
+                            districtString.clear();
+                            for (District district : districtList) {
+                                districtString.add(new DistrictItem(district.getName(), district.getId()));
+                            }
+                            districtItemArrayAdapter = new ArrayAdapter<>(register_nonChip_5.this, R.layout.spinner_layout, districtString);
+                            listViewDataDistrict.setAdapter(districtItemArrayAdapter);
+                            popupWindow1.showAsDropDown(view);
+                        }
+                        return false;
+                    }
+                });
+
+                district.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        List<DistrictItem> filteredList = new ArrayList<>();
+
+                        for (DistrictItem item : districtString) {
+                            if (removeAccent(item.getName().toLowerCase()).contains(removeAccent(s.toString().toLowerCase()))) {
+                                filteredList.add(item);
+                            }
+                        }
+
+                        ArrayAdapter<DistrictItem> adapter = new ArrayAdapter<>(register_nonChip_5.this, R.layout.spinner_layout, filteredList);
+
+                        // Cập nhật Adapter cho ListView
+                        listViewDataDistrict.setAdapter(adapter);
+
+                        if (filteredList.size() > 0 && !popupWindow1.isShowing()) {
+                            popupWindow1.showAsDropDown(view);
+                        }
+
+                        if (filteredList.size() == 0 && popupWindow1.isShowing()) {
+                            popupWindow1.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        if (TextUtils.isEmpty(district.getText().toString())) {
+                            desWard.setEnabled(false);
+                        } else {
+                            desWard.setEnabled(true);
+                        }
+                    }
+                });
+
+                listViewDataDistrict.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        DistrictItem selectedDistrict = (DistrictItem) adapterView.getItemAtPosition(i);
+                        district.setText(selectedDistrict.getName());
+                        arrayAddressAddress[1] = selectedDistrict.getName();
+                        arrayAddressAddress[2] = "";
+                        arrayAddressAddress[5] = selectedDistrict.getId();
+                        popupWindow1.dismiss();
+                    }
+                });
+
+
+                save.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        arrayAddressAddress[1] = district.getText().toString();
+                        dialogDistrict.dismiss();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                dialogAddress();
+                            }
+                        }, 300);
+                    }
+                });
+                close.setOnClickListener(v1 -> {
+                    dialogDistrict.dismiss();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            dialogAddress();
+                        }
+                    }, 300);
+                });
+            }
+        });
+        desWard.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public void onClick(View v) {
+
+                dialog.dismiss();
+                BottomSheetDialog dialogWard = new BottomSheetDialog(v.getContext(), R.style.BottomSheetDialogTheme);
+                dialogWard.setContentView(R.layout.layout_set_ward);
+                dialogWard.getWindow().setBackgroundDrawableResource(R.color.transparent);
+                dialogWard.show();
+                TextView save = dialogWard.findViewById(R.id.confirm);
+                EditText ward = dialogWard.findViewById(R.id.ward);
+                close = dialogWard.findViewById(R.id.close);
+                ward.setText(arrayAddressAddress[2]);
+                View popupView2 = getLayoutInflater().inflate(R.layout.ward, null);
+                PopupWindow popupWindow2 = new PopupWindow(popupView2, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+                ListView listViewDataWard = popupView2.findViewById(R.id.listviewWard);
+
+
+                popupWindow2.setFocusable(false);
+                popupWindow2.setOutsideTouchable(true);
+                popupWindow2.setTouchable(true);
+                popupWindow2.setHeight(250);
+                popupWindow2.setWidth(850);
+                ward.setOnTouchListener(new View.OnTouchListener() {
+
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        if (event.getAction() == MotionEvent.ACTION_UP) {
+                            ward.getText().clear();
+                            wardList = Dvhcvn.getWard(register_nonChip_5.this, arrayAddressAddress[5]);
+                            wardString.clear();
+                            for (Ward ward : wardList) {
+                                wardString.add(new WardItem(ward.getName(), ward.getId()));
+                            }
+                            wardItemArrayAdapter = new ArrayAdapter<>(register_nonChip_5.this, R.layout.spinner_layout, wardString);
+                            listViewDataWard.setAdapter(wardItemArrayAdapter);
+                            popupWindow2.showAsDropDown(ward);
+                        }
+                        return false;
+                    }
+                });
+
+                ward.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        List<WardItem> filteredList = new ArrayList<>();
+
+                        for (WardItem item : wardString) {
+                            if (removeAccent(item.getName().toLowerCase()).contains(removeAccent(s.toString().toLowerCase()))) {
+                                filteredList.add(item);
+                            }
+                        }
+
+                        ArrayAdapter<WardItem> adapter = new ArrayAdapter<>(register_nonChip_5.this, R.layout.spinner_layout, filteredList);
+
+                        listViewDataWard.setAdapter(adapter);
+
+                        if (filteredList.size() > 0 && !popupWindow2.isShowing()) {
+                            popupWindow2.showAsDropDown(ward);
+                        }
+
+                        if (filteredList.size() == 0 && popupWindow2.isShowing()) {
+                            popupWindow2.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                });
+
+                listViewDataWard.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        WardItem selectedWard = (WardItem) adapterView.getItemAtPosition(i);
+                        ward.setText(selectedWard.getName());
+                        arrayAddressAddress[2] = selectedWard.getName();
+                        popupWindow2.dismiss();
+                    }
+                });
+
+                save.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        arrayAddressAddress[2] = ward.getText().toString();
+                        dialogWard.dismiss();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                dialogAddress();
+                            }
+                        }, 300);
+                        close.setOnClickListener(v1 -> {
+                            dialogWard.dismiss();
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    dialogAddress();
+                                }
+                            }, 300);
+                        });
+                    }
+                });
+            }
+        });
+
+
+    }
+
+    private void dialogResidence() {
+
+
+        dialog = new BottomSheetDialog(register_nonChip_5.this, R.style.BottomSheetDialogTheme);
+        dialog.setContentView(R.layout.bottom_layout_set_place);
+        dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
+        dialog.show();
+
+        desWard = dialog.findViewById(R.id.desWard);
+        desDistrict = dialog.findViewById(R.id.desDistrict);
+        desProvince = dialog.findViewById(R.id.desProvince);
+        close = dialog.findViewById(R.id.close);
+        close.setOnClickListener(v -> {
+            dialog.dismiss();
+        });
+
+        TextView confirm = dialog.findViewById(R.id.confirm);
+        TextView title = dialog.findViewById(R.id.title);
+
+        desProvince.setText(arrayAddressResident[0]);
+        desDistrict.setText(arrayAddressResident[1]);
+        desWard.setText(arrayAddressResident[2]);
+
+        if (desProvince.getText().toString().isEmpty()) {
+            desDistrict.setEnabled(false);
+        }
+        if (desDistrict.getText().toString().isEmpty()) {
+            desWard.setEnabled(false);
+        }
+
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!TextUtils.isEmpty(desWard.getText().toString())) {
+                    String s = arrayAddressResident[2] + ", " + arrayAddressResident[1] + ", " + arrayAddressResident[0];
+                    placeResidence.setText(s);
+                    module.setPlaceofresidence(s);
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        desProvince.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public void onClick(View v) {
+                BottomSheetDialog dialogProvince = new BottomSheetDialog(v.getContext(), R.style.BottomSheetDialogTheme);
+                dialogProvince.setContentView(R.layout.layout_set_province);
+                dialogProvince.getWindow().setBackgroundDrawableResource(R.color.transparent);
+                dialogProvince.show();
+                TextView save = dialogProvince.findViewById(R.id.confirm);
+                TextView titleProvince = dialogProvince.findViewById(R.id.title);
+                titleProvince.setText(title.getText().toString());
+                EditText province = dialogProvince.findViewById(R.id.province);
+                View viewProvince = dialogProvince.findViewById(R.id.viewProvince);
+                close = dialogProvince.findViewById(R.id.close);
+
+                province.setText(arrayAddressResident[0]);
+
+                View popupView = getLayoutInflater().inflate(R.layout.province, null);
+                PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                popupWindow.setFocusable(false);
+                popupWindow.setOutsideTouchable(true);
+                popupWindow.setTouchable(true);
+                popupWindow.setHeight(250);
+                popupWindow.setWidth(850);
+                ListView listViewData = popupView.findViewById(R.id.listViewProvince);
+
+                int[] location = new int[2];
+                viewProvince.getLocationOnScreen(location);
+                int x = location[0];
+                int y = (int) ((location[1]) - popupWindow.getHeight() - 0.5 * viewProvince.getHeight() - 0.5 * viewProvince.getHeight());
+
+                province.setOnTouchListener(new View.OnTouchListener() {
+
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        if (event.getAction() == MotionEvent.ACTION_UP) {
+                            provinceList = Dvhcvn.getProvince(register_nonChip_5.this);
+                            Collections.sort(provinceList);
+                            provinceString.clear();
+                            for (Province province : provinceList) {
+                                provinceString.add(new ProvinceItem(province.getName(), province.getId()));
+                            }
+                            adapter = new ArrayAdapter<>(register_nonChip_5.this, R.layout.spinner_layout, provinceString);
+                            listViewData.setAdapter(adapter);
+                            popupWindow.showAsDropDown(viewProvince);
+                        }
+                        return false;
+                    }
+                });
+
+                province.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        List<ProvinceItem> filteredList = new ArrayList<>();
+                        for (ProvinceItem item : provinceString) {
+                            if (removeAccent(item.getName().toLowerCase()).contains(removeAccent(s.toString().toLowerCase()))) {
+                                filteredList.add(item);
+                            }
+                        }
+
+                        ArrayAdapter<ProvinceItem> adapter = new ArrayAdapter<>(register_nonChip_5.this, R.layout.spinner_layout, filteredList);
+                        listViewData.setAdapter(adapter);
+                        if (filteredList.size() > 0 && !popupWindow.isShowing()) {
+                            popupWindow.showAsDropDown(viewProvince, Gravity.NO_GRAVITY, x, y - popupView.getHeight());
+                        }
+
+                        if (filteredList.size() == 0 && popupWindow.isShowing()) {
+                            popupWindow.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        if (TextUtils.isEmpty(province.getText().toString())) {
+                            desDistrict.setEnabled(false);
+                        } else {
+                            desDistrict.setEnabled(true);
+                        }
+                    }
+                });
+
+                listViewData.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        ProvinceItem selectedProvince = (ProvinceItem) adapterView.getItemAtPosition(i);
+                        province.setText(selectedProvince.getName());
+                        arrayAddressResident[0] = selectedProvince.getName();
+                        arrayAddressResident[1] = "";
+                        arrayAddressResident[2] = "";
+                        arrayAddressResident[3] = selectedProvince.getId();
+                        popupWindow.dismiss();
+                    }
+                });
+
+
+                dialog.dismiss();
+                save.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        arrayAddressResident[0] = province.getText().toString();
+                        dialogProvince.dismiss();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                dialogResidence();
+                            }
+                        }, 300);
+                    }
+                });
+                close.setOnClickListener(v1 -> {
+                    dialogProvince.dismiss();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            dialogResidence();
+                        }
+                    }, 300);
+                });
+            }
+        });
+
+        desDistrict.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                BottomSheetDialog dialogDistrict = new BottomSheetDialog(v.getContext(), R.style.BottomSheetDialogTheme);
+                dialogDistrict.setContentView(R.layout.layout_set_district);
+                dialogDistrict.getWindow().setBackgroundDrawableResource(R.color.transparent);
+                dialogDistrict.show();
+                TextView save = dialogDistrict.findViewById(R.id.confirm);
+                EditText district = dialogDistrict.findViewById(R.id.district);
+                View view = dialogDistrict.findViewById(R.id.view);
+                TextView titleProvince = dialogDistrict.findViewById(R.id.title);
+                titleProvince.setText(title.getText().toString());
+                close = dialogDistrict.findViewById(R.id.close);
+                district.setText(arrayAddressResident[1]);
+                View popupView1 = getLayoutInflater().inflate(R.layout.district, null);
+                PopupWindow popupWindow1 = new PopupWindow(popupView1, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                ListView listViewDataDistrict = popupView1.findViewById(R.id.listviewDistrict);
+                popupWindow1.setFocusable(false);
+                popupWindow1.setOutsideTouchable(true);
+                popupWindow1.setTouchable(true);
+                popupWindow1.setHeight(250);
+                popupWindow1.setWidth(850);
+
+                district.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        if (event.getAction() == MotionEvent.ACTION_UP) {
+                            district.getText().clear();
+                            districtList = Dvhcvn.getDistrict(register_nonChip_5.this, arrayAddressResident[3]);
+                            districtString.clear();
+                            for (District district : districtList) {
+                                districtString.add(new DistrictItem(district.getName(), district.getId()));
+                            }
+                            districtItemArrayAdapter = new ArrayAdapter<>(register_nonChip_5.this, R.layout.spinner_layout, districtString);
+                            listViewDataDistrict.setAdapter(districtItemArrayAdapter);
+                            popupWindow1.showAsDropDown(view);
+                        }
+                        return false;
+                    }
+                });
+
+                district.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        List<DistrictItem> filteredList = new ArrayList<>();
+
+                        for (DistrictItem item : districtString) {
+                            if (removeAccent(item.getName().toLowerCase()).contains(removeAccent(s.toString().toLowerCase()))) {
+                                filteredList.add(item);
+                            }
+                        }
+
+                        ArrayAdapter<DistrictItem> adapter = new ArrayAdapter<>(register_nonChip_5.this, R.layout.spinner_layout, filteredList);
+
+                        // Cập nhật Adapter cho ListView
+                        listViewDataDistrict.setAdapter(adapter);
+
+                        if (filteredList.size() > 0 && !popupWindow1.isShowing()) {
+                            popupWindow1.showAsDropDown(view);
+                        }
+
+                        if (filteredList.size() == 0 && popupWindow1.isShowing()) {
+                            popupWindow1.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        if (TextUtils.isEmpty(district.getText().toString())) {
+                            desWard.setEnabled(false);
+                        } else {
+                            desWard.setEnabled(true);
+                        }
+                    }
+                });
+
+                listViewDataDistrict.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        DistrictItem selectedDistrict = (DistrictItem) adapterView.getItemAtPosition(i);
+                        district.setText(selectedDistrict.getName());
+                        arrayAddressResident[1] = selectedDistrict.getName();
+                        arrayAddressResident[2] = "";
+                        arrayAddressResident[4] = selectedDistrict.getId();
+                        popupWindow1.dismiss();
+                    }
+                });
+
+
+                save.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        arrayAddressResident[1] = district.getText().toString();
+                        dialogDistrict.dismiss();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                dialogResidence();
+                            }
+                        }, 300);
+                    }
+                });
+                close.setOnClickListener(v1 -> {
+                    dialogDistrict.dismiss();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            dialogResidence();
+                        }
+                    }, 300);
+                });
+            }
+        });
+        desWard.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public void onClick(View v) {
+
+                dialog.dismiss();
+                BottomSheetDialog dialogWard = new BottomSheetDialog(v.getContext(), R.style.BottomSheetDialogTheme);
+                dialogWard.setContentView(R.layout.layout_set_ward);
+                dialogWard.getWindow().setBackgroundDrawableResource(R.color.transparent);
+                dialogWard.show();
+                TextView save = dialogWard.findViewById(R.id.confirm);
+                EditText ward = dialogWard.findViewById(R.id.ward);
+                TextView titleProvince = dialogWard.findViewById(R.id.title);
+                titleProvince.setText(title.getText().toString());
+                close = dialogWard.findViewById(R.id.close);
+                ward.setText(arrayAddressResident[2]);
+                View popupView2 = getLayoutInflater().inflate(R.layout.ward, null);
+                PopupWindow popupWindow2 = new PopupWindow(popupView2, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+                ListView listViewDataWard = popupView2.findViewById(R.id.listviewWard);
+
+
+                popupWindow2.setFocusable(false);
+                popupWindow2.setOutsideTouchable(true);
+                popupWindow2.setTouchable(true);
+                popupWindow2.setHeight(250);
+                popupWindow2.setWidth(850);
+                ward.setOnTouchListener(new View.OnTouchListener() {
+
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        if (event.getAction() == MotionEvent.ACTION_UP) {
+                            ward.getText().clear();
+                            wardList = Dvhcvn.getWard(register_nonChip_5.this, arrayAddressResident[4]);
+                            wardString.clear();
+                            for (Ward ward : wardList) {
+                                wardString.add(new WardItem(ward.getName(), ward.getId()));
+                            }
+                            wardItemArrayAdapter = new ArrayAdapter<>(register_nonChip_5.this, R.layout.spinner_layout, wardString);
+                            listViewDataWard.setAdapter(wardItemArrayAdapter);
+                            popupWindow2.showAsDropDown(ward);
+                        }
+                        return false;
+                    }
+                });
+
+                ward.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        List<WardItem> filteredList = new ArrayList<>();
+
+                        for (WardItem item : wardString) {
+                            if (removeAccent(item.getName().toLowerCase()).contains(removeAccent(s.toString().toLowerCase()))) {
+                                filteredList.add(item);
+                            }
+                        }
+
+                        ArrayAdapter<WardItem> adapter = new ArrayAdapter<>(register_nonChip_5.this, R.layout.spinner_layout, filteredList);
+
+                        listViewDataWard.setAdapter(adapter);
+
+                        if (filteredList.size() > 0 && !popupWindow2.isShowing()) {
+                            popupWindow2.showAsDropDown(ward);
+                        }
+
+                        if (filteredList.size() == 0 && popupWindow2.isShowing()) {
+                            popupWindow2.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                });
+
+                listViewDataWard.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        WardItem selectedWard = (WardItem) adapterView.getItemAtPosition(i);
+                        ward.setText(selectedWard.getName());
+                        arrayAddressResident[2] = selectedWard.getName();
+                        popupWindow2.dismiss();
+                    }
+                });
+
+                save.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        arrayAddressResident[2] = ward.getText().toString();
+                        dialogWard.dismiss();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                dialogResidence();
+                            }
+                        }, 300);
+                        close.setOnClickListener(v1 -> {
+                            dialogWard.dismiss();
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    dialogResidence();
+                                }
+                            }, 300);
+                        });
+                    }
+                });
+            }
+        });
+    }
+
+    private void dialogOrigin() {
+
+        dialog = new BottomSheetDialog(register_nonChip_5.this, R.style.BottomSheetDialogTheme);
+        dialog.setContentView(R.layout.bottom_layout_set_origin);
+        dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
+        dialog.show();
+
+        desWard = dialog.findViewById(R.id.desWard);
+        desDistrict = dialog.findViewById(R.id.desDistrict);
+        desProvince = dialog.findViewById(R.id.desProvince);
+        close = dialog.findViewById(R.id.close);
+        close.setOnClickListener(v -> {
+            dialog.dismiss();
+        });
+
+        TextView confirm = dialog.findViewById(R.id.confirm);
+        TextView title = dialog.findViewById(R.id.title);
+
+        desProvince.setText(arrayAddressOrigin[0]);
+        desDistrict.setText(arrayAddressOrigin[1]);
+        desWard.setText(arrayAddressOrigin[2]);
+
+        if (desProvince.getText().toString().isEmpty()) {
+            desDistrict.setEnabled(false);
+        }
+        if (desDistrict.getText().toString().isEmpty()) {
+            desWard.setEnabled(false);
+        }
+
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!TextUtils.isEmpty(desWard.getText().toString())) {
+                    String s = arrayAddressOrigin[2] + ", " + arrayAddressOrigin[1] + ", " + arrayAddressOrigin[0];
+                    placeOrigin.setText(s);
+                    module.setPlaceoforigin(s);
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        desProvince.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public void onClick(View v) {
+                BottomSheetDialog dialogProvince = new BottomSheetDialog(v.getContext(), R.style.BottomSheetDialogTheme);
+                dialogProvince.setContentView(R.layout.layout_set_province);
+                dialogProvince.getWindow().setBackgroundDrawableResource(R.color.transparent);
+                dialogProvince.show();
+                TextView save = dialogProvince.findViewById(R.id.confirm);
+                TextView titleProvince = dialogProvince.findViewById(R.id.title);
+                titleProvince.setText(title.getText().toString());
+                EditText province = dialogProvince.findViewById(R.id.province);
+                View viewProvince = dialogProvince.findViewById(R.id.viewProvince);
+                close = dialogProvince.findViewById(R.id.close);
+
+                province.setText(arrayAddressOrigin[0]);
+
+                View popupView = getLayoutInflater().inflate(R.layout.province, null);
+                PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                popupWindow.setFocusable(false);
+                popupWindow.setOutsideTouchable(true);
+                popupWindow.setTouchable(true);
+                popupWindow.setHeight(250);
+                popupWindow.setWidth(850);
+                ListView listViewData = popupView.findViewById(R.id.listViewProvince);
+
+                int[] location = new int[2];
+                viewProvince.getLocationOnScreen(location);
+                int x = location[0];
+                int y = (int) ((location[1]) - popupWindow.getHeight() - 0.5 * viewProvince.getHeight() - 0.5 * viewProvince.getHeight());
+
+                province.setOnTouchListener(new View.OnTouchListener() {
+
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        if (event.getAction() == MotionEvent.ACTION_UP) {
+                            provinceList = Dvhcvn.getProvince(register_nonChip_5.this);
+                            Collections.sort(provinceList);
+                            provinceString.clear();
+                            for (Province province : provinceList) {
+                                provinceString.add(new ProvinceItem(province.getName(), province.getId()));
+                            }
+                            adapter = new ArrayAdapter<>(register_nonChip_5.this, R.layout.spinner_layout, provinceString);
+                            listViewData.setAdapter(adapter);
+                            popupWindow.showAsDropDown(viewProvince);
+                        }
+                        return false;
+                    }
+                });
+
+                province.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        List<ProvinceItem> filteredList = new ArrayList<>();
+                        for (ProvinceItem item : provinceString) {
+                            if (removeAccent(item.getName().toLowerCase()).contains(removeAccent(s.toString().toLowerCase()))) {
+                                filteredList.add(item);
+                            }
+                        }
+
+                        ArrayAdapter<ProvinceItem> adapter = new ArrayAdapter<>(register_nonChip_5.this, R.layout.spinner_layout, filteredList);
+                        listViewData.setAdapter(adapter);
+                        if (filteredList.size() > 0 && !popupWindow.isShowing()) {
+                            popupWindow.showAsDropDown(viewProvince, Gravity.NO_GRAVITY, x, y - popupView.getHeight());
+                        }
+
+                        if (filteredList.size() == 0 && popupWindow.isShowing()) {
+                            popupWindow.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        if (TextUtils.isEmpty(province.getText().toString())) {
+                            desDistrict.setEnabled(false);
+                        } else {
+                            desDistrict.setEnabled(true);
+                        }
+                    }
+                });
+
+                listViewData.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        ProvinceItem selectedProvince = (ProvinceItem) adapterView.getItemAtPosition(i);
+                        province.setText(selectedProvince.getName());
+                        arrayAddressOrigin[0] = selectedProvince.getName();
+                        arrayAddressOrigin[1] = "";
+                        arrayAddressOrigin[2] = "";
+                        arrayAddressOrigin[3] = selectedProvince.getId();
+                        popupWindow.dismiss();
+                    }
+                });
+
+
+                dialog.dismiss();
+                save.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        arrayAddressOrigin[0] = province.getText().toString();
+                        dialogProvince.dismiss();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                dialogOrigin();
+                            }
+                        }, 300);
+                    }
+                });
+                close.setOnClickListener(v1 -> {
+                    dialogProvince.dismiss();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            dialogOrigin();
+                        }
+                    }, 300);
+                });
+            }
+        });
+
+        desDistrict.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                BottomSheetDialog dialogDistrict = new BottomSheetDialog(v.getContext(), R.style.BottomSheetDialogTheme);
+                dialogDistrict.setContentView(R.layout.layout_set_district);
+                dialogDistrict.getWindow().setBackgroundDrawableResource(R.color.transparent);
+                dialogDistrict.show();
+                TextView save = dialogDistrict.findViewById(R.id.confirm);
+                EditText district = dialogDistrict.findViewById(R.id.district);
+                View view = dialogDistrict.findViewById(R.id.view);
+                TextView titleProvince = dialogDistrict.findViewById(R.id.title);
+                titleProvince.setText(title.getText().toString());
+                close = dialogDistrict.findViewById(R.id.close);
+                district.setText(arrayAddressOrigin[1]);
+                View popupView1 = getLayoutInflater().inflate(R.layout.district, null);
+                PopupWindow popupWindow1 = new PopupWindow(popupView1, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                ListView listViewDataDistrict = popupView1.findViewById(R.id.listviewDistrict);
+                popupWindow1.setFocusable(false);
+                popupWindow1.setOutsideTouchable(true);
+                popupWindow1.setTouchable(true);
+                popupWindow1.setHeight(250);
+                popupWindow1.setWidth(850);
+
+                district.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        if (event.getAction() == MotionEvent.ACTION_UP) {
+                            district.getText().clear();
+                            districtList = Dvhcvn.getDistrict(register_nonChip_5.this, arrayAddressOrigin[3]);
+                            districtString.clear();
+                            for (District district : districtList) {
+                                districtString.add(new DistrictItem(district.getName(), district.getId()));
+                            }
+                            districtItemArrayAdapter = new ArrayAdapter<>(register_nonChip_5.this, R.layout.spinner_layout, districtString);
+                            listViewDataDistrict.setAdapter(districtItemArrayAdapter);
+                            popupWindow1.showAsDropDown(view);
+                        }
+                        return false;
+                    }
+                });
+
+                district.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        List<DistrictItem> filteredList = new ArrayList<>();
+
+                        for (DistrictItem item : districtString) {
+                            if (removeAccent(item.getName().toLowerCase()).contains(removeAccent(s.toString().toLowerCase()))) {
+                                filteredList.add(item);
+                            }
+                        }
+
+                        ArrayAdapter<DistrictItem> adapter = new ArrayAdapter<>(register_nonChip_5.this, R.layout.spinner_layout, filteredList);
+
+                        // Cập nhật Adapter cho ListView
+                        listViewDataDistrict.setAdapter(adapter);
+
+                        if (filteredList.size() > 0 && !popupWindow1.isShowing()) {
+                            popupWindow1.showAsDropDown(view);
+                        }
+
+                        if (filteredList.size() == 0 && popupWindow1.isShowing()) {
+                            popupWindow1.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        if (TextUtils.isEmpty(district.getText().toString())) {
+                            desWard.setEnabled(false);
+                        } else {
+                            desWard.setEnabled(true);
+                        }
+                    }
+                });
+
+                listViewDataDistrict.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        DistrictItem selectedDistrict = (DistrictItem) adapterView.getItemAtPosition(i);
+                        district.setText(selectedDistrict.getName());
+                        arrayAddressOrigin[1] = selectedDistrict.getName();
+                        arrayAddressOrigin[2] = "";
+                        arrayAddressOrigin[4] = selectedDistrict.getId();
+                        popupWindow1.dismiss();
+                    }
+                });
+
+
+                save.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        arrayAddressOrigin[1] = district.getText().toString();
+                        dialogDistrict.dismiss();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                dialogOrigin();
+                            }
+                        }, 300);
+                    }
+                });
+                close.setOnClickListener(v1 -> {
+                    dialogDistrict.dismiss();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            dialogOrigin();
+                        }
+                    }, 300);
+                });
+            }
+        });
+        desWard.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public void onClick(View v) {
+
+                dialog.dismiss();
+                BottomSheetDialog dialogWard = new BottomSheetDialog(v.getContext(), R.style.BottomSheetDialogTheme);
+                dialogWard.setContentView(R.layout.layout_set_ward);
+                dialogWard.getWindow().setBackgroundDrawableResource(R.color.transparent);
+                dialogWard.show();
+                TextView save = dialogWard.findViewById(R.id.confirm);
+                EditText ward = dialogWard.findViewById(R.id.ward);
+                TextView titleProvince = dialogWard.findViewById(R.id.title);
+                titleProvince.setText(title.getText().toString());
+                close = dialogWard.findViewById(R.id.close);
+                ward.setText(arrayAddressOrigin[2]);
+                View popupView2 = getLayoutInflater().inflate(R.layout.ward, null);
+                PopupWindow popupWindow2 = new PopupWindow(popupView2, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+                ListView listViewDataWard = popupView2.findViewById(R.id.listviewWard);
+
+
+                popupWindow2.setFocusable(false);
+                popupWindow2.setOutsideTouchable(true);
+                popupWindow2.setTouchable(true);
+                popupWindow2.setHeight(250);
+                popupWindow2.setWidth(850);
+                ward.setOnTouchListener(new View.OnTouchListener() {
+
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        if (event.getAction() == MotionEvent.ACTION_UP) {
+                            ward.getText().clear();
+                            wardList = Dvhcvn.getWard(register_nonChip_5.this, arrayAddressOrigin[4]);
+                            wardString.clear();
+                            for (Ward ward : wardList) {
+                                wardString.add(new WardItem(ward.getName(), ward.getId()));
+                            }
+                            wardItemArrayAdapter = new ArrayAdapter<>(register_nonChip_5.this, R.layout.spinner_layout, wardString);
+                            listViewDataWard.setAdapter(wardItemArrayAdapter);
+                            popupWindow2.showAsDropDown(ward);
+                        }
+                        return false;
+                    }
+                });
+
+                ward.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        List<WardItem> filteredList = new ArrayList<>();
+
+                        for (WardItem item : wardString) {
+                            if (removeAccent(item.getName().toLowerCase()).contains(removeAccent(s.toString().toLowerCase()))) {
+                                filteredList.add(item);
+                            }
+                        }
+
+                        ArrayAdapter<WardItem> adapter = new ArrayAdapter<>(register_nonChip_5.this, R.layout.spinner_layout, filteredList);
+
+                        listViewDataWard.setAdapter(adapter);
+
+                        if (filteredList.size() > 0 && !popupWindow2.isShowing()) {
+                            popupWindow2.showAsDropDown(ward);
+                        }
+
+                        if (filteredList.size() == 0 && popupWindow2.isShowing()) {
+                            popupWindow2.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                });
+
+                listViewDataWard.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        WardItem selectedWard = (WardItem) adapterView.getItemAtPosition(i);
+                        ward.setText(selectedWard.getName());
+                        arrayAddressOrigin[2] = selectedWard.getName();
+                        popupWindow2.dismiss();
+                    }
+                });
+
+                save.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        arrayAddressOrigin[2] = ward.getText().toString();
+                        dialogWard.dismiss();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                dialogOrigin();
+                            }
+                        }, 300);
+                        close.setOnClickListener(v1 -> {
+                            dialogWard.dismiss();
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    dialogOrigin();
+                                }
+                            }, 300);
+                        });
+                    }
+                });
+            }
+        });
+    }
+
 }

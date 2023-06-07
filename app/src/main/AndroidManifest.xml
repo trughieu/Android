@@ -38,23 +38,42 @@
         android:theme="@style/Theme.SIC_no"
         tools:targetApi="31">
         <activity
+            android:name=".infoVCSP.infoVCSP"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing">
+
+        </activity>
+        <activity
             android:name=".Activity.OTPSynchronize.OTPStep1"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".Activity.Setting_Help.Setting_Detail.ChangePassword.ChangePassword"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".Activity.Setting_Help.Setting_Detail.Manage_Sim.Sim"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".Activity.Setting_Help.Setting_Detail.ManageCertificate.Certificates.AddCertificate8digit"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".Activity.Home.Inbox.QR.ScanQRDetail"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".Activity.Login.CreateRC"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing" />
 
         <receiver
             android:name=".SmsBroadcastReceiver"
@@ -74,14 +93,7 @@
             android:name=".Activity.Registry.nonChip.register_nonChip_5"
             android:exported="true"
             android:screenOrientation="portrait"
-
-            android:windowSoftInputMode="adjustResize">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:windowSoftInputMode="adjustResize"></activity>
         <activity
             android:name=".Activity.Registry.nonChip.register_nonChip_4"
             android:exported="false"
@@ -101,9 +113,7 @@
             android:name=".test_2"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustNothing" >
-
-        </activity>
+            android:windowSoftInputMode="adjustNothing"></activity>
         <activity
             android:name=".Activity.Setting_Help.Setting_Detail.ActionHistory"
             android:exported="false"
@@ -330,7 +340,11 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".Activity.Login.Activation"

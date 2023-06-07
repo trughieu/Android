@@ -191,6 +191,12 @@ public class ChangePassword extends AppCompatActivity implements View.OnClickLis
                 }
             }
 
+        } else if (v.getId() == R.id.btnBack) {
+            Intent intent=new Intent(ChangePassword.this,SettingDetail.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
         }
     }
 

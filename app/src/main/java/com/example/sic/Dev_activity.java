@@ -63,8 +63,8 @@ public class Dev_activity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        waitingPrepare();
         smsPrepare();
+        waitingPrepare();
     }
 
 
@@ -103,7 +103,7 @@ public class Dev_activity extends AppCompatActivity {
         waitingDialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
 
     }
-    private void smsPrepare() {
+    protected void smsPrepare() {
         smsBroadcastReceiver = new SmsBroadcastReceiver();
         smsBroadcastReceiver.smsBroadcastReceiverListener = new SmsBroadcastReceiver.SmsBroadcastReceiverListener() {
             @Override

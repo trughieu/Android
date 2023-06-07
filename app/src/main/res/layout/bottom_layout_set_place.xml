@@ -26,7 +26,7 @@
             android:textSize="15dp" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/title"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -54,6 +54,7 @@
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
@@ -63,16 +64,17 @@
 
         <LinearLayout
             android:id="@+id/layout_password"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="40dp"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/province"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/atb_digital_medium"
@@ -83,47 +85,33 @@
 
             <LinearLayout
                 android:id="@+id/provinceContainer"
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_marginTop="5dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/description"
-                    android:layout_width="0dp"
-                    android:layout_weight="6"
+                <TextView
+                    android:id="@+id/desProvince"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/transparent"
                     android:fontFamily="@font/atb_digital_regular"
                     android:hint="@string/select_province"
-                    android:inputType="text"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
                     android:textColor="@color/blue_text"
                     android:textColorHint="@color/gray"
-                    android:textSize="12dp" />
-
-                <ImageView
-                    android:id="@+id/spinnerProvince"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:src="@drawable/baseline_keyboard_arrow_down_24" />
-                <!--                <Spinner-->
-                <!--                    android:id="@+id/spinnerProvince"-->
-                <!--                    android:layout_width="wrap_content"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:spinnerMode="dropdown"-->
-                <!--                    style="@style/SpinnerTheme"-->
-                <!--                    />-->
-
+                    android:drawablePadding="50dp"
+                    android:inputType="text"
+                    android:textSize="12dp"
+                    app:drawableEndCompat="@drawable/baseline_keyboard_arrow_down_24" />
             </LinearLayout>
 
-            <ImageView
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/line_stroke_gray" />
+                android:layout_height="1dp"
+                android:background="#B8B6BB" />
+
 
             <TextView
                 android:id="@+id/district"
@@ -131,46 +119,37 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/atb_digital_medium"
-                android:text="@string/select_distict"
+                android:text="@string/select_district"
                 android:textColor="@color/blue_text"
                 android:textSize="12dp"
                 android:textStyle="bold" />
 
             <LinearLayout
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_marginTop="5dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <EditText
+                <TextView
                     android:id="@+id/desDistrict"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="6"
                     android:background="@color/transparent"
                     android:fontFamily="@font/atb_digital_regular"
-                    android:hint="@string/select_distict"
+                    android:hint="@string/select_district"
+                    android:inputType="text"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
                     android:textColor="@color/blue_text"
                     android:textColorHint="@color/gray"
+                    app:drawableEndCompat="@drawable/baseline_keyboard_arrow_down_24"
                     android:textSize="12dp" />
-
-                <ImageView
-
-                    android:id="@+id/spinnerDistrict"
-                    style="@style/SpinnerTheme"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:spinnerMode="dropdown"
-                    android:layout_weight="1" />
-
             </LinearLayout>
 
-            <ImageView
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/line_stroke_gray" />
+                android:layout_height="1dp"
+                android:background="#B8B6BB" />
 
             <TextView
                 android:id="@+id/ward"
@@ -184,38 +163,33 @@
                 android:textStyle="bold" />
 
             <LinearLayout
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_marginTop="5dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <Spinner
-                    android:id="@+id/spinnerWard"
+                <TextView
+                    android:id="@+id/desWard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:spinnerMode="dropdown"
-                    style="@style/SpinnerTheme"
-                    />
-<!--                <TextView-->
-<!--                    android:id="@+id/ward"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:background="@color/transparent"-->
-<!--                    android:fontFamily="@font/atb_digital_regular"-->
-<!--                    android:hint="@string/select_ward"-->
-<!--                    android:paddingTop="10dp"-->
-<!--                    android:paddingBottom="10dp"-->
-<!--                    android:textColor="@color/blue_text"-->
-<!--                    android:textColorHint="@color/gray"-->
-<!--                    android:textSize="12dp"-->
-<!--                    app:drawableEndCompat="@drawable/baseline_keyboard_arrow_down_24" />-->
+                    android:background="@color/transparent"
+                    android:fontFamily="@font/atb_digital_regular"
+                    android:hint="@string/select_ward"
+                    android:inputType="text"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:textColor="@color/blue_text"
+                    android:textColorHint="@color/gray"
+                    android:textSize="12dp"
+                    app:drawableEndCompat="@drawable/baseline_keyboard_arrow_down_24" />
 
             </LinearLayout>
 
-            <ImageView
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/line_stroke_gray" />
+                android:layout_height="1dp"
+                android:background="#B8B6BB" />
+
         </LinearLayout>
 
 
